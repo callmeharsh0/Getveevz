@@ -7,7 +7,8 @@ export default function HookText({ text, style = {} }) {
   const rafRef = useRef(null);
   const mouseRef = useRef({ x: -9999, y: -9999 });
 
-  const chars = text.split("");
+  // Split into words, preserving spaces as tokens
+  const words = text.split(" ");
 
   const updateHighlights = useCallback(() => {
     const { x, y } = mouseRef.current;
@@ -57,6 +58,9 @@ export default function HookText({ text, style = {} }) {
 
   charRefs.current = [];
 
+  // Build flat char list for ref tracking, but render words as nowrap units
+  let charIndex = 0;
+
   return (
     <h2
       ref={containerRef}
@@ -67,22 +71,38 @@ export default function HookText({ text, style = {} }) {
         letterSpacing: -1,
         margin: 0,
         cursor: "default",
+        display: "flex",
+        flexWrap: "wrap",
+        alignItems: "baseline",
+        columnGap: "0.28em",
         ...style,
       }}
     >
-      {chars.map((ch, i) => (
-        <span
-          key={i}
-          ref={(el) => (charRefs.current[i] = el)}
-          style={{
-            display: "inline-block",
-            transition: "color 0.2s ease, opacity 0.2s ease, transform 0.2s ease",
-            whiteSpace: ch === " " ? "pre" : "normal",
-          }}
-        >
-          {ch}
-        </span>
-      ))}
+      {words.map((word, wi) => {
+        const chars = word.split("");
+        return (
+          <span
+            key={wi}
+            style={{ display: "inline-block", whiteSpace: "nowrap" }}
+          >
+            {chars.map((ch) => {
+              const idx = charIndex++;
+              return (
+                <span
+                  key={idx}
+                  ref={(el) => (charRefs.current[idx] = el)}
+                  style={{
+                    display: "inline-block",
+                    transition: "color 0.2s ease, opacity 0.2s ease, transform 0.2s ease",
+                  }}
+                >
+                  {ch}
+                </span>
+              );
+            })}
+          </span>
+        );
+      })}
     </h2>
   );
 }

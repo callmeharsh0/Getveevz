@@ -13,8 +13,8 @@ const OUTPUTS = [
 ];
 
 const PROBLEM_LABELS = [
-  { text: "Archive Stagnation", x: -260, y: -70 },
-  { text: "Lost Audience Reach", x: 260, y: -70 },
+  { text: "Archive Stagnation", x: -310, y: -70 },
+  { text: "Lost Audience Reach", x: 310, y: -70 },
   { text: "Single Feed Bottleneck", x: 0, y: 150 },
 ];
 
@@ -117,14 +117,14 @@ export default function DistributionFlow() {
         if (el) tl.to(el, { opacity: 1, y: 0, duration: 0.06 }, 0.78 + i * 0.045);
       });
 
-      tl.to(contentGroupRef.current, { x: 140, scale: 0.86, duration: 0.12, ease: "power2.out" }, 0.88);
+      tl.to(contentGroupRef.current, { x: 80, scale: 0.86, duration: 0.12, ease: "power2.out" }, 0.88);
       tl.to(finalLineRef.current, { opacity: 1, x: 0, duration: 0.1, ease: "power2.out" }, 0.9);
     },
     { scope: wrapperRef }
   );
 
   return (
-    <div ref={wrapperRef} style={{ position: "relative", width: "100%", height: "100vh", background: COLORS.obsidian, overflow: "hidden" }}>
+    <div ref={wrapperRef} style={{ position: "relative", width: "100%", height: "100vh", background: COLORS.obsidian, overflow: "hidden", padding: "0 24px", boxSizing: "border-box" }}>
       {/* Dynamic Cobalt Mesh Glow */}
       <div
         style={{

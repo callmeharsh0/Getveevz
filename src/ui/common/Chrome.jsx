@@ -380,37 +380,8 @@ export default function Chrome({ progress }) {
             })}
           </nav>
 
-          {/* RIGHT: CTA BUTTON + MENU BUTTON */}
+          {/* RIGHT: MENU BUTTON ONLY */}
           <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
-            {/* PERSISTENT CTA */}
-            <a
-              href="https://calendly.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              onMouseEnter={playHoverFx}
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "8px",
-                fontFamily: FONTS.sans,
-                fontSize: "0.78rem",
-                fontWeight: 700,
-                letterSpacing: "0.06em",
-                textTransform: "uppercase",
-                color: "#FFFFFF",
-                background: "linear-gradient(135deg, #2563EB 0%, #38BDF8 100%)",
-                padding: isScrolled ? "8px 18px" : "10px 22px",
-                borderRadius: 10,
-                textDecoration: "none",
-                boxShadow: "0 4px 20px rgba(37, 99, 235, 0.35)",
-                transition: "all 0.3s ease",
-              }}
-            >
-              <Calendar size={14} />
-              <span className="hidden sm:inline">Book a Strategy Call</span>
-              <span className="sm:hidden">Book Call</span>
-            </a>
-
             {/* 3-LINE MENU DRAWER BUTTON */}
             <button
               onClick={() => {
