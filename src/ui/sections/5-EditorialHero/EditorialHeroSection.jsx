@@ -1,21 +1,21 @@
 import React, { useState } from "react";
+import { COLORS } from "../../../utils/theme";
 
 /**
  * SECTION 5 — Editorial Hero (Untold-Style Statement Page)
  * -------------------------------------------------------------
- * Simple, Dynamic, Crystal-Clear Statement:
+ * Dynamic Statement:
  * "we [1-HR RAW] scale [PORTAL DOODLE]"
  * "your voice"
  * "( [30-120 FLEET POLAROID STACK] ) everywhere"
  * 
  * Meaning: "We scale your voice everywhere."
- * - Interactive Dark / Light mode toggle (synced across suite)
- * - Tactile organic paper texture
+ * - Rebranded to GetVeevz Cobalt/Sky/Midnight design
  */
 
 export default function EditorialHeroSection({ isDark: parentIsDark, setIsDark: parentSetIsDark }) {
   const [isHovered, setIsHovered] = useState(false);
-  const [localIsDark, setLocalIsDark] = useState(false);
+  const [localIsDark, setLocalIsDark] = useState(true);
 
   const isDark = parentIsDark !== undefined ? parentIsDark : localIsDark;
   const toggleTheme = () => {
@@ -34,20 +34,20 @@ export default function EditorialHeroSection({ isDark: parentIsDark, setIsDark: 
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
-  // Dynamic Theme Colors
+  // Dynamic Theme Colors in Cobalt / Sky / Midnight System
   const theme = {
-    bg: isDark ? "#0A0A0E" : "#F6F5F0",
-    text: isDark ? "#FAFAFA" : "#18181B",
-    muted: isDark ? "#A1A1AA" : "#71717A",
-    footnote: isDark ? "#D4D4D8" : "#3F3F46",
-    parenthesis: isDark ? "#E4E4E7" : "#18181B",
-    accent: "#FF6E00",
-    doorStroke: isDark ? "#E4E4E7" : "#18181B",
-    figureStroke: isDark ? "#FAFAFA" : "#18181B",
-    figureFill: isDark ? "#0A0A0E" : "#F6F5F0",
-    rulerLine: isDark ? "rgba(255, 255, 255, 0.03)" : "rgba(0, 0, 0, 0.025)",
-    blendMode: isDark ? "screen" : "multiply",
-    grainOpacity: isDark ? 0.32 : 0.45,
+    bg: isDark ? "#050508" : "#0f172a",
+    text: "#F1F5F9",
+    muted: "#94A3B8",
+    footnote: "#CBD5E1",
+    parenthesis: "#E2E8F0",
+    accent: "#38BDF8",
+    doorStroke: "#E2E8F0",
+    figureStroke: "#F1F5F9",
+    figureFill: isDark ? "#050508" : "#0f172a",
+    rulerLine: "rgba(255, 255, 255, 0.03)",
+    blendMode: "screen",
+    grainOpacity: 0.28,
   };
 
   return (
@@ -95,23 +95,21 @@ export default function EditorialHeroSection({ isDark: parentIsDark, setIsDark: 
         }}
       />
 
-      {/* ── AMBIENT MIDNIGHT GLOW (DARK MODE ONLY) ───────────── */}
-      {isDark && (
-        <div
-          style={{
-            position: "absolute",
-            top: "20%",
-            left: "30%",
-            width: "500px",
-            height: "500px",
-            borderRadius: "50%",
-            background: "radial-gradient(circle, rgba(255, 110, 0, 0.12) 0%, rgba(59, 18, 112, 0.08) 50%, transparent 80%)",
-            filter: "blur(90px)",
-            pointerEvents: "none",
-            zIndex: 0,
-          }}
-        />
-      )}
+      {/* ── AMBIENT MIDNIGHT & COBALT GLOW ───────────── */}
+      <div
+        style={{
+          position: "absolute",
+          top: "20%",
+          left: "30%",
+          width: "550px",
+          height: "550px",
+          borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(37, 99, 235, 0.15) 0%, rgba(56, 189, 248, 0.05) 50%, transparent 80%)",
+          filter: "blur(90px)",
+          pointerEvents: "none",
+          zIndex: 0,
+        }}
+      />
 
       {/* ── FAINT PAPER HORIZONTAL RULER SKETCH LINES ─────────── */}
       <div
@@ -136,7 +134,7 @@ export default function EditorialHeroSection({ isDark: parentIsDark, setIsDark: 
           textAlign: "left",
         }}
       >
-        {/* ── TOP HEADER ROW: EYEBROW + DARK MODE TOGGLE BUTTON ── */}
+        {/* ── TOP HEADER ROW: EYEBROW + THEME INDICATOR ── */}
         <div
           style={{
             display: "flex",
@@ -156,12 +154,12 @@ export default function EditorialHeroSection({ isDark: parentIsDark, setIsDark: 
               fontWeight: 700,
               letterSpacing: "0.26em",
               textTransform: "uppercase",
-              color: theme.muted,
+              color: COLORS.sky,
               transition: "color 0.3s ease",
             }}
           >
-            <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#FF6E00" }} />
-            CONTENT MULTIPLICATION ENGINE // 01
+            <span style={{ width: 6, height: 6, borderRadius: "50%", background: COLORS.sky }} />
+            CONTENT MULTIPLICATION ENGINE // GETVEEVZ
           </div>
 
           {/* ── LUXURY DARK MODE TOGGLE BUTTON ──────────────────── */}
@@ -171,61 +169,53 @@ export default function EditorialHeroSection({ isDark: parentIsDark, setIsDark: 
               display: "inline-flex",
               alignItems: "center",
               gap: 10,
-              background: isDark ? "rgba(255, 255, 255, 0.08)" : "rgba(0, 0, 0, 0.04)",
+              background: "rgba(37, 99, 235, 0.12)",
               backdropFilter: "blur(12px)",
               WebkitBackdropFilter: "blur(12px)",
-              border: `1px solid ${isDark ? "rgba(255, 110, 0, 0.4)" : "rgba(0, 0, 0, 0.12)"}`,
+              border: "1px solid rgba(56, 189, 248, 0.35)",
               borderRadius: 999,
               padding: "6px 14px 6px 8px",
               cursor: "pointer",
-              boxShadow: isDark
-                ? "0 4px 20px rgba(255, 110, 0, 0.15), inset 0 0 12px rgba(255, 110, 0, 0.1)"
-                : "0 2px 10px rgba(0, 0, 0, 0.04)",
+              boxShadow: "0 4px 20px rgba(37, 99, 235, 0.2)",
               transition: "all 0.3s cubic-bezier(0.22, 1, 0.36, 1)",
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = "scale(1.04)";
-              e.currentTarget.style.borderColor = "#FF6E00";
+              e.currentTarget.style.borderColor = COLORS.sky;
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = "scale(1)";
-              e.currentTarget.style.borderColor = isDark ? "rgba(255, 110, 0, 0.4)" : "rgba(0, 0, 0, 0.12)";
+              e.currentTarget.style.borderColor = "rgba(56, 189, 248, 0.35)";
             }}
-            title={isDark ? "Switch whole section suite to Light Mode" : "Switch whole section suite to Dark Mode"}
           >
-            {/* Sliding Pill Thumb */}
             <div
               style={{
                 width: 26,
                 height: 26,
                 borderRadius: "50%",
-                background: isDark
-                  ? "linear-gradient(135deg, #FF6E00 0%, #EA580C 100%)"
-                  : "linear-gradient(135deg, #18181B 0%, #27272A 100%)",
+                background: "linear-gradient(135deg, #2563EB 0%, #38BDF8 100%)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 color: "#FFFFFF",
                 fontSize: "0.76rem",
-                boxShadow: isDark ? "0 2px 8px rgba(255, 110, 0, 0.5)" : "0 2px 6px rgba(0,0,0,0.2)",
-                transition: "background 0.3s ease, transform 0.3s ease",
+                boxShadow: "0 2px 8px rgba(37, 99, 235, 0.5)",
               }}
             >
-              {isDark ? "🌙" : "☀️"}
+              ⚡
             </div>
 
-            {/* Label */}
             <span
               style={{
                 fontSize: "0.68rem",
                 fontWeight: 700,
                 letterSpacing: "0.14em",
                 textTransform: "uppercase",
-                color: isDark ? "#FAFAFA" : "#18181B",
+                color: COLORS.ice,
                 fontFamily: "'Outfit', sans-serif",
               }}
             >
-              {isDark ? "DARK MODE" : "LIGHT MODE"}
+              ENGINE ACTIVE
             </span>
           </button>
         </div>
@@ -248,7 +238,7 @@ export default function EditorialHeroSection({ isDark: parentIsDark, setIsDark: 
         >
           <span>we</span>
 
-          {/* ── INLINE FLOATING 1-HR RAW CARD WITH ORANGE ASTERISK ── */}
+          {/* ── INLINE FLOATING 1-HR RAW CARD WITH BLUE ASTERISK ── */}
           <div
             style={{
               display: "inline-flex",
@@ -257,10 +247,8 @@ export default function EditorialHeroSection({ isDark: parentIsDark, setIsDark: 
               height: "clamp(68px, 8.5vw, 126px)",
               borderRadius: 14,
               overflow: "hidden",
-              background: "linear-gradient(135deg, #18181B 0%, #27272A 100%)",
-              boxShadow: isDark
-                ? "0 18px 40px -8px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 110, 0, 0.3)"
-                : "0 18px 40px -10px rgba(0, 0, 0, 0.3)",
+              background: "linear-gradient(135deg, #111827 0%, #1e293b 100%)",
+              boxShadow: "0 18px 40px -8px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(56, 189, 248, 0.35)",
               verticalAlign: "middle",
               margin: "0 clamp(12px, 1.8vw, 24px)",
               cursor: "pointer",
@@ -270,12 +258,12 @@ export default function EditorialHeroSection({ isDark: parentIsDark, setIsDark: 
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           >
-            {/* Luminous warm amber/orange particle glow */}
+            {/* Luminous Cobalt / Sky particle glow */}
             <div
               style={{
                 position: "absolute",
                 inset: 0,
-                background: "radial-gradient(circle at 35% 35%, #FFA500 0%, #EA580C 45%, #7C2D12 85%, #18181B 100%)",
+                background: "radial-gradient(circle at 35% 35%, #38BDF8 0%, #2563EB 50%, #1E1B4B 90%)",
                 opacity: 0.92,
                 mixBlendMode: "screen",
               }}
@@ -288,17 +276,17 @@ export default function EditorialHeroSection({ isDark: parentIsDark, setIsDark: 
               }}
             />
 
-            {/* Glowing Orange Asterisk Badge */}
+            {/* Glowing Sky Asterisk Badge */}
             <span
               style={{
                 position: "absolute",
                 top: "clamp(6px, 1vw, 12px)",
                 left: "clamp(8px, 1.2vw, 16px)",
                 fontSize: "clamp(1.4rem, 2.2vw, 2.4rem)",
-                color: "#FF6E00",
+                color: "#38BDF8",
                 fontWeight: 900,
                 lineHeight: 1,
-                textShadow: "0 0 16px rgba(255, 110, 0, 0.9)",
+                textShadow: "0 0 16px rgba(56, 189, 248, 0.9)",
                 animation: "pulseAsterisk 3s infinite",
               }}
             >
@@ -323,13 +311,13 @@ export default function EditorialHeroSection({ isDark: parentIsDark, setIsDark: 
               }}
             >
               <span>🎙️ 1-HR RAW</span>
-              <span style={{ color: "#FDE68A" }}>00:59:40</span>
+              <span style={{ color: "#7DD3FC" }}>00:59:40</span>
             </div>
           </div>
 
           <span>scale</span>
 
-          {/* ── WHIMSICAL OPEN DOORWAY / VIRAL PORTAL ILLUSTRATION ── */}
+          {/* ── VIRAL PORTAL ILLUSTRATION IN COBALT ── */}
           <div
             style={{
               display: "inline-flex",
@@ -343,18 +331,13 @@ export default function EditorialHeroSection({ isDark: parentIsDark, setIsDark: 
             }}
           >
             <svg viewBox="0 0 70 100" width="100%" height="100%" fill="none">
-              {/* Star sparkles */}
               <path d="M48 10L50 6L52 10L56 12L52 14L50 18L48 14L44 12L48 10Z" fill={theme.doorStroke} />
-              <circle cx="38" cy="14" r="1.5" fill="#FF6E00" />
-              <circle cx="58" cy="20" r="1.2" fill="#FF6E00" />
+              <circle cx="38" cy="14" r="1.5" fill="#38BDF8" />
+              <circle cx="58" cy="20" r="1.2" fill="#38BDF8" />
 
-              {/* Door Frame outline */}
               <rect x="8" y="18" width="52" height="78" rx="2" stroke={theme.doorStroke} strokeWidth="2" strokeDasharray="3 3" />
+              <path d="M8 18L42 28V90L8 96V18Z" fill="#2563EB" fillOpacity="0.85" stroke={theme.doorStroke} strokeWidth="2.4" />
 
-              {/* Perspective Door Swing (Orange Interior Glow) */}
-              <path d="M8 18L42 28V90L8 96V18Z" fill="#FF6E00" fillOpacity={isDark ? "0.9" : "0.85"} stroke={theme.doorStroke} strokeWidth="2.4" />
-
-              {/* Whimsical creator entering distribution portal */}
               <circle cx="28" cy="46" r="5" stroke={theme.figureStroke} strokeWidth="2.2" fill={theme.figureFill} />
               <path d="M28 51V68" stroke={theme.figureStroke} strokeWidth="2.2" strokeLinecap="round" />
               <path d="M20 58L28 54L36 58" stroke={theme.figureStroke} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
@@ -405,7 +388,7 @@ export default function EditorialHeroSection({ isDark: parentIsDark, setIsDark: 
             {/* Opening Parenthesis */}
             <span style={{ fontSize: "1.05em", fontWeight: 300, color: theme.parenthesis, marginRight: -2 }}>(</span>
 
-            {/* ── TILTED POLAROID / 30-120 FLEET CARD STACK ────────── */}
+            {/* ── TILTED POLAROID CARD STACK ────────── */}
             <div
               style={{
                 position: "relative",
@@ -421,10 +404,10 @@ export default function EditorialHeroSection({ isDark: parentIsDark, setIsDark: 
                 style={{
                   position: "absolute",
                   inset: 0,
-                  background: isDark ? "#18181B" : "#FFFFFF",
+                  background: "#111827",
                   borderRadius: 10,
-                  border: `1px solid ${isDark ? "rgba(255,255,255,0.15)" : "#D4D4D8"}`,
-                  boxShadow: "0 10px 24px rgba(0, 0, 0, 0.25)",
+                  border: "1px solid rgba(56, 189, 248, 0.25)",
+                  boxShadow: "0 10px 24px rgba(0, 0, 0, 0.4)",
                   transform: "rotate(-12deg) translate(-10px, 6px)",
                   display: "flex",
                   flexDirection: "column",
@@ -432,20 +415,20 @@ export default function EditorialHeroSection({ isDark: parentIsDark, setIsDark: 
                   zIndex: 1,
                 }}
               >
-                <div style={{ flex: 1, background: isDark ? "#1E1B4B" : "#EEF2FF", borderRadius: 4, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <span style={{ fontSize: "0.62rem", fontWeight: 800, color: isDark ? "#818CF8" : "#4338CA" }}>30–120</span>
+                <div style={{ flex: 1, background: "rgba(37, 99, 235, 0.2)", borderRadius: 4, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <span style={{ fontSize: "0.62rem", fontWeight: 800, color: "#38BDF8" }}>30–120</span>
                 </div>
-                <div style={{ fontSize: "0.48rem", fontWeight: 700, color: isDark ? "#A1A1AA" : "#71717A", marginTop: 4, textAlign: "center" }}>PAGES</div>
+                <div style={{ fontSize: "0.48rem", fontWeight: 700, color: "#94A3B8", marginTop: 4, textAlign: "center" }}>FLEET</div>
               </div>
 
-              {/* Middle Polaroid: 40M-160M Guaranteed Views */}
+              {/* Middle Polaroid: Multi-Million Views */}
               <div
                 style={{
                   position: "absolute",
                   inset: 0,
-                  background: "#FF6E00",
+                  background: "linear-gradient(135deg, #2563EB, #38BDF8)",
                   borderRadius: 10,
-                  boxShadow: "0 14px 30px rgba(255, 110, 0, 0.35)",
+                  boxShadow: "0 14px 30px rgba(37, 99, 235, 0.45)",
                   transform: "rotate(6deg) translate(8px, -4px)",
                   display: "flex",
                   flexDirection: "column",
@@ -454,21 +437,21 @@ export default function EditorialHeroSection({ isDark: parentIsDark, setIsDark: 
                   color: "#FFFFFF",
                 }}
               >
-                <div style={{ flex: 1, background: "rgba(0,0,0,0.18)", borderRadius: 4, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <div style={{ flex: 1, background: "rgba(0,0,0,0.2)", borderRadius: 4, display: "flex", alignItems: "center", justifyContent: "center" }}>
                   <span style={{ fontSize: "0.62rem", fontWeight: 800 }}>40M+</span>
                 </div>
                 <div style={{ fontSize: "0.48rem", fontWeight: 700, marginTop: 4, textAlign: "center" }}>VIEWS</div>
               </div>
 
-              {/* Front Main Polaroid with Video Cuts / Team Silhouettes */}
+              {/* Front Main Polaroid */}
               <div
                 style={{
                   position: "absolute",
                   inset: 0,
-                  background: isDark ? "#121216" : "#18181B",
+                  background: "#050508",
                   borderRadius: 10,
-                  border: isDark ? "1px solid rgba(255, 255, 255, 0.18)" : "none",
-                  boxShadow: "0 18px 40px rgba(0, 0, 0, 0.4)",
+                  border: "1px solid rgba(56, 189, 248, 0.35)",
+                  boxShadow: "0 18px 40px rgba(0, 0, 0, 0.6)",
                   transform: "rotate(-2deg)",
                   display: "flex",
                   flexDirection: "column",
@@ -481,7 +464,7 @@ export default function EditorialHeroSection({ isDark: parentIsDark, setIsDark: 
                 <div
                   style={{
                     flex: 1,
-                    background: "linear-gradient(135deg, #3B1270 0%, #1E1B4B 40%, #FF6E00 100%)",
+                    background: "linear-gradient(135deg, #0c162d 0%, #1e293b 50%, #2563EB 100%)",
                     borderRadius: 6,
                     position: "relative",
                     overflow: "hidden",
@@ -492,16 +475,16 @@ export default function EditorialHeroSection({ isDark: parentIsDark, setIsDark: 
                   }}
                 >
                   <div style={{ display: "flex", gap: 4, opacity: 0.95 }}>
-                    <div style={{ width: 14, height: 32, borderRadius: "8px 8px 0 0", background: "#09090B" }} />
-                    <div style={{ width: 18, height: 42, borderRadius: "9px 9px 0 0", background: "#09090B" }} />
-                    <div style={{ width: 15, height: 36, borderRadius: "8px 8px 0 0", background: "#09090B" }} />
+                    <div style={{ width: 14, height: 32, borderRadius: "8px 8px 0 0", background: "#050508" }} />
+                    <div style={{ width: 18, height: 42, borderRadius: "9px 9px 0 0", background: "#050508" }} />
+                    <div style={{ width: 15, height: 36, borderRadius: "8px 8px 0 0", background: "#050508" }} />
                   </div>
                 </div>
                 <div
                   style={{
                     fontSize: "0.5rem",
                     fontWeight: 800,
-                    color: "#FFFFFF",
+                    color: "#38BDF8",
                     marginTop: 4,
                     textAlign: "center",
                     letterSpacing: "0.08em",
@@ -528,17 +511,17 @@ export default function EditorialHeroSection({ isDark: parentIsDark, setIsDark: 
               color: theme.footnote,
               fontFamily: "'Outfit', 'Inter', sans-serif",
               fontWeight: 400,
-              borderLeft: "2px solid #FF6E00",
+              borderLeft: "2px solid #38BDF8",
               paddingLeft: 14,
               transition: "color 0.45s ease",
             }}
           >
-            <span style={{ color: "#FF6E00", fontWeight: 700, marginRight: 6 }}>(*)</span>
-            You record for 60 minutes. We extract the highest-impact moments, manage 30 to 120 dedicated brand channels, and guarantee 40M–160M+ views every month.
+            <span style={{ color: "#38BDF8", fontWeight: 700, marginRight: 6 }}>(*)</span>
+            You record for 60 minutes. GetVeevz extracts the highest-impact moments, manages 30 to 120 dedicated brand satellite channels, and orchestrates large-scale cross-platform distribution.
           </div>
         </div>
 
-        {/* ── BOTTOM CONTROLS & DISCOVER INDICATOR ─────────────── */}
+        {/* ── BOTTOM CONTROLS ─────────────── */}
         <div
           style={{
             display: "flex",
@@ -548,21 +531,21 @@ export default function EditorialHeroSection({ isDark: parentIsDark, setIsDark: 
             marginTop: 48,
           }}
         >
-          {/* Sleek Orange Pill Button */}
+          {/* Cobalt Pill Button */}
           <button
             onClick={scrollToNext}
             style={{
-              background: "#FF6E00",
+              background: "linear-gradient(135deg, #2563EB, #38BDF8)",
               color: "#FFFFFF",
               border: "none",
-              borderRadius: 6,
+              borderRadius: 8,
               padding: "13px 26px",
               fontSize: "0.78rem",
               fontWeight: 800,
               letterSpacing: "0.14em",
               textTransform: "uppercase",
               cursor: "pointer",
-              boxShadow: "0 8px 22px rgba(255, 110, 0, 0.38)",
+              boxShadow: "0 8px 22px rgba(37, 99, 235, 0.45)",
               display: "inline-flex",
               alignItems: "center",
               gap: 8,
@@ -570,11 +553,11 @@ export default function EditorialHeroSection({ isDark: parentIsDark, setIsDark: 
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = "translateY(-2px)";
-              e.currentTarget.style.boxShadow = "0 12px 28px rgba(255, 110, 0, 0.48)";
+              e.currentTarget.style.boxShadow = "0 12px 28px rgba(56, 189, 248, 0.55)";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = "translateY(0)";
-              e.currentTarget.style.boxShadow = "0 8px 22px rgba(255, 110, 0, 0.38)";
+              e.currentTarget.style.boxShadow = "0 8px 22px rgba(37, 99, 235, 0.45)";
             }}
           >
             <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#FFFFFF" }} />
@@ -587,13 +570,13 @@ export default function EditorialHeroSection({ isDark: parentIsDark, setIsDark: 
               width: 14,
               height: 14,
               borderRadius: "50%",
-              border: `1.5px solid ${isDark ? "#3F3F46" : "#D4D4D8"}`,
+              border: "1.5px solid rgba(56, 189, 248, 0.4)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
             }}
           >
-            <div style={{ width: 4, height: 4, borderRadius: "50%", background: "#FF6E00" }} />
+            <div style={{ width: 4, height: 4, borderRadius: "50%", background: "#38BDF8" }} />
           </div>
 
           {/* Right-aligned Vertical "SCROLL TO DISCOVER" */}
@@ -607,7 +590,7 @@ export default function EditorialHeroSection({ isDark: parentIsDark, setIsDark: 
               fontWeight: 700,
               letterSpacing: "0.22em",
               textTransform: "uppercase",
-              color: theme.muted,
+              color: COLORS.sky,
               cursor: "pointer",
               transition: "color 0.3s ease",
             }}
@@ -618,19 +601,18 @@ export default function EditorialHeroSection({ isDark: parentIsDark, setIsDark: 
                 width: 24,
                 height: 24,
                 borderRadius: "50%",
-                border: `1.5px solid ${isDark ? "#52525B" : "#A1A1AA"}`,
+                border: "1.5px solid #38BDF8",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 fontSize: "0.72rem",
-                color: theme.muted,
+                color: "#38BDF8",
               }}
             >
               ↓
             </div>
           </div>
         </div>
-
       </div>
     </section>
   );

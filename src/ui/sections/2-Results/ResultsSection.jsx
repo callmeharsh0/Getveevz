@@ -7,13 +7,13 @@ import { COLORS, FONTS } from "../../../utils/theme";
 import { getCircularOffset, getCardTransform } from "../../../utils/carouselMath";
 
 const RESULTS = [
-  { id: "r1", video: "/videos/result-1.mp4", poster: "/posters/result-1.jpg", views: 20000000, client: "Client B", platform: "Reels", tag: "Case Study" },
-  { id: "r2", video: "/videos/result-2.mp4", poster: "/posters/result-2.jpg", views: 15000000, client: "Client C", platform: "Shorts" },
-  { id: "center", video: "/videos/result-hero.mp4", poster: "/posters/result-hero.jpg", views: 22000000, client: "Client A", platform: "TikTok", tag: "Hero Result" },
-  { id: "r3", video: "/videos/result-3.mp4", poster: "/posters/result-3.jpg", views: 12000000, client: "Client D", platform: "TikTok" },
-  { id: "r4", video: "/videos/result-4.mp4", poster: "/posters/result-4.jpg", views: 9000000, client: "Client E", platform: "Reels" },
-  { id: "r5", video: "/videos/result-5.mp4", poster: "/posters/result-5.jpg", views: 7500000, client: "Client F", platform: "Shorts" },
-  { id: "r6", video: "/videos/result-6.mp4", poster: "/posters/result-6.jpg", views: 5000000, client: "Client G", platform: "TikTok" },
+  { id: "r1", video: "/videos/result-1.mp4", poster: "/posters/result-1.jpg", views: 20000000, client: "Tech Executive Show", platform: "Reels", tag: "Case Study" },
+  { id: "r2", video: "/videos/result-2.mp4", poster: "/posters/result-2.jpg", views: 15000000, client: "Fintech Leader", platform: "Shorts" },
+  { id: "center", video: "/videos/result-hero.mp4", poster: "/posters/result-hero.jpg", views: 22000000, client: "Media Network", platform: "TikTok", tag: "Hero Result" },
+  { id: "r3", video: "/videos/result-3.mp4", poster: "/posters/result-3.jpg", views: 12000000, client: "B2B SaaS Founder", platform: "TikTok" },
+  { id: "r4", video: "/videos/result-4.mp4", poster: "/posters/result-4.jpg", views: 9000000, client: "Venture Podcast", platform: "Reels" },
+  { id: "r5", video: "/videos/result-5.mp4", poster: "/posters/result-5.jpg", views: 7500000, client: "Enterprise Leader", platform: "Shorts" },
+  { id: "r6", video: "/videos/result-6.mp4", poster: "/posters/result-6.jpg", views: 5000000, client: "Creator Network", platform: "TikTok" },
 ];
 
 export default function ResultsSection() {
@@ -49,7 +49,7 @@ export default function ResultsSection() {
         position: "relative",
         width: "100%",
         minHeight: "100vh",
-        background: `linear-gradient(180deg, ${COLORS.bg} 0%, ${COLORS.bgSoft} 100%)`,
+        background: `linear-gradient(180deg, ${COLORS.obsidian} 0%, ${COLORS.midnight} 100%)`,
         padding: "100px 24px",
         overflow: "hidden",
       }}
@@ -64,15 +64,15 @@ export default function ResultsSection() {
             transition: "opacity 1s ease, transform 1s cubic-bezier(0.22,1,0.36,1)",
           }}
         >
-          <div style={{ fontFamily: FONTS.body, fontSize: 12, letterSpacing: 2, color: COLORS.accent, textTransform: "uppercase", marginBottom: 14 }}>
-            Our Results
+          <div style={{ fontFamily: FONTS.body, fontSize: 12, letterSpacing: 2, color: COLORS.sky, textTransform: "uppercase", marginBottom: 14 }}>
+            VERIFIED DISTRIBUTION PROOF
           </div>
           <HookText
-            text="Proof that it actually works."
-            style={{ fontSize: "clamp(34px, 5.5vw, 62px)", justifyContent: "center", display: "flex", flexWrap: "wrap" }}
+            text="Proof that our distribution system works."
+            style={{ fontSize: "clamp(34px, 5.5vw, 62px)", justifyContent: "center", display: "flex", flexWrap: "wrap", color: COLORS.ice }}
           />
           <p style={{ fontFamily: FONTS.body, color: COLORS.textMuted, fontSize: 16, marginTop: 18 }}>
-            Content is only valuable when it reaches people.
+            Long-form content engineered into high-retention short-form multi-platform reach.
           </p>
         </div>
       </div>

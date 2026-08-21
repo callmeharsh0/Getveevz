@@ -96,7 +96,7 @@ export default function ParallaxFloatingSection() {
             margin: 0,
           }}
         >
-          Move to <span style={{ fontStyle: "italic", color: "#e8a463" }}>explore</span>
+          Move to <span style={{ fontStyle: "italic", color: COLORS.sky }}>explore</span>
         </h2>
 
         <p
@@ -117,7 +117,7 @@ export default function ParallaxFloatingSection() {
             href="#results"
             onClick={(e) => {
               e.preventDefault();
-              document.querySelector("section")?.scrollIntoView({ behavior: "smooth" });
+              document.getElementById("results-section")?.scrollIntoView({ behavior: "smooth" });
             }}
             style={{
               display: "inline-flex",
@@ -127,15 +127,16 @@ export default function ParallaxFloatingSection() {
               fontSize: "0.72rem",
               letterSpacing: "0.2em",
               textTransform: "uppercase",
-              color: "#0e0c0a",
-              background: "linear-gradient(135deg, #e8a463, #d4924a)",
+              color: "#FFFFFF",
+              background: "linear-gradient(135deg, #2563EB, #38BDF8)",
               padding: "0.85rem 2rem",
+              borderRadius: "8px",
               textDecoration: "none",
               transition: "transform 0.3s ease, box-shadow 0.3s ease",
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = "translateY(-2px)";
-              e.currentTarget.style.boxShadow = "0 10px 30px rgba(232, 164, 99, 0.25)";
+              e.currentTarget.style.boxShadow = "0 10px 30px rgba(56, 189, 248, 0.4)";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = "translateY(0)";

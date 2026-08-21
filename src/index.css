@@ -1,15 +1,29 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: #0e0c0a;
-  --color-foreground: #f2ece1;
-  --color-primary: #d4924a;
-  --color-primary-foreground: #0e0c0a;
-  --color-muted: #1c1815;
-  --color-muted-foreground: rgba(242, 236, 225, 0.6);
-  --color-accent: #241f1a;
-  --color-accent-foreground: #f2ece1;
-  --color-border: rgba(242, 236, 225, 0.15);
+  --color-obsidian: #050508;
+  --color-midnight: #111827;
+  --color-cobalt: #2563EB;
+  --color-sky: #38BDF8;
+  --color-ice: #F1F5F9;
+
+  --color-background: #050508;
+  --color-foreground: #F1F5F9;
+  --color-primary: #2563EB;
+  --color-primary-foreground: #F1F5F9;
+  --color-muted: #111827;
+  --color-muted-foreground: rgba(241, 245, 249, 0.65);
+  --color-accent: #1F2937;
+  --color-accent-foreground: #F1F5F9;
+  --color-border: rgba(241, 245, 249, 0.12);
+}
+
+:root {
+  --color-obsidian: #050508;
+  --color-midnight: #111827;
+  --color-cobalt: #2563EB;
+  --color-sky: #38BDF8;
+  --color-ice: #F1F5F9;
 }
 
 * {
@@ -20,20 +34,47 @@
 
 html {
   scroll-behavior: smooth;
+  background: #050508;
 }
 
 html,
 body,
 #root {
   width: 100%;
-  background: #0e0c0a;
+  min-height: 100%;
+  background: #050508;
+  color: #F1F5F9;
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Selection color to match warm palette */
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #050508;
+}
+::-webkit-scrollbar-thumb {
+  background: #1F2937;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2563EB;
+}
+
+/* Selection color to match brand cobalt */
 ::selection {
-  background: rgba(232, 164, 99, 0.3);
-  color: #f2ece1;
+  background: rgba(37, 99, 235, 0.45);
+  color: #F1F5F9;
+}
+
+/* Angular shard decorative clip paths */
+.shard-clip {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%);
+}
+
+.shard-badge {
+  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
 }

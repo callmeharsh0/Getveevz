@@ -23,9 +23,9 @@ const TIERS = [
     ],
     popular: false,
     cta: "Get Started",
-    accent: COLORS.accent,              // warm amber — site accent
-    accentSoft: COLORS.accentSoft,
-    borderAccent: COLORS.borderAccent,
+    accent: "#38BDF8",                  // sky blue
+    accentSoft: "rgba(56,189,248,0.15)",
+    borderAccent: "rgba(56,189,248,0.4)",
   },
   {
     id: "momentum",
@@ -42,9 +42,9 @@ const TIERS = [
     ],
     popular: true,
     cta: "Start Free Trial",
-    accent: "#e8c77a",                  // golden — slightly warmer for differentiation
-    accentSoft: "rgba(232,199,122,0.15)",
-    borderAccent: "rgba(232,199,122,0.4)",
+    accent: "#2563EB",                  // brand cobalt
+    accentSoft: "rgba(37,99,235,0.2)",
+    borderAccent: "rgba(37,99,235,0.55)",
   },
   {
     id: "dominate",
@@ -61,9 +61,9 @@ const TIERS = [
     ],
     popular: false,
     cta: "Get Started",
-    accent: "#c8a882",                  // warm sand
-    accentSoft: "rgba(200,168,130,0.12)",
-    borderAccent: "rgba(200,168,130,0.35)",
+    accent: "#60A5FA",                  // light cobalt
+    accentSoft: "rgba(96,165,250,0.15)",
+    borderAccent: "rgba(96,165,250,0.4)",
   },
 ];
 
@@ -838,9 +838,9 @@ export default function PricingSection() {
             letterSpacing: "0.01em",
             maxWidth: 600,
           }}>
-            Ready to grow with{" "}
-            <span style={{ fontStyle: "italic", color: COLORS.accent }}>
-              NexusMedia?
+            Ready to distribute with{" "}
+            <span style={{ fontStyle: "italic", color: COLORS.sky }}>
+              GetVeevz?
             </span>
           </h2>
 
@@ -853,8 +853,8 @@ export default function PricingSection() {
             maxWidth: 440,
             letterSpacing: "0.02em",
           }}>
-            Join hundreds of creators and agencies already scaling their content
-            with NexusMedia.
+            Join the creators and brands already scaling their distribution
+            with GetVeevz.
           </p>
 
           {/* Final CTA button */}
@@ -881,9 +881,9 @@ export default function PricingSection() {
                 gap: "10px",
                 padding: "12px 28px",
                 borderRadius: "30px",
-                background: "rgba(212, 146, 74, 0.08)",
-                border: "1px solid rgba(212, 146, 74, 0.35)",
-                color: "#e8c77a",
+                background: "rgba(37, 99, 235, 0.12)",
+                border: "1px solid rgba(56, 189, 248, 0.35)",
+                color: "#38BDF8",
                 fontFamily: FONTS.body,
                 fontSize: "0.72rem",
                 letterSpacing: "0.2em",
@@ -893,14 +893,14 @@ export default function PricingSection() {
                 boxShadow: "0 4px 20px rgba(0,0,0,0.3)",
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = "linear-gradient(135deg, rgba(212,146,74,0.25), rgba(212,146,74,0.12))";
-                e.currentTarget.style.borderColor = "#e8c77a";
+                e.currentTarget.style.background = "linear-gradient(135deg, rgba(37,99,235,0.3), rgba(56,189,248,0.2))";
+                e.currentTarget.style.borderColor = "#38BDF8";
                 e.currentTarget.style.transform = "translateY(-3px)";
-                e.currentTarget.style.boxShadow = "0 10px 30px rgba(212, 146, 74, 0.3)";
+                e.currentTarget.style.boxShadow = "0 10px 30px rgba(37, 99, 235, 0.4)";
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = "rgba(212, 146, 74, 0.08)";
-                e.currentTarget.style.borderColor = "rgba(212, 146, 74, 0.35)";
+                e.currentTarget.style.background = "rgba(37, 99, 235, 0.12)";
+                e.currentTarget.style.borderColor = "rgba(56, 189, 248, 0.35)";
                 e.currentTarget.style.transform = "translateY(0)";
                 e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,0,0,0.3)";
               }}
@@ -925,7 +925,7 @@ export default function PricingSection() {
             color: COLORS.text,
             textTransform: "uppercase",
           }}>
-            © 2025 NexusMedia
+            © {new Date().getFullYear()} GetVeevz
           </span>
           <span style={{
             fontFamily: FONTS.body,

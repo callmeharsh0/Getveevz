@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { COLORS, FONTS } from "../../../utils/theme";
 
 /**
  * BookACall
@@ -97,10 +98,10 @@ export default function BookACall() {
             letterSpacing: "0.02em",
           }}
         >
-          Build Your Organic views Engine
+          Build Your Distribution Engine
           <br />
-          <span style={{ fontStyle: "italic", color: "#e8a463" }}>
-            With us
+          <span style={{ fontStyle: "italic", color: COLORS.sky }}>
+            With GetVeevz
           </span>
         </h2>
 
@@ -110,10 +111,10 @@ export default function BookACall() {
             fontFamily: "'Inter', system-ui, sans-serif",
             fontSize: "clamp(0.85rem, 1.2vw, 1rem)",
             fontWeight: 300,
-            color: "rgba(242, 236, 225, 0.55)",
+            color: COLORS.textMuted,
             lineHeight: 1.7,
             marginTop: "2rem",
-            maxWidth: "480px",
+            maxWidth: "520px",
             marginLeft: "auto",
             marginRight: "auto",
             opacity: isVisible ? 1 : 0,
@@ -122,8 +123,8 @@ export default function BookACall() {
               "opacity 1s 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 1s 0.35s cubic-bezier(0.16, 1, 0.3, 1)",
           }}
         >
-          Whether it's clipping, PR seeding, or full-scale production —
-          we handle everything you need to go viral.
+          Whether it's clipping, multi-channel syndication, or complete fleet distribution —
+          we turn your long-form media into large-scale organic reach.
         </p>
 
         {/* CTA Button */}
@@ -146,14 +147,14 @@ export default function BookACall() {
               gap: "0.8rem",
               fontFamily: "'Inter', system-ui, sans-serif",
               fontSize: "0.75rem",
-              fontWeight: 400,
+              fontWeight: 600,
               letterSpacing: "0.2em",
               textTransform: "uppercase",
-              color: "#0e0c0a",
+              color: "#FFFFFF",
               background:
-                "linear-gradient(135deg, #e8a463, #d4924a)",
+                "linear-gradient(135deg, #2563EB, #38BDF8)",
               padding: "1.1rem 2.8rem",
-              borderRadius: "0",
+              borderRadius: "8px",
               textDecoration: "none",
               position: "relative",
               overflow: "hidden",
@@ -162,14 +163,14 @@ export default function BookACall() {
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = "translateY(-2px)";
               e.currentTarget.style.boxShadow =
-                "0 12px 40px rgba(232, 164, 99, 0.3)";
+                "0 12px 40px rgba(56, 189, 248, 0.4)";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = "translateY(0)";
               e.currentTarget.style.boxShadow = "none";
             }}
           >
-            Book a Call
+            Book a Strategy Call
             <span style={{ fontSize: "1rem", lineHeight: 1 }}>→</span>
           </a>
         </div>
@@ -183,7 +184,7 @@ export default function BookACall() {
           }}
         >
           <a
-            href="mailto:hello@nexusmedia.com"
+            href="mailto:hello@getveevz.com"
             style={{
               fontFamily: "'Inter', system-ui, sans-serif",
               fontSize: "0.7rem",

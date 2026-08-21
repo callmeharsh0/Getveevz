@@ -1,32 +1,66 @@
 import { useState, useEffect, useRef } from "react";
+import { Calendar, Menu, X, ArrowRight } from "lucide-react";
+import { COLORS, FONTS } from "../../utils/theme";
 
 /**
  * Chrome Component
  * ----------------
- * - SOUND button top-left with Web Audio Synthwave Music Engine & Equalizer Visualizer
+ * - SOUND button top-left with Web Audio Synthwave Music Engine & Equalizer Visualizer (in Cobalt/Sky)
  * - Interactive hover & click SFX
- * - Centered NEXUSMEDIA wordmark (click to scroll to top)
+ * - GetVeevz brand logo and wordmark (click to scroll to top)
+ * - Persistent "Book a Strategy Call" CTA button top-right
  * - 3-Line MENU button opening full navigation drawer with dedicated buttons for every scroll section
+ * - Active-section highlight state as user scrolls
  * - "scroll to enter" indicator bottom-center (intro only).
  */
 export default function Chrome({ progress }) {
   const [soundOn, setSoundOn] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrollY, setScrollY] = useState(0);
+  const [activeSection, setActiveSection] = useState("top");
   const audioCtxRef = useRef(null);
   const timerRef = useRef(null);
 
-  // Track real page scroll so the persistent header can react without a
-  // 3D scroll-progress prop.
+  // Section List for Navigation & Drawer
+  const SECTIONS = [
+    { num: "01", name: "Hero", desc: "Turn Long-Form Into Distribution Engine", id: "top" },
+    { num: "02", name: "Proof", desc: "240M+ Views & Verified Stream Proof", id: "results-section", highlight: true },
+    { num: "03", name: "The Problem", desc: "The Content Distribution Gap", id: "problem-solution-section" },
+    { num: "04", name: "What We Do", desc: "Clipping, Distribution, Fleet & Tracking", id: "what-we-do-section" },
+    { num: "05", name: "How It Works", desc: "4-Step Turnkey Distribution Pipeline", id: "how-it-works-section" },
+    { num: "06", name: "Case Studies", desc: "Client Breakdowns & Verified Metrics", id: "case-studies-section", highlight: true },
+    { num: "07", name: "Multiplier Engine", desc: "Algorithmic Retention & Fleet Tech", id: "multiplier-engine-section" },
+    { num: "08", name: "Why GetVeevz", desc: "Distribution Engine vs Video Editor", id: "why-getveevz-section" },
+    { num: "09", name: "Pricing", desc: "Spark, Momentum & Dominate tiers", id: "pricing-section" },
+    { num: "10", name: "FAQ", desc: "Common Questions & Operational Details", id: "faq-section" },
+    { num: "11", name: "Final CTA", desc: "Book Your 1-on-1 Strategy Call", id: "final-cta-section", highlight: true },
+  ];
+
+  // Track real page scroll & active section
   useEffect(() => {
-    const onScroll = () => setScrollY(window.scrollY);
+    const onScroll = () => {
+      setScrollY(window.scrollY);
+
+      // Detect active section
+      for (let i = SECTIONS.length - 1; i >= 0; i--) {
+        const sec = SECTIONS[i];
+        const el = document.getElementById(sec.id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= 200) {
+            setActiveSection(sec.id);
+            break;
+          }
+        }
+      }
+    };
+
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Fade the scroll-to-enter hint out as soon as the user starts scrolling
-  const introHintOpacity = Math.max(1 - (progress ?? 0) / 0.08 - scrollY / 600, 0);
+  const introHintOpacity = Math.max(1 - (progress ?? 0) / 0.08 - scrollY / 500, 0);
 
   // Play subtle hover UI blip
   const playHoverFx = () => {
@@ -36,18 +70,18 @@ export default function Chrome({ progress }) {
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
       osc.type = "sine";
-      osc.frequency.setValueAtTime(800, ctx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(1200, ctx.currentTime + 0.05);
+      osc.frequency.setValueAtTime(880, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(1320, ctx.currentTime + 0.05);
       gain.gain.setValueAtTime(0.03, ctx.currentTime);
       gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.05);
       osc.connect(gain);
       gain.connect(ctx.destination);
       osc.start();
       osc.stop(ctx.currentTime + 0.05);
-    } catch (e) { }
+    } catch (e) {}
   };
 
-  // Play satisfying sub-bass click
+  // Play sub click
   const playClickFx = () => {
     if (!soundOn || !audioCtxRef.current) return;
     try {
@@ -55,7 +89,7 @@ export default function Chrome({ progress }) {
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
       osc.type = "triangle";
-      osc.frequency.setValueAtTime(300, ctx.currentTime);
+      osc.frequency.setValueAtTime(320, ctx.currentTime);
       osc.frequency.exponentialRampToValueAtTime(80, ctx.currentTime + 0.08);
       gain.gain.setValueAtTime(0.1, ctx.currentTime);
       gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
@@ -63,10 +97,10 @@ export default function Chrome({ progress }) {
       gain.connect(ctx.destination);
       osc.start();
       osc.stop(ctx.currentTime + 0.08);
-    } catch (e) { }
+    } catch (e) {}
   };
 
-  // The Weeknd-style Synthwave Song Sequencer
+  // Synthwave Engine
   useEffect(() => {
     if (soundOn) {
       try {
@@ -76,17 +110,15 @@ export default function Chrome({ progress }) {
 
         let step = 0;
         const bpm = 124;
-        const stepTime = 60 / bpm / 4; // 16th notes
+        const stepTime = 60 / bpm / 4;
 
-        // Synth notes (Bass: A1, F1, G1, E1 | Lead: E4, G4, A4, C5, D5, E5)
         const bassNotes = [55, 55, 55, 55, 43.65, 43.65, 43.65, 43.65, 49, 49, 49, 49, 41.2, 41.2, 41.2, 41.2];
-        const leadNotes = [329.63, 392.00, 440.00, 523.25, 587.33, 659.25, 523.25, 440.00];
+        const leadNotes = [329.63, 392.0, 440.0, 523.25, 587.33, 659.25, 523.25, 440.0];
 
         const playSynthStep = () => {
           if (!audioCtxRef.current) return;
           const now = ctx.currentTime;
 
-          // 1. Synthwave Pumping Bassline (16th notes)
           const bassFreq = bassNotes[step % bassNotes.length];
           const bassOsc = ctx.createOscillator();
           const bassGain = ctx.createGain();
@@ -94,7 +126,6 @@ export default function Chrome({ progress }) {
 
           bassOsc.type = "sawtooth";
           bassOsc.frequency.setValueAtTime(bassFreq, now);
-
           filter.type = "lowpass";
           filter.frequency.setValueAtTime(450 + Math.sin(step * 0.5) * 150, now);
 
@@ -108,7 +139,6 @@ export default function Chrome({ progress }) {
           bassOsc.start(now);
           bassOsc.stop(now + stepTime * 0.95);
 
-          // 2. Catchy Retro Lead Arpeggio (every 2nd step)
           if (step % 2 === 0) {
             const leadFreq = leadNotes[(step / 2) % leadNotes.length];
             const leadOsc = ctx.createOscillator();
@@ -127,7 +157,6 @@ export default function Chrome({ progress }) {
             leadOsc.stop(now + stepTime * 1.5);
           }
 
-          // 3. Sub Kick Drum Pulse (beats 1, 5, 9, 13)
           if (step % 4 === 0) {
             const kickOsc = ctx.createOscillator();
             const kickGain = ctx.createGain();
@@ -166,16 +195,6 @@ export default function Chrome({ progress }) {
     };
   }, [soundOn]);
 
-  const labelStyle = {
-    fontFamily: "'Inter', system-ui, sans-serif",
-    fontSize: "0.7rem",
-    fontWeight: 400,
-    letterSpacing: "0.18em",
-    color: "#f2ece1",
-    textTransform: "uppercase",
-  };
-
-  // Smooth scroll handler for all sections
   const scrollToSection = (id) => {
     playClickFx();
     setMenuOpen(false);
@@ -189,7 +208,6 @@ export default function Chrome({ progress }) {
     }
   };
 
-  // Close menu on ESC key
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === "Escape") setMenuOpen(false);
@@ -198,94 +216,202 @@ export default function Chrome({ progress }) {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  // Section List for Menu Buttons
-  const SECTIONS = [
-    { num: "01", name: "Introduction", desc: "Brand Intro & Overview", id: "top" },
-    { num: "02", name: "Our Results (Deep Dive)", desc: "22M+ Reach Proof & Carousel Breakdown", id: "results-section", highlight: true },
-    { num: "03", name: "The Hook & System", desc: "One piece of content turned into a distribution engine", id: "hook-section" },
-    { num: "04", name: "Problem & Solution", desc: "Why content alone isn't enough & how distribution wins", id: "problem-solution-section" },
-    { num: "05", name: "Pricing & Packages", desc: "Spark, Momentum & Dominate tiers", id: "pricing-section" },
-    { num: "06", name: "Book a Strategy Call", desc: "Schedule a 1-on-1 strategy call with our team", id: "book-a-call-section" },
-  ];
+  const isScrolled = scrollY > 40;
 
   return (
     <>
-      <div style={{ position: "fixed", inset: 0, pointerEvents: "none", zIndex: 10 }}>
-        {/* ── TOP BAR ───────────────────────────────────────────── */}
+      {/* ── TOP STICKY NAVBAR ───────────────────────────────────────────── */}
+      <header
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 900,
+          background: isScrolled
+            ? "rgba(5, 5, 8, 0.85)"
+            : "transparent",
+          backdropFilter: isScrolled ? "blur(20px)" : "none",
+          WebkitBackdropFilter: isScrolled ? "blur(20px)" : "none",
+          borderBottom: isScrolled
+            ? "1px solid rgba(56, 189, 248, 0.15)"
+            : "1px solid transparent",
+          padding: isScrolled ? "14px 24px" : "24px 32px",
+          transition: "all 0.35s cubic-bezier(0.22, 1, 0.36, 1)",
+          boxShadow: isScrolled ? "0 10px 30px rgba(0,0,0,0.5)" : "none",
+        }}
+      >
         <div
           style={{
-            position: "absolute",
-            top: "1.8rem",
-            left: "2.2rem",
-            right: "2.2rem",
+            maxWidth: 1380,
+            margin: "0 auto",
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
           }}
         >
-          {/* SOUND button — top-left with equalizer */}
-          <button
-            onClick={() => {
-              playClickFx();
-              setSoundOn((s) => !s);
-            }}
-            onMouseEnter={playHoverFx}
-            style={{
-              ...labelStyle,
-              background: "none",
-              border: "none",
-              borderBottom: soundOn ? "1px solid #d4924a" : "1px solid rgba(242,236,225,0.4)",
-              paddingBottom: "3px",
-              cursor: "pointer",
-              pointerEvents: "auto",
-              transition: "all 0.3s ease",
-              color: soundOn ? "#d4924a" : "#f2ece1",
-              display: "flex",
-              alignItems: "center",
-              gap: "0.5rem",
-            }}
-          >
-            <span>Sound</span>
-            {soundOn ? (
-              <span style={{ display: "flex", gap: "2px", alignItems: "flex-end", height: "10px" }}>
-                <span style={{ width: 2, height: "10px", background: "#d4924a", animation: "equalizer 0.8s ease-in-out infinite" }} />
-                <span style={{ width: 2, height: "6px", background: "#d4924a", animation: "equalizer 0.6s ease-in-out infinite 0.2s" }} />
-                <span style={{ width: 2, height: "8px", background: "#d4924a", animation: "equalizer 0.9s ease-in-out infinite 0.4s" }} />
-              </span>
-            ) : (
-              <span
+          {/* LEFT: BRAND LOGO + SOUND TOGGLE */}
+          <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+            <div
+              onClick={() => scrollToSection("top")}
+              onMouseEnter={playHoverFx}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+                cursor: "pointer",
+              }}
+            >
+              <img
+                src="/logo.png"
+                alt="GetVeevz Logo"
                 style={{
-                  width: 6,
-                  height: 6,
-                  borderRadius: "50%",
-                  backgroundColor: "rgba(242,236,225,0.4)",
-                  display: "inline-block",
+                  width: 32,
+                  height: 32,
+                  objectFit: "contain",
+                  filter: "drop-shadow(0 0 10px rgba(37, 99, 235, 0.5))",
                 }}
               />
-            )}
-          </button>
+              <span
+                style={{
+                  fontFamily: FONTS.sans,
+                  fontSize: "1.05rem",
+                  fontWeight: 800,
+                  letterSpacing: "-0.02em",
+                  color: COLORS.ice,
+                }}
+              >
+                GetVeevz
+              </span>
+            </div>
 
-          {/* NEXUSMEDIA centered wordmark */}
-          <span
-            onClick={() => scrollToSection("top")}
-            onMouseEnter={playHoverFx}
+            {/* SOUND button */}
+            <button
+              onClick={() => {
+                playClickFx();
+                setSoundOn((s) => !s);
+              }}
+              onMouseEnter={playHoverFx}
+              style={{
+                fontFamily: FONTS.body,
+                fontSize: "0.68rem",
+                fontWeight: 600,
+                letterSpacing: "0.15em",
+                textTransform: "uppercase",
+                background: soundOn ? "rgba(37, 99, 235, 0.15)" : "rgba(241, 245, 249, 0.05)",
+                border: soundOn ? "1px solid #38BDF8" : "1px solid rgba(241, 245, 249, 0.15)",
+                borderRadius: 20,
+                padding: "4px 10px",
+                cursor: "pointer",
+                transition: "all 0.3s ease",
+                color: soundOn ? COLORS.sky : "rgba(241, 245, 249, 0.6)",
+                display: "flex",
+                alignItems: "center",
+                gap: "6px",
+              }}
+            >
+              <span>Sound</span>
+              {soundOn ? (
+                <span style={{ display: "flex", gap: "2px", alignItems: "flex-end", height: "10px" }}>
+                  <span style={{ width: 2, height: "10px", background: COLORS.sky, animation: "equalizer 0.8s ease-in-out infinite" }} />
+                  <span style={{ width: 2, height: "6px", background: COLORS.sky, animation: "equalizer 0.6s ease-in-out infinite 0.2s" }} />
+                  <span style={{ width: 2, height: "8px", background: COLORS.sky, animation: "equalizer 0.9s ease-in-out infinite 0.4s" }} />
+                </span>
+              ) : (
+                <span
+                  style={{
+                    width: 5,
+                    height: 5,
+                    borderRadius: "50%",
+                    backgroundColor: "rgba(241, 245, 249, 0.4)",
+                    display: "inline-block",
+                  }}
+                />
+              )}
+            </button>
+          </div>
+
+          {/* DESKTOP CENTER NAVIGATION LINKS (ACTIVE STATE HIGHLIGHT) */}
+          <nav
             style={{
-              fontFamily: "'Inter', system-ui, sans-serif",
-              fontSize: "0.7rem",
-              fontWeight: 300,
-              letterSpacing: "0.35em",
-              color: "#f2ece1",
-              textTransform: "uppercase",
-              opacity: 0.9,
-              cursor: "pointer",
-              pointerEvents: "auto",
+              display: "none",
+              alignItems: "center",
+              gap: "24px",
             }}
+            className="hidden md:flex"
           >
-            nexusmedia
-          </span>
+            {SECTIONS.slice(1, 7).map((sec) => {
+              const isActive = activeSection === sec.id;
+              return (
+                <button
+                  key={sec.id}
+                  onClick={() => scrollToSection(sec.id)}
+                  onMouseEnter={playHoverFx}
+                  style={{
+                    background: "none",
+                    border: "none",
+                    fontFamily: FONTS.sans,
+                    fontSize: "0.8rem",
+                    fontWeight: 600,
+                    letterSpacing: "0.04em",
+                    color: isActive ? COLORS.sky : "rgba(241, 245, 249, 0.7)",
+                    cursor: "pointer",
+                    padding: "4px 0",
+                    position: "relative",
+                    transition: "color 0.25s ease",
+                  }}
+                >
+                  {sec.name}
+                  {isActive && (
+                    <span
+                      style={{
+                        position: "absolute",
+                        bottom: -2,
+                        left: 0,
+                        right: 0,
+                        height: 2,
+                        background: "linear-gradient(90deg, #2563EB, #38BDF8)",
+                        borderRadius: 2,
+                      }}
+                    />
+                  )}
+                </button>
+              );
+            })}
+          </nav>
 
-          {/* RIGHT: 3-LINE MENU BUTTON */}
-          <div style={{ display: "flex", alignItems: "center", pointerEvents: "auto" }}>
+          {/* RIGHT: CTA BUTTON + MENU BUTTON */}
+          <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
+            {/* PERSISTENT CTA */}
+            <a
+              href="https://calendly.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              onMouseEnter={playHoverFx}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "8px",
+                fontFamily: FONTS.sans,
+                fontSize: "0.78rem",
+                fontWeight: 700,
+                letterSpacing: "0.06em",
+                textTransform: "uppercase",
+                color: "#FFFFFF",
+                background: "linear-gradient(135deg, #2563EB 0%, #38BDF8 100%)",
+                padding: isScrolled ? "8px 18px" : "10px 22px",
+                borderRadius: 10,
+                textDecoration: "none",
+                boxShadow: "0 4px 20px rgba(37, 99, 235, 0.35)",
+                transition: "all 0.3s ease",
+              }}
+            >
+              <Calendar size={14} />
+              <span className="hidden sm:inline">Book a Strategy Call</span>
+              <span className="sm:hidden">Book Call</span>
+            </a>
+
+            {/* 3-LINE MENU DRAWER BUTTON */}
             <button
               onClick={() => {
                 playClickFx();
@@ -293,90 +419,91 @@ export default function Chrome({ progress }) {
               }}
               onMouseEnter={playHoverFx}
               style={{
-                ...labelStyle,
-                background: "none",
-                border: "none",
+                background: "rgba(17, 24, 39, 0.7)",
+                border: "1px solid rgba(56, 189, 248, 0.25)",
+                borderRadius: 10,
+                padding: "8px 14px",
+                color: COLORS.ice,
                 display: "flex",
                 alignItems: "center",
-                gap: "0.65rem",
+                gap: "8px",
                 cursor: "pointer",
-                transition: "opacity 0.3s ease",
-                padding: "4px 6px",
+                fontFamily: FONTS.body,
+                fontSize: "0.74rem",
+                fontWeight: 600,
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                transition: "all 0.25s ease",
               }}
             >
-              Menu
-              <span
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "4px",
-                }}
-              >
-                <span style={{ width: 19, height: 1.5, background: "#f2ece1", display: "block" }} />
-                <span style={{ width: 19, height: 1.5, background: "#f2ece1", display: "block" }} />
-                <span style={{ width: 19, height: 1.5, background: "#f2ece1", display: "block" }} />
-              </span>
+              <span>Menu</span>
+              <Menu size={16} color={COLORS.sky} />
             </button>
           </div>
         </div>
+      </header>
 
-        {/* ── SCROLL-TO-ENTER INDICATOR ─────────────────────────── */}
+      {/* ── SCROLL-TO-ENTER INDICATOR (INTRO ONLY) ─────────────────────────── */}
+      <div
+        style={{
+          position: "fixed",
+          bottom: "2.5rem",
+          left: 0,
+          right: 0,
+          zIndex: 50,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "0.7rem",
+          opacity: introHintOpacity,
+          pointerEvents: introHintOpacity > 0.1 ? "auto" : "none",
+          transition: "opacity 0.4s ease",
+        }}
+      >
         <div
+          onClick={() => scrollToSection("results-section")}
           style={{
-            position: "absolute",
-            bottom: "2.5rem",
-            left: 0,
-            right: 0,
+            width: 42,
+            height: 42,
+            borderRadius: "50%",
+            border: "1px solid rgba(56, 189, 248, 0.4)",
+            background: "rgba(17, 24, 39, 0.7)",
             display: "flex",
-            flexDirection: "column",
             alignItems: "center",
-            gap: "0.7rem",
-            opacity: introHintOpacity,
-            transition: "opacity 0.4s ease",
+            justifyContent: "center",
+            color: COLORS.sky,
+            fontSize: "0.95rem",
+            animation: "bounceDown 2s ease-in-out infinite",
+            cursor: "pointer",
+            boxShadow: "0 0 20px rgba(37, 99, 235, 0.3)",
           }}
         >
-          {/* Animated circle with arrow */}
-          <div
-            onClick={() => scrollToSection("results-section")}
-            style={{
-              width: 42,
-              height: 42,
-              borderRadius: "50%",
-              border: "1px solid rgba(242,236,225,0.35)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "#f2ece1",
-              fontSize: "0.9rem",
-              animation: "bounceDown 2s ease-in-out infinite",
-              cursor: "pointer",
-              pointerEvents: "auto",
-            }}
-          >
-            ↓
-          </div>
-          <span
-            style={{
-              ...labelStyle,
-              fontSize: "0.6rem",
-              opacity: 0.65,
-              letterSpacing: "0.25em",
-            }}
-          >
-            Scroll to enter
-          </span>
+          ↓
         </div>
+        <span
+          style={{
+            fontFamily: FONTS.body,
+            fontSize: "0.62rem",
+            fontWeight: 600,
+            letterSpacing: "0.25em",
+            textTransform: "uppercase",
+            color: "rgba(241, 245, 249, 0.6)",
+          }}
+        >
+          Scroll to explore
+        </span>
       </div>
 
-      {/* ── FULL SCREEN NAVIGATION DRAWER WITH BUTTONS FOR EVERY SCROLL ── */}
+      {/* ── FULL SCREEN NAVIGATION DRAWER WITH EVERY SECTION BUTTON ── */}
       {menuOpen && (
         <div
           style={{
             position: "fixed",
             inset: 0,
             zIndex: 1000,
-            background: "rgba(10, 8, 7, 0.8)",
+            background: "rgba(5, 5, 8, 0.85)",
             backdropFilter: "blur(24px)",
+            WebkitBackdropFilter: "blur(24px)",
             display: "flex",
             justifyContent: "flex-end",
             animation: "fadeIn 0.25s ease",
@@ -388,142 +515,173 @@ export default function Chrome({ progress }) {
               width: "100%",
               maxWidth: "480px",
               height: "100%",
-              background: "linear-gradient(165deg, #14110e 0%, #0a0807 100%)",
-              borderLeft: "1px solid rgba(212,146,74,0.3)",
-              padding: "2.5rem 2.2rem",
+              background: "linear-gradient(165deg, #111827 0%, #050508 100%)",
+              borderLeft: "1px solid rgba(56, 189, 248, 0.3)",
+              padding: "2.5rem 2rem",
               display: "flex",
               flexDirection: "column",
               justifyContent: "space-between",
-              boxShadow: "-24px 0 70px rgba(0,0,0,0.85)",
+              boxShadow: "-24px 0 70px rgba(0, 0, 0, 0.85)",
               overflowY: "auto",
-              animation: "slideInRight 0.35s cubic-bezier(0.22,1,0.36,1)",
+              animation: "slideInRight 0.35s cubic-bezier(0.22, 1, 0.36, 1)",
             }}
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Drawer Header */}
             <div>
+              {/* Drawer Header */}
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "2rem" }}>
-                <span
-                  style={{
-                    fontFamily: "'Inter', system-ui, sans-serif",
-                    fontSize: "0.72rem",
-                    letterSpacing: "0.25em",
-                    textTransform: "uppercase",
-                    color: "#d4924a",
-                    fontWeight: 600,
-                  }}
-                >
-                  Explore Sections
-                </span>
+                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                  <img src="/logo.png" alt="GetVeevz Logo" style={{ width: 28, height: 28 }} />
+                  <span
+                    style={{
+                      fontFamily: FONTS.sans,
+                      fontSize: "0.85rem",
+                      letterSpacing: "0.2em",
+                      textTransform: "uppercase",
+                      color: COLORS.sky,
+                      fontWeight: 700,
+                    }}
+                  >
+                    Site Navigation
+                  </span>
+                </div>
                 <button
                   onClick={() => setMenuOpen(false)}
                   style={{
-                    background: "rgba(255,255,255,0.06)",
-                    border: "1px solid rgba(255,255,255,0.15)",
-                    color: "#f2ece1",
+                    background: "rgba(255, 255, 255, 0.06)",
+                    border: "1px solid rgba(255, 255, 255, 0.15)",
+                    color: COLORS.ice,
                     width: "36px",
                     height: "36px",
                     borderRadius: "50%",
                     cursor: "pointer",
-                    fontSize: "1rem",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                     transition: "all 0.25s ease",
                   }}
-                  onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(212,146,74,0.3)")}
-                  onMouseLeave={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.06)")}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(37, 99, 235, 0.3)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = "rgba(255, 255, 255, 0.06)")}
                 >
-                  ✕
+                  <X size={18} />
                 </button>
               </div>
 
-              {/* ⚡ SECTION BUTTONS (ONE FOR EVERY SCROLL) */}
-              <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                {SECTIONS.map((sec) => (
-                  <button
-                    key={sec.id}
-                    onClick={() => scrollToSection(sec.id)}
-                    style={{
-                      background: sec.highlight
-                        ? "linear-gradient(135deg, rgba(212,146,74,0.22) 0%, rgba(212,146,74,0.08) 100%)"
-                        : "rgba(255,255,255,0.03)",
-                      border: sec.highlight
-                        ? "1px solid rgba(212,146,74,0.55)"
-                        : "1px solid rgba(255,255,255,0.08)",
-                      borderRadius: "12px",
-                      padding: "14px 18px",
-                      textAlign: "left",
-                      cursor: "pointer",
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      transition: "all 0.3s cubic-bezier(0.22,1,0.36,1)",
-                      boxShadow: sec.highlight ? "0 4px 20px rgba(212,146,74,0.15)" : "none",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = sec.highlight
-                        ? "linear-gradient(135deg, rgba(212,146,74,0.35) 0%, rgba(212,146,74,0.18) 100%)"
-                        : "rgba(212,146,74,0.14)";
-                      e.currentTarget.style.borderColor = "#e8c77a";
-                      e.currentTarget.style.transform = "translateX(6px)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = sec.highlight
-                        ? "linear-gradient(135deg, rgba(212,146,74,0.22) 0%, rgba(212,146,74,0.08) 100%)"
-                        : "rgba(255,255,255,0.03)";
-                      e.currentTarget.style.borderColor = sec.highlight
-                        ? "1px solid rgba(212,146,74,0.55)"
-                        : "rgba(255,255,255,0.08)";
-                      e.currentTarget.style.transform = "translateX(0)";
-                    }}
-                  >
-                    <div>
-                      <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "3px" }}>
-                        <span
+              {/* Section List Items */}
+              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                {SECTIONS.map((sec) => {
+                  const isActive = activeSection === sec.id;
+                  return (
+                    <button
+                      key={sec.id}
+                      onClick={() => scrollToSection(sec.id)}
+                      style={{
+                        background: isActive
+                          ? "linear-gradient(135deg, rgba(37, 99, 235, 0.35) 0%, rgba(56, 189, 248, 0.15) 100%)"
+                          : sec.highlight
+                          ? "rgba(37, 99, 235, 0.1)"
+                          : "rgba(255, 255, 255, 0.02)",
+                        border: isActive
+                          ? "1px solid #38BDF8"
+                          : sec.highlight
+                          ? "1px solid rgba(56, 189, 248, 0.3)"
+                          : "1px solid rgba(255, 255, 255, 0.06)",
+                        borderRadius: "12px",
+                        padding: "12px 16px",
+                        textAlign: "left",
+                        cursor: "pointer",
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        transition: "all 0.25s ease",
+                        transform: isActive ? "translateX(4px)" : "none",
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = "rgba(37, 99, 235, 0.25)";
+                        e.currentTarget.style.borderColor = COLORS.sky;
+                        e.currentTarget.style.transform = "translateX(6px)";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = isActive
+                          ? "linear-gradient(135deg, rgba(37, 99, 235, 0.35) 0%, rgba(56, 189, 248, 0.15) 100%)"
+                          : sec.highlight
+                          ? "rgba(37, 99, 235, 0.1)"
+                          : "rgba(255, 255, 255, 0.02)";
+                        e.currentTarget.style.borderColor = isActive
+                          ? "#38BDF8"
+                          : sec.highlight
+                          ? "1px solid rgba(56, 189, 248, 0.3)"
+                          : "rgba(255, 255, 255, 0.06)";
+                        e.currentTarget.style.transform = isActive ? "translateX(4px)" : "none";
+                      }}
+                    >
+                      <div>
+                        <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "2px" }}>
+                          <span
+                            style={{
+                              fontFamily: FONTS.body,
+                              fontSize: "0.65rem",
+                              color: COLORS.sky,
+                              fontWeight: 700,
+                            }}
+                          >
+                            {sec.num}
+                          </span>
+                          <span
+                            style={{
+                              fontFamily: FONTS.sans,
+                              fontSize: "1.05rem",
+                              color: COLORS.ice,
+                              fontWeight: 600,
+                            }}
+                          >
+                            {sec.name}
+                          </span>
+                        </div>
+                        <div
                           style={{
-                            fontFamily: "'Inter', system-ui, sans-serif",
-                            fontSize: "0.65rem",
-                            color: "#d4924a",
-                            fontWeight: 600,
-                            letterSpacing: "0.1em",
+                            fontFamily: FONTS.body,
+                            fontSize: "0.72rem",
+                            color: COLORS.textMuted,
                           }}
                         >
-                          {sec.num}
-                        </span>
-                        <span
-                          style={{
-                            fontFamily: "'Cormorant Garamond', Georgia, serif",
-                            fontSize: "1.25rem",
-                            color: "#f2ece1",
-                            fontWeight: 500,
-                          }}
-                        >
-                          {sec.name}
-                        </span>
+                          {sec.desc}
+                        </div>
                       </div>
-                      <div
-                        style={{
-                          fontFamily: "'Inter', system-ui, sans-serif",
-                          fontSize: "0.72rem",
-                          color: "rgba(242,236,225,0.55)",
-                          lineHeight: 1.35,
-                        }}
-                      >
-                        {sec.desc}
-                      </div>
-                    </div>
-                    <span style={{ color: "#e8c77a", fontSize: "1.1rem", opacity: 0.8, marginLeft: "12px" }}>→</span>
-                  </button>
-                ))}
+                      <ArrowRight size={16} color={COLORS.sky} />
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
-            {/* Drawer Footer */}
-            <div style={{ borderTop: "1px solid rgba(255,255,255,0.08)", paddingTop: "1.2rem", marginTop: "1.5rem", textAlign: "center" }}>
-              <span style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(242,236,225,0.35)" }}>
-                NexusMedia
-              </span>
+            {/* Drawer Footer CTA */}
+            <div style={{ borderTop: "1px solid rgba(255, 255, 255, 0.08)", paddingTop: "1.5rem", marginTop: "1.5rem" }}>
+              <a
+                href="https://calendly.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: 10,
+                  background: "linear-gradient(135deg, #2563EB 0%, #38BDF8 100%)",
+                  color: "#FFFFFF",
+                  padding: "14px 20px",
+                  borderRadius: 12,
+                  fontWeight: 700,
+                  fontSize: "0.85rem",
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  textDecoration: "none",
+                  boxShadow: "0 8px 25px rgba(37, 99, 235, 0.4)",
+                }}
+              >
+                <Calendar size={16} />
+                <span>Book a Strategy Call</span>
+              </a>
             </div>
           </div>
         </div>

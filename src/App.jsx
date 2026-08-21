@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import "./utils/gsapSetup";
 import Chrome from "./ui/common/Chrome.jsx";
-import BackgroundMotion from "./ui/common/BackgroundMotion.jsx";
+import Hero from "./ui/sections/Hero/Hero.jsx";
+import ProofMarquee from "./ui/sections/Proof/ProofMarquee.jsx";
 import BookACall from "./ui/sections/10-BookACall/BookACall.jsx";
 import ParallaxFloatingSection from "./ui/sections/ParallaxFloating/ParallaxFloatingSection.jsx";
 import ResultsSection from "./ui/sections/2-Results/ResultsSection.jsx";
@@ -9,134 +10,98 @@ import ResultsStreamSection from "./ui/sections/2-Results/ImageStreamHero.jsx";
 import HookSection from "./ui/sections/1-Hook/HookSection.jsx";
 import PortalTransition from "./ui/sections/4-PortalTransition/PortalTransition.jsx";
 import ProblemSolutionSection from "./ui/sections/3-ProblemSolution/ProblemSolutionSection.jsx";
+import WhatWeDo from "./ui/sections/WhatWeDo/WhatWeDo.jsx";
+import HowItWorks from "./ui/sections/HowItWorks/HowItWorks.jsx";
+import CaseStudies from "./ui/sections/CaseStudies/CaseStudies.jsx";
 import EditorialHeroSection from "./ui/sections/5-EditorialHero/EditorialHeroSection.jsx";
 import MultiplierEngine from "./ui/sections/6-MultiplierEngine/MultiplierEngine.jsx";
 import SpecificationMatrix from "./ui/sections/7-SpecificationMatrix/SpecificationMatrix.jsx";
 import OnboardingSection from "./ui/sections/8-Onboarding/OnboardingSection.jsx";
+import WhyGetVeevz from "./ui/sections/WhyGetVeevz/WhyGetVeevz.jsx";
 import PricingSection from "./ui/sections/9-Pricing/PricingSection.jsx";
-import { COLORS, FONTS } from "./utils/theme";
+import FAQ from "./ui/sections/FAQ/FAQ.jsx";
+import FinalCTA from "./ui/sections/FinalCTA/FinalCTA.jsx";
+import Footer from "./ui/common/Footer.jsx";
 
-/**
- * IntroHero — static replacement for the former 3D intro scene.
- * Keeps the brand mark + tagline from the original intro beat
- * ("NEXUSMEDIA / Distribution at scale") so the persistent Chrome
- * header and "scroll to enter" hint have a coherent landing surface.
- */
-function IntroHero() {
-  const ref = useRef(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setVisible(true);
-      },
-      { threshold: 0.3 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <section
-      id="top"
-      ref={ref}
-      style={{
-        position: "relative",
-        minHeight: "100vh",
-        background: COLORS.bg,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        textAlign: "center",
-        padding: "120px 24px",
-        overflow: "hidden",
-      }}
-    >
-      <BackgroundMotion />
-      <div
-        style={{
-          position: "relative",
-          zIndex: 2,
-          opacity: visible ? 1 : 0,
-          transform: visible ? "translateY(0)" : "translateY(24px)",
-          transition: "opacity 1.2s ease, transform 1.2s cubic-bezier(0.22,1,0.36,1)",
-        }}
-      >
-        <h1
-          style={{
-            fontFamily: FONTS.display,
-            fontSize: "clamp(2.5rem, 6vw, 5.5rem)",
-            margin: 0,
-            fontWeight: 300,
-            letterSpacing: "0.35em",
-            lineHeight: 1.1,
-            color: COLORS.text,
-            textIndent: "0.35em",
-          }}
-        >
-          NEXUSMEDIA
-        </h1>
-        <p
-          style={{
-            fontFamily: FONTS.body,
-            fontSize: "clamp(0.6rem, 1vw, 0.8rem)",
-            opacity: 0.7,
-            marginTop: "1.2rem",
-            letterSpacing: "0.35em",
-            textTransform: "uppercase",
-            fontWeight: 300,
-            color: COLORS.text,
-          }}
-        >
-          Distribution at scale
-        </p>
-      </div>
-    </section>
-  );
-}
+const NAV_LINKS = [
+  { name: "Hero", id: "top" },
+  { name: "Proof", id: "results-section" },
+  { name: "The Problem", id: "problem-solution-section" },
+  { name: "What We Do", id: "what-we-do-section" },
+  { name: "How It Works", id: "how-it-works-section" },
+  { name: "Case Studies", id: "case-studies-section" },
+  { name: "Multiplier Engine", id: "multiplier-engine-section" },
+  { name: "Why GetVeevz", id: "why-getveevz-section" },
+  { name: "Pricing", id: "pricing-section" },
+  { name: "FAQ", id: "faq-section" },
+  { name: "Book Call", id: "final-cta-section" },
+];
 
 export default function App() {
   // Shared Dark Mode State for Editorial Hero, Multiplier Engine, and Specification Matrix
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(true);
 
   return (
     <>
+      {/* ── PERSISTENT CHROME NAVIGATION & SOUND SYNTH ── */}
       <Chrome />
 
-      {/* ── STATIC INTRO (replaces the 3D hero) ───────────────── */}
-      <IntroHero />
+      {/* ── 1. HERO ── */}
+      <Hero />
 
+      {/* ── 2. PROOF (MARQUEE & STATS) ── */}
+      <ProofMarquee />
+
+      {/* ── PRESERVED SECTIONS: BOOK CALL & PARALLAX FLOATING ── */}
       <BookACall />
       <ParallaxFloatingSection />
 
-      {/* ── 2A: ORIGINAL RESULTS CAROUSEL SECTION ──────────────── */}
+      {/* ── PRESERVED RESULTS CAROUSEL & 3D CORRIDOR ── */}
       <ResultsSection />
-
-      {/* ── 2B: NEW 3D PERSPECTIVE CORRIDOR RESULTS SECTION ───── */}
       <ResultsStreamSection />
 
+      {/* ── PRESERVED HOOK & PORTAL TRANSITION ── */}
       <HookSection />
       <PortalTransition />
+
+      {/* ── 3. THE PROBLEM ── */}
       <ProblemSolutionSection />
 
-      {/* ── 5: EDITORIAL HERO STATEMENT COVER (CONTROLS DARK MODE) ── */}
+      {/* ── 4. WHAT WE DO ── */}
+      <WhatWeDo />
+
+      {/* ── 5. HOW IT WORKS ── */}
+      <HowItWorks />
+
+      {/* ── 6. CASE STUDIES ── */}
+      <CaseStudies />
+
+      {/* ── 7. EDITORIAL HERO STATEMENT ── */}
       <EditorialHeroSection isDark={isDark} setIsDark={setIsDark} />
 
-      {/* ── 6: MULTIPLIER ENGINE BREAKDOWN (SYNCS WITH DARK MODE) ──── */}
+      {/* ── 8. MULTIPLIER ENGINE BREAKDOWN ── */}
       <MultiplierEngine isDark={isDark} />
 
-      {/* ── 7: SPECIFICATION MATRIX (SYNCS WITH DARK MODE) ─────────── */}
+      {/* ── 9. SPECIFICATION MATRIX ── */}
       <SpecificationMatrix isDark={isDark} />
 
-      {/* ── 8: ONBOARDING ROADMAP ─────────────────────────────────── */}
+      {/* ── 10. ONBOARDING ROADMAP ── */}
       <OnboardingSection />
 
-      {/* ── 9: PRICING PACKAGES ───────────────────────────────────── */}
+      {/* ── 11. WHY GETVEEVZ ── */}
+      <WhyGetVeevz />
+
+      {/* ── 12. PRICING PACKAGES ── */}
       <PricingSection />
+
+      {/* ── 13. FAQ ACCORDION ── */}
+      <FAQ />
+
+      {/* ── 14. FINAL CTA ── */}
+      <FinalCTA />
+
+      {/* ── 15. FOOTER ── */}
+      <Footer navLinks={NAV_LINKS} />
     </>
   );
 }

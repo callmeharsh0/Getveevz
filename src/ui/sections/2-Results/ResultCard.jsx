@@ -22,7 +22,7 @@ export default function ResultCard({ data, transformStyle, isActive, countTrigge
       if (videoLayerRef.current) videoLayerRef.current.style.transform = `translate(${-px * 10}px, ${-py * 10}px) scale(1.08)`;
       if (glowRef.current) {
         glowRef.current.style.opacity = 1;
-        glowRef.current.style.background = `radial-gradient(circle at ${(px + 0.5) * 100}% ${(py + 0.5) * 100}%, rgba(212,146,74,0.18), transparent 60%)`;
+        glowRef.current.style.background = `radial-gradient(circle at ${(px + 0.5) * 100}% ${(py + 0.5) * 100}%, rgba(56,189,248,0.25), transparent 60%)`;
       }
     },
     [tiltStrength]
@@ -69,8 +69,8 @@ export default function ResultCard({ data, transformStyle, isActive, countTrigge
           overflow: "hidden",
           position: "relative",
           background: COLORS.surface,
-          border: isActive ? `1px solid ${COLORS.borderAccent}` : `1px solid ${COLORS.borderSubtle}`,
-          boxShadow: isActive ? "0 34px 80px rgba(0,0,0,0.6)" : "0 14px 34px rgba(0,0,0,0.4)",
+          border: isActive ? `1px solid ${COLORS.sky}` : `1px solid ${COLORS.borderSubtle}`,
+          boxShadow: isActive ? "0 34px 80px rgba(37,99,235,0.4)" : "0 14px 34px rgba(0,0,0,0.5)",
           transition: "transform 0.35s cubic-bezier(0.22,1,0.36,1), border 0.4s ease, box-shadow 0.4s ease",
         }}
       >
@@ -92,7 +92,7 @@ export default function ResultCard({ data, transformStyle, isActive, countTrigge
           style={{
             position: "absolute",
             inset: 0,
-            background: "linear-gradient(to top, rgba(14,12,10,0.92) 0%, rgba(14,12,10,0.15) 50%, transparent 75%)",
+            background: "linear-gradient(to top, rgba(5,5,8,0.92) 0%, rgba(5,5,8,0.2) 50%, transparent 75%)",
           }}
         />
 
@@ -102,19 +102,19 @@ export default function ResultCard({ data, transformStyle, isActive, countTrigge
               <StatsCounter
                 target={data.views}
                 trigger={countTrigger}
-                style={{ fontSize: 32, fontWeight: 500, display: "block", lineHeight: 1.1 }}
+                style={{ fontSize: 32, fontWeight: 700, display: "block", lineHeight: 1.1, color: COLORS.ice }}
               />
               <div style={{ fontSize: 12, color: COLORS.textMuted, marginTop: 5, letterSpacing: 0.3 }}>
                 {data.client} · {data.platform}
               </div>
               {data.tag && (
-                <div style={{ fontSize: 10, color: COLORS.accent, marginTop: 6, textTransform: "uppercase", letterSpacing: 1 }}>
+                <div style={{ fontSize: 10, color: COLORS.sky, marginTop: 6, textTransform: "uppercase", letterSpacing: 1, fontWeight: 600 }}>
                   {data.tag}
                 </div>
               )}
             </>
           ) : (
-            <span style={{ fontFamily: FONTS.display, color: COLORS.text, fontSize: 20, fontWeight: 500 }}>
+            <span style={{ fontFamily: FONTS.sans, color: COLORS.text, fontSize: 20, fontWeight: 700 }}>
               {formatCompactNumber(data.views)}+
             </span>
           )}

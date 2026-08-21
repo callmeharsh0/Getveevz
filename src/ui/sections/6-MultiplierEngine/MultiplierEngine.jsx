@@ -85,8 +85,8 @@ export default function MultiplierEngine({ isDark = false }) {
   // Pure Seamless Paper Grain Texture
   const paperNoiseSvg = `data:image/svg+xml;utf8,<svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg"><filter id="paperGrain"><feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="4" stitchTiles="stitch"/><feColorMatrix type="matrix" values="0.33 0.33 0.33 0 0  0.33 0.33 0.33 0 0  0.33 0.33 0.33 0 0  0 0 0 0.5 0"/></filter><rect width="100%" height="100%" filter="url(%23paperGrain)" opacity="0.6"/></svg>`;
 
-  const lightBg = "linear-gradient(180deg, #6B8FFF 0%, #82A4FF 40%, #A4C3FF 70%, #C8DBFF 88%, #FED5CC 96%, #FDE8D0 100%)";
-  const darkBg = "linear-gradient(180deg, #0A0A0E 0%, #0F172A 35%, #111827 70%, #1A1528 90%, #2A170A 100%)";
+  const lightBg = "linear-gradient(180deg, #050508 0%, #111827 50%, #050508 100%)";
+  const darkBg = "linear-gradient(180deg, #050508 0%, #0f172a 35%, #111827 70%, #050508 100%)";
 
   return (
     <section
@@ -365,7 +365,7 @@ export default function MultiplierEngine({ isDark = false }) {
               <div style={{ display: "inline-flex", alignItems: "center", gap: 6, background: isDark ? "rgba(99, 102, 241, 0.15)" : "#EEF2FF", border: `1px solid ${isDark ? "rgba(99, 102, 241, 0.35)" : "#C7D2FE"}`, padding: "3px 12px", borderRadius: 999, marginBottom: 8 }}>
                 <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#4A6BFF" }} />
                 <span style={{ fontSize: "0.64rem", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: isDark ? "#A5B4FC" : "#4A6BFF" }}>
-                  THE NEXUS MULTIPLIER OUTPUT
+                  THE GETVEEVZ MULTIPLIER OUTPUT
                 </span>
               </div>
 
