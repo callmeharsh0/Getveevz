@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# UI test artifacts (screenshots, playwright-cli snapshots)
+.playwright-cli/
+*.png
+!public/**/*.png
+!src/assets/**/*.png
