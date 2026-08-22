@@ -29,11 +29,10 @@ export default function Chrome({ progress }) {
     { num: "04", name: "What We Do", desc: "Clipping, Distribution, Fleet & Tracking", id: "what-we-do-section" },
     { num: "05", name: "How It Works", desc: "4-Step Turnkey Distribution Pipeline", id: "how-it-works-section" },
     { num: "06", name: "Case Studies", desc: "Client Breakdowns & Verified Metrics", id: "case-studies-section", highlight: true },
-    { num: "07", name: "Multiplier Engine", desc: "Algorithmic Retention & Fleet Tech", id: "multiplier-engine-section" },
-    { num: "08", name: "Why GetVeevz", desc: "Distribution Engine vs Video Editor", id: "why-getveevz-section" },
-    { num: "09", name: "Pricing", desc: "Spark, Momentum & Dominate tiers", id: "pricing-section" },
-    { num: "10", name: "FAQ", desc: "Common Questions & Operational Details", id: "faq-section" },
-    { num: "11", name: "Final CTA", desc: "Book Your 1-on-1 Strategy Call", id: "final-cta-section", highlight: true },
+    { num: "07", name: "Why GetVeevz", desc: "Distribution Engine vs Video Editor", id: "why-getveevz-section" },
+    { num: "08", name: "Pricing", desc: "Spark, Momentum & Dominate tiers", id: "pricing-section" },
+    { num: "09", name: "FAQ", desc: "Common Questions & Operational Details", id: "faq-section" },
+    { num: "10", name: "Final CTA", desc: "Book Your 1-on-1 Strategy Call", id: "final-cta-section", highlight: true },
   ];
 
   // Track real page scroll & active section

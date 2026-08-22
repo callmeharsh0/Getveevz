@@ -30,7 +30,7 @@ export default function EditorialHeroSection({ isDark: parentIsDark, setIsDark: 
   const paperNoiseSvg = `data:image/svg+xml;utf8,<svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg"><filter id="paperGrain"><feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="4" stitchTiles="stitch"/><feColorMatrix type="matrix" values="0.33 0.33 0.33 0 0  0.33 0.33 0.33 0 0  0.33 0.33 0.33 0 0  0 0 0 0.5 0"/></filter><rect width="100%" height="100%" filter="url(%23paperGrain)" opacity="0.45"/></svg>`;
 
   const scrollToNext = () => {
-    const el = document.getElementById("multiplier-engine-section");
+    const el = document.getElementById("why-getveevz-section");
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
@@ -561,7 +561,7 @@ export default function EditorialHeroSection({ isDark: parentIsDark, setIsDark: 
             }}
           >
             <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#FFFFFF" }} />
-            EXPLORE THE MULTIPLIER ENGINE
+            EXPLORE WHY GETVEEVZ
           </button>
 
           {/* Minimalist Center Target Indicator */}
