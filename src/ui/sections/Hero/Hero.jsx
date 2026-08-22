@@ -1,457 +1,247 @@
-import { useState, useRef, useEffect } from "react";
-import { ArrowRight, Calendar, Play, Radio, TrendingUp, Sparkles, Share2, Video, Smartphone } from "lucide-react";
-import BackgroundMotion from "../../common/BackgroundMotion";
-import { COLORS, FONTS } from "../../../utils/theme";
+import { useRef } from "react";
+import { ArrowUpRight, Calendar } from "lucide-react";
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from "motion/react";
+import { COLORS, FONTS, MOTION_EASE } from "../../../utils/theme";
+
+const TICKER_ITEMS = [
+  "240M+ VIEWS DELIVERED", "38 CHANNELS SYNDICATING", "TRI-PLATFORM DISPATCH",
+  "96.8% AVG RETENTION", "SHORT-FORM AT SCALE", "INFINITE FEED LOOPS",
+];
 
 export default function Hero() {
   const ref = useRef(null);
-  const [visible, setVisible] = useState(true);
-  const [activePlatform, setActivePlatform] = useState("all");
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
+  const ghostX = useTransform(scrollYProgress, [0, 1], ["0%", "-18%"]);
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, 140]);
+  const fade = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setVisible(true);
-      },
-      { threshold: 0.2 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+  // Magnetic cursor glow
+  const mx = useMotionValue(0.5);
+  const my = useMotionValue(0.5);
+  const glowX = useSpring(useTransform(mx, [0, 1], ["30%", "70%"]), { stiffness: 40, damping: 20 });
+  const glowY = useSpring(useTransform(my, [0, 1], ["30%", "60%"]), { stiffness: 40, damping: 20 });
 
   return (
     <section
       id="top"
       ref={ref}
+      onMouseMove={(e) => {
+        const r = e.currentTarget.getBoundingClientRect();
+        mx.set((e.clientX - r.left) / r.width);
+        my.set((e.clientY - r.top) / r.height);
+      }}
+      className="noise-overlay"
       style={{
         position: "relative",
-        minHeight: "100vh",
-        background: `radial-gradient(ellipse 90% 70% at 50% 30%, #0d1a36 0%, ${COLORS.obsidian} 100%)`,
+        minHeight: "100dvh",
+        background: COLORS.obsidian,
         display: "flex",
         flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        textAlign: "center",
-        padding: "130px 24px 80px",
+        justifyContent: "space-between",
         overflow: "hidden",
       }}
     >
-      <BackgroundMotion />
-
-      {/* Shard Radial Mesh Glow in Hero Background */}
-      <div
+      {/* Cursor-tracking cobalt glow */}
+      <motion.div
+        aria-hidden
         style={{
           position: "absolute",
-          top: "30%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          width: "900px",
-          height: "600px",
-          background: "radial-gradient(circle, rgba(37, 99, 235, 0.22) 0%, rgba(56, 189, 248, 0.08) 45%, transparent 75%)",
+          left: glowX,
+          top: glowY,
+          width: 900,
+          height: 900,
+          x: "-50%",
+          y: "-50%",
+          background: `radial-gradient(circle, rgba(37,99,235,0.16) 0%, rgba(56,189,248,0.05) 45%, transparent 72%)`,
           filter: "blur(90px)",
           pointerEvents: "none",
-          zIndex: 1,
         }}
       />
 
-      <div
+      {/* Blueprint grid */}
+      <div aria-hidden className="blueprint-grid" style={{ position: "absolute", inset: 0, maskImage: "radial-gradient(ellipse 80% 70% at 50% 40%, black 30%, transparent 75%)", pointerEvents: "none" }} />
+
+      {/* Giant outlined ghost word — parallax */}
+      <motion.div
+        aria-hidden
+        style={{
+          position: "absolute",
+          top: "4%",
+          left: "-2%",
+          x: ghostX,
+          fontFamily: FONTS.display,
+          fontSize: "clamp(9rem, 24vw, 26rem)",
+          fontWeight: 700,
+          letterSpacing: "-0.04em",
+          whiteSpace: "nowrap",
+          pointerEvents: "none",
+          zIndex: 0,
+        }}
+        className="text-stroke-faint"
+      >
+        DISTRIBUTION*
+      </motion.div>
+
+      {/* Orbital ring */}
+      <div aria-hidden className="spin-slow" style={{ position: "absolute", top: "12%", right: "-12%", width: 640, height: 640, borderRadius: "50%", border: "1px dashed rgba(56,189,248,0.14)", pointerEvents: "none" }}>
+        <div style={{ position: "absolute", top: -5, left: "50%", width: 10, height: 10, borderRadius: "50%", background: COLORS.sky, boxShadow: "0 0 18px #38BDF8" }} />
+      </div>
+
+      {/* ============ MAIN CONTENT ============ */}
+      <motion.div
         style={{
           position: "relative",
           zIndex: 2,
-          maxWidth: 1200,
+          y: contentY,
+          opacity: fade,
+          maxWidth: 1440,
+          width: "100%",
           margin: "0 auto",
-          opacity: visible ? 1 : 0,
-          transform: visible ? "translateY(0)" : "translateY(28px)",
-          transition: "opacity 1s ease, transform 1s cubic-bezier(0.22, 1, 0.36, 1)",
+          padding: "170px 48px 0",
+          display: "grid",
+          gridTemplateColumns: "minmax(0, 1fr) auto",
+          alignItems: "end",
+          gap: 64,
         }}
       >
-        {/* Eyebrow Pill */}
-        <div
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 10,
-            background: "rgba(17, 24, 39, 0.8)",
-            border: "1px solid rgba(56, 189, 248, 0.3)",
-            padding: "8px 18px",
-            borderRadius: 999,
-            marginBottom: 26,
-            boxShadow: "0 4px 20px rgba(37, 99, 235, 0.25)",
-          }}
-        >
-          <img src="/logo.png" alt="GetVeevz" style={{ width: 18, height: 18, objectFit: "contain" }} />
-          <span
+        <div>
+          {/* Index marker row */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: MOTION_EASE }}
+            style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 28 }}
+          >
+            <span style={{ fontFamily: FONTS.mono, fontSize: "0.7rem", color: COLORS.sky, letterSpacing: "0.2em" }}>[ 001 ]</span>
+            <span className="hairline" style={{ width: 72 }} />
+            <span style={{ fontFamily: FONTS.mono, fontSize: "0.68rem", color: COLORS.textMuted, letterSpacing: "0.28em" }}>MEDIA AGENCY — EST. 2024</span>
+          </motion.div>
+
+          {/* Editorial headline with serif-italic accent */}
+          <h1
             style={{
-              fontFamily: FONTS.body,
-              fontSize: "0.75rem",
-              fontWeight: 700,
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              color: COLORS.sky,
+              fontFamily: FONTS.display,
+              fontSize: "clamp(3rem, 7.2vw, 7rem)",
+              fontWeight: 600,
+              lineHeight: 0.98,
+              letterSpacing: "-0.03em",
+              margin: 0,
+              color: COLORS.ice,
+              textWrap: "balance",
             }}
           >
-            THE CONTENT DISTRIBUTION ENGINE
-          </span>
+            {["We turn long-form", "into an"].map((line, li) => (
+              <span key={li} style={{ display: "block", overflow: "hidden" }}>
+                <motion.span
+                  style={{ display: "block" }}
+                  initial={{ y: "110%" }}
+                  animate={{ y: 0 }}
+                  transition={{ delay: 0.15 + li * 0.1, duration: 1.1, ease: MOTION_EASE }}
+                >
+                  {line}
+                </motion.span>
+              </span>
+            ))}
+            <span style={{ display: "block", overflow: "hidden" }}>
+              <motion.span style={{ display: "block" }} initial={{ y: "110%" }} animate={{ y: 0 }} transition={{ delay: 0.35, duration: 1.1, ease: MOTION_EASE }}>
+                <span
+                  style={{
+                    background: "linear-gradient(120deg, #38BDF8 10%, #2563EB 90%)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                  }}
+                >
+                  infinite feed
+                </span>{" "}
+                <em className="serif-accent" style={{ color: COLORS.ice, fontSize: "0.92em" }}>loop.</em>
+              </motion.span>
+            </span>
+          </h1>
+
+          {/* Sub + CTA row */}
+          <motion.div
+            initial={{ opacity: 0, y: 26 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.65, duration: 1, ease: MOTION_EASE }}
+            style={{ display: "flex", alignItems: "flex-end", gap: 48, marginTop: 44, flexWrap: "wrap" }}
+          >
+            <p style={{ fontFamily: FONTS.body, fontSize: "0.95rem", lineHeight: 1.75, color: COLORS.textMuted, maxWidth: 380, margin: 0 }}>
+              GetVeevz is the distribution engine behind creators and brands — clipping, packaging and syndicating your archive across Reels, Shorts & TikTok on autopilot.
+            </p>
+
+            <a
+              href="https://calendly.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="glow-border"
+              style={{
+                position: "relative",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 14,
+                fontFamily: FONTS.sans,
+                fontSize: "0.82rem",
+                fontWeight: 600,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color: COLORS.obsidian,
+                background: COLORS.sky,
+                padding: "20px 32px",
+                borderRadius: 999,
+                textDecoration: "none",
+                overflow: "hidden",
+                whiteSpace: "nowrap",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.background = "#FFFFFF")}
+              onMouseLeave={(e) => (e.currentTarget.style.background = COLORS.sky)}
+            >
+              <Calendar size={16} />
+              Book a strategy call
+              <ArrowUpRight size={17} />
+            </a>
+          </motion.div>
         </div>
 
-        {/* Main Headline */}
-        <h1
-          style={{
-            fontFamily: FONTS.sans,
-            fontSize: "clamp(2.6rem, 5.8vw, 5.2rem)",
-            margin: "0 auto 20px",
-            fontWeight: 800,
-            letterSpacing: "-0.035em",
-            lineHeight: 1.08,
-            color: COLORS.ice,
-            maxWidth: 1050,
-          }}
-        >
-          Turn Your Long-Form Content Into a{" "}
-          <span
-            style={{
-              background: "linear-gradient(135deg, #38BDF8 0%, #2563EB 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-            }}
-          >
-            Short-Form Distribution Engine
-          </span>
-        </h1>
-
-        {/* Subheadline */}
-        <p
-          style={{
-            fontFamily: FONTS.body,
-            fontSize: "clamp(1rem, 1.4vw, 1.25rem)",
-            opacity: 0.85,
-            margin: "0 auto 38px",
-            maxWidth: 760,
-            lineHeight: 1.6,
-            fontWeight: 400,
-            color: COLORS.textMuted,
-          }}
-        >
-          GetVeevz turns the content you're already creating into coordinated short-form distribution across Instagram, YouTube Shorts and TikTok.
-        </p>
-
-        {/* CTAs Row */}
-        <div
+        {/* Right rail — vertical telemetry */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1, duration: 1 }}
           style={{
             display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: 16,
-            flexWrap: "wrap",
-            marginBottom: 60,
+            flexDirection: "column",
+            alignItems: "flex-end",
+            gap: 14,
+            paddingBottom: 8,
           }}
         >
-          <a
-            href="https://calendly.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 10,
-              fontFamily: FONTS.sans,
-              fontSize: "0.92rem",
-              fontWeight: 700,
-              letterSpacing: "0.08em",
-              textTransform: "uppercase",
-              color: "#FFFFFF",
-              background: "linear-gradient(135deg, #2563EB 0%, #38BDF8 100%)",
-              padding: "16px 34px",
-              borderRadius: 12,
-              textDecoration: "none",
-              boxShadow: "0 12px 35px rgba(37, 99, 235, 0.45)",
-              transition: "transform 0.3s ease, box-shadow 0.3s ease",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = "translateY(-3px) scale(1.02)";
-              e.currentTarget.style.boxShadow = "0 18px 45px rgba(56, 189, 248, 0.55)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = "translateY(0) scale(1)";
-              e.currentTarget.style.boxShadow = "0 12px 35px rgba(37, 99, 235, 0.45)";
-            }}
-          >
-            <Calendar size={18} />
-            <span>Book a Strategy Call</span>
-            <ArrowRight size={18} />
-          </a>
+          {[["VIEWS / MO", "240M+"], ["CHANNELS", "38"], ["RETENTION", "96.8%"]].map(([k, v]) => (
+            <div key={k} style={{ textAlign: "right" }}>
+              <div style={{ fontFamily: FONTS.mono, fontSize: "0.62rem", color: COLORS.textMuted, letterSpacing: "0.22em" }}>{k}</div>
+              <div style={{ fontFamily: FONTS.display, fontSize: "1.5rem", fontWeight: 600, color: COLORS.ice, letterSpacing: "-0.02em" }}>{v}</div>
+            </div>
+          ))}
+        </motion.div>
+      </motion.div>
 
-          <a
-            href="#what-we-do-section"
-            onClick={(e) => {
-              e.preventDefault();
-              document.getElementById("what-we-do-section")?.scrollIntoView({ behavior: "smooth" });
-            }}
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 8,
-              fontFamily: FONTS.sans,
-              fontSize: "0.88rem",
-              fontWeight: 600,
-              letterSpacing: "0.05em",
-              color: COLORS.ice,
-              background: "rgba(17, 24, 39, 0.7)",
-              border: "1px solid rgba(56, 189, 248, 0.25)",
-              padding: "15px 28px",
-              borderRadius: 12,
-              textDecoration: "none",
-              transition: "all 0.3s ease",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = COLORS.sky;
-              e.currentTarget.style.background = "rgba(17, 24, 39, 0.95)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = "rgba(56, 189, 248, 0.25)";
-              e.currentTarget.style.background = "rgba(17, 24, 39, 0.7)";
-            }}
-          >
-            <span>See How It Works</span>
-            <span>↓</span>
-          </a>
-        </div>
-
-        {/* ── HIGH-TECH ANIMATED DISTRIBUTION ENGINE COMPOSITE MOCKUP ── */}
-        <div
-          style={{
-            position: "relative",
-            maxWidth: 1040,
-            margin: "0 auto",
-            background: "linear-gradient(165deg, rgba(17, 24, 39, 0.8) 0%, rgba(5, 5, 8, 0.95) 100%)",
-            border: "1px solid rgba(56, 189, 248, 0.35)",
-            borderRadius: 24,
-            padding: "24px 28px 32px",
-            boxShadow: "0 30px 90px rgba(0, 0, 0, 0.8), 0 0 40px rgba(37, 99, 235, 0.2)",
-          }}
-        >
-          {/* Top Engine Telemetry Bar */}
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              paddingBottom: 18,
-              borderBottom: "1px solid rgba(241, 245, 249, 0.08)",
-              marginBottom: 24,
-              flexWrap: "wrap",
-              gap: 12,
-            }}
-          >
-            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-              <div style={{ display: "flex", gap: 6 }}>
-                <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#EF4444" }} />
-                <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#F59E0B" }} />
-                <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#10B981" }} />
-              </div>
-              <span
-                style={{
-                  fontFamily: FONTS.body,
-                  fontSize: "0.75rem",
-                  fontWeight: 700,
-                  color: COLORS.sky,
-                  letterSpacing: "0.15em",
-                  textTransform: "uppercase",
-                }}
-              >
-                LIVE DISTRIBUTION DISPATCH // TRI-PLATFORM ACTIVE
+      {/* ============ BOTTOM MARQUEE TICKER ============ */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.15, duration: 1 }}
+        style={{ position: "relative", zIndex: 2, borderTop: "1px solid rgba(56,189,248,0.14)", marginTop: 80 }}
+      >
+        <div className="marquee-track" style={{ padding: "18px 0" }}>
+          {[...TICKER_ITEMS, ...TICKER_ITEMS].map((t, i) => (
+            <span key={i} style={{ display: "inline-flex", alignItems: "center", gap: 28, paddingRight: 28 }}>
+              <span style={{ fontFamily: FONTS.mono, fontSize: "0.72rem", letterSpacing: "0.26em", color: i % 2 ? COLORS.sky : COLORS.textMuted, whiteSpace: "nowrap" }}>
+                {t}
               </span>
-            </div>
-
-            <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-              <span
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 6,
-                  background: "rgba(16, 185, 129, 0.15)",
-                  border: "1px solid rgba(16, 185, 129, 0.35)",
-                  color: "#34D399",
-                  padding: "4px 10px",
-                  borderRadius: 6,
-                  fontSize: "0.72rem",
-                  fontWeight: 700,
-                }}
-              >
-                <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#10B981", animation: "pulse 2s infinite" }} />
-                38 Channels Syndicating
-              </span>
-            </div>
-          </div>
-
-          {/* 3 Short-Form Platform Streams */}
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-              gap: 18,
-            }}
-          >
-            {/* Stream 1: YouTube Shorts */}
-            <div
-              style={{
-                background: "rgba(5, 5, 8, 0.75)",
-                border: "1px solid rgba(56, 189, 248, 0.2)",
-                borderRadius: 16,
-                padding: "18px",
-                textAlign: "left",
-                position: "relative",
-                overflow: "hidden",
-              }}
-            >
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                  <div style={{ width: 26, height: 26, borderRadius: 6, background: "rgba(239, 68, 68, 0.2)", display: "flex", alignItems: "center", justifyContent: "center", color: "#EF4444" }}>
-                    <Video size={15} />
-                  </div>
-                  <span style={{ fontFamily: FONTS.sans, fontSize: "0.85rem", fontWeight: 700, color: COLORS.ice }}>YouTube Shorts</span>
-                </div>
-                <span style={{ fontFamily: FONTS.body, fontSize: "0.72rem", color: "#34D399", fontWeight: 700 }}>+840k Today</span>
-              </div>
-
-              <div
-                style={{
-                  height: 140,
-                  borderRadius: 10,
-                  background: "linear-gradient(135deg, #1e293b 0%, #0f172a 100%)",
-                  border: "1px solid rgba(255,255,255,0.08)",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  padding: 12,
-                  position: "relative",
-                }}
-              >
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <span style={{ background: "rgba(0,0,0,0.6)", padding: "2px 8px", borderRadius: 4, fontSize: "0.65rem", color: COLORS.sky, fontWeight: 700 }}>
-                    HOOK 01: 96.8% RETENTION
-                  </span>
-                  <Play size={14} color="#FFFFFF" />
-                </div>
-                <div>
-                  <div style={{ fontFamily: FONTS.sans, fontSize: "0.85rem", fontWeight: 700, color: "#FFFFFF" }}>
-                    "The $50M Strategy No One Talked About..."
-                  </div>
-                  <div style={{ fontSize: "0.7rem", color: "rgba(255,255,255,0.6)", marginTop: 2 }}>
-                    4.2M views · 18 dedicated sub-channels
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Stream 2: Instagram Reels */}
-            <div
-              style={{
-                background: "rgba(5, 5, 8, 0.75)",
-                border: "1px solid rgba(56, 189, 248, 0.2)",
-                borderRadius: 16,
-                padding: "18px",
-                textAlign: "left",
-                position: "relative",
-                overflow: "hidden",
-              }}
-            >
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                  <div style={{ width: 26, height: 26, borderRadius: 6, background: "rgba(236, 72, 153, 0.2)", display: "flex", alignItems: "center", justifyContent: "center", color: "#EC4899" }}>
-                    <Smartphone size={15} />
-                  </div>
-                  <span style={{ fontFamily: FONTS.sans, fontSize: "0.85rem", fontWeight: 700, color: COLORS.ice }}>Instagram Reels</span>
-                </div>
-                <span style={{ fontFamily: FONTS.body, fontSize: "0.72rem", color: "#34D399", fontWeight: 700 }}>+1.2M Today</span>
-              </div>
-
-              <div
-                style={{
-                  height: 140,
-                  borderRadius: 10,
-                  background: "linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%)",
-                  border: "1px solid rgba(255,255,255,0.08)",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  padding: 12,
-                  position: "relative",
-                }}
-              >
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <span style={{ background: "rgba(0,0,0,0.6)", padding: "2px 8px", borderRadius: 4, fontSize: "0.65rem", color: "#EC4899", fontWeight: 700 }}>
-                    VIRAL SPIKE: 142k SHARES
-                  </span>
-                  <Share2 size={14} color="#FFFFFF" />
-                </div>
-                <div>
-                  <div style={{ fontFamily: FONTS.sans, fontSize: "0.85rem", fontWeight: 700, color: "#FFFFFF" }}>
-                    "How We Reached 100k Users In 14 Days"
-                  </div>
-                  <div style={{ fontSize: "0.7rem", color: "rgba(255,255,255,0.6)", marginTop: 2 }}>
-                    6.8M views · 24 dedicated sub-channels
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Stream 3: TikTok Network */}
-            <div
-              style={{
-                background: "rgba(5, 5, 8, 0.75)",
-                border: "1px solid rgba(56, 189, 248, 0.2)",
-                borderRadius: 16,
-                padding: "18px",
-                textAlign: "left",
-                position: "relative",
-                overflow: "hidden",
-              }}
-            >
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                  <div style={{ width: 26, height: 26, borderRadius: 6, background: "rgba(56, 189, 248, 0.2)", display: "flex", alignItems: "center", justifyContent: "center", color: COLORS.sky }}>
-                    <Radio size={15} />
-                  </div>
-                  <span style={{ fontFamily: FONTS.sans, fontSize: "0.85rem", fontWeight: 700, color: COLORS.ice }}>TikTok Network</span>
-                </div>
-                <span style={{ fontFamily: FONTS.body, fontSize: "0.72rem", color: "#34D399", fontWeight: 700 }}>+2.4M Today</span>
-              </div>
-
-              <div
-                style={{
-                  height: 140,
-                  borderRadius: 10,
-                  background: "linear-gradient(135deg, #0c162d 0%, #0f172a 100%)",
-                  border: "1px solid rgba(255,255,255,0.08)",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  padding: 12,
-                  position: "relative",
-                }}
-              >
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <span style={{ background: "rgba(0,0,0,0.6)", padding: "2px 8px", borderRadius: 4, fontSize: "0.65rem", color: COLORS.sky, fontWeight: 700 }}>
-                    FLEET SYNDICATION
-                  </span>
-                  <TrendingUp size={14} color="#FFFFFF" />
-                </div>
-                <div>
-                  <div style={{ fontFamily: FONTS.sans, fontSize: "0.85rem", fontWeight: 700, color: "#FFFFFF" }}>
-                    "Why Building In Public Works Every Time"
-                  </div>
-                  <div style={{ fontSize: "0.7rem", color: "rgba(255,255,255,0.6)", marginTop: 2 }}>
-                    9.1M views · 35 dedicated sub-channels
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+              <span style={{ color: "rgba(56,189,248,0.5)", fontSize: "0.8rem" }}>✳</span>
+            </span>
+          ))}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

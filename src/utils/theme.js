@@ -23,9 +23,11 @@ export const COLORS = {
 };
 
 export const FONTS = {
-  display: "'Cormorant Garamond', serif",
-  sans: "'Outfit', 'Inter', system-ui, -apple-system, sans-serif",
-  body: "'Inter', system-ui, -apple-system, sans-serif",
+  display: "var(--font-display)",
+  sans: "var(--font-sans)",
+  body: "var(--font-sans)",
+  serifAccent: "var(--font-serif-accent)",
+  mono: "var(--font-mono)",
 };
 
 export const EASE = {
@@ -33,3 +35,5 @@ export const EASE = {
   settle: "back.out(1.2)",
   smooth: "power2.inOut",
 };
+
+export const MOTION_EASE = [0.16, 1, 0.3, 1]; // expo-out — the awwwards standard

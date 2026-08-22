@@ -1,442 +1,225 @@
 import React, { useState, useEffect, useRef } from "react";
-import { UploadCloud, Cpu, Radio, BarChart3, CheckCircle2, ChevronRight } from "lucide-react";
-import { COLORS, FONTS } from "../../../utils/theme";
+import { motion, useScroll, useTransform } from "motion/react";
+import { UploadCloud, Cpu, Radio, BarChart3, ArrowUpRight } from "lucide-react";
+import { COLORS, FONTS, MOTION_EASE } from "../../../utils/theme";
 
 const STEPS = [
   {
     num: "01",
-    title: "Give Us Your Content",
-    subtitle: "Zero filming extra sessions required",
+    title: "Give us your content",
+    serif: "raw.",
     icon: UploadCloud,
     tag: "RAW INGESTION",
-    description: "Provide your existing long-form video, podcast episodes, webinar recordings, keynotes, or executive interviews. A simple link or drive folder is all we need.",
-    deliverables: ["Supports any video format or length", "Automatic audio transcription & indexing", "Secure enterprise cloud ingestion"],
-    mockVisual: {
-      header: "RAW INGESTION ENGINE",
-      items: ["🎙️ Episode_48_RawMaster.mov (01:14:22)", "📹 Keynote_SanFrancisco_2026.mp4 (00:46:15)", "💻 Product_Masterclass_Recording.mkv (01:02:10)"],
-      status: "Ingested & Processed: 3 Files Ready",
-    },
+    description: "A simple link or drive folder is all we need — episodes, keynotes, webinars, any format, any length.",
+    deliverables: ["Any format or length", "Auto transcription & indexing", "Secure cloud ingestion"],
+    console: ["$ ingest --source=drive://master-library", "▸ Episode_48_RawMaster.mov (01:14:22) ✓", "▸ Keynote_SF_2026.mp4 (00:46:15) ✓", "▸ 3 files ready — pipeline armed."],
+    accent: COLORS.sky,
   },
   {
     num: "02",
-    title: "We Build the Campaign",
-    subtitle: "Algorithmic Hook Engineering",
+    title: "We build the campaign",
+    serif: "engineered.",
     icon: Cpu,
-    tag: "PROCESSING CORE",
-    description: "Our team extracts high-retention moments, crafts kinetic 9:16 vertical cuts, writes platform-native hooks, and sets up your dedicated channel distribution fleet.",
-    deliverables: ["20–60+ engineered short-form assets", "Custom sound design & typography", "Channel fleet branding & warmup"],
-    mockVisual: {
-      header: "HOOK EXTRACTION & PACKAGING",
-      items: ["⚡ Hook 1: 'The $10M Distribution Secret' (0:34)", "⚡ Hook 2: 'Why 99% of Content Dies' (0:48)", "⚡ Hook 3: 'How to 10x Inbound Flow' (0:42)"],
-      status: "34 High-Retention Cuts Generated",
-    },
+    tag: "HOOK ENGINEERING",
+    description: "High-retention moments extracted, kinetic 9:16 cuts crafted, hooks written platform-native, fleet spun up.",
+    deliverables: ["20–60+ engineered assets", "Sound design & typography", "Fleet branding & warmup"],
+    console: ["$ extract --hooks --kinetic-cuts", "▸ HOOK_01 'The $10M Distribution Secret' 0:34", "▸ HOOK_02 'Why 99% of Content Dies' 0:48", "▸ 34 high-retention cuts generated ✓"],
+    accent: "#F59E0B",
   },
   {
     num: "03",
-    title: "Clips Go Live",
-    subtitle: "Synchronized Tri-Platform Flood",
+    title: "Clips go live",
+    serif: "everywhere.",
     icon: Radio,
-    tag: "DISTRIBUTION DISPATCH",
-    description: "Your clips go live across YouTube Shorts, Instagram Reels, and TikTok via your main brand and dedicated satellite channels at peak engagement windows.",
-    deliverables: ["Coordinated daily publishing waves", "Algorithmic engagement optimization", "Zero manual creator management"],
-    mockVisual: {
-      header: "MULTI-CHANNEL DISPATCH",
-      items: ["🔴 YouTube Shorts: 4 Posts Scheduled Today", "🟣 Instagram Reels: 6 Posts Scheduled Today", "⚫ TikTok Network: 8 Posts Scheduled Today"],
-      status: "Live Syndication Active (30+ Channels)",
-    },
+    tag: "TRI-PLATFORM DISPATCH",
+    description: "Coordinated publishing waves hit Shorts, Reels and TikTok across your brand + satellite channels at peak windows.",
+    deliverables: ["Daily publishing waves", "Engagement optimization", "Zero creator management"],
+    console: ["$ dispatch --all-platforms --peak-windows", "▸ YT Shorts: 4 posts scheduled", "▸ IG Reels: 6 posts scheduled", "▸ TikTok: 8 posts scheduled — LIVE on 30+ channels"],
+    accent: "#34D399",
   },
   {
     num: "04",
-    title: "Track & Optimize",
-    subtitle: "Real-Time Telemetry & Scaling",
+    title: "Track & optimize",
+    serif: "compounding.",
     icon: BarChart3,
-    tag: "SCALE MATRIX",
-    description: "We analyze watch time, retention drop-offs, and algorithmic triggers to double down on viral angles and guarantee your content hits the audience it deserves.",
-    deliverables: ["Real-time aggregated view analytics", "Continuous hook iteration loops", "Monthly scale expansion reports"],
-    mockVisual: {
-      header: "LIVE PERFORMANCE TELEMETRY",
-      items: ["📈 Total Reach: 18.4M Views (Last 30 Days)", "🔥 Top Performing Clip: 4.8M Views", "🎯 Retention Rate: 96.2% Avg 3-Second Hook"],
-      status: "Optimization Loop: 3.4x Reach Velocity",
-    },
+    tag: "SCALE TELEMETRY",
+    description: "Watch time, drop-offs and algorithmic triggers analyzed to double down on viral angles and scale winners.",
+    deliverables: ["Real-time view analytics", "Hook iteration loops", "Monthly scale reports"],
+    console: ["$ telemetry --live --aggregate", "▸ Total reach: 18.4M views / 30d", "▸ Top clip: 4.8M views 🔥", "▸ Optimization loop: 3.4x reach velocity"],
+    accent: "#8B5CF6",
   },
 ];
 
 export default function HowItWorks() {
   const [activeStep, setActiveStep] = useState(0);
   const sectionRef = useRef(null);
-  const [inView, setInView] = useState(true);
+  const [inView, setInView] = useState(false);
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
+  const ghostX = useTransform(scrollYProgress, [0, 1], ["-6%", "10%"]);
 
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setInView(true);
-      },
-      { threshold: 0.2 }
-    );
+    const observer = new IntersectionObserver(([entry]) => entry.isIntersecting && setInView(true), { threshold: 0.15 });
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
 
   const cur = STEPS[activeStep];
 
+  // Auto-advance
+  useEffect(() => {
+    if (!inView) return;
+    const t = setInterval(() => setActiveStep((s) => (s + 1) % STEPS.length), 5000);
+    return () => clearInterval(t);
+  }, [inView]);
+
   return (
     <section
       id="how-it-works-section"
       ref={sectionRef}
+      className="noise-overlay"
       style={{
         position: "relative",
         background: COLORS.obsidian,
-        padding: "120px 24px",
+        padding: "170px 48px",
         overflow: "hidden",
-        borderTop: `1px solid ${COLORS.borderSubtle}`,
-        borderBottom: `1px solid ${COLORS.borderSubtle}`,
+        borderTop: "1px solid rgba(56,189,248,0.08)",
       }}
     >
-      {/* Background glow */}
-      <div
-        style={{
-          position: "absolute",
-          top: "40%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          width: "750px",
-          height: "450px",
-          background: "radial-gradient(circle, rgba(37, 99, 235, 0.1) 0%, rgba(56, 189, 248, 0.03) 60%, transparent 80%)",
-          filter: "blur(90px)",
-          pointerEvents: "none",
-        }}
-      />
+      {/* Ghost word drifting opposite direction */}
+      <motion.div aria-hidden className="text-stroke-faint" style={{ position: "absolute", bottom: "2%", left: "-2%", x: ghostX, fontFamily: FONTS.display, fontSize: "clamp(7rem, 16vw, 18rem)", fontWeight: 700, letterSpacing: "-0.04em", whiteSpace: "nowrap", pointerEvents: "none", zIndex: 0 }}>
+        PIPELINE
+      </motion.div>
 
-      <div style={{ maxWidth: 1280, margin: "0 auto", position: "relative", zIndex: 2 }}>
-        {/* Section Header */}
-        <div
-          style={{
-            textAlign: "center",
-            maxWidth: 820,
-            margin: "0 auto 70px",
-            opacity: inView ? 1 : 0,
-            transform: inView ? "translateY(0)" : "translateY(24px)",
-            transition: "opacity 0.9s ease, transform 0.9s cubic-bezier(0.22, 1, 0.36, 1)",
-          }}
-        >
-          <div
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 8,
-              fontFamily: FONTS.body,
-              fontSize: "0.72rem",
-              fontWeight: 700,
-              letterSpacing: "0.26em",
-              textTransform: "uppercase",
-              color: COLORS.sky,
-              marginBottom: 16,
-              background: "rgba(37, 99, 235, 0.12)",
-              border: "1px solid rgba(56, 189, 248, 0.25)",
-              padding: "6px 14px",
-              borderRadius: 999,
-            }}
+      <div style={{ maxWidth: 1440, margin: "0 auto", position: "relative", zIndex: 2 }}>
+        {/* Header */}
+        <div style={{ marginBottom: 90 }}>
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 1, ease: MOTION_EASE }}
+            style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 32 }}
           >
-            <span style={{ width: 6, height: 6, borderRadius: "50%", background: COLORS.sky }} />
-            TURNKEY EXECUTION
-          </div>
+            <span style={{ fontFamily: FONTS.mono, fontSize: "0.7rem", color: COLORS.sky, letterSpacing: "0.2em" }}>[ 004 ]</span>
+            <span className="hairline" style={{ width: 72 }} />
+            <span style={{ fontFamily: FONTS.mono, fontSize: "0.68rem", color: COLORS.textMuted, letterSpacing: "0.28em" }}>TURNKEY EXECUTION</span>
+          </motion.div>
 
-          <h2
-            style={{
-              fontFamily: FONTS.sans,
-              fontSize: "clamp(2.3rem, 5vw, 3.8rem)",
-              fontWeight: 700,
-              color: COLORS.ice,
-              letterSpacing: "-0.03em",
-              lineHeight: 1.15,
-              margin: 0,
-            }}
-          >
-            From Content to Distribution Without Building the Operation Yourself
+          <h2 style={{ fontFamily: FONTS.display, fontSize: "clamp(2.6rem, 5.6vw, 4.8rem)", fontWeight: 600, lineHeight: 1.04, letterSpacing: "-0.03em", margin: 0, color: COLORS.ice, maxWidth: 1000 }}>
+            {["From content to distribution,", "without the operation."].map((line, li) => (
+              <span key={li} style={{ display: "block", overflow: "hidden" }}>
+                <motion.span style={{ display: "block" }} initial={{ y: "110%" }} whileInView={{ y: 0 }} viewport={{ once: true, margin: "-80px" }} transition={{ delay: li * 0.1, duration: 1.1, ease: MOTION_EASE }}>
+                  {li === 1 ? (
+                    <>
+                      without{" "}
+                      <em className="serif-accent" style={{ background: "linear-gradient(120deg,#38BDF8,#2563EB)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+                        the operation.
+                      </em>
+                    </>
+                  ) : (
+                    line
+                  )}
+                </motion.span>
+              </span>
+            ))}
           </h2>
-          <p
-            style={{
-              fontFamily: FONTS.body,
-              fontSize: "0.95rem",
-              color: COLORS.textMuted,
-              marginTop: 14,
-            }}
-          >
-            A high-velocity, 4-step pipeline that turns raw recordings into continuous omni-channel attention.
-          </p>
         </div>
 
-        {/* 4 Step Selectors Row */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-            gap: 14,
-            marginBottom: 40,
-          }}
-        >
-          {STEPS.map((step, idx) => {
-            const Icon = step.icon;
-            const isActive = activeStep === idx;
-
-            return (
-              <button
-                key={step.num}
-                onClick={() => setActiveStep(idx)}
-                style={{
-                  background: isActive
-                    ? "linear-gradient(135deg, rgba(37, 99, 235, 0.25) 0%, rgba(17, 24, 39, 0.8) 100%)"
-                    : "rgba(17, 24, 39, 0.6)",
-                  border: isActive ? `1px solid ${COLORS.sky}` : `1px solid ${COLORS.borderSubtle}`,
-                  borderRadius: 14,
-                  padding: "18px 20px",
-                  textAlign: "left",
-                  cursor: "pointer",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 14,
-                  transition: "all 0.3s cubic-bezier(0.22, 1, 0.36, 1)",
-                  boxShadow: isActive ? "0 8px 25px rgba(37, 99, 235, 0.25)" : "none",
-                }}
-                onMouseEnter={(e) => {
-                  if (!isActive) {
-                    e.currentTarget.style.borderColor = "rgba(56, 189, 248, 0.4)";
-                    e.currentTarget.style.background = "rgba(17, 24, 39, 0.9)";
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (!isActive) {
-                    e.currentTarget.style.borderColor = COLORS.borderSubtle;
-                    e.currentTarget.style.background = "rgba(17, 24, 39, 0.6)";
-                  }
-                }}
-              >
-                <div
+        {/* ============ DIFFERENT STYLE: horizontal timeline rail with progress line ============ */}
+        <div style={{ borderTop: "1px solid rgba(241,245,249,0.09)", paddingTop: 40 }}>
+          {/* Step rail */}
+          <div style={{ display: "flex", alignItems: "flex-start", gap: 0, marginBottom: 64 }}>
+            {STEPS.map((step, idx) => {
+              const isActive = activeStep === idx;
+              return (
+                <button
+                  key={step.num}
+                  onClick={() => setActiveStep(idx)}
                   style={{
-                    width: 38,
-                    height: 38,
-                    borderRadius: 10,
-                    background: isActive ? COLORS.sky : "rgba(241, 245, 249, 0.08)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    color: isActive ? COLORS.obsidian : COLORS.ice,
-                    fontWeight: 700,
-                    fontSize: "0.85rem",
-                    flexShrink: 0,
-                    transition: "all 0.3s ease",
+                    flex: 1,
+                    background: "none",
+                    border: "none",
+                    padding: "0 24px 28px",
+                    textAlign: "left",
+                    cursor: "pointer",
+                    position: "relative",
+                    borderBottom: `2px solid ${isActive ? step.accent : "rgba(241,245,249,0.08)"}`,
+                    transition: "border-color 0.4s ease",
                   }}
                 >
-                  <Icon size={18} />
-                </div>
-                <div>
-                  <div
-                    style={{
-                      fontFamily: FONTS.sans,
-                      fontSize: "0.68rem",
-                      fontWeight: 700,
-                      letterSpacing: "0.15em",
-                      color: isActive ? COLORS.sky : "rgba(241, 245, 249, 0.4)",
-                    }}
-                  >
-                    STEP {step.num}
-                  </div>
-                  <div
-                    style={{
-                      fontFamily: FONTS.sans,
-                      fontSize: "0.92rem",
-                      fontWeight: 600,
-                      color: COLORS.ice,
-                      whiteSpace: "nowrap",
-                    }}
-                  >
-                    {step.title}
-                  </div>
-                </div>
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Dynamic Detail Card + Interactive Visual Pane */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-            gap: 28,
-            background: "linear-gradient(160deg, rgba(17, 24, 39, 0.7) 0%, rgba(5, 5, 8, 0.9) 100%)",
-            border: `1px solid ${COLORS.borderAccent}`,
-            borderRadius: 24,
-            padding: "40px",
-            boxShadow: "0 20px 60px rgba(0, 0, 0, 0.6)",
-          }}
-        >
-          {/* Left Details */}
-          <div>
-            <div
-              style={{
-                display: "inline-block",
-                fontFamily: FONTS.sans,
-                fontSize: "0.7rem",
-                fontWeight: 700,
-                letterSpacing: "0.2em",
-                textTransform: "uppercase",
-                color: COLORS.sky,
-                background: "rgba(37, 99, 235, 0.15)",
-                border: "1px solid rgba(56, 189, 248, 0.3)",
-                padding: "4px 12px",
-                borderRadius: 6,
-                marginBottom: 16,
-              }}
-            >
-              {cur.tag}
-            </div>
-
-            <h3
-              style={{
-                fontFamily: FONTS.sans,
-                fontSize: "clamp(1.8rem, 3.5vw, 2.4rem)",
-                fontWeight: 700,
-                color: COLORS.ice,
-                margin: "0 0 6px",
-              }}
-            >
-              {cur.title}
-            </h3>
-
-            <p
-              style={{
-                fontFamily: FONTS.body,
-                fontSize: "0.92rem",
-                fontWeight: 500,
-                color: COLORS.sky,
-                marginBottom: 18,
-              }}
-            >
-              {cur.subtitle}
-            </p>
-
-            <p
-              style={{
-                fontFamily: FONTS.body,
-                fontSize: "0.92rem",
-                color: COLORS.textMuted,
-                lineHeight: 1.65,
-                marginBottom: 28,
-              }}
-            >
-              {cur.description}
-            </p>
-
-            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-              {cur.deliverables.map((item, i) => (
-                <div key={i} style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                  <CheckCircle2 size={18} color={COLORS.sky} />
-                  <span style={{ fontFamily: FONTS.body, fontSize: "0.85rem", color: COLORS.ice }}>
-                    {item}
+                  <span style={{ display: "block", fontFamily: FONTS.mono, fontSize: "0.66rem", color: isActive ? step.accent : COLORS.textMuted, letterSpacing: "0.22em", marginBottom: 12 }}>
+                    PHASE {step.num}
                   </span>
-                </div>
-              ))}
-            </div>
+                  <span style={{ display: "block", fontFamily: FONTS.sans, fontSize: "clamp(0.95rem, 1.4vw, 1.15rem)", fontWeight: 600, color: isActive ? COLORS.ice : COLORS.textMuted, transition: "color 0.35s ease" }}>
+                    {step.title}
+                  </span>
+                </button>
+              );
+            })}
           </div>
 
-          {/* Right Live Simulation Console */}
-          <div
-            style={{
-              background: "rgba(5, 5, 8, 0.8)",
-              border: `1px solid rgba(56, 189, 248, 0.25)`,
-              borderRadius: 16,
-              padding: "24px",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-              boxShadow: "inset 0 0 25px rgba(37, 99, 235, 0.1)",
-            }}
-          >
-            {/* Terminal Header */}
+          {/* Detail pane — split editorial: copy left, terminal right */}
+          <motion.div key={cur.num} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: MOTION_EASE }} style={{ display: "grid", gridTemplateColumns: "minmax(0,1fr) minmax(0,1fr)", gap: 72, alignItems: "start" }}>
+            {/* Left copy */}
             <div>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  paddingBottom: 14,
-                  borderBottom: `1px solid ${COLORS.borderSubtle}`,
-                  marginBottom: 18,
-                }}
-              >
-                <span
-                  style={{
-                    fontFamily: FONTS.body,
-                    fontSize: "0.72rem",
-                    fontWeight: 700,
-                    letterSpacing: "0.15em",
-                    color: COLORS.sky,
-                    textTransform: "uppercase",
-                  }}
-                >
-                  {cur.mockVisual.header}
-                </span>
-                <div style={{ display: "flex", gap: 6 }}>
-                  <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#EF4444" }} />
-                  <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#F59E0B" }} />
-                  <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#10B981" }} />
-                </div>
-              </div>
+              <h3 style={{ fontFamily: FONTS.display, fontSize: "clamp(1.9rem, 3.2vw, 2.8rem)", fontWeight: 600, letterSpacing: "-0.02em", lineHeight: 1.1, margin: "0 0 14px", color: COLORS.ice }}>
+                {cur.title}{" "}
+                <em className="serif-accent" style={{ color: cur.accent, fontSize: "1.05em" }}>
+                  {cur.serif}
+                </em>
+              </h3>
+              <p style={{ fontFamily: FONTS.body, fontSize: "0.98rem", color: COLORS.textMuted, lineHeight: 1.75, margin: "0 0 32px", maxWidth: 480 }}>
+                {cur.description}
+              </p>
 
-              {/* Items List */}
-              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                {cur.mockVisual.items.map((item, i) => (
-                  <div
-                    key={i}
-                    style={{
-                      background: "rgba(17, 24, 39, 0.6)",
-                      border: `1px solid ${COLORS.borderSubtle}`,
-                      borderRadius: 8,
-                      padding: "12px 14px",
-                      fontFamily: "monospace",
-                      fontSize: "0.8rem",
-                      color: COLORS.ice,
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 8,
-                    }}
-                  >
-                    <ChevronRight size={14} color={COLORS.sky} />
-                    <span>{item}</span>
+              <div style={{ display: "flex", flexDirection: "column", gap: 0, maxWidth: 480 }}>
+                {cur.deliverables.map((d, di) => (
+                  <div key={di} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "13px 4px", borderBottom: "1px solid rgba(241,245,249,0.07)" }}>
+                    <span style={{ fontFamily: FONTS.body, fontSize: "0.86rem", color: "rgba(241,245,249,0.85)" }}>{d}</span>
+                    <ArrowUpRight size={15} color={cur.accent} />
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Status Footer */}
+            {/* Right — terminal window */}
             <div
+              className="glow-border"
               style={{
-                marginTop: 20,
-                padding: "12px 16px",
-                background: "rgba(37, 99, 235, 0.15)",
-                border: "1px solid rgba(56, 189, 248, 0.3)",
-                borderRadius: 10,
-                display: "flex",
-                alignItems: "center",
-                gap: 10,
+                borderRadius: 16,
+                background: "linear-gradient(170deg, #0a0a10 0%, #050508 100%)",
+                border: `1px solid ${cur.accent}30`,
+                overflow: "hidden",
+                boxShadow: `0 30px 80px rgba(0,0,0,0.6), 0 0 60px ${cur.accent}12`,
               }}
             >
-              <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#10B981", boxShadow: "0 0 10px #10B981" }} />
-              <span
-                style={{
-                  fontFamily: FONTS.body,
-                  fontSize: "0.78rem",
-                  fontWeight: 600,
-                  color: COLORS.sky,
-                }}
-              >
-                {cur.mockVisual.status}
-              </span>
+              {/* Titlebar */}
+              <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "14px 18px", borderBottom: "1px solid rgba(241,245,249,0.07)", background: "rgba(17,24,39,0.6)" }}>
+                <span style={{ width: 11, height: 11, borderRadius: "50%", background: "#EF4444" }} />
+                <span style={{ width: 11, height: 11, borderRadius: "50%", background: "#F59E0B" }} />
+                <span style={{ width: 11, height: 11, borderRadius: "50%", background: "#34D399" }} />
+                <span style={{ marginLeft: 12, fontFamily: FONTS.mono, fontSize: "0.68rem", letterSpacing: "0.16em", color: cur.accent }}>{cur.tag}</span>
+              </div>
+              {/* Body */}
+              <div style={{ padding: "26px 22px", display: "flex", flexDirection: "column", gap: 14 }}>
+                {cur.console.map((line, li) => (
+                  <motion.div
+                    key={li}
+                    initial={{ opacity: 0, x: -14 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.25 + li * 0.18, duration: 0.5 }}
+                    style={{ fontFamily: FONTS.mono, fontSize: "0.78rem", lineHeight: 1.55, color: line.startsWith("$") ? COLORS.ice : cur.accent, whiteSpace: "pre-wrap" }}
+                  >
+                    {line}
+                  </motion.div>
+                ))}
+                {/* Blinking caret */}
+                <motion.span animate={{ opacity: [1, 0, 1] }} transition={{ duration: 1.1, repeat: Infinity }} style={{ width: 8, height: 16, background: cur.accent, boxShadow: `0 0 12px ${cur.accent}` }} />
+              </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

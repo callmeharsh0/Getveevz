@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+/* ============ TYPEFACES — award-tier mix ============ */
+/* Clash Display (Fontshare) — characterful geometric display */
+@import url("https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap");
+/* Instrument Serif italic — editorial contrast accent */
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@300..700&display=swap");
+
 @theme {
   --color-obsidian: #050508;
   --color-midnight: #111827;
@@ -16,37 +22,31 @@
   --color-accent: #1F2937;
   --color-accent-foreground: #F1F5F9;
   --color-border: rgba(241, 245, 249, 0.12);
+
+  --font-display: "Clash Display", "Geist", system-ui, sans-serif;
+  --font-sans: "Space Grotesk", "Outfit", system-ui, sans-serif;
+  --font-serif-accent: "Instrument Serif", Georgia, serif;
+  --font-mono: "Geist Mono", "JetBrains Mono", monospace;
 }
 
-:root {
-  --color-obsidian: #050508;
-  --color-midnight: #111827;
-  --color-cobalt: #2563EB;
-  --color-sky: #38BDF8;
-  --color-ice: #F1F5F9;
-}
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background: var(--color-obsidian);
+  }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-  background: #050508;
-}
-
-html,
-body,
-#root {
-  width: 100%;
-  min-height: 100%;
-  background: #050508;
-  color: #F1F5F9;
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  html,
+  body,
+  #root {
+    width: 100%;
+    min-height: 100%;
+    background: var(--color-obsidian);
+    color: var(--color-ice);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
 }
 
 /* Custom scrollbar */
@@ -54,20 +54,19 @@ body,
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #050508;
+  background: var(--color-obsidian);
 }
 ::-webkit-scrollbar-thumb {
   background: #1F2937;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #2563EB;
+  background: var(--color-cobalt);
 }
 
-/* Selection color to match brand cobalt */
 ::selection {
   background: rgba(37, 99, 235, 0.45);
-  color: #F1F5F9;
+  color: var(--color-ice);
 }
 
 /* Angular shard decorative clip paths */
@@ -77,4 +76,90 @@ body,
 
 .shard-badge {
   clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+}
+
+/* ============ AWWWARDS-GRADE UTILITIES ============ */
+
+/* Film-grain noise overlay — kills the flat "AI render" look */
+.noise-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0.055;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
+/* Outlined ghost type — huge background words */
+.text-stroke {
+  -webkit-text-stroke: 1px rgba(56, 189, 248, 0.28);
+  color: transparent;
+}
+
+.text-stroke-faint {
+  -webkit-text-stroke: 1px rgba(241, 245, 249, 0.09);
+  color: transparent;
+}
+
+/* Serif italic accent word inside big headlines */
+.serif-accent {
+  font-family: var(--font-serif-accent);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+/* Editorial hairline rules */
+.hairline {
+  height: 1px;
+  background: linear-gradient(90deg, rgba(56, 189, 248, 0.5), rgba(241, 245, 249, 0.06));
+}
+
+/* Marquee ticker */
+@keyframes marquee-x {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-x 32s linear infinite;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* Slow rotation for orbital rings */
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+.spin-slow {
+  animation: spin-slow 40s linear infinite;
+}
+
+/* Blueprint grid backdrop */
+.blueprint-grid {
+  background-image:
+    linear-gradient(rgba(56, 189, 248, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56, 189, 248, 0.04) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
+
+/* Magnetic glow border on hover cards */
+.glow-border {
+  position: relative;
+}
+.glow-border::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.6), rgba(37, 99, 235, 0.15) 40%, transparent 70%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
 }

@@ -1,61 +1,65 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Scissors, Share2, Layers, LineChart, ArrowRight } from "lucide-react";
-import { COLORS, FONTS } from "../../../utils/theme";
+import { motion, useScroll, useTransform } from "motion/react";
+import { Scissors, Share2, Layers, LineChart, ArrowUpRight } from "lucide-react";
+import { COLORS, FONTS, MOTION_EASE } from "../../../utils/theme";
 
 const PILLARS = [
   {
     id: "clipping",
-    num: "01",
+    num: "001",
     icon: Scissors,
     title: "Clipping",
-    tagline: "High-Retention Moment Extraction",
-    description: "We dissect hours of raw footage to extract high-leverage hooks, optimized for algorithmic watch-time and retention.",
-    points: ["Algorithmic Hook Engineering", "Dynamic 9:16 Kinetic Typography", "Retention Curve Pacing", "Sonic Sound Design"],
+    serif: "hooks.",
+    description: "We dissect hours of raw footage to extract high-leverage moments tuned for algorithmic watch-time.",
+    points: ["Hook Engineering", "9:16 Kinetic Type", "Retention Pacing", "Sonic Design"],
+    accent: COLORS.sky,
   },
   {
     id: "distribution",
-    num: "02",
+    num: "002",
     icon: Share2,
     title: "Distribution",
-    tagline: "Multi-Platform Syndication",
-    description: "Your clips are syndicated across YouTube Shorts, Instagram Reels, and TikTok at peak algorithmic engagement windows.",
-    points: ["Synchronized Tri-Platform Posting", "Autonomous Account Management", "Hashtag & Metadata Tuning", "Platform-Native Formatting"],
+    serif: "everywhere.",
+    description: "Clips syndicated across Shorts, Reels and TikTok at peak engagement windows — on autopilot.",
+    points: ["Tri-Platform Sync", "Autonomous Accounts", "Metadata Tuning", "Native Formats"],
+    accent: "#34D399",
   },
   {
     id: "campaign-management",
-    num: "03",
+    num: "003",
     icon: Layers,
-    title: "Campaign Management",
-    tagline: "Fleet Infrastructure & Execution",
-    description: "We deploy and manage 30 to 120 dedicated brand satellite accounts to flood feeds without requiring creator logins.",
-    points: ["30–120 Branded Channel Fleet", "Zero Creator Login Friction", "Coordinated Narrative Waves", "Algorithmic Warmup Protocol"],
+    title: "Fleet Ops",
+    serif: "at scale.",
+    description: "We deploy and operate 30–120 branded satellite channels that flood feeds without creator logins.",
+    points: ["Channel Fleets", "Zero-Login Ops", "Narrative Waves", "Warmup Protocol"],
+    accent: "#F59E0B",
   },
   {
     id: "tracking",
-    num: "04",
+    num: "004",
     icon: LineChart,
-    title: "Tracking",
-    tagline: "Real-Time Telemetry & Optimization",
-    description: "Live analytics monitor view volume, audience retention spikes, and cross-channel performance to continuously scale winners.",
-    points: ["Cross-Platform Analytics Hub", "Real-Time View Floor Telemetry", "Audience Engagement Heatmaps", "Iterative Content Optimization"],
+    title: "Telemetry",
+    serif: "always on.",
+    description: "Live analytics track view floors, retention spikes and cross-channel winners to scale what works.",
+    points: ["Analytics Hub", "View Floors", "Heatmaps", "Winner Scaling"],
+    accent: "#8B5CF6",
   },
 ];
 
 export default function WhatWeDo() {
   const sectionRef = useRef(null);
-  const [inView, setInView] = useState(true);
-  const [hoveredCard, setHoveredCard] = useState(null);
+  const [inView, setInView] = useState(false);
+
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
+  const ghostX = useTransform(scrollYProgress, [0, 1], ["4%", "-12%"]);
+  const gridY = useTransform(scrollYProgress, [0, 1], [0, -60]);
 
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-        }
-      },
-      { threshold: 0.2 }
+      ([entry]) => entry.isIntersecting && setInView(true),
+      { threshold: 0.15 }
     );
     observer.observe(el);
     return () => observer.disconnect();
@@ -65,295 +69,202 @@ export default function WhatWeDo() {
     <section
       id="what-we-do-section"
       ref={sectionRef}
+      className="noise-overlay"
       style={{
         position: "relative",
-        background: `linear-gradient(180deg, ${COLORS.obsidian} 0%, ${COLORS.midnight} 50%, ${COLORS.obsidian} 100%)`,
-        padding: "120px 24px",
+        background: COLORS.obsidian,
+        padding: "170px 48px",
         overflow: "hidden",
+        borderTop: "1px solid rgba(56,189,248,0.08)",
       }}
     >
-      {/* Background Mesh Glow */}
-      <div
+      {/* Ghost word */}
+      <motion.div
+        aria-hidden
         style={{
           position: "absolute",
-          top: "20%",
-          right: "10%",
-          width: "550px",
-          height: "550px",
-          background: "radial-gradient(circle, rgba(37, 99, 235, 0.12) 0%, rgba(56, 189, 248, 0.03) 50%, transparent 70%)",
-          filter: "blur(80px)",
+          top: "5%",
+          left: "-2%",
+          x: ghostX,
+          fontFamily: FONTS.display,
+          fontSize: "clamp(7rem, 17vw, 19rem)",
+          fontWeight: 700,
+          letterSpacing: "-0.04em",
+          whiteSpace: "nowrap",
           pointerEvents: "none",
+          zIndex: 0,
         }}
-      />
-      <div
-        style={{
-          position: "absolute",
-          bottom: "15%",
-          left: "5%",
-          width: "450px",
-          height: "450px",
-          background: "radial-gradient(circle, rgba(56, 189, 248, 0.08) 0%, transparent 70%)",
-          filter: "blur(70px)",
-          pointerEvents: "none",
-        }}
-      />
+        className="text-stroke-faint"
+      >
+        CAPABILITIES
+      </motion.div>
 
-      <div style={{ maxWidth: 1280, margin: "0 auto", position: "relative", zIndex: 2 }}>
-        {/* Header Block */}
-        <div
-          style={{
-            textAlign: "center",
-            maxWidth: 780,
-            margin: "0 auto 70px",
-            opacity: inView ? 1 : 0,
-            transform: inView ? "translateY(0)" : "translateY(28px)",
-            transition: "opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1)",
-          }}
-        >
-          <div
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 8,
-              fontFamily: FONTS.body,
-              fontSize: "0.72rem",
-              fontWeight: 700,
-              letterSpacing: "0.26em",
-              textTransform: "uppercase",
-              color: COLORS.sky,
-              marginBottom: 16,
-              background: "rgba(37, 99, 235, 0.12)",
-              border: "1px solid rgba(56, 189, 248, 0.25)",
-              padding: "6px 14px",
-              borderRadius: 999,
-            }}
-          >
-            <span style={{ width: 6, height: 6, borderRadius: "50%", background: COLORS.sky }} />
-            CORE CAPABILITIES
-          </div>
+      {/* Parallax blueprint grid */}
+      <motion.div aria-hidden className="blueprint-grid" style={{ position: "absolute", inset: 0, y: gridY, maskImage: "radial-gradient(ellipse 70% 60% at 50% 50%, black 25%, transparent 75%)", pointerEvents: "none" }} />
 
-          <h2
-            style={{
-              fontFamily: FONTS.sans,
-              fontSize: "clamp(2.3rem, 5vw, 3.8rem)",
-              fontWeight: 700,
-              color: COLORS.ice,
-              letterSpacing: "-0.03em",
-              lineHeight: 1.1,
-              margin: "0 0 18px",
-            }}
+      <div style={{ maxWidth: 1440, margin: "0 auto", position: "relative", zIndex: 2 }}>
+        {/* Header */}
+        <div style={{ maxWidth: 900, marginBottom: 90 }}>
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 1, ease: MOTION_EASE }}
+            style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 32 }}
           >
-            Everything You Need to Turn Content Into Distribution
+            <span style={{ fontFamily: FONTS.mono, fontSize: "0.7rem", color: COLORS.sky, letterSpacing: "0.2em" }}>[ 003 ]</span>
+            <span className="hairline" style={{ width: 72 }} />
+            <span style={{ fontFamily: FONTS.mono, fontSize: "0.68rem", color: COLORS.textMuted, letterSpacing: "0.28em" }}>CORE CAPABILITIES</span>
+          </motion.div>
+
+          {/* Masked line-reveal headline */}
+          <h2 style={{ fontFamily: FONTS.display, fontSize: "clamp(2.6rem, 5.6vw, 4.8rem)", fontWeight: 600, lineHeight: 1.04, letterSpacing: "-0.03em", margin: 0, color: COLORS.ice }}>
+            {["Everything you need to turn", "content into distribution."].map((line, li) => (
+              <span key={li} style={{ display: "block", overflow: "hidden" }}>
+                <motion.span
+                  style={{ display: "block" }}
+                  initial={{ y: "110%" }}
+                  whileInView={{ y: 0 }}
+                  viewport={{ once: true, margin: "-80px" }}
+                  transition={{ delay: li * 0.1, duration: 1.1, ease: MOTION_EASE }}
+                >
+                  {li === 1 ? (
+                    <>
+                      content into{" "}
+                      <em className="serif-accent" style={{ background: "linear-gradient(120deg,#38BDF8,#2563EB)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+                        distribution.
+                      </em>
+                    </>
+                  ) : (
+                    line
+                  )}
+                </motion.span>
+              </span>
+            ))}
           </h2>
 
-          {/* Core Flow Indicator */}
-          <div
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "8px 14px",
-              flexWrap: "wrap",
-              justifyContent: "center",
-              padding: "10px 20px",
-              background: "rgba(17, 24, 39, 0.7)",
-              border: `1px solid ${COLORS.borderSubtle}`,
-              borderRadius: 30,
-              marginTop: 6,
-            }}
+          {/* Pipeline indicator */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ delay: 0.35, duration: 0.9, ease: MOTION_EASE }}
+            style={{ display: "inline-flex", alignItems: "center", gap: 14, marginTop: 36, fontFamily: FONTS.mono, fontSize: "0.7rem", letterSpacing: "0.24em", color: COLORS.textMuted }}
           >
-            <span style={{ fontFamily: FONTS.body, fontSize: "0.78rem", fontWeight: 600, color: COLORS.ice }}>Content</span>
-            <span style={{ color: COLORS.sky, fontSize: "0.75rem" }}>→</span>
-            <span style={{ fontFamily: FONTS.body, fontSize: "0.78rem", fontWeight: 600, color: COLORS.sky }}>Clipping</span>
-            <span style={{ color: COLORS.sky, fontSize: "0.75rem" }}>→</span>
-            <span style={{ fontFamily: FONTS.body, fontSize: "0.78rem", fontWeight: 600, color: COLORS.cobalt }}>Distribution</span>
-            <span style={{ color: COLORS.sky, fontSize: "0.75rem" }}>→</span>
-            <span style={{ fontFamily: FONTS.body, fontSize: "0.78rem", fontWeight: 600, color: COLORS.ice }}>Tracking</span>
-          </div>
+            CONTENT → CLIPPING → DISTRIBUTION → TRACKING
+          </motion.div>
         </div>
 
-        {/* 4 CARDS GRID (STAGGERED ANIMATION) */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-            gap: 24,
-          }}
-        >
+        {/* Asymmetric editorial rows — alternating, hairline-divided (not uniform cards) */}
+        <div style={{ borderTop: "1px solid rgba(241,245,249,0.09)" }}>
           {PILLARS.map((card, i) => {
             const Icon = card.icon;
-            const isHovered = hoveredCard === card.id;
-
+            const reversed = i % 2 === 1;
             return (
-              <div
+              <motion.div
                 key={card.id}
-                onMouseEnter={() => setHoveredCard(card.id)}
-                onMouseLeave={() => setHoveredCard(null)}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ delay: i * 0.06, duration: 1, ease: MOTION_EASE }}
+                className="row-hover"
                 style={{
-                  background: isHovered
-                    ? "linear-gradient(160deg, rgba(23, 37, 84, 0.45) 0%, rgba(17, 24, 39, 0.85) 100%)"
-                    : "linear-gradient(160deg, rgba(17, 24, 39, 0.75) 0%, rgba(5, 5, 8, 0.9) 100%)",
-                  border: isHovered ? `1px solid ${COLORS.sky}` : `1px solid ${COLORS.borderSubtle}`,
-                  borderRadius: 20,
-                  padding: "36px 28px 32px",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
+                  display: "grid",
+                  gridTemplateColumns: "auto minmax(0,1fr) auto",
+                  alignItems: "center",
+                  gap: 56,
+                  padding: "52px 24px",
+                  borderBottom: "1px solid rgba(241,245,249,0.09)",
                   position: "relative",
-                  overflow: "hidden",
-                  boxShadow: isHovered ? "0 20px 45px -10px rgba(37, 99, 235, 0.35)" : "none",
-                  transform: isHovered ? "translateY(-6px)" : "translateY(0)",
-                  transition: "all 0.35s cubic-bezier(0.22, 1, 0.36, 1)",
-                  opacity: inView ? 1 : 0,
-                  transitionDelay: `${i * 0.12}s`,
+                  transition: "background 0.4s ease",
                 }}
+                onMouseEnter={(e) => (e.currentTarget.style.background = `linear-gradient(90deg, transparent, ${card.accent}0d 45%, transparent)`)}
+                onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
               >
-                {/* Shard angular accent at top right */}
-                <div
-                  style={{
-                    position: "absolute",
-                    top: 0,
-                    right: 0,
-                    width: 44,
-                    height: 44,
-                    background: isHovered
-                      ? "linear-gradient(135deg, transparent 40%, #38BDF8 100%)"
-                      : "linear-gradient(135deg, transparent 50%, rgba(37, 99, 235, 0.25) 100%)",
-                    transition: "background 0.3s ease",
-                  }}
-                />
-
-                <div>
-                  {/* Top Row: Icon + Number */}
-                  <div
+                {/* Index + icon */}
+                <div style={{ display: "flex", flexDirection: "column", gap: 18, minWidth: 130 }}>
+                  <span style={{ fontFamily: FONTS.mono, fontSize: "0.68rem", color: card.accent, letterSpacing: "0.22em" }}>{card.num}</span>
+                  <motion.div
+                    whileHover={{ rotate: 10, scale: 1.1 }}
                     style={{
+                      width: 58,
+                      height: 58,
+                      borderRadius: 16,
+                      background: `${card.accent}12`,
+                      border: `1px solid ${card.accent}40`,
                       display: "flex",
-                      justifyContent: "space-between",
                       alignItems: "center",
-                      marginBottom: 24,
+                      justifyContent: "center",
+                      color: card.accent,
+                      boxShadow: `0 0 0 rgba(0,0,0,0)`,
+                      transition: "box-shadow .35s ease",
                     }}
                   >
-                    <div
-                      style={{
-                        width: 52,
-                        height: 52,
-                        borderRadius: 14,
-                        background: isHovered ? "linear-gradient(135deg, #2563EB, #38BDF8)" : "rgba(37, 99, 235, 0.15)",
-                        border: `1px solid ${isHovered ? COLORS.sky : "rgba(56, 189, 248, 0.3)"}`,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        color: isHovered ? "#FFFFFF" : COLORS.sky,
-                        boxShadow: isHovered ? "0 8px 20px rgba(56, 189, 248, 0.4)" : "none",
-                        transition: "all 0.3s ease",
-                      }}
-                    >
-                      <Icon size={24} />
-                    </div>
+                    <Icon size={26} />
+                  </motion.div>
+                </div>
 
-                    <span
-                      style={{
-                        fontFamily: FONTS.sans,
-                        fontSize: "0.85rem",
-                        fontWeight: 700,
-                        letterSpacing: "0.15em",
-                        color: isHovered ? COLORS.sky : "rgba(241, 245, 249, 0.3)",
-                      }}
-                    >
-                      {card.num}
-                    </span>
-                  </div>
-
-                  {/* Title & Tagline */}
-                  <h3
-                    style={{
-                      fontFamily: FONTS.sans,
-                      fontSize: "1.45rem",
-                      fontWeight: 700,
-                      color: COLORS.ice,
-                      letterSpacing: "-0.01em",
-                      margin: "0 0 6px",
-                    }}
-                  >
-                    {card.title}
+                {/* Title + copy */}
+                <div>
+                  <h3 style={{ fontFamily: FONTS.display, fontSize: "clamp(1.6rem, 2.6vw, 2.4rem)", fontWeight: 600, letterSpacing: "-0.02em", margin: "0 0 10px", color: COLORS.ice }}>
+                    {card.title}{" "}
+                    <em className="serif-accent" style={{ color: card.accent, fontSize: "1.05em" }}>
+                      {card.serif}
+                    </em>
                   </h3>
-
-                  <div
-                    style={{
-                      fontFamily: FONTS.body,
-                      fontSize: "0.8rem",
-                      fontWeight: 600,
-                      color: COLORS.sky,
-                      marginBottom: 14,
-                      letterSpacing: "0.04em",
-                    }}
-                  >
-                    {card.tagline}
-                  </div>
-
-                  <p
-                    style={{
-                      fontFamily: FONTS.body,
-                      fontSize: "0.86rem",
-                      color: COLORS.textMuted,
-                      lineHeight: 1.6,
-                      marginBottom: 24,
-                    }}
-                  >
+                  <p style={{ fontFamily: FONTS.body, fontSize: "0.95rem", color: COLORS.textMuted, lineHeight: 1.7, margin: 0, maxWidth: 560 }}>
                     {card.description}
                   </p>
 
-                  {/* Bullet points */}
-                  <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                    {card.points.map((pt, idx) => (
-                      <div key={idx} style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                        <div
-                          style={{
-                            width: 5,
-                            height: 5,
-                            borderRadius: "50%",
-                            background: isHovered ? COLORS.sky : COLORS.cobalt,
-                            flexShrink: 0,
-                          }}
-                        />
-                        <span
-                          style={{
-                            fontFamily: FONTS.body,
-                            fontSize: "0.78rem",
-                            color: "rgba(241, 245, 249, 0.8)",
-                            fontWeight: 400,
-                          }}
-                        >
-                          {pt}
-                        </span>
-                      </div>
+                  {/* Points as inline mono chips */}
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: 22 }}>
+                    {card.points.map((pt) => (
+                      <span
+                        key={pt}
+                        style={{
+                          fontFamily: FONTS.mono,
+                          fontSize: "0.66rem",
+                          letterSpacing: "0.14em",
+                          textTransform: "uppercase",
+                          color: COLORS.textMuted,
+                          border: "1px solid rgba(241,245,249,0.12)",
+                          padding: "6px 12px",
+                          borderRadius: 999,
+                          transition: "all 0.3s ease",
+                        }}
+                      >
+                        {pt}
+                      </span>
                     ))}
                   </div>
                 </div>
 
-                {/* Bottom interactive link */}
-                <div
-                  style={{
-                    marginTop: 28,
-                    paddingTop: 16,
-                    borderTop: `1px solid ${COLORS.borderSubtle}`,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    color: isHovered ? COLORS.sky : "rgba(241, 245, 249, 0.5)",
-                    fontSize: "0.78rem",
-                    fontWeight: 600,
-                    letterSpacing: "0.06em",
-                    fontFamily: FONTS.body,
-                  }}
+                {/* Arrow affordance */}
+                <motion.span
+                  style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 52, height: 52, borderRadius: "50%", border: "1px solid rgba(241,245,249,0.14)", color: COLORS.textMuted, transition: "all 0.35s ease" }}
+                  className="row-arrow"
                 >
-                  <span>Explore Workflow</span>
-                  <ArrowRight size={14} style={{ transform: isHovered ? "translateX(4px)" : "none", transition: "transform 0.25s ease" }} />
-                </div>
-              </div>
+                  <ArrowUpRight size={20} />
+                </motion.span>
+              </motion.div>
             );
           })}
         </div>
       </div>
+
+      <style>{`
+        #what-we-do-section .row-hover:hover .row-arrow {
+          background: #38BDF8;
+          color: #050508 !important;
+          border-color: #38BDF8 !important;
+          box-shadow: 0 0 34px rgba(56,189,248,0.55);
+          transform: translate(3px, -3px);
+        }
+        #what-we-do-section .row-hover:hover span[style*="border-radius: 999"] {
+          border-color: rgba(56,189,248,0.35) !important;
+          color: #F1F5F9 !important;
+        }
+      `}</style>
     </section>
   );
 }

@@ -1,21 +1,21 @@
 import React, { useState, useEffect, useRef } from "react";
-import { ArrowRight, Sparkles, Calendar, ShieldCheck, CheckCircle } from "lucide-react";
-import { COLORS, FONTS } from "../../../utils/theme";
+import { motion, useScroll, useTransform } from "motion/react";
+import { ArrowUpRight, Calendar } from "lucide-react";
+import { COLORS, FONTS, MOTION_EASE } from "../../../utils/theme";
+
+const ASSURANCES = ["CUSTOM DISTRIBUTION ROADMAP", "NO AGENCY LOCK-IN", "72-HOUR ONBOARDING"];
 
 export default function FinalCTA() {
   const sectionRef = useRef(null);
   const [inView, setInView] = useState(false);
-  const [isBtnHovered, setIsBtnHovered] = useState(false);
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
+  // Closing line scales up like a finale
+  const scale = useTransform(scrollYProgress, [0, 0.5], [0.92, 1.02]);
 
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setInView(true);
-      },
-      { threshold: 0.2 }
-    );
+    const observer = new IntersectionObserver(([entry]) => entry.isIntersecting && setInView(true), { threshold: 0.2 });
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
@@ -24,211 +24,161 @@ export default function FinalCTA() {
     <section
       id="final-cta-section"
       ref={sectionRef}
+      className="noise-overlay"
       style={{
         position: "relative",
-        background: `radial-gradient(ellipse 90% 70% at 50% 50%, #0c162d 0%, ${COLORS.obsidian} 100%)`,
-        padding: "150px 24px 130px",
+        background: COLORS.obsidian,
+        padding: "190px 48px 150px",
         overflow: "hidden",
         textAlign: "center",
-        borderTop: `1px solid ${COLORS.borderAccent}`,
+        borderTop: "1px solid rgba(56,189,248,0.08)",
       }}
     >
-      <style>{`
-        @keyframes pulseShardGlow {
-          0%, 100% {
-            transform: scale(1) rotate(0deg);
-            filter: drop-shadow(0 0 35px rgba(37, 99, 235, 0.45));
-          }
-          50% {
-            transform: scale(1.04) rotate(2deg);
-            filter: drop-shadow(0 0 65px rgba(56, 189, 248, 0.7));
-          }
-        }
-        @keyframes floatRings {
-          0%, 100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 0.3; }
-          50% { transform: translate(-50%, -50%) scale(1.08) rotate(180deg); opacity: 0.6; }
-        }
-      `}</style>
-
-      {/* Atmospheric Multi-Layer Radial Glow */}
-      <div
+      {/* Finale bloom — strongest of the page */}
+      <motion.div
+        aria-hidden
+        animate={{ scale: [1, 1.06, 1], opacity: inView ? [0.6, 0.9, 0.6] : 0.4 }}
+        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
         style={{
           position: "absolute",
-          top: "45%",
+          top: "42%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          width: "850px",
-          height: "550px",
-          background: "radial-gradient(circle, rgba(37, 99, 235, 0.25) 0%, rgba(56, 189, 248, 0.08) 45%, transparent 75%)",
-          filter: "blur(70px)",
+          width: 1100,
+          height: 700,
+          background: `radial-gradient(ellipse, rgba(37,99,235,0.22) 0%, rgba(56,189,248,0.07) 45%, transparent 75%)`,
+          filter: "blur(110px)",
           pointerEvents: "none",
         }}
       />
 
-      {/* Animated Concentric Shard Rings */}
-      <div
-        style={{
-          position: "absolute",
-          top: "45%",
-          left: "50%",
-          width: "600px",
-          height: "600px",
-          borderRadius: "50%",
-          border: "1px dashed rgba(56, 189, 248, 0.18)",
-          pointerEvents: "none",
-          animation: "floatRings 24s linear infinite",
-        }}
-      />
+      {/* Orbital ring */}
+      <div aria-hidden className="spin-slow" style={{ position: "absolute", top: "18%", left: "50%", marginLeft: -340, width: 680, height: 680, borderRadius: "50%", border: "1px dashed rgba(56,189,248,0.13)", pointerEvents: "none" }}>
+        <div style={{ position: "absolute", bottom: -5, left: "50%", width: 9, height: 9, borderRadius: "50%", background: COLORS.sky, boxShadow: "0 0 16px #38BDF8" }} />
+      </div>
 
-      <div style={{ maxWidth: 900, margin: "0 auto", position: "relative", zIndex: 2 }}>
-        {/* Animated Brand Logo Shard Emblem */}
-        <div
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: 100,
-            height: 100,
-            borderRadius: "50%",
-            background: "linear-gradient(145deg, #111827, #050508)",
-            border: "1px solid rgba(56, 189, 248, 0.4)",
-            marginBottom: 36,
-            boxShadow: "0 12px 40px rgba(37, 99, 235, 0.4)",
-            animation: "pulseShardGlow 6s ease-in-out infinite",
-            position: "relative",
-          }}
+      <motion.div style={{ maxWidth: 1000, margin: "0 auto", position: "relative", zIndex: 2, scale }}>
+        {/* Index marker */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, ease: MOTION_EASE }}
+          style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 16, marginBottom: 40 }}
         >
-          <img
-            src="/logo.png"
-            alt="GetVeevz Shard Logo"
-            style={{ width: 64, height: 64, objectFit: "contain" }}
-          />
-        </div>
+          <span style={{ fontFamily: FONTS.mono, fontSize: "0.7rem", color: COLORS.sky, letterSpacing: "0.2em" }}>[ 008 ]</span>
+          <span className="hairline" style={{ width: 56 }} />
+          <span style={{ fontFamily: FONTS.mono, fontSize: "0.68rem", color: COLORS.textMuted, letterSpacing: "0.28em" }}>FINAL TRANSMISSION</span>
+        </motion.div>
 
-        {/* Eyebrow */}
-        <div
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 8,
-            fontFamily: FONTS.body,
-            fontSize: "0.75rem",
-            fontWeight: 700,
-            letterSpacing: "0.28em",
-            textTransform: "uppercase",
-            color: COLORS.sky,
-            marginBottom: 20,
-            background: "rgba(37, 99, 235, 0.15)",
-            border: "1px solid rgba(56, 189, 248, 0.3)",
-            padding: "6px 16px",
-            borderRadius: 999,
-          }}
-        >
-          <Sparkles size={14} color={COLORS.sky} />
-          READY TO DISTRIBUTE AT SCALE
-        </div>
-
-        {/* Headline */}
-        <h2
-          style={{
-            fontFamily: FONTS.sans,
-            fontSize: "clamp(2.6rem, 5.8vw, 4.5rem)",
-            fontWeight: 800,
-            color: COLORS.ice,
-            letterSpacing: "-0.035em",
-            lineHeight: 1.08,
-            margin: "0 auto 20px",
-            maxWidth: 820,
-          }}
-        >
-          You Already Have the Content. <br />
-          <span
-            style={{
-              background: "linear-gradient(135deg, #38BDF8 0%, #2563EB 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-            }}
-          >
-            Now Build the Distribution Behind It.
-          </span>
+        {/* Big closing statement */}
+        <h2 style={{ fontFamily: FONTS.display, fontSize: "clamp(3rem, 7vw, 6.4rem)", fontWeight: 600, lineHeight: 1.02, letterSpacing: "-0.035em", margin: "0 0 28px", color: COLORS.ice }}>
+          {["Your content is ready.", ""].map((_, li) => (
+            <span key={li} style={{ display: "block", overflow: "hidden" }}>
+              <motion.span
+                style={{ display: "block" }}
+                initial={{ y: "112%" }}
+                whileInView={{ y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: li * 0.12, duration: 1.15, ease: MOTION_EASE }}
+              >
+                {li === 0 ? (
+                  "Your content is ready."
+                ) : (
+                  <>
+                    We build{" "}
+                    <em className="serif-accent" style={{ background: "linear-gradient(120deg,#38BDF8,#2563EB)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", fontSize: "1.05em" }}>
+                      the reach.
+                    </em>
+                  </>
+                )}
+              </motion.span>
+            </span>
+          ))}
         </h2>
 
-        {/* Subheadline */}
-        <p
-          style={{
-            fontFamily: FONTS.body,
-            fontSize: "clamp(1rem, 1.4vw, 1.2rem)",
-            color: COLORS.textMuted,
-            maxWidth: 620,
-            margin: "0 auto 42px",
-            lineHeight: 1.6,
-          }}
+        {/* Sub copy */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.45, duration: 0.9 }}
+          style={{ fontFamily: FONTS.body, fontSize: "clamp(0.95rem, 1.25vw, 1.12rem)", color: COLORS.textMuted, maxWidth: 560, margin: "0 auto 52px", lineHeight: 1.75 }}
         >
-          Let's see what we can build around your existing content. Schedule a 1-on-1 distribution architecture call with our leadership team.
-        </p>
+          Book a 1-on-1 distribution architecture call with our leadership team and see what we can build around your existing archive.
+        </motion.p>
 
-        {/* CTA BUTTON */}
-        <div style={{ display: "flex", justifyContent: "center", gap: 16, flexWrap: "wrap", marginBottom: 36 }}>
-          <a
+        {/* CTA */}
+        <motion.div initial={{ opacity: 0, y: 26 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.55, duration: 0.9, ease: MOTION_EASE }}>
+          <motion.a
             href="https://calendly.com"
             target="_blank"
             rel="noopener noreferrer"
-            onMouseEnter={() => setIsBtnHovered(true)}
-            onMouseLeave={() => setIsBtnHovered(false)}
+            className="glow-border"
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.97 }}
             style={{
               display: "inline-flex",
               alignItems: "center",
-              gap: 12,
+              gap: 14,
               fontFamily: FONTS.sans,
-              fontSize: "0.95rem",
-              fontWeight: 700,
-              letterSpacing: "0.08em",
+              fontSize: "0.86rem",
+              fontWeight: 600,
+              letterSpacing: "0.14em",
               textTransform: "uppercase",
-              color: "#FFFFFF",
-              background: "linear-gradient(135deg, #2563EB 0%, #38BDF8 100%)",
-              padding: "18px 38px",
-              borderRadius: 14,
               textDecoration: "none",
-              boxShadow: isBtnHovered
-                ? "0 18px 45px rgba(56, 189, 248, 0.5), inset 0 0 15px rgba(255, 255, 255, 0.3)"
-                : "0 10px 30px rgba(37, 99, 235, 0.4)",
-              transform: isBtnHovered ? "translateY(-3px) scale(1.02)" : "translateY(0) scale(1)",
-              transition: "all 0.3s cubic-bezier(0.22, 1, 0.36, 1)",
+              color: "#FFFFFF",
+              background: `linear-gradient(120deg, ${COLORS.cobalt} 0%, ${COLORS.sky} 100%)`,
+              padding: "24px 46px",
+              borderRadius: 999,
+              boxShadow: `0 20px 60px -10px rgba(37,99,235,0.55)`,
             }}
           >
-            <Calendar size={18} />
-            <span>Book a Strategy Call</span>
-            <ArrowRight size={18} style={{ transform: isBtnHovered ? "translateX(4px)" : "none", transition: "transform 0.25s ease" }} />
-          </a>
-        </div>
+            <Calendar size={17} />
+            Book a strategy call
+            <ArrowUpRight size={17} />
+          </motion.a>
+        </motion.div>
 
-        {/* Confidence assurances */}
-        <div
+        {/* Assurances — mono ticker-style row */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.75, duration: 1 }}
           style={{
             display: "flex",
             justifyContent: "center",
-            alignItems: "center",
-            gap: "24px 32px",
+            gap: 44,
             flexWrap: "wrap",
-            fontFamily: FONTS.body,
-            fontSize: "0.82rem",
-            color: "rgba(241, 245, 249, 0.6)",
+            marginTop: 64,
+            paddingTop: 32,
+            borderTop: "1px solid rgba(241,245,249,0.07)",
           }}
         >
-          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <CheckCircle size={15} color={COLORS.sky} />
-            <span>Custom Distribution Roadmap</span>
-          </div>
-          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <CheckCircle size={15} color={COLORS.sky} />
-            <span>No Obligation or Agency Lock-In</span>
-          </div>
-          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <CheckCircle size={15} color={COLORS.sky} />
-            <span>72-Hour Onboarding Ready</span>
-          </div>
-        </div>
-      </div>
+          {ASSURANCES.map((a, i) => (
+            <motion.span
+              key={a}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.85 + i * 0.1, duration: 0.7 }}
+              style={{
+                fontFamily: FONTS.mono,
+                fontSize: "0.66rem",
+                letterSpacing: "0.24em",
+                color: COLORS.textMuted,
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 10,
+              }}
+            >
+              <span style={{ width: 5, height: 5, borderRadius: "50%", background: i === 0 ? COLORS.sky : i === 1 ? "#34D399" : "#F59E0B", boxShadow: `0 0 8px currentColor` }} />
+              {a}
+            </motion.span>
+          ))}
+        </motion.div>
+      </motion.div>
     </section>
   );
 }

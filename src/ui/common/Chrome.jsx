@@ -335,7 +335,12 @@ export default function Chrome({ progress }) {
             style={{
               display: "none",
               alignItems: "center",
-              gap: "24px",
+              gap: "12px",
+              background: "rgba(17, 24, 39, 0.4)",
+              backdropFilter: "blur(12px)",
+              padding: "6px 12px",
+              borderRadius: 14,
+              border: "1px solid rgba(255, 255, 255, 0.05)",
             }}
             className="hidden md:flex"
           >
@@ -347,33 +352,20 @@ export default function Chrome({ progress }) {
                   onClick={() => scrollToSection(sec.id)}
                   onMouseEnter={playHoverFx}
                   style={{
-                    background: "none",
+                    background: isActive ? "rgba(255, 255, 255, 0.08)" : "none",
                     border: "none",
+                    borderRadius: 8,
                     fontFamily: FONTS.sans,
-                    fontSize: "0.8rem",
+                    fontSize: "0.78rem",
                     fontWeight: 600,
-                    letterSpacing: "0.04em",
-                    color: isActive ? COLORS.sky : "rgba(241, 245, 249, 0.7)",
+                    letterSpacing: "0.02em",
+                    color: isActive ? COLORS.ice : "rgba(241, 245, 249, 0.6)",
                     cursor: "pointer",
-                    padding: "4px 0",
-                    position: "relative",
-                    transition: "color 0.25s ease",
+                    padding: "6px 12px",
+                    transition: "all 0.3s ease",
                   }}
                 >
                   {sec.name}
-                  {isActive && (
-                    <span
-                      style={{
-                        position: "absolute",
-                        bottom: -2,
-                        left: 0,
-                        right: 0,
-                        height: 2,
-                        background: "linear-gradient(90deg, #2563EB, #38BDF8)",
-                        borderRadius: 2,
-                      }}
-                    />
-                  )}
                 </button>
               );
             })}

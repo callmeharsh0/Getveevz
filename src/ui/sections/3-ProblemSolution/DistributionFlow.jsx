@@ -9,7 +9,7 @@ const OUTPUTS = [
   { id: "insight", label: "Key Insight", solution: "Multi-Fleet Dispatch", desc: "Syndicated across 30+ brand satellite channels.", x: -300, y: 0 },
   { id: "bts", label: "TikTok Edit", solution: "Algorithmic Pacing", desc: "Kinetic captions and sonic audio design.", x: 300, y: 0 },
   { id: "quote", label: "Authority Clip", solution: "Retention Tuning", desc: "Engineered to keep viewers through the end.", x: -300, y: 190 },
-  { id: "highlight", label: "Viral Cut", solution: "Continuous Feed Feed", desc: "Automated distribution loops to flood feeds.", x: 300, y: 190 },
+  { id: "highlight", label: "Viral Cut", solution: "Continuous Feed Loop", desc: "Automated distribution loops to flood feeds.", x: 300, y: 190 },
 ];
 
 const PROBLEM_LABELS = [
@@ -124,7 +124,10 @@ export default function DistributionFlow() {
   );
 
   return (
-    <div ref={wrapperRef} style={{ position: "relative", width: "100%", height: "100vh", background: COLORS.obsidian, overflow: "hidden", padding: "0 24px", boxSizing: "border-box" }}>
+    <div
+      ref={wrapperRef}
+      style={{ position: "relative", width: "100%", height: "100vh", background: COLORS.obsidian, overflow: "hidden", padding: "0 24px", boxSizing: "border-box" }}
+    >
       {/* Dynamic Cobalt Mesh Glow */}
       <div
         style={{
@@ -164,7 +167,10 @@ export default function DistributionFlow() {
         </span>
       </div>
 
-      <div ref={contentGroupRef} style={{ position: "absolute", top: "50%", left: "50%", width: 1000, height: 800, marginLeft: -500, marginTop: -400 }}>
+      <div
+        ref={contentGroupRef}
+        style={{ position: "absolute", top: "50%", left: "50%", width: 1000, height: 800, marginLeft: -500, marginTop: -400 }}
+      >
         {PROBLEM_LABELS.map((p, i) => (
           <div
             key={p.text}
