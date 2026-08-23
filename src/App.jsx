@@ -52,7 +52,7 @@ export default function App() {
         COLOR_UPDATE_SPEED={10}
         SHADING={true}
         RAINBOW_MODE={false}
-        COLOR="#A855F7"
+        COLOR="#38BDF8"
       />
 
       {/* ── PERSISTENT NAVIGATION ── */}
