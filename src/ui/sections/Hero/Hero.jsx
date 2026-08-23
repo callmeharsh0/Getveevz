@@ -2,7 +2,7 @@ import { useRef, useState, useEffect, useCallback } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 import { ArrowUpRight, Calendar } from "lucide-react";
 import { COLORS, FONTS, MOTION_EASE } from "../../../utils/theme";
-import Silk from "../../common/Silk.jsx";
+import PixelSnow from "../../common/PixelSnow.jsx";
 
 const CYCLE_WORDS = ["Short-Form", "Viral", "Platform-Native", "Algorithmic"];
 
@@ -150,9 +150,22 @@ export default function Hero() {
         overflow: "hidden",
       }}
     >
-      {/* ── Silk Fluid Waves Background (ReactBits inspired) ── */}
-      <div style={{ position: "absolute", inset: 0, opacity: 0.75, pointerEvents: "none" }}>
-        <Silk speed={5} scale={1} color="#2563EB" noiseIntensity={1.5} rotation={0} />
+      {/* ── Pixel Snow Background (ReactBits) ── */}
+      <div style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none", zIndex: 1, opacity: 0.85 }}>
+        <PixelSnow
+          color="#5b81e9"
+          flakeSize={0.01}
+          minFlakeSize={1.25}
+          pixelResolution={200}
+          speed={1.25}
+          density={0.3}
+          direction={125}
+          brightness={1}
+          depthFade={8}
+          farPlane={20}
+          gamma={0.4545}
+          variant="square"
+        />
       </div>
 
       {/* ── Aurora + Particle field + Scan line ── */}
