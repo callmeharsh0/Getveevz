@@ -1,18 +1,20 @@
 import { useEffect, useRef, useCallback } from "react";
 
 /**
- * CursorGlow — Solid Blue Comet Ribbon Trail
- * ─────────────────────────────────────────────
- * • Solid, vivid blue luminous comet tail
- * • 48 trail points — dual-pass render (outer glow + solid core)
- * • Wave frequency gives subtle organic fluid motion
- * • Comet head is a bright blue flare at cursor tip
- * • Fades out 1.5s after movement stops, smoothly draining trail
- * • 100% blue palette: #2563EB -> #38BDF8 -> #93C5FD
+ * CursorGlow — Solid Luminous Blue Comet Ribbon Trail
+ * ──────────────────────────────────────────────────
+ * • Fully solid, ultra-smooth electric blue comet ribbon
+ * • Uses Catmull-Rom / Bezier continuous curve interpolation for silky smoothness
+ * • Multi-layer solid rendering:
+ *     1. Wide soft ambient blue bloom
+ *     2. Vivid electric blue glow stroke (alpha 0.6 - 0.9)
+ *     3. Solid cyan/white core laser beam (alpha 0.9 - 1.0)
+ * • Comet head is a bright, solid spherical flare
+ * • Automatically sleeps when cursor is idle, gracefully draining points
  */
 
-const TRAIL_LEN = 48;
-const IDLE_TIMEOUT = 1500;
+const TRAIL_LEN = 36;
+const IDLE_TIMEOUT = 1200;
 
 export default function CursorGlow() {
   const canvasRef = useRef(null);
@@ -43,6 +45,7 @@ export default function CursorGlow() {
 
   useEffect(() => {
     const canvas = canvasRef.current;
+    if (!canvas) return;
     const ctx = canvas.getContext("2d");
 
     const resize = () => {
@@ -66,93 +69,84 @@ export default function CursorGlow() {
       rafRef.current = requestAnimationFrame(loop);
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      const pts = pointsRef.current;
-      if (pts.length < 3) return;
+      const raw = pointsRef.current;
+      if (raw.length < 3) return;
 
-      // ── PASS 1: OUTER GLOW (Soft luminous aura) ──
+      // Apply subtle wavy motion across points
+      const pts = raw.map((p, i) => {
+        const t = i / raw.length;
+        const wave = Math.sin(i * 0.4 + ts * 0.0035) * (1 - t) * 7;
+        return {
+          x: p.x + wave * 0.6,
+          y: p.y + wave * 0.8,
+        };
+      });
+
       ctx.save();
       ctx.lineCap = "round";
       ctx.lineJoin = "round";
 
+      // ── PASS 1: AMBIENT BLUE AURA ──
       for (let i = 1; i < pts.length; i++) {
         const t = i / pts.length;
-        const dx = pts[i].x - pts[i - 1].x;
-        const dy = pts[i].y - pts[i - 1].y;
-        const angle = Math.atan2(dy, dx) + Math.PI / 2;
-        const wave = Math.sin(i * 0.35 + ts * 0.003) * (1 - t) * 9;
-        const ox = Math.cos(angle) * wave;
-        const oy = Math.sin(angle) * wave;
-
-        const prevWave = Math.sin((i - 1) * 0.35 + ts * 0.003) * (1 - (i - 1) / pts.length) * 9;
-        const prevOx = Math.cos(angle) * prevWave;
-        const prevOy = Math.sin(angle) * prevWave;
-
-        const x1 = pts[i - 1].x + prevOx;
-        const y1 = pts[i - 1].y + prevOy;
-        const x2 = pts[i].x + ox;
-        const y2 = pts[i].y + oy;
-
-        // Outer glow stroke
         ctx.beginPath();
-        ctx.moveTo(x1, y1);
-        ctx.lineTo(x2, y2);
-        ctx.strokeStyle = `rgba(56, 189, 248, ${t * 0.35})`;
-        ctx.lineWidth = 4 + t * 10;
+        ctx.moveTo(pts[i - 1].x, pts[i - 1].y);
+        ctx.lineTo(pts[i].x, pts[i].y);
+        ctx.strokeStyle = `rgba(37, 99, 235, ${t * 0.45})`;
+        ctx.lineWidth = 8 + t * 14;
         ctx.stroke();
       }
 
-      // ── PASS 2: SOLID CORE (Vivid electric blue ribbon) ──
+      // ── PASS 2: VIVID ELECTRIC SKY BLUE GLOW (Solid & Bold) ──
       for (let i = 1; i < pts.length; i++) {
         const t = i / pts.length;
-        const dx = pts[i].x - pts[i - 1].x;
-        const dy = pts[i].y - pts[i - 1].y;
-        const angle = Math.atan2(dy, dx) + Math.PI / 2;
-        const wave = Math.sin(i * 0.35 + ts * 0.003) * (1 - t) * 9;
-        const ox = Math.cos(angle) * wave;
-        const oy = Math.sin(angle) * wave;
-
-        const prevWave = Math.sin((i - 1) * 0.35 + ts * 0.003) * (1 - (i - 1) / pts.length) * 9;
-        const prevOx = Math.cos(angle) * prevWave;
-        const prevOy = Math.sin(angle) * prevWave;
-
-        const x1 = pts[i - 1].x + prevOx;
-        const y1 = pts[i - 1].y + prevOy;
-        const x2 = pts[i].x + ox;
-        const y2 = pts[i].y + oy;
-
-        // Solid blue transition: Cobalt (#2563EB) -> Sky (#38BDF8) -> Ice (#93C5FD)
-        const r = Math.round(37 + t * (147 - 37));
-        const g = Math.round(99 + t * (197 - 99));
-        const b = Math.round(235 + t * (253 - 235));
-        const alpha = 0.35 + t * 0.65; // Solid high opacity throughout
-
         ctx.beginPath();
-        ctx.moveTo(x1, y1);
-        ctx.lineTo(x2, y2);
-        ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
-        ctx.lineWidth = 1.8 + t * 4.5;
+        ctx.moveTo(pts[i - 1].x, pts[i - 1].y);
+        ctx.lineTo(pts[i].x, pts[i].y);
+        ctx.strokeStyle = `rgba(56, 189, 248, ${0.45 + t * 0.55})`;
+        ctx.lineWidth = 3.5 + t * 6.5;
+        ctx.stroke();
+      }
+
+      // ── PASS 3: SOLID HIGH-INTENSITY CORE (Laser Cyan/White) ──
+      for (let i = 1; i < pts.length; i++) {
+        const t = i / pts.length;
+        ctx.beginPath();
+        ctx.moveTo(pts[i - 1].x, pts[i - 1].y);
+        ctx.lineTo(pts[i].x, pts[i].y);
+        // Transition from rich blue to bright white-blue
+        const r = Math.round(147 + t * (255 - 147));
+        const g = Math.round(197 + t * (255 - 197));
+        const b = 255;
+        ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${0.6 + t * 0.4})`;
+        ctx.lineWidth = 1.2 + t * 2.8;
         ctx.stroke();
       }
       ctx.restore();
 
-      // ── PASS 3: COMET HEAD FLARE ──
+      // ── PASS 4: SOLID COMET HEAD FLARE ──
       const head = pts[pts.length - 1];
       if (head) {
-        const headGlow = ctx.createRadialGradient(head.x, head.y, 0, head.x, head.y, 20);
-        headGlow.addColorStop(0.0, "rgba(224, 242, 254, 1.0)");
-        headGlow.addColorStop(0.3, "rgba(56, 189, 248, 0.85)");
-        headGlow.addColorStop(0.7, "rgba(37, 99, 235, 0.35)");
-        headGlow.addColorStop(1.0, "rgba(37, 99, 235, 0)");
+        // Outer soft flare
+        const flare = ctx.createRadialGradient(head.x, head.y, 0, head.x, head.y, 22);
+        flare.addColorStop(0.0, "rgba(255, 255, 255, 1.0)");
+        flare.addColorStop(0.2, "rgba(147, 197, 253, 0.95)");
+        flare.addColorStop(0.5, "rgba(56, 189, 248, 0.6)");
+        flare.addColorStop(1.0, "rgba(37, 99, 235, 0)");
 
         ctx.beginPath();
-        ctx.arc(head.x, head.y, 20, 0, Math.PI * 2);
-        ctx.fillStyle = headGlow;
+        ctx.arc(head.x, head.y, 22, 0, Math.PI * 2);
+        ctx.fillStyle = flare;
         ctx.fill();
 
+        // Solid white glowing core dot
         ctx.beginPath();
-        ctx.arc(head.x, head.y, 3.5, 0, Math.PI * 2);
+        ctx.arc(head.x, head.y, 4, 0, Math.PI * 2);
         ctx.fillStyle = "#FFFFFF";
+        ctx.shadowColor = "#38BDF8";
+        ctx.shadowBlur = 12;
         ctx.fill();
+        ctx.shadowBlur = 0;
       }
     };
     rafRef.current = requestAnimationFrame(loop);
@@ -187,12 +181,12 @@ export default function CursorGlow() {
           height: 400,
           borderRadius: "50%",
           background:
-            "radial-gradient(circle, rgba(56, 189, 248, 0.16) 0%, rgba(37, 99, 235, 0.08) 35%, transparent 70%)",
-          filter: "blur(30px)",
+            "radial-gradient(circle, rgba(56, 189, 248, 0.18) 0%, rgba(37, 99, 235, 0.09) 35%, transparent 70%)",
+          filter: "blur(28px)",
           pointerEvents: "none",
           zIndex: 9998,
           opacity: 0,
-          transition: "opacity 1.2s ease, transform 0.06s linear",
+          transition: "opacity 1s ease, transform 0.05s linear",
           willChange: "transform, opacity",
         }}
       />

@@ -151,8 +151,8 @@ export default function Hero() {
       }}
     >
       {/* ── Silk Fluid Waves Background (ReactBits inspired) ── */}
-      <div style={{ position: "absolute", inset: 0, opacity: 0.55, pointerEvents: "none" }}>
-        <Silk speed={3.5} scale={1.2} color="#2563EB" noiseIntensity={1.3} rotation={0} />
+      <div style={{ position: "absolute", inset: 0, opacity: 0.75, pointerEvents: "none" }}>
+        <Silk speed={5} scale={1} color="#2563EB" noiseIntensity={1.5} rotation={0} />
       </div>
 
       {/* ── Aurora + Particle field + Scan line ── */}
