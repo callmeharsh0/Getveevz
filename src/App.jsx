@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./utils/gsapSetup";
 import Chrome from "./ui/common/Chrome.jsx";
-import CursorGlow from "./ui/common/CursorGlow.jsx";
+import SplashCursor from "./ui/common/SplashCursor.jsx";
 
 // ── CORE JOURNEY (conversion-focused, in order) ──
 import Hero from "./ui/sections/Hero/Hero.jsx";
@@ -41,8 +41,19 @@ export default function App() {
 
   return (
     <>
-      {/* ── CURSOR GLOW + TRAILS (global) ── */}
-      <CursorGlow />
+      {/* ── SPLASH CURSOR (Fluid simulation) ── */}
+      <SplashCursor
+        DENSITY_DISSIPATION={3.5}
+        VELOCITY_DISSIPATION={2}
+        PRESSURE={0.1}
+        CURL={3}
+        SPLAT_RADIUS={0.2}
+        SPLAT_FORCE={6000}
+        COLOR_UPDATE_SPEED={10}
+        SHADING={true}
+        RAINBOW_MODE={false}
+        COLOR="#A855F7"
+      />
 
       {/* ── PERSISTENT NAVIGATION ── */}
       <Chrome />
