@@ -50,13 +50,12 @@ export default function PricingSection() {
     <section
       id="pricing-section"
       ref={sectionRef}
-      className="noise-overlay"
       style={{
         position: "relative",
-        background: COLORS.obsidian,
-        padding: "170px 48px",
+        /* Deep midnight blue — distinct from surrounding black sections */
+        background: "#030812",
+        padding: "140px 48px",
         overflow: "hidden",
-        borderTop: "1px solid rgba(56,189,248,0.08)",
       }}
     >
       {/* Central bloom */}
@@ -78,18 +77,6 @@ export default function PricingSection() {
       <div style={{ maxWidth: 1440, margin: "0 auto", position: "relative", zIndex: 2 }}>
         {/* Header — centered this time for variety */}
         <div style={{ textAlign: "center", marginBottom: 80 }}>
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 1, ease: MOTION_EASE }}
-            style={{ display: "inline-flex", alignItems: "center", gap: 16, marginBottom: 32 }}
-          >
-            <span style={{ fontFamily: FONTS.mono, fontSize: "0.7rem", color: COLORS.sky, letterSpacing: "0.2em" }}>[ 007 ]</span>
-            <span className="hairline" style={{ width: 56 }} />
-            <span style={{ fontFamily: FONTS.mono, fontSize: "0.68rem", color: COLORS.textMuted, letterSpacing: "0.28em" }}>INVESTMENT TIERS</span>
-          </motion.div>
-
           <h2 style={{ fontFamily: FONTS.display, fontSize: "clamp(2.6rem, 5vw, 4.4rem)", fontWeight: 600, lineHeight: 1.05, letterSpacing: "-0.03em", margin: "0 0 36px", color: COLORS.ice }}>
             <span style={{ display: "block", overflow: "hidden" }}>
               <motion.span style={{ display: "block" }} initial={{ y: "110%" }} whileInView={{ y: 0 }} viewport={{ once: true, margin: "-80px" }} transition={{ duration: 1.1, ease: MOTION_EASE }}>
@@ -130,7 +117,7 @@ export default function PricingSection() {
               />
             </button>
             <span style={{ color: yearly ? COLORS.ice : COLORS.textMuted }}>YEARLY</span>
-            <span style={{ color: "#34D399", fontSize: "0.66rem", border: "1px solid rgba(52,211,153,0.4)", padding: "3px 10px", borderRadius: 999 }}>−20%</span>
+            <span style={{ color: "#60A5FA", fontSize: "0.66rem", border: "1px solid rgba(96,165,250,0.4)", padding: "3px 10px", borderRadius: 999 }}>−20%</span>
           </motion.div>
         </div>
 

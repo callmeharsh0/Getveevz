@@ -1,0 +1,125 @@
+=== PAGE 1 ===
+GetVeevz — Website Brief
+Purpose: Build a high-converting website that makes the GetVeevz offer immediately clear and drives qualified
+prospects toward booking a call / starting a campaign.
+1. Main Goal
+ We turn existing long-form content into large-scale short-form distribution.
+The website should make prospects understand what we do within 5 seconds and drive them toward booking a call /
+starting a campaign.
+2. Target Customer
+Founders  Entrepreneurs  Creators / personal brands  Businesses with existing long-form content  Podcasts /
+content-led brands
+The ideal customer already creates content but wants more reach and distribution without having to build and
+manage the entire clipping operation themselves.
+3. Core Positioning
+Main message
+ Turn Your Long-Form Content Into a Short-Form Distribution Engine
+GetVeevz takes existing long-form content and turns it into coordinated short-form distribution across Instagram,
+YouTube Shorts and TikTok. We handle the clipping operation, campaign coordination, distribution and tracking.
+Important
+Do not position us as simply a video-editing agency. The website should communicate: Content → Clipping →
+Distribution → Tracking.
+4. Homepage Structure
+SECTION 1 — HERO
+Headline
+ Turn Your Long-Form Content Into a Short-Form Distribution Engine
+Subheadline
+GetVeevz turns the content you're already creating into coordinated short-form distribution across Instagram,
+YouTube Shorts and TikTok.
+CTA
+Book a Strategy Call
+Visual
+Premium visual showing short-form videos, multiple social accounts, campaign analytics, views/results and GetVeevz
+branding. Avoid generic stock images.
+
+
+=== PAGE 2 ===
+SECTION 2 — PROOF
+Headline
+ Built to Distribute Content at Scale
+Show approved client logos, verified campaign results, screenshots of actual content/accounts and relevant analytics.
+Potential client names: ThinkSchool, GrowthSchool, Rachitroo, Ranveer Allahbadia, Traders Paradise, Tai Lopez,
+WisprFlow — only after approval/confirmation.
+Important: Only use logos/numbers that have been verified and approved.
+SECTION 3 — THE PROBLEM
+Headline
+ You're Already Creating the Content. Why Isn't It Being Distributed Everywhere?
+Most creators and businesses invest heavily in long-form content but don't have the infrastructure to consistently turn
+that content into large-scale short-form distribution. GetVeevz handles that operation.
+Visual: Long-form content → Clips → Multiple distribution channels
+SECTION 4 — WHAT WE DO
+Headline
+ Everything You Need to Turn Content Into Distribution
+Clipping: Turn long-form videos into short-form content.
+Distribution: Distribute content across relevant short-form platforms and pages.
+Campaign Management: Coordinate the campaign, contributors, content requirements and submissions.
+Tracking: Track campaign activity and performance.
+Keep this section visual and concise.
+SECTION 5 — HOW IT WORKS
+Headline
+ From Content to Distribution Without Building the Operation Yourself
+01 — Give Us Your Content: You provide the relevant content/assets.
+02 — We Build the Campaign: We create the campaign structure, requirements and distribution system.
+03 — Clips Go Live: Our clipping/distribution network publishes short-form content.
+04 — Track & Optimize: We track performance and manage the campaign.
+SECTION 6 — CASE STUDIES
+Headline
+ See What the Distribution Can Look Like
+
+
+=== PAGE 3 ===
+This should be one of the strongest sections. For every case study show: Client → Campaign → Execution →
+Results.
+Use real view counts, screenshots, clip examples, account examples and campaign metrics. Do not use generic
+claims when actual evidence is available.
+SECTION 7 — WHY GETVEEVZ
+Headline
+ You're Not Hiring Another Video Editor.
+Explain that GetVeevz is built around distribution, not simply editing individual videos.
+Focus on: managed clipping network  multi-platform distribution  campaign management  tracking  structured
+execution.
+SECTION 8 — FAQ
+Keep this short. Answer: What exactly does GetVeevz do? What type of content can we use? Which platforms do you
+work with? Who creates the clips? Where are the clips posted? How does the campaign work? How long does
+onboarding take? How much does it cost? What results can we expect?
+Do not promise guaranteed results unless officially approved.
+SECTION 9 — FINAL CTA
+Headline
+ You Already Have the Content. Now Build the Distribution Behind It.
+Subheadline: Let's see what we can build around your existing content.
+CTA: Book a Strategy Call
+5. Design Direction
+Feel: Premium + Modern + Tech-enabled + Aggressive + Results-focused
+Use a dark / premium visual system, large typography, strong animations, social media content integrated into the
+design, real campaign screenshots, minimal paragraphs, lots of visual proof and clear CTAs throughout.
+Avoid: Generic agency templates, corporate-looking layouts, stock photos, huge blocks of text, overexplaining the
+service, too many navigation options and generic headings like “About Us” and “Our Services”.
+The visitor should be able to scan the entire page and understand the business without reading every paragraph.
+6. Assets Needed From Us
+■ Final GetVeevz logo
+■ Brand colors/fonts
+■ Approved client logos
+■ Case studies
+■ Verified campaign results
+■ Analytics screenshots
+■ Short-form clip examples
+■ Testimonials
+■ Team/company photos if required
+
+
+=== PAGE 4 ===
+■ Final CTA/contact details
+■ Pricing approach
+Needs confirmation
+1. Which client logos can we publicly display?
+2. What are our 3 strongest case studies?
+3. What verified results can we publicly claim?
+4. What is the exact CTA — Book a Call / Apply / Get Proposal?
+5. What is our current verified number of clippers/editors?
+6. What is the typical campaign onboarding timeline?
+7. One-Line Direction for the Team
+ Build GetVeevz as a premium content-distribution company, not a generic clipping/editing
+agency. The website should sell the outcome — turning existing content into large-scale
+short-form distribution — and use real campaign proof to make that promise believable.
+
+

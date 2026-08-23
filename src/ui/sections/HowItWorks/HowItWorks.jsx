@@ -1,227 +1,321 @@
-import React, { useState, useEffect, useRef } from "react";
-import { motion, useScroll, useTransform } from "motion/react";
-import { UploadCloud, Cpu, Radio, BarChart3, ArrowUpRight } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { UploadCloud, Cpu, Radio, BarChart3 } from "lucide-react";
 import { COLORS, FONTS, MOTION_EASE } from "../../../utils/theme";
 
 const STEPS = [
   {
     num: "01",
-    title: "Give us your content",
-    serif: "raw.",
+    title: "Hand us your raw content",
+    tag: "INGEST",
     icon: UploadCloud,
-    tag: "RAW INGESTION",
-    description: "A simple link or drive folder is all we need — episodes, keynotes, webinars, any format, any length.",
-    deliverables: ["Any format or length", "Auto transcription & indexing", "Secure cloud ingestion"],
-    console: ["$ ingest --source=drive://master-library", "▸ Episode_48_RawMaster.mov (01:14:22) ✓", "▸ Keynote_SF_2026.mp4 (00:46:15) ✓", "▸ 3 files ready — pipeline armed."],
-    accent: COLORS.sky,
+    lines: [
+      { text: "A link or Drive folder.", dim: false },
+      { text: "Any format. Any length.", dim: false },
+      { text: "We take it from here.", dim: true },
+    ],
+    detail: "Episodes, keynotes, webinars — any format, any length. Auto-transcribed and indexed in 24 hrs.",
+    accent: "#38BDF8",
+    accentBg: "rgba(56,189,248,0.06)",
   },
   {
     num: "02",
-    title: "We build the campaign",
-    serif: "engineered.",
+    title: "We engineer the campaign",
+    tag: "BUILD",
     icon: Cpu,
-    tag: "HOOK ENGINEERING",
-    description: "High-retention moments extracted, kinetic 9:16 cuts crafted, hooks written platform-native, fleet spun up.",
-    deliverables: ["20–60+ engineered assets", "Sound design & typography", "Fleet branding & warmup"],
-    console: ["$ extract --hooks --kinetic-cuts", "▸ HOOK_01 'The $10M Distribution Secret' 0:34", "▸ HOOK_02 'Why 99% of Content Dies' 0:48", "▸ 34 high-retention cuts generated ✓"],
-    accent: "#F59E0B",
+    lines: [
+      { text: "Hooks extracted.", dim: false },
+      { text: "9:16 cuts crafted.", dim: false },
+      { text: "Fleet spun up.", dim: true },
+    ],
+    detail: "20–60 engineered assets per month: kinetic typography, sonic design, satellite channel infrastructure.",
+    accent: "#60A5FA",
+    accentBg: "rgba(96,165,250,0.06)",
   },
   {
     num: "03",
-    title: "Clips go live",
-    serif: "everywhere.",
+    title: "Clips go live everywhere",
+    tag: "DISPATCH",
     icon: Radio,
-    tag: "TRI-PLATFORM DISPATCH",
-    description: "Coordinated publishing waves hit Shorts, Reels and TikTok across your brand + satellite channels at peak windows.",
-    deliverables: ["Daily publishing waves", "Engagement optimization", "Zero creator management"],
-    console: ["$ dispatch --all-platforms --peak-windows", "▸ YT Shorts: 4 posts scheduled", "▸ IG Reels: 6 posts scheduled", "▸ TikTok: 8 posts scheduled — LIVE on 30+ channels"],
-    accent: "#34D399",
+    lines: [
+      { text: "Shorts. Reels. TikTok.", dim: false },
+      { text: "30+ channels, daily waves.", dim: false },
+      { text: "Zero creator time needed.", dim: true },
+    ],
+    detail: "Coordinated publishing at peak algorithmic windows. No manual uploading, no account logins from you.",
+    accent: "#93C5FD",
+    accentBg: "rgba(147,197,253,0.06)",
   },
   {
     num: "04",
-    title: "Track & optimize",
-    serif: "compounding.",
+    title: "Scale what's working",
+    tag: "TRACK",
     icon: BarChart3,
-    tag: "SCALE TELEMETRY",
-    description: "Watch time, drop-offs and algorithmic triggers analyzed to double down on viral angles and scale winners.",
-    deliverables: ["Real-time view analytics", "Hook iteration loops", "Monthly scale reports"],
-    console: ["$ telemetry --live --aggregate", "▸ Total reach: 18.4M views / 30d", "▸ Top clip: 4.8M views 🔥", "▸ Optimization loop: 3.4x reach velocity"],
-    accent: "#8B5CF6",
+    lines: [
+      { text: "Live view analytics.", dim: false },
+      { text: "Winners doubled down.", dim: false },
+      { text: "Reach compounds.", dim: true },
+    ],
+    detail: "Real-time dashboards track hook performance, view floors and retention spikes. We scale what wins.",
+    accent: "#2563EB",
+    accentBg: "rgba(37,99,235,0.06)",
   },
 ];
 
 export default function HowItWorks() {
-  const [activeStep, setActiveStep] = useState(0);
-  const sectionRef = useRef(null);
-  const [inView, setInView] = useState(false);
-  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
-  const ghostX = useTransform(scrollYProgress, [0, 1], ["-6%", "10%"]);
+  const [active, setActive] = useState(0);
 
+  // Auto-advance every 4s
   useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(([entry]) => entry.isIntersecting && setInView(true), { threshold: 0.15 });
-    observer.observe(el);
-    return () => observer.disconnect();
+    const iv = setInterval(() => setActive((a) => (a + 1) % STEPS.length), 4000);
+    return () => clearInterval(iv);
   }, []);
 
-  const cur = STEPS[activeStep];
-
-  // Auto-advance
-  useEffect(() => {
-    if (!inView) return;
-    const t = setInterval(() => setActiveStep((s) => (s + 1) % STEPS.length), 5000);
-    return () => clearInterval(t);
-  }, [inView]);
+  const step = STEPS[active];
 
   return (
     <section
       id="how-it-works-section"
-      ref={sectionRef}
-      className="noise-overlay"
       style={{
-        position: "relative",
-        background: COLORS.obsidian,
-        padding: "170px 48px",
+        background: "#060d1c",
         overflow: "hidden",
-        borderTop: "1px solid rgba(56,189,248,0.08)",
       }}
     >
-      {/* Ghost word drifting opposite direction */}
-      <motion.div aria-hidden className="text-stroke-faint" style={{ position: "absolute", bottom: "2%", left: "-2%", x: ghostX, fontFamily: FONTS.display, fontSize: "clamp(7rem, 16vw, 18rem)", fontWeight: 700, letterSpacing: "-0.04em", whiteSpace: "nowrap", pointerEvents: "none", zIndex: 0 }}>
-        PIPELINE
-      </motion.div>
+      {/* ── TOP: Heading + Step Tabs ── */}
+      <div style={{ maxWidth: 1440, margin: "0 auto", padding: "120px 48px 0" }}>
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          style={{
+            fontFamily: FONTS.mono, fontSize: "0.62rem",
+            letterSpacing: "0.3em", color: "rgba(56,189,248,0.6)",
+            textTransform: "uppercase", margin: "0 0 20px",
+          }}
+        >
+          How it works
+        </motion.p>
 
-      <div style={{ maxWidth: 1440, margin: "0 auto", position: "relative", zIndex: 2 }}>
-        {/* Header */}
-        <div style={{ marginBottom: 90 }}>
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 1, ease: MOTION_EASE }}
-            style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 32 }}
-          >
-            <span style={{ fontFamily: FONTS.mono, fontSize: "0.7rem", color: COLORS.sky, letterSpacing: "0.2em" }}>[ 004 ]</span>
-            <span className="hairline" style={{ width: 72 }} />
-            <span style={{ fontFamily: FONTS.mono, fontSize: "0.68rem", color: COLORS.textMuted, letterSpacing: "0.28em" }}>TURNKEY EXECUTION</span>
-          </motion.div>
+        <motion.h2
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, ease: MOTION_EASE }}
+          style={{
+            fontFamily: FONTS.display,
+            fontSize: "clamp(2.6rem, 5vw, 4.8rem)",
+            fontWeight: 600, lineHeight: 1.0,
+            letterSpacing: "-0.035em",
+            color: COLORS.ice, margin: "0 0 80px",
+          }}
+        >
+          Four steps.
+          <br />
+          <span style={{
+            background: "linear-gradient(120deg, #38BDF8, #2563EB)",
+            WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
+          }}>
+            That's the whole process.
+          </span>
+        </motion.h2>
+      </div>
 
-          <h2 style={{ fontFamily: FONTS.display, fontSize: "clamp(2.6rem, 5.6vw, 4.8rem)", fontWeight: 600, lineHeight: 1.04, letterSpacing: "-0.03em", margin: 0, color: COLORS.ice, maxWidth: 1000 }}>
-            {["From content to distribution,", "without the operation."].map((line, li) => (
-              <span key={li} style={{ display: "block", overflow: "hidden" }}>
-                <motion.span style={{ display: "block" }} initial={{ y: "110%" }} whileInView={{ y: 0 }} viewport={{ once: true, margin: "-80px" }} transition={{ delay: li * 0.1, duration: 1.1, ease: MOTION_EASE }}>
-                  {li === 1 ? (
-                    <>
-                      without{" "}
-                      <em className="serif-accent" style={{ background: "linear-gradient(120deg,#38BDF8,#2563EB)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-                        the operation.
-                      </em>
-                    </>
-                  ) : (
-                    line
-                  )}
-                </motion.span>
-              </span>
-            ))}
-          </h2>
-        </div>
-
-        {/* ============ DIFFERENT STYLE: horizontal timeline rail with progress line ============ */}
-        <div style={{ borderTop: "1px solid rgba(241,245,249,0.09)", paddingTop: 40 }}>
-          {/* Step rail */}
-          <div style={{ display: "flex", alignItems: "flex-start", gap: 0, marginBottom: 64 }}>
-            {STEPS.map((step, idx) => {
-              const isActive = activeStep === idx;
-              return (
-                <button
-                  key={step.num}
-                  onClick={() => setActiveStep(idx)}
-                  style={{
-                    flex: 1,
-                    background: "none",
-                    border: "none",
-                    padding: "0 24px 28px",
-                    textAlign: "left",
-                    cursor: "pointer",
-                    position: "relative",
-                    borderBottom: `2px solid ${isActive ? step.accent : "rgba(241,245,249,0.08)"}`,
-                    transition: "border-color 0.4s ease",
-                  }}
-                >
-                  <span style={{ display: "block", fontFamily: FONTS.mono, fontSize: "0.66rem", color: isActive ? step.accent : COLORS.textMuted, letterSpacing: "0.22em", marginBottom: 12 }}>
-                    PHASE {step.num}
-                  </span>
-                  <span style={{ display: "block", fontFamily: FONTS.sans, fontSize: "clamp(0.95rem, 1.4vw, 1.15rem)", fontWeight: 600, color: isActive ? COLORS.ice : COLORS.textMuted, transition: "color 0.35s ease" }}>
-                    {step.title}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Detail pane — split editorial: copy left, terminal right */}
-          <motion.div key={cur.num} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: MOTION_EASE }} style={{ display: "grid", gridTemplateColumns: "minmax(0,1fr) minmax(0,1fr)", gap: 72, alignItems: "start" }}>
-            {/* Left copy */}
-            <div>
-              <h3 style={{ fontFamily: FONTS.display, fontSize: "clamp(1.9rem, 3.2vw, 2.8rem)", fontWeight: 600, letterSpacing: "-0.02em", lineHeight: 1.1, margin: "0 0 14px", color: COLORS.ice }}>
-                {cur.title}{" "}
-                <em className="serif-accent" style={{ color: cur.accent, fontSize: "1.05em" }}>
-                  {cur.serif}
-                </em>
-              </h3>
-              <p style={{ fontFamily: FONTS.body, fontSize: "0.98rem", color: COLORS.textMuted, lineHeight: 1.75, margin: "0 0 32px", maxWidth: 480 }}>
-                {cur.description}
-              </p>
-
-              <div style={{ display: "flex", flexDirection: "column", gap: 0, maxWidth: 480 }}>
-                {cur.deliverables.map((d, di) => (
-                  <div key={di} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "13px 4px", borderBottom: "1px solid rgba(241,245,249,0.07)" }}>
-                    <span style={{ fontFamily: FONTS.body, fontSize: "0.86rem", color: "rgba(241,245,249,0.85)" }}>{d}</span>
-                    <ArrowUpRight size={15} color={cur.accent} />
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Right — terminal window */}
-            <div
-              className="glow-border"
+      {/* ── 4 TAB BUTTONS — full width ── */}
+      <div style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(4, 1fr)",
+        borderTop: "1px solid rgba(255,255,255,0.07)",
+        borderBottom: "1px solid rgba(255,255,255,0.07)",
+      }}>
+        {STEPS.map((s, i) => {
+          const Icon = s.icon;
+          const isActive = active === i;
+          return (
+            <button
+              key={s.num}
+              onClick={() => setActive(i)}
               style={{
-                borderRadius: 16,
-                background: "linear-gradient(170deg, #0a0a10 0%, #050508 100%)",
-                border: `1px solid ${cur.accent}30`,
-                overflow: "hidden",
-                boxShadow: `0 30px 80px rgba(0,0,0,0.6), 0 0 60px ${cur.accent}12`,
+                all: "unset",
+                cursor: "pointer",
+                padding: "32px 40px",
+                borderRight: i < 3 ? "1px solid rgba(255,255,255,0.07)" : "none",
+                background: isActive ? s.accentBg : "transparent",
+                position: "relative",
+                transition: "background 0.4s ease",
+                display: "flex",
+                flexDirection: "column",
+                gap: 14,
               }}
             >
-              {/* Titlebar */}
-              <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "14px 18px", borderBottom: "1px solid rgba(241,245,249,0.07)", background: "rgba(17,24,39,0.6)" }}>
-                <span style={{ width: 11, height: 11, borderRadius: "50%", background: "#EF4444" }} />
-                <span style={{ width: 11, height: 11, borderRadius: "50%", background: "#F59E0B" }} />
-                <span style={{ width: 11, height: 11, borderRadius: "50%", background: "#34D399" }} />
-                <span style={{ marginLeft: 12, fontFamily: FONTS.mono, fontSize: "0.68rem", letterSpacing: "0.16em", color: cur.accent }}>{cur.tag}</span>
+              {/* Active left border */}
+              {isActive && (
+                <motion.div
+                  layoutId="tab-border"
+                  style={{
+                    position: "absolute",
+                    left: 0, top: 0, bottom: 0,
+                    width: 3,
+                    background: `linear-gradient(180deg, ${s.accent}, rgba(37,99,235,0.3))`,
+                    boxShadow: `0 0 20px ${s.accent}80`,
+                  }}
+                  transition={{ duration: 0.3 }}
+                />
+              )}
+
+              {/* Icon */}
+              <div style={{
+                width: 40, height: 40, borderRadius: 12,
+                background: isActive ? `${s.accent}18` : "rgba(255,255,255,0.04)",
+                border: `1px solid ${isActive ? `${s.accent}40` : "rgba(255,255,255,0.08)"}`,
+                display: "flex", alignItems: "center", justifyContent: "center",
+                transition: "all 0.4s ease",
+              }}>
+                <Icon size={16} color={isActive ? s.accent : "rgba(241,245,249,0.3)"} />
               </div>
-              {/* Body */}
-              <div style={{ padding: "26px 22px", display: "flex", flexDirection: "column", gap: 14 }}>
-                {cur.console.map((line, li) => (
-                  <motion.div
-                    key={li}
-                    initial={{ opacity: 0, x: -14 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.25 + li * 0.18, duration: 0.5 }}
-                    style={{ fontFamily: FONTS.mono, fontSize: "0.78rem", lineHeight: 1.55, color: line.startsWith("$") ? COLORS.ice : cur.accent, whiteSpace: "pre-wrap" }}
-                  >
-                    {line}
-                  </motion.div>
-                ))}
-                {/* Blinking caret */}
-                <motion.span animate={{ opacity: [1, 0, 1] }} transition={{ duration: 1.1, repeat: Infinity }} style={{ width: 8, height: 16, background: cur.accent, boxShadow: `0 0 12px ${cur.accent}` }} />
-              </div>
-            </div>
-          </motion.div>
-        </div>
+
+              {/* Step tag */}
+              <span style={{
+                fontFamily: FONTS.mono,
+                fontSize: "0.55rem",
+                letterSpacing: "0.28em",
+                color: isActive ? s.accent : "rgba(241,245,249,0.2)",
+                textTransform: "uppercase",
+                transition: "color 0.4s ease",
+              }}>
+                {s.num} — {s.tag}
+              </span>
+
+              {/* Title */}
+              <span style={{
+                fontFamily: FONTS.body,
+                fontSize: "clamp(0.85rem, 1.1vw, 1rem)",
+                fontWeight: 500,
+                color: isActive ? COLORS.ice : "rgba(241,245,249,0.35)",
+                lineHeight: 1.3,
+                transition: "color 0.4s ease",
+              }}>
+                {s.title}
+              </span>
+
+              {/* Progress bar */}
+              {isActive && (
+                <motion.div
+                  style={{
+                    position: "absolute",
+                    bottom: 0, left: 0,
+                    height: 2,
+                    background: `linear-gradient(90deg, ${s.accent}, transparent)`,
+                  }}
+                  initial={{ width: "0%" }}
+                  animate={{ width: "100%" }}
+                  key={active}
+                  transition={{ duration: 4, ease: "linear" }}
+                />
+              )}
+            </button>
+          );
+        })}
       </div>
+
+      {/* ── CONTENT PANEL ── */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={active}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -14 }}
+          transition={{ duration: 0.5, ease: MOTION_EASE }}
+          style={{
+            maxWidth: 1440,
+            margin: "0 auto",
+            padding: "90px 48px 130px",
+            display: "grid",
+            gridTemplateColumns: "1fr 380px",
+            gap: 80,
+            alignItems: "center",
+          }}
+        >
+          {/* Left — 3 big lines */}
+          <div>
+            {step.lines.map((line, li) => (
+              <motion.div
+                key={li}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: li * 0.1, duration: 0.7, ease: MOTION_EASE }}
+                style={{
+                  fontFamily: FONTS.display,
+                  fontSize: "clamp(2.4rem, 4.5vw, 4.8rem)",
+                  fontWeight: 600,
+                  letterSpacing: "-0.03em",
+                  lineHeight: 1.1,
+                  color: line.dim ? "rgba(241,245,249,0.18)" : COLORS.ice,
+                  marginBottom: 4,
+                }}
+              >
+                {line.text}
+              </motion.div>
+            ))}
+
+            {/* Detail sentence */}
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4, duration: 0.7 }}
+              style={{
+                fontFamily: FONTS.body,
+                fontSize: "0.9rem",
+                color: "rgba(241,245,249,0.35)",
+                lineHeight: 1.7,
+                margin: "28px 0 0",
+                maxWidth: 400,
+                borderLeft: `2px solid ${step.accent}`,
+                paddingLeft: 18,
+              }}
+            >
+              {step.detail}
+            </motion.p>
+          </div>
+
+          {/* Right — Big ghost step number */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, ease: MOTION_EASE }}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              position: "relative",
+            }}
+          >
+            {/* Glow circle behind number */}
+            <div style={{
+              position: "absolute",
+              width: 260, height: 260,
+              borderRadius: "50%",
+              background: `radial-gradient(circle, ${step.accent}18 0%, transparent 70%)`,
+              filter: "blur(30px)",
+            }} />
+            {/* Number */}
+            <span style={{
+              fontFamily: FONTS.display,
+              fontSize: "clamp(10rem, 18vw, 18rem)",
+              fontWeight: 700,
+              lineHeight: 1,
+              letterSpacing: "-0.08em",
+              color: step.accent,
+              opacity: 0.15,
+              userSelect: "none",
+              position: "relative",
+              zIndex: 2,
+            }}>
+              {step.num}
+            </span>
+          </motion.div>
+        </motion.div>
+      </AnimatePresence>
     </section>
   );
 }

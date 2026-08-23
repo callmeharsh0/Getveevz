@@ -6,6 +6,12 @@ export const COLORS = {
   sky: "#38BDF8",            // Accent blue — glows, gradients, hover states
   ice: "#F1F5F9",            // Primary text on dark backgrounds
 
+  // Blue scale (for section variety within the same family)
+  blue300: "#93C5FD",        // Lightest — subtle highlights
+  blue400: "#60A5FA",        // Mid — secondary accent
+  blue600: "#1D4ED8",        // Deep — strong accents
+  blue800: "#1E3A5F",        // Very dark blue — card backgrounds
+
   // Semantic mappings
   bg: "#050508",
   bgSoft: "#111827",
@@ -21,6 +27,7 @@ export const COLORS = {
   gradientBrand: "linear-gradient(135deg, #2563EB, #38BDF8)",
   gradientGlow: "radial-gradient(circle, rgba(37, 99, 235, 0.25) 0%, rgba(56, 189, 248, 0.06) 50%, transparent 70%)",
 };
+
 
 export const FONTS = {
   display: "var(--font-display)",

@@ -1,270 +1,228 @@
-import React, { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform } from "motion/react";
-import { Scissors, Share2, Layers, LineChart, ArrowUpRight } from "lucide-react";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import { COLORS, FONTS, MOTION_EASE } from "../../../utils/theme";
 
 const PILLARS = [
   {
-    id: "clipping",
-    num: "001",
-    icon: Scissors,
+    num: "01",
     title: "Clipping",
-    serif: "hooks.",
-    description: "We dissect hours of raw footage to extract high-leverage moments tuned for algorithmic watch-time.",
-    points: ["Hook Engineering", "9:16 Kinetic Type", "Retention Pacing", "Sonic Design"],
-    accent: COLORS.sky,
+    tagline: "We find the moment before you knew it existed.",
+    detail: "Hours of raw footage turned into 20–60 high-retention hooks — engineered for 3-second scroll-stops, not just cuts.",
+    stat: "60+ clips/month",
+    accent: "#38BDF8",
   },
   {
-    id: "distribution",
-    num: "002",
-    icon: Share2,
+    num: "02",
     title: "Distribution",
-    serif: "everywhere.",
-    description: "Clips syndicated across Shorts, Reels and TikTok at peak engagement windows — on autopilot.",
-    points: ["Tri-Platform Sync", "Autonomous Accounts", "Metadata Tuning", "Native Formats"],
-    accent: "#34D399",
+    tagline: "Three platforms. One upload from you. Zero manual work.",
+    detail: "Coordinated publishing waves across YouTube Shorts, Instagram Reels and TikTok at peak algorithmic windows.",
+    stat: "Tri-platform, daily",
+    accent: "#60A5FA",
   },
   {
-    id: "campaign-management",
-    num: "003",
-    icon: Layers,
+    num: "03",
     title: "Fleet Ops",
-    serif: "at scale.",
-    description: "We deploy and operate 30–120 branded satellite channels that flood feeds without creator logins.",
-    points: ["Channel Fleets", "Zero-Login Ops", "Narrative Waves", "Warmup Protocol"],
-    accent: "#F59E0B",
+    tagline: "30 to 120 channels working for you, silently.",
+    detail: "Branded satellite channel networks that flood feeds with your content without ever touching your main login.",
+    stat: "30–120 channels",
+    accent: "#93C5FD",
   },
   {
-    id: "tracking",
-    num: "004",
-    icon: LineChart,
+    num: "04",
     title: "Telemetry",
-    serif: "always on.",
-    description: "Live analytics track view floors, retention spikes and cross-channel winners to scale what works.",
-    points: ["Analytics Hub", "View Floors", "Heatmaps", "Winner Scaling"],
-    accent: "#8B5CF6",
+    tagline: "The numbers that actually matter, live.",
+    detail: "View floors, retention heatmaps, hook iterations — we track what compounds and double down on winners.",
+    stat: "Real-time analytics",
+    accent: "#2563EB",
   },
 ];
 
+function PillarRow({ p, isActive, onEnter, onLeave, index }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.08, duration: 0.9, ease: MOTION_EASE }}
+      onMouseEnter={onEnter}
+      onMouseLeave={onLeave}
+      style={{
+        borderBottom: "1px solid rgba(255,255,255,0.07)",
+        cursor: "default",
+        overflow: "hidden",
+      }}
+    >
+      {/* ── TOP ROW: always visible ── */}
+      <div style={{
+        display: "grid",
+        gridTemplateColumns: "56px 1fr auto",
+        alignItems: "center",
+        gap: 32,
+        padding: "36px 0",
+        transition: "padding 0.4s ease",
+      }}>
+        {/* Number */}
+        <span style={{
+          fontFamily: FONTS.mono,
+          fontSize: "0.62rem",
+          letterSpacing: "0.25em",
+          color: isActive ? p.accent : "rgba(241,245,249,0.18)",
+          transition: "color 0.4s ease",
+        }}>
+          {p.num}
+        </span>
+
+        {/* Title + tagline */}
+        <div>
+          <span style={{
+            fontFamily: FONTS.display,
+            fontSize: "clamp(2rem, 4vw, 3.8rem)",
+            fontWeight: 600,
+            letterSpacing: "-0.03em",
+            lineHeight: 1,
+            color: isActive ? COLORS.ice : "rgba(241,245,249,0.55)",
+            transition: "color 0.4s ease",
+            display: "block",
+          }}>
+            {p.title}
+          </span>
+
+          {/* Tagline — slides in below title on hover */}
+          <AnimatePresence>
+            {isActive && (
+              <motion.span
+                initial={{ opacity: 0, height: 0, marginTop: 0 }}
+                animate={{ opacity: 1, height: "auto", marginTop: 8 }}
+                exit={{ opacity: 0, height: 0, marginTop: 0 }}
+                transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
+                style={{
+                  display: "block",
+                  overflow: "hidden",
+                  fontFamily: FONTS.body,
+                  fontSize: "clamp(0.85rem, 1.1vw, 1rem)",
+                  color: "rgba(241,245,249,0.45)",
+                  lineHeight: 1.6,
+                  maxWidth: 520,
+                }}
+              >
+                {p.tagline}
+              </motion.span>
+            )}
+          </AnimatePresence>
+        </div>
+
+        {/* Right: stat pill — always visible, dims when inactive */}
+        <span style={{
+          fontFamily: FONTS.mono,
+          fontSize: "0.62rem",
+          letterSpacing: "0.18em",
+          textTransform: "uppercase",
+          color: isActive ? p.accent : "rgba(241,245,249,0.2)",
+          border: `1px solid ${isActive ? `${p.accent}50` : "rgba(255,255,255,0.08)"}`,
+          padding: "8px 16px",
+          borderRadius: 999,
+          whiteSpace: "nowrap",
+          transition: "all 0.4s ease",
+        }}>
+          {p.stat}
+        </span>
+      </div>
+
+      {/* ── EXPANDED DETAIL ROW ── */}
+      <AnimatePresence>
+        {isActive && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+            style={{ overflow: "hidden" }}
+          >
+            <div style={{
+              paddingLeft: 88,
+              paddingBottom: 32,
+              display: "flex",
+              alignItems: "center",
+              gap: 32,
+            }}>
+              {/* Blue accent bar */}
+              <div style={{ width: 2, height: 40, background: p.accent, borderRadius: 2, flexShrink: 0 }} />
+              <p style={{
+                fontFamily: FONTS.body,
+                fontSize: "0.88rem",
+                color: "rgba(241,245,249,0.4)",
+                lineHeight: 1.7,
+                margin: 0,
+                maxWidth: 500,
+              }}>
+                {p.detail}
+              </p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+}
+
 export default function WhatWeDo() {
-  const sectionRef = useRef(null);
-  const [inView, setInView] = useState(false);
-
-  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
-  const ghostX = useTransform(scrollYProgress, [0, 1], ["4%", "-12%"]);
-  const gridY = useTransform(scrollYProgress, [0, 1], [0, -60]);
-
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => entry.isIntersecting && setInView(true),
-      { threshold: 0.15 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+  const [active, setActive] = useState(null);
 
   return (
     <section
       id="what-we-do-section"
-      ref={sectionRef}
-      className="noise-overlay"
       style={{
-        position: "relative",
-        background: COLORS.obsidian,
-        padding: "170px 48px",
+        background: "#04091a",
+        padding: "140px 0",
         overflow: "hidden",
-        borderTop: "1px solid rgba(56,189,248,0.08)",
       }}
     >
-      {/* Ghost word */}
-      <motion.div
-        aria-hidden
-        style={{
-          position: "absolute",
-          top: "5%",
-          left: "-2%",
-          x: ghostX,
-          fontFamily: FONTS.display,
-          fontSize: "clamp(7rem, 17vw, 19rem)",
-          fontWeight: 700,
-          letterSpacing: "-0.04em",
-          whiteSpace: "nowrap",
-          pointerEvents: "none",
-          zIndex: 0,
-        }}
-        className="text-stroke-faint"
-      >
-        CAPABILITIES
-      </motion.div>
+      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 48px" }}>
 
-      {/* Parallax blueprint grid */}
-      <motion.div aria-hidden className="blueprint-grid" style={{ position: "absolute", inset: 0, y: gridY, maskImage: "radial-gradient(ellipse 70% 60% at 50% 50%, black 25%, transparent 75%)", pointerEvents: "none" }} />
-
-      <div style={{ maxWidth: 1440, margin: "0 auto", position: "relative", zIndex: 2 }}>
-        {/* Header */}
-        <div style={{ maxWidth: 900, marginBottom: 90 }}>
-          <motion.div
+        {/* Heading */}
+        <div style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "flex-end",
+          marginBottom: 72,
+          flexWrap: "wrap",
+          gap: 24,
+        }}>
+          <motion.h2
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
+            viewport={{ once: true }}
             transition={{ duration: 1, ease: MOTION_EASE }}
-            style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 32 }}
+            style={{
+              fontFamily: FONTS.display,
+              fontSize: "clamp(2rem, 3.5vw, 3.2rem)",
+              fontWeight: 600,
+              letterSpacing: "-0.03em",
+              color: COLORS.ice,
+              margin: 0,
+              lineHeight: 1.1,
+            }}
           >
-            <span style={{ fontFamily: FONTS.mono, fontSize: "0.7rem", color: COLORS.sky, letterSpacing: "0.2em" }}>[ 003 ]</span>
-            <span className="hairline" style={{ width: 72 }} />
-            <span style={{ fontFamily: FONTS.mono, fontSize: "0.68rem", color: COLORS.textMuted, letterSpacing: "0.28em" }}>CORE CAPABILITIES</span>
-          </motion.div>
-
-          {/* Masked line-reveal headline */}
-          <h2 style={{ fontFamily: FONTS.display, fontSize: "clamp(2.6rem, 5.6vw, 4.8rem)", fontWeight: 600, lineHeight: 1.04, letterSpacing: "-0.03em", margin: 0, color: COLORS.ice }}>
-            {["Everything you need to turn", "content into distribution."].map((line, li) => (
-              <span key={li} style={{ display: "block", overflow: "hidden" }}>
-                <motion.span
-                  style={{ display: "block" }}
-                  initial={{ y: "110%" }}
-                  whileInView={{ y: 0 }}
-                  viewport={{ once: true, margin: "-80px" }}
-                  transition={{ delay: li * 0.1, duration: 1.1, ease: MOTION_EASE }}
-                >
-                  {li === 1 ? (
-                    <>
-                      content into{" "}
-                      <em className="serif-accent" style={{ background: "linear-gradient(120deg,#38BDF8,#2563EB)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-                        distribution.
-                      </em>
-                    </>
-                  ) : (
-                    line
-                  )}
-                </motion.span>
-              </span>
-            ))}
-          </h2>
-
-          {/* Pipeline indicator */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ delay: 0.35, duration: 0.9, ease: MOTION_EASE }}
-            style={{ display: "inline-flex", alignItems: "center", gap: 14, marginTop: 36, fontFamily: FONTS.mono, fontSize: "0.7rem", letterSpacing: "0.24em", color: COLORS.textMuted }}
-          >
-            CONTENT → CLIPPING → DISTRIBUTION → TRACKING
-          </motion.div>
+            Four things we do.
+            <br />
+            <span style={{ color: "rgba(241,245,249,0.3)", fontSize: "0.6em", fontWeight: 400 }}>Hover each to learn more.</span>
+          </motion.h2>
         </div>
 
-        {/* Asymmetric editorial rows — alternating, hairline-divided (not uniform cards) */}
-        <div style={{ borderTop: "1px solid rgba(241,245,249,0.09)" }}>
-          {PILLARS.map((card, i) => {
-            const Icon = card.icon;
-            const reversed = i % 2 === 1;
-            return (
-              <motion.div
-                key={card.id}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ delay: i * 0.06, duration: 1, ease: MOTION_EASE }}
-                className="row-hover"
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "auto minmax(0,1fr) auto",
-                  alignItems: "center",
-                  gap: 56,
-                  padding: "52px 24px",
-                  borderBottom: "1px solid rgba(241,245,249,0.09)",
-                  position: "relative",
-                  transition: "background 0.4s ease",
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.background = `linear-gradient(90deg, transparent, ${card.accent}0d 45%, transparent)`)}
-                onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
-              >
-                {/* Index + icon */}
-                <div style={{ display: "flex", flexDirection: "column", gap: 18, minWidth: 130 }}>
-                  <span style={{ fontFamily: FONTS.mono, fontSize: "0.68rem", color: card.accent, letterSpacing: "0.22em" }}>{card.num}</span>
-                  <motion.div
-                    whileHover={{ rotate: 10, scale: 1.1 }}
-                    style={{
-                      width: 58,
-                      height: 58,
-                      borderRadius: 16,
-                      background: `${card.accent}12`,
-                      border: `1px solid ${card.accent}40`,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: card.accent,
-                      boxShadow: `0 0 0 rgba(0,0,0,0)`,
-                      transition: "box-shadow .35s ease",
-                    }}
-                  >
-                    <Icon size={26} />
-                  </motion.div>
-                </div>
-
-                {/* Title + copy */}
-                <div>
-                  <h3 style={{ fontFamily: FONTS.display, fontSize: "clamp(1.6rem, 2.6vw, 2.4rem)", fontWeight: 600, letterSpacing: "-0.02em", margin: "0 0 10px", color: COLORS.ice }}>
-                    {card.title}{" "}
-                    <em className="serif-accent" style={{ color: card.accent, fontSize: "1.05em" }}>
-                      {card.serif}
-                    </em>
-                  </h3>
-                  <p style={{ fontFamily: FONTS.body, fontSize: "0.95rem", color: COLORS.textMuted, lineHeight: 1.7, margin: 0, maxWidth: 560 }}>
-                    {card.description}
-                  </p>
-
-                  {/* Points as inline mono chips */}
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: 22 }}>
-                    {card.points.map((pt) => (
-                      <span
-                        key={pt}
-                        style={{
-                          fontFamily: FONTS.mono,
-                          fontSize: "0.66rem",
-                          letterSpacing: "0.14em",
-                          textTransform: "uppercase",
-                          color: COLORS.textMuted,
-                          border: "1px solid rgba(241,245,249,0.12)",
-                          padding: "6px 12px",
-                          borderRadius: 999,
-                          transition: "all 0.3s ease",
-                        }}
-                      >
-                        {pt}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Arrow affordance */}
-                <motion.span
-                  style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 52, height: 52, borderRadius: "50%", border: "1px solid rgba(241,245,249,0.14)", color: COLORS.textMuted, transition: "all 0.35s ease" }}
-                  className="row-arrow"
-                >
-                  <ArrowUpRight size={20} />
-                </motion.span>
-              </motion.div>
-            );
-          })}
+        {/* Rows */}
+        <div style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
+          {PILLARS.map((p, i) => (
+            <PillarRow
+              key={p.num}
+              p={p}
+              index={i}
+              isActive={active === i}
+              onEnter={() => setActive(i)}
+              onLeave={() => setActive(null)}
+            />
+          ))}
         </div>
       </div>
-
-      <style>{`
-        #what-we-do-section .row-hover:hover .row-arrow {
-          background: #38BDF8;
-          color: #050508 !important;
-          border-color: #38BDF8 !important;
-          box-shadow: 0 0 34px rgba(56,189,248,0.55);
-          transform: translate(3px, -3px);
-        }
-        #what-we-do-section .row-hover:hover span[style*="border-radius: 999"] {
-          border-color: rgba(56,189,248,0.35) !important;
-          color: #F1F5F9 !important;
-        }
-      `}</style>
     </section>
   );
 }
