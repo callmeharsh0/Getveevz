@@ -1,10 +1,8 @@
-@import "tailwindcss";
-
 /* ============ TYPEFACES — award-tier mix ============ */
-/* Clash Display (Fontshare) — characterful geometric display */
 @import url("https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap");
-/* Instrument Serif italic — editorial contrast accent */
 @import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@300..700&display=swap");
+
+@import "tailwindcss";
 
 @theme {
   --color-obsidian: #050508;
