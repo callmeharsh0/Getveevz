@@ -2,8 +2,6 @@ import { useRef, useState, useEffect, useCallback } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 import { ArrowUpRight, Calendar } from "lucide-react";
 import { COLORS, FONTS, MOTION_EASE } from "../../../utils/theme";
-import PixelSnow from "../../common/PixelSnow.jsx";
-import WarpText from "../../common/WarpText.jsx";
 
 const CYCLE_WORDS = ["Short-Form", "Viral", "Platform-Native", "Algorithmic"];
 
@@ -151,24 +149,6 @@ export default function Hero() {
         overflow: "hidden",
       }}
     >
-      {/* ── Pixel Snow Background (ReactBits) ── */}
-      <div style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none", zIndex: 1, opacity: 0.85 }}>
-        <PixelSnow
-          color="#5b81e9"
-          flakeSize={0.01}
-          minFlakeSize={1.25}
-          pixelResolution={200}
-          speed={1.25}
-          density={0.3}
-          direction={125}
-          brightness={1}
-          depthFade={8}
-          farPlane={20}
-          gamma={0.4545}
-          variant="square"
-        />
-      </div>
-
       {/* ── Aurora + Particle field + Scan line ── */}
       <HeroCanvas />
 
@@ -247,26 +227,57 @@ export default function Hero() {
             <span style={{ width: 28, height: 1, background: "linear-gradient(90deg, #38BDF8, transparent)", display: "inline-block" }} />
           </motion.div>
 
-          {/* ── GIANT WARPTEXT HEADLINE ── */}
-          <div style={{ width: "100%", maxWidth: 1000, margin: "0 auto 36px", position: "relative" }}>
-            <WarpText
-              text={"Turn Long-Form\nInto Viral\nDistribution"}
-              color="#f8f5ff"
-              warpStrength={0.08}
-              warpScale={1.7}
-              speed={0.55}
-              pointerInfluence={0.42}
-              pointerStrength={0.38}
-              refraction={0.018}
-              ripple
-              fontSize={108}
-              fontWeight={800}
-              style={{ height: "340px", width: "100%" }}
-              fontFamily="var(--font-display)"
-              letterSpacing={-0.05}
-              lineHeight={0.92}
-            />
-          </div>
+          {/* ── GIANT HEADLINE ── */}
+          <h1 style={{
+            fontFamily: FONTS.display,
+            fontWeight: 600,
+            lineHeight: 0.97,
+            letterSpacing: "-0.045em",
+            margin: "0 0 36px",
+            fontSize: "clamp(3.6rem, 9vw, 9.5rem)",
+            color: COLORS.ice,
+          }}>
+            {["Turn Long-Form", null, "Distribution"].map((line, li) => (
+              <span key={li} style={{ display: "block", overflow: "hidden" }}>
+                <motion.span
+                  style={{ display: "block" }}
+                  initial={{ y: "112%" }}
+                  animate={{ y: 0 }}
+                  transition={{ delay: 0.1 + li * 0.1, duration: 1.2, ease: MOTION_EASE }}
+                >
+                  {li === 1 ? (
+                    <>
+                      Into{" "}
+                      {/* Animated cycling word with underline */}
+                      <span style={{ position: "relative", display: "inline-block" }}>
+                        <span style={{
+                          background: "linear-gradient(120deg, #93C5FD 0%, #38BDF8 50%, #2563EB 100%)",
+                          WebkitBackgroundClip: "text",
+                          WebkitTextFillColor: "transparent",
+                          transition: "opacity 0.3s ease, transform 0.35s ease",
+                          opacity: visible ? 1 : 0,
+                          display: "inline-block",
+                          transform: visible ? "translateY(0)" : "translateY(10px)",
+                        }}>
+                          {CYCLE_WORDS[wordIdx]}
+                        </span>
+                        {/* Underline accent */}
+                        <motion.span
+                          layoutId="word-underline"
+                          style={{
+                            position: "absolute", bottom: 6, left: 0, right: 0,
+                            height: 3, borderRadius: 2,
+                            background: "linear-gradient(90deg, #38BDF8, #2563EB)",
+                            boxShadow: "0 0 16px rgba(56,189,248,0.7)",
+                          }}
+                        />
+                      </span>
+                    </>
+                  ) : line}
+                </motion.span>
+              </span>
+            ))}
+          </h1>
 
           {/* Subtext */}
           <motion.p
