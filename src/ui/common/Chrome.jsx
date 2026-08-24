@@ -29,10 +29,11 @@ export default function Chrome({ progress }) {
     { num: "04", name: "What We Do", desc: "Clipping, Distribution, Fleet & Tracking", id: "what-we-do-section" },
     { num: "05", name: "How It Works", desc: "4-Step Turnkey Distribution Pipeline", id: "how-it-works-section" },
     { num: "06", name: "Case Studies", desc: "Client Breakdowns & Verified Metrics", id: "case-studies-section", highlight: true },
-    { num: "07", name: "Why GetVeevz", desc: "Distribution Engine vs Video Editor", id: "why-getveevz-section" },
-    { num: "08", name: "Pricing", desc: "Spark, Momentum & Dominate tiers", id: "pricing-section" },
-    { num: "09", name: "FAQ", desc: "Common Questions & Operational Details", id: "faq-section" },
-    { num: "10", name: "Final CTA", desc: "Book Your 1-on-1 Strategy Call", id: "final-cta-section", highlight: true },
+    { num: "07", name: "Multiplier Engine", desc: "Algorithmic Retention & Fleet Tech", id: "multiplier-engine-section" },
+    { num: "08", name: "Why GetVeevz", desc: "Distribution Engine vs Video Editor", id: "why-getveevz-section" },
+    { num: "09", name: "Pricing", desc: "Spark, Momentum & Dominate tiers", id: "pricing-section" },
+    { num: "10", name: "FAQ", desc: "Common Questions & Operational Details", id: "faq-section" },
+    { num: "11", name: "Final CTA", desc: "Book Your 1-on-1 Strategy Call", id: "final-cta-section", highlight: true },
   ];
 
   // Track real page scroll & active section
@@ -77,7 +78,7 @@ export default function Chrome({ progress }) {
       gain.connect(ctx.destination);
       osc.start();
       osc.stop(ctx.currentTime + 0.05);
-    } catch (e) {}
+    } catch (e) { }
   };
 
   // Play sub click
@@ -96,7 +97,7 @@ export default function Chrome({ progress }) {
       gain.connect(ctx.destination);
       osc.start();
       osc.stop(ctx.currentTime + 0.08);
-    } catch (e) {}
+    } catch (e) { }
   };
 
   // Synthwave Engine
@@ -335,12 +336,7 @@ export default function Chrome({ progress }) {
             style={{
               display: "none",
               alignItems: "center",
-              gap: "12px",
-              background: "rgba(17, 24, 39, 0.4)",
-              backdropFilter: "blur(12px)",
-              padding: "6px 12px",
-              borderRadius: 14,
-              border: "1px solid rgba(255, 255, 255, 0.05)",
+              gap: "24px",
             }}
             className="hidden md:flex"
           >
@@ -352,20 +348,33 @@ export default function Chrome({ progress }) {
                   onClick={() => scrollToSection(sec.id)}
                   onMouseEnter={playHoverFx}
                   style={{
-                    background: isActive ? "rgba(255, 255, 255, 0.08)" : "none",
+                    background: "none",
                     border: "none",
-                    borderRadius: 8,
                     fontFamily: FONTS.sans,
-                    fontSize: "0.78rem",
+                    fontSize: "0.8rem",
                     fontWeight: 600,
-                    letterSpacing: "0.02em",
-                    color: isActive ? COLORS.ice : "rgba(241, 245, 249, 0.6)",
+                    letterSpacing: "0.04em",
+                    color: isActive ? COLORS.sky : "rgba(241, 245, 249, 0.7)",
                     cursor: "pointer",
-                    padding: "6px 12px",
-                    transition: "all 0.3s ease",
+                    padding: "4px 0",
+                    position: "relative",
+                    transition: "color 0.25s ease",
                   }}
                 >
                   {sec.name}
+                  {isActive && (
+                    <span
+                      style={{
+                        position: "absolute",
+                        bottom: -2,
+                        left: 0,
+                        right: 0,
+                        height: 2,
+                        background: "linear-gradient(90deg, #2563EB, #38BDF8)",
+                        borderRadius: 2,
+                      }}
+                    />
+                  )}
                 </button>
               );
             })}
@@ -493,7 +502,6 @@ export default function Chrome({ progress }) {
               {/* Drawer Header */}
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "2rem" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                  <img src="/logo.png" alt="GetVeevz Logo" style={{ width: 28, height: 28 }} />
                   <span
                     style={{
                       fontFamily: FONTS.sans,
@@ -541,13 +549,13 @@ export default function Chrome({ progress }) {
                         background: isActive
                           ? "linear-gradient(135deg, rgba(37, 99, 235, 0.35) 0%, rgba(56, 189, 248, 0.15) 100%)"
                           : sec.highlight
-                          ? "rgba(37, 99, 235, 0.1)"
-                          : "rgba(255, 255, 255, 0.02)",
+                            ? "rgba(37, 99, 235, 0.1)"
+                            : "rgba(255, 255, 255, 0.02)",
                         border: isActive
                           ? "1px solid #38BDF8"
                           : sec.highlight
-                          ? "1px solid rgba(56, 189, 248, 0.3)"
-                          : "1px solid rgba(255, 255, 255, 0.06)",
+                            ? "1px solid rgba(56, 189, 248, 0.3)"
+                            : "1px solid rgba(255, 255, 255, 0.06)",
                         borderRadius: "12px",
                         padding: "12px 16px",
                         textAlign: "left",
@@ -567,13 +575,13 @@ export default function Chrome({ progress }) {
                         e.currentTarget.style.background = isActive
                           ? "linear-gradient(135deg, rgba(37, 99, 235, 0.35) 0%, rgba(56, 189, 248, 0.15) 100%)"
                           : sec.highlight
-                          ? "rgba(37, 99, 235, 0.1)"
-                          : "rgba(255, 255, 255, 0.02)";
+                            ? "rgba(37, 99, 235, 0.1)"
+                            : "rgba(255, 255, 255, 0.02)";
                         e.currentTarget.style.borderColor = isActive
                           ? "#38BDF8"
                           : sec.highlight
-                          ? "1px solid rgba(56, 189, 248, 0.3)"
-                          : "rgba(255, 255, 255, 0.06)";
+                            ? "1px solid rgba(56, 189, 248, 0.3)"
+                            : "rgba(255, 255, 255, 0.06)";
                         e.currentTarget.style.transform = isActive ? "translateX(4px)" : "none";
                       }}
                     >
