@@ -135,9 +135,8 @@ export function ImageStreamHero({
                       style={{
                         width: "100%",
                         height: "100%",
-                        background: `linear-gradient(135deg, ${
-                          ["#FF6E00", "#4A6BFF", "#7C3AED", "#E11D48", "#059669", "#D97706"][i % 6]
-                        } 0%, #0F172A 100%)`,
+                        background: `linear-gradient(135deg, ${["#FF6E00", "#4A6BFF", "#7C3AED", "#E11D48", "#059669", "#D97706"][i % 6]
+                          } 0%, #0F172A 100%)`,
                         display: "flex",
                         flexDirection: "column",
                         justifyContent: "flex-end",
@@ -284,7 +283,7 @@ export default function ResultsStreamSection() {
             boxShadow: "0 4px 20px rgba(0, 0, 0, 0.3)",
           }}
         >
-          <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#FF6E00" }} />
+          <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#157ed9ff" }} />
           <span
             style={{
               fontSize: "0.68rem",
@@ -311,7 +310,7 @@ export default function ResultsStreamSection() {
             textShadow: "0 4px 20px rgba(0, 0, 0, 0.7)",
           }}
         >
-          Over <span style={{ color: "#FF6E00" }}>160,000,000+</span> organic views engineered.
+          Over <span style={{ color: "#157ed9ff" }}>160,000,000+</span> organic views engineered.
         </h2>
 
         {/* Subtext */}
@@ -356,7 +355,7 @@ export default function ResultsStreamSection() {
           <div style={{ width: 1, height: 28, background: "rgba(255,255,255,0.12)" }} />
 
           <div style={{ textAlign: "center" }}>
-            <div style={{ fontSize: "1.3rem", fontWeight: 800, color: "#FF6E00" }}>120+</div>
+            <div style={{ fontSize: "1.3rem", fontWeight: 800, color: "#157ed9ff" }}>120+</div>
             <div style={{ fontSize: "0.64rem", color: "#A1A1AA", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase" }}>
               Active Pages
             </div>
