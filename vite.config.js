@@ -9,6 +9,19 @@ export default defineConfig(({ mode }) => ({
     tailwindcss(),
     react(),
   ],
+
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ["react", "react-dom"],
+          motion: ["motion"],
+          gsap: ["gsap", "@gsap/react"],
+          icons: ["lucide-react"],
+        },
+      },
+    },
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
