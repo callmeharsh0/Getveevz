@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #02122F;        /* Oxford Blue — page background */
+  --surface: #23354D;   /* Storm — cards, nav pill fill */
+  --text-primary: #F0ECDD;  /* Moonlight — headline/display text */
+  --text-muted: #8BA3C5;    /* Frost Blue — supporting copy, borders */
+  --accent: #495B7D;        /* Steel — hover states, dividers */
+  --frost-blue: #8BA3C5;
+  --steel: #495B7D;
+  --storm: #23354D;
+  --oxford: #02122F;
+  --moonlight: #F0ECDD;
+  --font-body: "Plus Jakarta Sans", sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: auto; /* Lenis handles smoothing, not native CSS */
+    background-color: var(--bg);
+    color: var(--text-primary);
+  }
+  body {
+    background-color: var(--bg);
+    color: var(--text-primary);
+    font-family: var(--font-body), sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+  ::selection {
+    background-color: var(--text-muted);
+    color: var(--bg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
