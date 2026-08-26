@@ -1,5 +1,6 @@
 import Hero from "@/components/sections/Hero";
 import Proof from "@/components/sections/Proof";
+import DistributionFlow from "@/components/sections/DistributionFlow";
 import Problem from "@/components/sections/Problem";
 import WhatWeDo from "@/components/sections/WhatWeDo";
 import HowItWorks from "@/components/sections/HowItWorks";
@@ -14,6 +15,7 @@ export default function Home() {
     <main>
       <Hero />
       <Proof />
+      <DistributionFlow />
       <Problem />
       <WhatWeDo />
       <HowItWorks />
