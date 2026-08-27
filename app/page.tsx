@@ -1,27 +1,27 @@
 import Hero from "@/components/sections/Hero";
+import Agencies from "@/components/sections/Agencies";
 import Proof from "@/components/sections/Proof";
-import DistributionFlow from "@/components/sections/DistributionFlow";
 import Problem from "@/components/sections/Problem";
 import WhatWeDo from "@/components/sections/WhatWeDo";
 import HowItWorks from "@/components/sections/HowItWorks";
 import ReelsFilmstrip from "@/components/sections/ReelsFilmstrip";
 import WhyUs from "@/components/sections/WhyUs";
-import Agencies from "@/components/sections/Agencies";
 import FAQ from "@/components/sections/FAQ";
 import FinalCTA from "@/components/sections/FinalCTA";
+import ClientTestimonials from "@/components/sections/ClientTestimonials";
 
 export default function Home() {
   return (
     <main>
       <Hero />
+      <Agencies />
       <Proof />
-      <DistributionFlow />
       <Problem />
       <WhatWeDo />
       <HowItWorks />
       <ReelsFilmstrip />
+      <ClientTestimonials />
       <WhyUs />
-      <Agencies />
       <FAQ />
       <FinalCTA />
     </main>
