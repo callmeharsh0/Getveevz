@@ -12,35 +12,78 @@ interface Agency {
   link: string;
   videoSrc: string;
   maskType: "custom-a" | "rounded-rect" | "arch-pill";
+  icon: React.ReactNode;
 }
 
 const agencies: Agency[] = [
   {
-    id: "fold7-design",
-    name: "FOLD7 DESIGN",
+    id: "clipping",
+    name: "Clipping",
     description:
-      "A multidisciplinary design studio crafting distinctive brand identities and visual worlds.",
+      "Cut, remix and reformat your long-form footage into thumb-stopping short-form clips — ready for Reels, Shorts and TikTok.",
     link: "#",
     videoSrc: "/assets/agency-video-1.mp4",
     maskType: "custom-a",
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="h-5 w-5"
+      >
+        <rect x="6" y="3" width="4" height="18" rx="1" />
+        <rect x="14" y="3" width="4" height="18" rx="1" />
+        <path d="M3 8h3M3 12h3M3 16h3M18 8h3M18 12h3M18 16h3" />
+      </svg>
+    ),
   },
   {
-    id: "hyperactive",
-    name: "HYPERACTIVE",
+    id: "distribution",
+    name: "Distribution",
     description:
-      "An award-winning brand experience agency that creates extraordinary brand experiences at the beating heart of culture.",
+      "Get your content in front of the right audience. Multi-channel publishing, scheduling and analytics across every major platform.",
     link: "#",
     videoSrc: "/assets/agency-video-2.mp4",
     maskType: "rounded-rect",
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="h-5 w-5"
+      >
+        <circle cx="12" cy="12" r="2.5" />
+        <path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12" />
+      </svg>
+    ),
   },
   {
-    id: "foldable",
-    name: "FOLDABLE",
+    id: "pr-seeding",
+    name: "PR / Seeding",
     description:
-      "A hands-on digital consultancy that helps companies move and evolve faster.",
+      "Land press, podcasts and creator placements. Strategic seeding that turns one piece of content into a thousand earned moments.",
     link: "#",
     videoSrc: "/assets/agency-video-3.mp4",
     maskType: "arch-pill",
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="h-5 w-5"
+      >
+        <path d="M3 11l18-8-8 18-2-8-8-2z" />
+      </svg>
+    ),
   },
 ];
 
@@ -117,7 +160,7 @@ export default function Agencies() {
       if (!video) return;
       if (i === index) {
         video.currentTime = 0;
-        video.play().catch(() => {});
+        video.play().catch(() => { });
       } else {
         video.pause();
       }
@@ -203,13 +246,16 @@ export default function Agencies() {
         {/* ========================================================================= */}
         {/* SECTION HEADER                                                            */}
         {/* ========================================================================= */}
-        <div className="text-center max-w-2xl mx-auto mb-16 sm:mb-20">
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-normal tracking-tight text-[#1A1A1A]">
-            Meet our sibling agencies
+        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
+          <p className="text-[10px] sm:text-xs font-semibold uppercase tracking-[0.3em] text-[#4A4A4A]">
+            What we do
+          </p>
+          <h2 className="mt-3 font-serif text-3xl sm:text-4xl md:text-5xl font-normal tracking-tight text-[#1A1A1A]">
+            From raw footage to real reach.
           </h2>
           <p className="mt-4 text-xs sm:text-sm md:text-base text-[#4A4A4A] leading-relaxed">
-            They specialise in design, brand experience, and digital products.
-            <br className="hidden sm:inline" /> We share a floor – and sometimes race each other to the water cooler.
+            Three services, one mission — make your content impossible to scroll past.
+            <br className="hidden sm:inline" /> Clipping, distribution and PR, working as one engine.
           </p>
         </div>
 
@@ -273,6 +319,18 @@ export default function Agencies() {
                 className="group relative z-10 flex flex-col items-center justify-center min-h-[440px] sm:min-h-[480px] md:min-h-[520px] p-8 sm:p-10 cursor-pointer overflow-hidden rounded-3xl transition-all duration-300"
               >
                 <div className="flex flex-col items-center justify-center text-center max-w-xs transition-transform duration-300 group-hover:scale-[1.02]">
+                  {/* Icon + Title Row */}
+                  <div
+                    className={cn(
+                      "mb-5 flex h-12 w-12 items-center justify-center rounded-full border transition-all duration-300",
+                      isActive
+                        ? "border-white/80 bg-white/10 text-white backdrop-blur-md"
+                        : "border-[#1A1A1A]/30 bg-white/40 text-[#1A1A1A]"
+                    )}
+                  >
+                    {agency.icon}
+                  </div>
+
                   {/* Title */}
                   <h3
                     className={cn(

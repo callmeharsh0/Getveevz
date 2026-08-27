@@ -15,11 +15,11 @@ export default function Home() {
     <main>
       <Hero />
       <Agencies />
+      <ReelsFilmstrip />
       <Proof />
       <Problem />
       <WhatWeDo />
       <HowItWorks />
-      <ReelsFilmstrip />
       <ClientTestimonials />
       <WhyUs />
       <FAQ />
