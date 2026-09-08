@@ -77,13 +77,13 @@ export function CharacterCarousel({
         src="/character-filmstrip.html"
         style={{
           position: "absolute",
-          top: "180px",
+          top: 0,
           left: 0,
           right: 0,
           bottom: 0,
           display: "block",
           width: "100%",
-          height: "calc(100% - 180px)",
+          height: "100%",
           border: 0,
           background: isFilmstrip ? "#d8c9ad" : "#121212",
           opacity: clampedOpacity,

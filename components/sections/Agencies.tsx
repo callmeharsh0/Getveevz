@@ -12,7 +12,6 @@ interface Agency {
   link: string;
   videoSrc: string;
   maskType: "custom-a" | "rounded-rect" | "arch-pill";
-  icon: React.ReactNode;
 }
 
 const agencies: Agency[] = [
@@ -24,66 +23,24 @@ const agencies: Agency[] = [
     link: "#",
     videoSrc: "/assets/agency-video-1.mp4",
     maskType: "custom-a",
-    icon: (
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="h-5 w-5"
-      >
-        <rect x="6" y="3" width="4" height="18" rx="1" />
-        <rect x="14" y="3" width="4" height="18" rx="1" />
-        <path d="M3 8h3M3 12h3M3 16h3M18 8h3M18 12h3M18 16h3" />
-      </svg>
-    ),
   },
   {
     id: "distribution",
     name: "Distribution",
     description:
-      "Get your content in front of the right audience. Multi-channel publishing, scheduling and analytics across every major platform.",
+      "Multi-channel publishing, scheduling and algorithmic distribution across Instagram, YouTube and TikTok.",
     link: "#",
     videoSrc: "/assets/agency-video-2.mp4",
     maskType: "rounded-rect",
-    icon: (
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="h-5 w-5"
-      >
-        <circle cx="12" cy="12" r="2.5" />
-        <path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12" />
-      </svg>
-    ),
   },
   {
     id: "pr-seeding",
-    name: "PR / Seeding",
+    name: "PR & Seeding",
     description:
-      "Land press, podcasts and creator placements. Strategic seeding that turns one piece of content into a thousand earned moments.",
+      "Land creator placements, podcasts and press. Strategic seeding that turns one piece of content into a thousand earned moments.",
     link: "#",
     videoSrc: "/assets/agency-video-3.mp4",
     maskType: "arch-pill",
-    icon: (
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="h-5 w-5"
-      >
-        <path d="M3 11l18-8-8 18-2-8-8-2z" />
-      </svg>
-    ),
   },
 ];
 
@@ -92,8 +49,16 @@ export default function Agencies() {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const slidingShapeRef = useRef<HTMLDivElement>(null);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [hoveredIndex, setHoveredIndex] = useState<number>(0);
+  const hoveredIndexRef = useRef<number>(0);
   const previousIndexRef = useRef<number | null>(null);
+
+  // Sync ref with state so resize handlers always have the latest index without re-running mount effects
+  useEffect(() => {
+    hoveredIndexRef.current = hoveredIndex;
+  }, [hoveredIndex]);
+
+  const baseBoundsRef = useRef<{ x: number; y: number; width: number; height: number } | null>(null);
 
   // Function to calculate relative position of target card inside grid
   const getTargetBounds = (index: number) => {
@@ -101,12 +66,11 @@ export default function Agencies() {
     const gridEl = gridRef.current;
     if (!cardEl || !gridEl) return null;
 
+    const insetX = 6;
+    const insetY = 12;
+
     const cardRect = cardEl.getBoundingClientRect();
     const gridRect = gridEl.getBoundingClientRect();
-
-    // Add inset padding around card for refined floating aesthetic
-    const insetX = 16;
-    const insetY = 16;
 
     return {
       x: cardRect.left - gridRect.left + insetX,
@@ -116,119 +80,174 @@ export default function Agencies() {
     };
   };
 
-  const handleCardEnter = (index: number) => {
+  const moveToCard = (index: number, immediate = false) => {
+    if (index === previousIndexRef.current && !immediate) return;
+
     setHoveredIndex(index);
+    previousIndexRef.current = index;
+
     const bounds = getTargetBounds(index);
     if (!bounds || !slidingShapeRef.current) return;
 
+    baseBoundsRef.current = bounds;
     gsap.killTweensOf(slidingShapeRef.current);
 
-    if (previousIndexRef.current === null) {
-      // 1. Initial Reveal: Set position at target card, then smoothly scale in
+    if (immediate) {
       gsap.set(slidingShapeRef.current, {
         x: bounds.x,
         y: bounds.y,
         width: bounds.width,
         height: bounds.height,
-        scale: 0.3,
-        opacity: 0,
-        transformOrigin: "center center",
-      });
-
-      gsap.to(slidingShapeRef.current, {
+        rotateX: 0,
+        rotateY: 0,
         scale: 1,
         opacity: 1,
-        duration: 0.55,
-        ease: "power3.out",
       });
     } else {
-      // 2. Sliding transition: Smoothly glide across containers to new coordinates
       gsap.to(slidingShapeRef.current, {
         x: bounds.x,
         y: bounds.y,
         width: bounds.width,
         height: bounds.height,
+        rotateX: 0,
+        rotateY: 0,
         scale: 1,
         opacity: 1,
-        duration: 0.6,
+        duration: 0.5,
         ease: "power3.out",
       });
     }
 
-    // Video play/pause management with smooth crossfade
     videoRefs.current.forEach((video, i) => {
       if (!video) return;
       if (i === index) {
         video.currentTime = 0;
-        video.play().catch(() => { });
+        video.play().catch(() => {});
       } else {
         video.pause();
       }
     });
-
-    previousIndexRef.current = index;
   };
 
-  const handleGridLeave = () => {
-    setHoveredIndex(null);
-    previousIndexRef.current = null;
+  // Cursor follow: shape smoothly follows mouse across the grid area
+  const handleGridMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const gridEl = gridRef.current;
+    if (!gridEl || !slidingShapeRef.current) return;
 
-    if (slidingShapeRef.current) {
-      gsap.killTweensOf(slidingShapeRef.current);
-      gsap.to(slidingShapeRef.current, {
-        scale: 0,
-        opacity: 0,
-        duration: 0.45,
-        ease: "power2.inOut",
+    const gridRect = gridEl.getBoundingClientRect();
+    const mouseX = e.clientX - gridRect.left;
+    const mouseY = e.clientY - gridRect.top;
+
+    // Detect which card the cursor is closest to horizontally
+    let activeCardIndex = hoveredIndexRef.current;
+    cardRefs.current.forEach((cardEl, i) => {
+      if (!cardEl) return;
+      const rect = cardEl.getBoundingClientRect();
+      if (e.clientX >= rect.left && e.clientX <= rect.right) {
+        activeCardIndex = i;
+      }
+    });
+
+    if (activeCardIndex !== hoveredIndexRef.current) {
+      setHoveredIndex(activeCardIndex);
+      previousIndexRef.current = activeCardIndex;
+      videoRefs.current.forEach((video, i) => {
+        if (!video) return;
+        if (i === activeCardIndex) {
+          video.currentTime = 0;
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
       });
     }
 
-    // Pause all videos
-    videoRefs.current.forEach((video) => {
-      if (video) video.pause();
+    const currentCard = cardRefs.current[activeCardIndex] || cardRefs.current[0];
+    const shapeWidth = currentCard ? currentCard.offsetWidth - 12 : 320;
+    const shapeHeight = currentCard ? currentCard.offsetHeight - 24 : 480;
+
+    const targetX = mouseX - shapeWidth / 2;
+    const targetY = mouseY - shapeHeight / 2;
+
+    const clampedX = Math.max(0, Math.min(gridRect.width - shapeWidth, targetX));
+    const clampedY = Math.max(-20, Math.min(gridRect.height - shapeHeight + 20, targetY));
+
+    gsap.to(slidingShapeRef.current, {
+      x: clampedX,
+      y: clampedY,
+      width: shapeWidth,
+      height: shapeHeight,
+      rotateX: 0,
+      rotateY: 0,
+      duration: 0.35,
+      ease: "power2.out",
+      overwrite: "auto",
     });
   };
 
-  // Re-sync sliding shape on window resize
+  const handleGridLeave = () => {
+    // Smoothly settle and center on the last active card instead of resetting to Card 0
+    const lastIndex = hoveredIndexRef.current;
+    const bounds = getTargetBounds(lastIndex);
+    if (bounds && slidingShapeRef.current) {
+      gsap.to(slidingShapeRef.current, {
+        x: bounds.x,
+        y: bounds.y,
+        width: bounds.width,
+        height: bounds.height,
+        rotateX: 0,
+        rotateY: 0,
+        duration: 0.45,
+        ease: "power3.out",
+        overwrite: "auto",
+      });
+    }
+  };
+
+  // Run ONLY on mount: position shape at card 0 and register resize listener
   useEffect(() => {
+    const initTimer = setTimeout(() => {
+      moveToCard(0, true);
+    }, 100);
+
     const handleResize = () => {
-      if (hoveredIndex !== null) {
-        const bounds = getTargetBounds(hoveredIndex);
-        if (bounds && slidingShapeRef.current) {
-          gsap.set(slidingShapeRef.current, {
-            x: bounds.x,
-            y: bounds.y,
-            width: bounds.width,
-            height: bounds.height,
-          });
-        }
+      const bounds = getTargetBounds(hoveredIndexRef.current);
+      if (bounds && slidingShapeRef.current) {
+        gsap.set(slidingShapeRef.current, {
+          x: bounds.x,
+          y: bounds.y,
+          width: bounds.width,
+          height: bounds.height,
+        });
       }
     };
 
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, [hoveredIndex]);
+    return () => {
+      clearTimeout(initTimer);
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []); // CRITICAL: Empty dependency array so hover events are never reset by re-triggered effects
 
   // Dynamic mask/shape class depending on active agency
   const getActiveMaskClass = () => {
-    if (hoveredIndex === null) return "rounded-3xl";
     const agency = agencies[hoveredIndex];
     switch (agency?.maskType) {
       case "custom-a":
-        return "[clip-path:url(#custom-cutout-mask)]";
+        return "[clip-path:url(#custom-cutout-mask)] rounded-none";
       case "rounded-rect":
-        return "rounded-[2.5rem]";
+        return "[clip-path:none] rounded-[2.5rem]";
       case "arch-pill":
-        return "rounded-t-[7rem] rounded-b-[2.5rem]";
+        return "[clip-path:none] rounded-t-[7rem] rounded-b-[2.5rem]";
       default:
-        return "rounded-3xl";
+        return "[clip-path:none] rounded-3xl";
     }
   };
 
   return (
-    <section className="relative w-full bg-[#F3EFEA] text-[#1A1A1A] py-24 sm:py-32 px-6 sm:px-8 lg:px-12 overflow-hidden select-none">
+    <section className="relative w-full bg-[#F3EFEA] text-[#111111] py-28 sm:py-36 px-6 sm:px-8 lg:px-12 overflow-hidden select-none">
       {/* ========================================================================= */}
-      {/* SVG CLIP-PATH DEFINITION (FOR CUSTOM CHUNKY 'a' CUTOUT IN CARD 1)        */}
+      {/* SVG CLIP-PATH DEFINITION (FOR CUSTOM CHUNKY CUTOUT IN CARD 1)              */}
       {/* ========================================================================= */}
       <svg
         className="absolute w-0 h-0 pointer-events-none"
@@ -237,7 +256,7 @@ export default function Agencies() {
       >
         <defs>
           <clipPath id="custom-cutout-mask" clipPathUnits="objectBoundingBox">
-            <path d="M 0.12,0.05 C 0.05,0.05 0.0,0.1 0.0,0.17 L 0.0,0.7 C 0.0,0.76 0.05,0.8 0.12,0.8 L 0.25,0.8 L 0.25,0.92 C 0.25,0.97 0.29,1.0 0.36,1.0 L 0.88,1.0 C 0.95,1.0 1.0,0.96 1.0,0.89 L 1.0,0.35 C 1.0,0.29 0.95,0.25 0.88,0.25 L 0.75,0.25 L 0.75,0.13 C 0.75,0.07 0.7,0.05 0.63,0.05 Z" />
+            <path d="M 0.12,0.04 C 0.04,0.04 0.0,0.09 0.0,0.16 L 0.0,0.68 C 0.0,0.75 0.04,0.8 0.12,0.8 L 0.25,0.8 L 0.25,0.92 C 0.25,0.97 0.29,1.0 0.36,1.0 L 0.88,1.0 C 0.96,1.0 1.0,0.96 1.0,0.88 L 1.0,0.36 C 1.0,0.29 0.96,0.25 0.88,0.25 L 0.75,0.25 L 0.75,0.12 C 0.75,0.06 0.7,0.04 0.63,0.04 Z" />
           </clipPath>
         </defs>
       </svg>
@@ -246,16 +265,13 @@ export default function Agencies() {
         {/* ========================================================================= */}
         {/* SECTION HEADER                                                            */}
         {/* ========================================================================= */}
-        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
-          <p className="text-[10px] sm:text-xs font-semibold uppercase tracking-[0.3em] text-[#4A4A4A]">
-            What we do
-          </p>
-          <h2 className="mt-3 font-serif text-3xl sm:text-4xl md:text-5xl font-normal tracking-tight text-[#1A1A1A]">
-            From raw footage to real reach.
+        <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
+          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-[4.25rem] font-bold tracking-tight text-[#111111] leading-[1.08]">
+            The services we provide
           </h2>
-          <p className="mt-4 text-xs sm:text-sm md:text-base text-[#4A4A4A] leading-relaxed">
-            Three services, one mission — make your content impossible to scroll past.
-            <br className="hidden sm:inline" /> Clipping, distribution and PR, working as one engine.
+          <p className="mt-5 text-sm sm:text-base md:text-[17px] text-[#2D2D2D] leading-relaxed max-w-xl mx-auto font-normal">
+            We specialise in clipping, multi-platform distribution, and creator PR.
+            <br className="hidden sm:inline" /> Working as one unified engine – turning one piece of long-form footage into millions of views.
           </p>
         </div>
 
@@ -264,20 +280,45 @@ export default function Agencies() {
         {/* ========================================================================= */}
         <div
           ref={gridRef}
+          onMouseMove={handleGridMouseMove}
           onMouseLeave={handleGridLeave}
-          className="relative grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch"
+          style={{ perspective: 1200 }}
+          className="relative grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-10 items-stretch max-w-6xl mx-auto"
         >
           {/* ========================================================================= */}
-          {/* SHARED SLIDING GSAP HOVER SHAPE (GLIDES FROM CARD TO CARD)               */}
+          {/* SHARED SLIDING GSAP HOVER SHAPE (STRICTLY z-0, NEVER OVERLAPS TEXT)       */}
           {/* ========================================================================= */}
           <div
             ref={slidingShapeRef}
-            style={{ transform: "scale(0)", opacity: 0 }}
+            style={{ transformStyle: "preserve-3d" }}
             className={cn(
-              "pointer-events-none absolute top-0 left-0 z-0 overflow-hidden shadow-2xl transition-[border-radius,clip-path] duration-500 will-change-transform",
+              "pointer-events-none absolute top-0 left-0 z-0 overflow-hidden shadow-2xl transition-[border-radius,clip-path] duration-500 will-change-transform bg-[#0038E2]",
               getActiveMaskClass()
             )}
           >
+            {/* Card 1 Graphic Artwork: Pure vibrant cobalt blue with solid warm cream motif */}
+            <div
+              className={cn(
+                "absolute inset-0 transition-opacity duration-500 pointer-events-none z-0",
+                hoveredIndex === 0 ? "opacity-100" : "opacity-0"
+              )}
+            >
+              <svg
+                viewBox="0 0 340 440"
+                fill="none"
+                preserveAspectRatio="xMidYMid slice"
+                className="absolute inset-0 w-full h-full"
+              >
+                {/* Swirling cream agency motif with circular center hole */}
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M 125 16 C 220 16 265 60 265 145 L 265 265 C 265 355 190 415 95 415 C 35 415 0 365 0 285 L 0 160 C 0 65 52 16 125 16 Z M 138 126 C 92 126 56 162 56 208 C 56 254 92 290 138 290 C 184 290 220 254 220 208 C 220 162 184 126 138 126 Z"
+                  fill="#EDE6DC"
+                />
+              </svg>
+            </div>
+
             {/* Crossfading Layered Agency Videos */}
             {agencies.map((agency, i) => (
               <video
@@ -289,18 +330,23 @@ export default function Agencies() {
                 playsInline
                 preload="metadata"
                 className={cn(
-                  "absolute inset-0 h-full w-full object-cover transition-opacity duration-500",
-                  hoveredIndex === i ? "opacity-100" : "opacity-0"
+                  "absolute inset-0 h-full w-full object-cover transition-opacity duration-500 z-0",
+                  hoveredIndex === i ? (i === 0 ? "opacity-25 mix-blend-screen" : "opacity-85") : "opacity-0"
                 )}
               />
             ))}
 
-            {/* Darkening tint overlay to guarantee contrast over any footage */}
-            <div className="absolute inset-0 bg-black/25 backdrop-brightness-95" />
+            {/* Subtle contrast gradient for Card 2 & 3 */}
+            <div
+              className={cn(
+                "absolute inset-0 z-0 pointer-events-none transition-opacity duration-500 bg-black/25",
+                hoveredIndex === 0 ? "opacity-0" : "opacity-100"
+              )}
+            />
           </div>
 
           {/* ========================================================================= */}
-          {/* AGENCY CARDS (FOREGROUND CONTENT)                                         */}
+          {/* AGENCY CARDS (STRICTLY z-20 FOREGROUND)                                   */}
           {/* ========================================================================= */}
           {agencies.map((agency, index) => {
             const isActive = hoveredIndex === index;
@@ -308,62 +354,50 @@ export default function Agencies() {
               <div
                 key={agency.id}
                 ref={(el) => (cardRefs.current[index] = el)}
-                onMouseEnter={() => handleCardEnter(index)}
-                onClick={() => {
-                  if (hoveredIndex === index) {
-                    handleGridLeave();
-                  } else {
-                    handleCardEnter(index);
-                  }
-                }}
-                className="group relative z-10 flex flex-col items-center justify-center min-h-[440px] sm:min-h-[480px] md:min-h-[520px] p-8 sm:p-10 cursor-pointer overflow-hidden rounded-3xl transition-all duration-300"
+                onClick={() => moveToCard(index)}
+                className="group relative z-20 flex flex-col items-center justify-center min-h-[460px] sm:min-h-[500px] md:min-h-[530px] px-6 sm:px-8 py-12 cursor-pointer rounded-3xl"
               >
-                <div className="flex flex-col items-center justify-center text-center max-w-xs transition-transform duration-300 group-hover:scale-[1.02]">
-                  {/* Icon + Title Row */}
-                  <div
-                    className={cn(
-                      "mb-5 flex h-12 w-12 items-center justify-center rounded-full border transition-all duration-300",
-                      isActive
-                        ? "border-white/80 bg-white/10 text-white backdrop-blur-md"
-                        : "border-[#1A1A1A]/30 bg-white/40 text-[#1A1A1A]"
-                    )}
-                  >
-                    {agency.icon}
-                  </div>
-
+                <div className="flex flex-col items-center justify-center text-center w-full max-w-xs transition-transform duration-300 group-hover:scale-[1.01]">
                   {/* Title */}
                   <h3
                     className={cn(
-                      "font-display text-2xl sm:text-3xl font-extrabold uppercase tracking-tight transition-colors duration-300",
-                      isActive ? "text-white drop-shadow-md" : "text-[#1A1A1A]"
+                      "font-display font-bold uppercase tracking-tight transition-colors duration-300 select-none whitespace-nowrap",
+                      "text-2xl sm:text-3xl md:text-[2.35rem] lg:text-[2.65rem] leading-none",
+                      isActive ? "text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]" : "text-[#111111]"
                     )}
                   >
                     {agency.name}
                   </h3>
 
-                  {/* Description Paragraph */}
-                  <p
+                  {/* Description: Smoothly collapses on hover so button slides right below the main headline */}
+                  <div
                     className={cn(
-                      "mt-4 text-xs sm:text-sm leading-relaxed transition-colors duration-300 font-medium",
-                      isActive ? "text-white/90 drop-shadow-sm" : "text-[#4A4A4A]"
+                      "grid transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden",
+                      isActive
+                        ? "grid-rows-[0fr] opacity-0 my-0 -translate-y-2 pointer-events-none"
+                        : "grid-rows-[1fr] opacity-100 mt-5 mb-8 translate-y-0"
                     )}
                   >
-                    {agency.description}
-                  </p>
+                    <div className="overflow-hidden">
+                      <p className="text-sm sm:text-[15px] leading-relaxed max-w-[270px] sm:max-w-[290px] mx-auto font-normal text-[#333333]">
+                        {agency.description}
+                      </p>
+                    </div>
+                  </div>
 
-                  {/* Pill-shaped Button */}
+                  {/* Pill-shaped Button: Slides smoothly below main headline when description collapses */}
                   <a
                     href={agency.link}
                     onClick={(e) => e.stopPropagation()}
                     className={cn(
-                      "mt-8 inline-flex items-center gap-1.5 rounded-full px-6 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all duration-300 border",
+                      "inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-sm sm:text-[15px] font-medium transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] border",
                       isActive
-                        ? "border-white bg-white/20 text-white backdrop-blur-md hover:bg-white hover:text-[#1A1A1A] shadow-lg"
-                        : "border-[#1A1A1A] bg-transparent text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-[#F3EFEA]"
+                        ? "mt-4 sm:mt-5 border-white/85 bg-white/15 text-white hover:bg-white hover:text-[#0038E2] shadow-md backdrop-blur-md"
+                        : "mt-0 border-[#111111] bg-transparent text-[#111111] hover:bg-[#111111] hover:text-[#F3EFEA]"
                     )}
                   >
                     <span>Find out more</span>
-                    <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    <ArrowUpRight className="h-4 w-4 stroke-[1.6] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </a>
                 </div>
               </div>

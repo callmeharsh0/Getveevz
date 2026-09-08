@@ -23,6 +23,8 @@ const config: Config = {
         moonlight: "var(--text-primary)",
       },
       fontFamily: {
+        serif: ["'Instrument Serif'", "'Playfair Display'", "Georgia", "serif"],
+        agency: ["'Oswald'", "'Space Grotesk'", "sans-serif"],
         display: ["var(--font-display)", "sans-serif"],
         body: ["var(--font-body)", "sans-serif"],
       },
