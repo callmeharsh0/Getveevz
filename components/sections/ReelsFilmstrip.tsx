@@ -102,7 +102,7 @@ export default function ReelsFilmstrip() {
   return (
     <section
       id="character-filmstrip"
-      className="relative w-full overflow-hidden bg-[#d8c9ad]"
+      className="relative w-full overflow-hidden bg-[#000000]"
     >
       <div className="w-full h-[640px] sm:h-[720px] md:h-[820px] lg:h-[880px] relative">
         {/* Carousel fills the entire section */}
