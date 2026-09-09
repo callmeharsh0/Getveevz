@@ -1,5 +1,6 @@
 import Hero from "@/components/sections/Hero";
 import { ParallaxFloatingDemo } from "@/components/ui/parallax-floating-demo";
+import DistributionFlow from "@/components/sections/DistributionFlow-standalone";
 import Agencies from "@/components/sections/Agencies";
 import Proof from "@/components/sections/Proof";
 import Problem from "@/components/sections/Problem";
@@ -15,9 +16,10 @@ export default function Home() {
   return (
     <main>
       <Hero />
-      <section className="relative w-full overflow-hidden bg-[#07111E]">
+      <section id="results" className="relative w-full overflow-hidden bg-[#02122F]">
         <ParallaxFloatingDemo />
       </section>
+      <DistributionFlow />
       <Agencies />
       <ReelsFilmstrip />
       <Proof />
