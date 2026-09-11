@@ -8,6 +8,8 @@ import WhatWeDo from "@/components/sections/WhatWeDo";
 import HowItWorks from "@/components/sections/HowItWorks";
 import ReelsFilmstrip from "@/components/sections/ReelsFilmstrip";
 import WhyUs from "@/components/sections/WhyUs";
+import Pricing from "@/components/sections/Pricing";
+import Pricing2 from "@/components/sections/Pricing2";
 import FAQ from "@/components/sections/FAQ";
 import FinalCTA from "@/components/sections/FinalCTA";
 import ClientTestimonials from "@/components/sections/ClientTestimonials";
@@ -28,6 +30,8 @@ export default function Home() {
       <HowItWorks />
       <ClientTestimonials />
       <WhyUs />
+      <Pricing />
+      <Pricing2 />
       <FAQ />
       <FinalCTA />
     </main>
