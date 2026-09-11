@@ -10,6 +10,9 @@ import ReelsFilmstrip from "@/components/sections/ReelsFilmstrip";
 import WhyUs from "@/components/sections/WhyUs";
 import Pricing from "@/components/sections/Pricing";
 import Pricing2 from "@/components/sections/Pricing2";
+import AudienceRepurpose from "@/components/sections/AudienceRepurpose";
+import WeHandleItAll from "@/components/sections/WeHandleItAll";
+import LiveAnalytics from "@/components/sections/LiveAnalytics";
 import FAQ from "@/components/sections/FAQ";
 import FinalCTA from "@/components/sections/FinalCTA";
 import ClientTestimonials from "@/components/sections/ClientTestimonials";
@@ -25,13 +28,16 @@ export default function Home() {
       <Agencies />
       <ReelsFilmstrip />
       <Proof />
+      <AudienceRepurpose />
       <Problem />
       <WhatWeDo />
       <HowItWorks />
+      <WeHandleItAll />
       <ClientTestimonials />
       <WhyUs />
       <Pricing />
       <Pricing2 />
+      <LiveAnalytics />
       <FAQ />
       <FinalCTA />
     </main>
