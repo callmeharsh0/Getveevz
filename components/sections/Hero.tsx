@@ -12,11 +12,75 @@ if (typeof window !== "undefined") {
 }
 
 const PLATFORMS = [
-  { id: "all", name: "All Platforms", metric: "+500M Views", video: "/assets/distribution.mp4", tag: "Omnichannel" },
-  { id: "tiktok", name: "TikTok", metric: "248M Views", video: "/assets/clipping.mp4", tag: "Algorithm Priority" },
-  { id: "reels", name: "IG Reels", metric: "164M Views", video: "/assets/agency-video-2.mp4", tag: "High Retention" },
-  { id: "shorts", name: "YT Shorts", metric: "92M Views", video: "/assets/tracking.mp4", tag: "Search Authority" },
+  { id: "all", name: "All Platforms", value: 800, metric: "800M Views", video: "/assets/distribution.mp4", tag: "Omnichannel" },
+  { id: "tiktok", name: "TikTok", value: 390, metric: "390M Views", video: "/assets/clipping.mp4", tag: "Algorithm Priority" },
+  { id: "reels", name: "IG Reels", value: 260, metric: "260M Views", video: "/assets/agency-video-2.mp4", tag: "High Retention" },
+  { id: "shorts", name: "YT Shorts", value: 150, metric: "150M Views", video: "/assets/tracking.mp4", tag: "Search Authority" },
 ];
+
+function HeroStatCounter({
+  target,
+  suffix = "M",
+  prefix = "",
+  duration = 2.2,
+}: {
+  target: number;
+  suffix?: string;
+  prefix?: string;
+  duration?: number;
+}) {
+  const spanRef = useRef<HTMLSpanElement>(null);
+  const currentValRef = useRef(0);
+  const isInitialMount = useRef(true);
+
+  useEffect(() => {
+    const el = spanRef.current;
+    if (!el) return;
+
+    const prefersReducedMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (prefersReducedMotion) {
+      el.textContent = `${prefix}${target}${suffix}`;
+      currentValRef.current = target;
+      return;
+    }
+
+    const startVal = isInitialMount.current ? 0 : currentValRef.current;
+    const delay = isInitialMount.current ? 0.35 : 0;
+    isInitialMount.current = false;
+
+    const countObj = { val: startVal };
+    const tween = gsap.to(countObj, {
+      val: target,
+      duration: duration,
+      ease: "power3.out",
+      delay: delay,
+      onUpdate: () => {
+        if (el) {
+          el.textContent = `${prefix}${Math.round(countObj.val)}${suffix}`;
+        }
+      },
+      onComplete: () => {
+        currentValRef.current = target;
+        if (el) {
+          el.textContent = `${prefix}${target}${suffix}`;
+        }
+      },
+    });
+
+    return () => {
+      tween.kill();
+    };
+  }, [target, suffix, prefix, duration]);
+
+  return (
+    <span ref={spanRef} className="tabular-nums">
+      {prefix}0{suffix}
+    </span>
+  );
+}
 
 export default function Hero() {
   const containerRef = useRef<HTMLElement>(null);
@@ -592,10 +656,10 @@ export default function Hero() {
         >
           {/* Stat and Avatar Stack Row */}
           <div className="flex items-center gap-5 md:justify-end">
-            {/* Big Stat Number with interactive active platform binding */}
+            {/* Big Stat Number with interactive active platform binding & increasing counter animation */}
             <div className="flex items-baseline gap-1.5 cursor-default group">
               <span className="font-display text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-moonlight group-hover:text-frost transition-colors">
-                {activePlatform.metric.split(" ")[0]}
+                <HeroStatCounter target={activePlatform.value} suffix="M" />
               </span>
               <span className="text-xs sm:text-sm font-mono text-muted uppercase tracking-wider">
                 {activePlatform.metric.split(" ")[1] || "Views"}
