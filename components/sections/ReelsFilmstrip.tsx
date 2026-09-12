@@ -35,43 +35,20 @@ export function CharacterCarousel({
     <div
       className={`relative w-full h-full min-w-0 min-h-0 overflow-hidden ${className}`}
       style={{
-        background: isFilmstrip
-          ? [
-              "linear-gradient(90deg, rgba(80, 58, 31, 0.08) 1px, transparent 1px) 50% 0 / 25% 100%",
-              "repeating-linear-gradient(0deg, transparent 0, transparent 109px, rgba(72, 52, 30, 0.13) 110px, transparent 111px)",
-              "#d8c9ad",
-            ].join(", ")
-          : "#121212",
+        background: "#000000",
         pointerEvents: "auto",
         ...style,
       }}
     >
-      {/* Paper grain overlay */}
-      {isFilmstrip && (
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-[1]"
-          style={{
-            opacity: 0.27,
-            mixBlendMode: "multiply",
-            background: [
-              "repeating-radial-gradient(circle at 12% 18%, rgba(71, 51, 30, 0.17) 0 0.5px, transparent 0.7px 4px)",
-              "repeating-radial-gradient(circle at 78% 71%, rgba(255, 255, 255, 0.35) 0 0.5px, transparent 0.8px 5px)",
-            ].join(", "),
-          }}
-        />
-      )}
-      {/* Edge vignette — continuous across wrapper + iframe */}
-      {isFilmstrip && (
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-[2]"
-          style={{
-            background:
-              "linear-gradient(90deg, rgba(84, 58, 29, 0.19), transparent 14%, transparent 86%, rgba(84, 58, 29, 0.19))",
-          }}
-        />
-      )}
+      {/* Subtle edge vignette */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-[2]"
+        style={{
+          background:
+            "linear-gradient(90deg, rgba(0, 0, 0, 0.85) 0%, transparent 14%, transparent 86%, rgba(0, 0, 0, 0.85) 100%), linear-gradient(180deg, rgba(0, 0, 0, 0.6) 0%, transparent 22%, transparent 80%, rgba(0, 0, 0, 0.8) 100%)",
+        }}
+      />
       <iframe
         title="Interactive character filmstrip"
         src="/character-filmstrip.html"
@@ -85,7 +62,7 @@ export function CharacterCarousel({
           width: "100%",
           height: "100%",
           border: 0,
-          background: isFilmstrip ? "#d8c9ad" : "#121212",
+          background: "#000000",
           opacity: clampedOpacity,
           filter: `hue-rotate(${clampedHue}deg) saturate(${clampedSaturation}) brightness(${clampedBrightness})`,
         }}
@@ -119,13 +96,13 @@ export default function ReelsFilmstrip() {
         <div
           className="pointer-events-none absolute inset-x-0 top-0 z-10 flex flex-col items-center justify-start pt-10 sm:pt-14 md:pt-16 px-6"
         >
-          <p className="text-[10px] sm:text-xs font-semibold uppercase tracking-[0.3em] text-[#4A4A4A]/80">
+          <p className="text-[10px] sm:text-xs font-semibold uppercase tracking-[0.3em] text-[#8BA3C5]">
             The work, in numbers
           </p>
-          <h2 className="mt-3 font-serif text-3xl sm:text-4xl md:text-5xl font-normal tracking-tight text-[#1A1A1A]">
+          <h2 className="mt-3 font-serif text-3xl sm:text-4xl md:text-5xl font-normal tracking-tight text-white">
             Real reels. Real reach.
           </h2>
-          <p className="mt-3 text-xs sm:text-sm md:text-base text-[#4A4A4A]/90 leading-relaxed text-center max-w-lg">
+          <p className="mt-3 text-xs sm:text-sm md:text-base text-[#8BA3C5]/90 leading-relaxed text-center max-w-lg">
             A snapshot of what we&apos;ve shipped this quarter — clipping, distribution and
             <br className="hidden sm:inline" /> PR, compounding into one audience.
           </p>

@@ -1,15 +1,66 @@
 "use client";
 
-import React, { useEffect } from "react";
-import { motion, stagger, useAnimate } from "motion/react";
+import React, { useEffect, useRef, useState } from "react";
+import { motion, stagger, useAnimate, useInView } from "motion/react";
 import {
   TrendingUp,
   Sparkles,
   ArrowUpRight,
   Flame,
   Users,
+  Layers,
 } from "lucide-react";
 import Floating, { FloatingElement } from "@/components/ui/parallax-floating";
+
+function Counter({
+  value,
+  decimals = 0,
+  prefix = "",
+  suffix = "",
+  duration = 2.2,
+}: {
+  value: number;
+  decimals?: number;
+  prefix?: string;
+  suffix?: string;
+  duration?: number;
+}) {
+  const [displayValue, setDisplayValue] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-40px" });
+
+  useEffect(() => {
+    if (!isInView) return;
+    let startTime: number | null = null;
+    let animationFrameId: number;
+
+    const animate = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / (duration * 1000), 1);
+      // easeOutExpo
+      const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+      const current = easeProgress * value;
+      setDisplayValue(current);
+
+      if (progress < 1) {
+        animationFrameId = requestAnimationFrame(animate);
+      } else {
+        setDisplayValue(value);
+      }
+    };
+
+    animationFrameId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [isInView, value, duration]);
+
+  return (
+    <span ref={ref} className="tabular-nums inline-block">
+      {prefix}
+      {decimals > 0 ? displayValue.toFixed(decimals) : Math.round(displayValue).toLocaleString()}
+      {suffix}
+    </span>
+  );
+}
 
 const exampleImages = [
   {
@@ -109,11 +160,11 @@ export function ParallaxFloatingDemo() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.1 }}
-          className="font-display font-medium text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight text-moonlight leading-[1.05]"
+          className="font-display font-medium text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight text-moonlight leading-[1.08]"
         >
-          42.8M Organic Views.
+          Built to Distribute Content
           <span className="block text-transparent bg-clip-text bg-gradient-to-r from-frost via-white to-emerald-300 mt-1">
-            Engineered at Scale.
+            and Scale.
           </span>
         </motion.h2>
 
@@ -125,31 +176,51 @@ export function ParallaxFloatingDemo() {
           transition={{ duration: 0.7, delay: 0.2 }}
           className="mt-5 text-sm sm:text-base md:text-[17px] text-muted max-w-xl mx-auto font-normal leading-relaxed"
         >
-          We turn raw 2-hour podcasts, interviews, and keynotes into high-retention short clips — distributed across a synchronized 40+ account network to generate compounding authority.
+          We turn raw podcasts, keynotes, and interviews into high-retention short clips — engineered with algorithmic precision to generate compounding reach across every platform.
         </motion.p>
 
-        {/* Mini Performance Grid / KPI Chips */}
+        {/* Metric Cards with Increasing Counter Effect */}
         <motion.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.3 }}
-          className="mt-8 flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 max-w-xl"
+          className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 w-full max-w-2xl"
         >
-          <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-surface/70 border border-border/80 backdrop-blur-md text-xs sm:text-sm">
-            <Flame className="w-4 h-4 text-emerald-400" />
-            <span className="font-semibold text-moonlight font-display text-sm sm:text-base">380+</span>
-            <span className="text-muted text-[11px] sm:text-xs">Viral Clips Produced</span>
+          <div className="flex flex-col items-center justify-center p-3.5 sm:p-4 rounded-2xl bg-surface/80 border border-border/90 backdrop-blur-xl shadow-xl hover:border-frost/60 transition-all duration-300 group">
+            <span className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-moonlight to-frost group-hover:scale-105 transition-transform duration-300">
+              <Counter value={42.8} decimals={1} suffix="M+" />
+            </span>
+            <span className="mt-1 text-[11px] sm:text-xs text-muted font-medium uppercase tracking-wider text-center">
+              Organic Views
+            </span>
           </div>
-          <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-surface/70 border border-border/80 backdrop-blur-md text-xs sm:text-sm">
-            <TrendingUp className="w-4 h-4 text-frost" />
-            <span className="font-semibold text-moonlight font-display text-sm sm:text-base">84.2%</span>
-            <span className="text-muted text-[11px] sm:text-xs">Avg. Hook Retention</span>
+
+          <div className="flex flex-col items-center justify-center p-3.5 sm:p-4 rounded-2xl bg-surface/80 border border-border/90 backdrop-blur-xl shadow-xl hover:border-frost/60 transition-all duration-300 group">
+            <span className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-emerald-400 group-hover:scale-105 transition-transform duration-300">
+              <Counter value={380} suffix="+" />
+            </span>
+            <span className="mt-1 text-[11px] sm:text-xs text-muted font-medium uppercase tracking-wider text-center">
+              Clips Produced
+            </span>
           </div>
-          <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-surface/70 border border-border/80 backdrop-blur-md text-xs sm:text-sm">
-            <Users className="w-4 h-4 text-emerald-400" />
-            <span className="font-semibold text-moonlight font-display text-sm sm:text-base">45+</span>
-            <span className="text-muted text-[11px] sm:text-xs">Active Syndication Channels</span>
+
+          <div className="flex flex-col items-center justify-center p-3.5 sm:p-4 rounded-2xl bg-surface/80 border border-border/90 backdrop-blur-xl shadow-xl hover:border-frost/60 transition-all duration-300 group">
+            <span className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-moonlight to-frost group-hover:scale-105 transition-transform duration-300">
+              <Counter value={84.2} decimals={1} suffix="%" />
+            </span>
+            <span className="mt-1 text-[11px] sm:text-xs text-muted font-medium uppercase tracking-wider text-center">
+              Hook Retention
+            </span>
+          </div>
+
+          <div className="flex flex-col items-center justify-center p-3.5 sm:p-4 rounded-2xl bg-surface/80 border border-border/90 backdrop-blur-xl shadow-xl hover:border-frost/60 transition-all duration-300 group">
+            <span className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-emerald-400 group-hover:scale-105 transition-transform duration-300">
+              <Counter value={45} suffix="+" />
+            </span>
+            <span className="mt-1 text-[11px] sm:text-xs text-muted font-medium uppercase tracking-wider text-center">
+              Channels
+            </span>
           </div>
         </motion.div>
 
