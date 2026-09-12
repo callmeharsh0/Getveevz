@@ -19,7 +19,7 @@ const PLATFORMS = [
 ];
 
 function HeroStatCounter({
-  target,
+  target = 800,
   suffix = "M",
   prefix = "",
   duration = 2.2,
@@ -29,55 +29,51 @@ function HeroStatCounter({
   prefix?: string;
   duration?: number;
 }) {
-  const spanRef = useRef<HTMLSpanElement>(null);
-  const currentValRef = useRef(0);
-  const isInitialMount = useRef(true);
+  const [displayValue, setDisplayValue] = useState(0);
+  const prevTargetRef = useRef(0);
 
   useEffect(() => {
-    const el = spanRef.current;
-    if (!el) return;
+    let startTime: number | null = null;
+    let animationFrameId: number;
+    const startVal = prevTargetRef.current;
+    const diff = target - startVal;
 
-    const prefersReducedMotion =
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // Small delay on first load so user visually catches the counter beginning at 0
+    const startDelay = prevTargetRef.current === 0 ? 120 : 0;
 
-    if (prefersReducedMotion) {
-      el.textContent = `${prefix}${target}${suffix}`;
-      currentValRef.current = target;
-      return;
-    }
+    const timerId = setTimeout(() => {
+      const animate = (timestamp: number) => {
+        if (!startTime) startTime = timestamp;
+        const elapsed = timestamp - startTime;
+        const progress = Math.min(elapsed / (duration * 1000), 1);
 
-    const startVal = isInitialMount.current ? 0 : currentValRef.current;
-    const delay = isInitialMount.current ? 0.35 : 0;
-    isInitialMount.current = false;
+        // Smooth easeOutExpo curve
+        const ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+        const current = startVal + diff * ease;
+        setDisplayValue(Math.round(current));
 
-    const countObj = { val: startVal };
-    const tween = gsap.to(countObj, {
-      val: target,
-      duration: duration,
-      ease: "power3.out",
-      delay: delay,
-      onUpdate: () => {
-        if (el) {
-          el.textContent = `${prefix}${Math.round(countObj.val)}${suffix}`;
+        if (progress < 1) {
+          animationFrameId = requestAnimationFrame(animate);
+        } else {
+          setDisplayValue(target);
+          prevTargetRef.current = target;
         }
-      },
-      onComplete: () => {
-        currentValRef.current = target;
-        if (el) {
-          el.textContent = `${prefix}${target}${suffix}`;
-        }
-      },
-    });
+      };
+
+      animationFrameId = requestAnimationFrame(animate);
+    }, startDelay);
 
     return () => {
-      tween.kill();
+      clearTimeout(timerId);
+      cancelAnimationFrame(animationFrameId);
     };
-  }, [target, suffix, prefix, duration]);
+  }, [target, duration]);
 
   return (
-    <span ref={spanRef} className="tabular-nums">
-      {prefix}0{suffix}
+    <span className="tabular-nums inline-block font-display tracking-tight">
+      {prefix}
+      {displayValue}
+      {suffix}
     </span>
   );
 }
@@ -208,11 +204,11 @@ export default function Hero() {
       gsap.set([bottomLeftRef.current, bottomRightRef.current], { opacity: 0, y: 24 });
 
       // Coordinated Staggered Entrance
-      tl.to(navRef.current, { opacity: 1, y: 0, duration: 0.7 })
-        .to(eyebrowsRef.current?.querySelectorAll(".eyebrow-item") || [], { opacity: 1, y: 0, duration: 0.6, stagger: 0.08 }, "-=0.4")
-        .to(wordmarkRef.current, { opacity: 1, scale: 1, y: 0, duration: 0.9, ease: "power2.out" }, "-=0.3")
-        .to([cardLeftRef.current, cardRightRef.current], { opacity: 1, scale: 1, y: 0, duration: 0.8, stagger: 0.15 }, "-=0.5")
-        .to([bottomLeftRef.current, bottomRightRef.current], { opacity: 1, y: 0, duration: 0.7, stagger: 0.12 }, "-=0.4");
+      tl.to(navRef.current, { opacity: 1, y: 0, duration: 0.6 })
+        .to(eyebrowsRef.current?.querySelectorAll(".eyebrow-item") || [], { opacity: 1, y: 0, duration: 0.5, stagger: 0.06 }, "-=0.35")
+        .to(wordmarkRef.current, { opacity: 1, scale: 1, y: 0, duration: 0.7, ease: "power2.out" }, "-=0.3")
+        .to([bottomLeftRef.current, bottomRightRef.current], { opacity: 1, y: 0, duration: 0.6, stagger: 0.08 }, "-=0.5")
+        .to([cardLeftRef.current, cardRightRef.current], { opacity: 1, scale: 1, y: 0, duration: 0.7, stagger: 0.12 }, "-=0.4");
 
       // Scroll trigger for nav elevation
       if (navRef.current) {
