@@ -1,6 +1,7 @@
 "use client";
 
-import React from "react";
+import React, { useRef, useEffect } from "react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 export interface CharacterCarouselProps {
   variant?: "filmstrip" | "wave";
@@ -12,6 +13,7 @@ export interface CharacterCarouselProps {
   brightness?: number;
   className?: string;
   style?: React.CSSProperties;
+  iframeRef?: React.RefObject<HTMLIFrameElement>;
 }
 
 export function CharacterCarousel({
@@ -24,6 +26,7 @@ export function CharacterCarousel({
   brightness = 1,
   className = "",
   style,
+  iframeRef,
 }: CharacterCarouselProps) {
   const isFilmstrip = variant === "filmstrip";
   const clampedOpacity = Math.min(1, Math.max(0.05, opacity));
@@ -50,6 +53,7 @@ export function CharacterCarousel({
         }}
       />
       <iframe
+        ref={iframeRef}
         title="Interactive character filmstrip"
         src="/character-filmstrip.html"
         style={{
@@ -76,6 +80,54 @@ export function CharacterFilmstrip(props: Omit<CharacterCarouselProps, "variant"
 }
 
 export default function ReelsFilmstrip() {
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+
+  const handlePrev = () => {
+    try {
+      if (iframeRef.current?.contentWindow) {
+        (iframeRef.current.contentWindow as any).prevReel?.();
+        iframeRef.current.contentWindow.postMessage("filmstrip:prev", "*");
+      }
+    } catch {
+      iframeRef.current?.contentWindow?.postMessage("filmstrip:prev", "*");
+    }
+  };
+
+  const handleNext = () => {
+    try {
+      if (iframeRef.current?.contentWindow) {
+        (iframeRef.current.contentWindow as any).nextReel?.();
+        iframeRef.current.contentWindow.postMessage("filmstrip:next", "*");
+      }
+    } catch {
+      iframeRef.current?.contentWindow?.postMessage("filmstrip:next", "*");
+    }
+  };
+
+  // Keyboard navigation when filmstrip is in viewport
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const activeTag = document.activeElement?.tagName || "";
+      if (["INPUT", "TEXTAREA"].includes(activeTag)) return;
+
+      const el = document.getElementById("character-filmstrip");
+      if (el) {
+        const rect = el.getBoundingClientRect();
+        const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
+        if (isInViewport) {
+          if (e.key === "ArrowLeft") {
+            handlePrev();
+          } else if (e.key === "ArrowRight") {
+            handleNext();
+          }
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   return (
     <section
       id="character-filmstrip"
@@ -90,6 +142,7 @@ export default function ReelsFilmstrip() {
           hue={0}
           saturation={1.0}
           brightness={1.0}
+          iframeRef={iframeRef}
         />
 
         {/* Text overlay — positioned at the top, blends into the carousel */}
@@ -106,6 +159,39 @@ export default function ReelsFilmstrip() {
             A snapshot of what we&apos;ve shipped this quarter — clipping, distribution and
             <br className="hidden sm:inline" /> PR, compounding into one audience.
           </p>
+        </div>
+
+        {/* ========================================================================= */}
+        {/* AESTHETIC ARROW NAVIGATION BUTTONS                                        */}
+        {/* ========================================================================= */}
+
+        {/* Left Arrow Button */}
+        <button
+          type="button"
+          onClick={handlePrev}
+          aria-label="Previous reel"
+          className="group absolute left-4 sm:left-8 md:left-12 lg:left-14 top-1/2 -translate-y-1/2 z-30 flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#080b14]/75 hover:bg-white text-frost hover:text-black border border-white/15 hover:border-white backdrop-blur-xl shadow-2xl transition-all duration-300 hover:scale-110 active:scale-95 hover:shadow-[0_0_35px_rgba(255,255,255,0.4)] cursor-pointer"
+        >
+          <ArrowLeft className="w-5 h-5 sm:w-6 sm:h-6 transition-transform duration-300 group-hover:-translate-x-0.5" />
+          <span className="sr-only">Previous reel</span>
+        </button>
+
+        {/* Right Arrow Button */}
+        <button
+          type="button"
+          onClick={handleNext}
+          aria-label="Next reel"
+          className="group absolute right-4 sm:right-8 md:right-12 lg:right-14 top-1/2 -translate-y-1/2 z-30 flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#080b14]/75 hover:bg-white text-frost hover:text-black border border-white/15 hover:border-white backdrop-blur-xl shadow-2xl transition-all duration-300 hover:scale-110 active:scale-95 hover:shadow-[0_0_35px_rgba(255,255,255,0.4)] cursor-pointer"
+        >
+          <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 transition-transform duration-300 group-hover:translate-x-0.5" />
+          <span className="sr-only">Next reel</span>
+        </button>
+
+        {/* Bottom subtle interaction hint pill */}
+        <div className="pointer-events-none absolute bottom-6 sm:bottom-8 inset-x-0 z-20 flex items-center justify-center">
+          <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#080b14]/60 border border-white/10 backdrop-blur-md text-[10px] sm:text-xs font-mono text-muted/80 tracking-wider">
+            <span>Use arrows or drag to explore reels</span>
+          </div>
         </div>
       </div>
     </section>

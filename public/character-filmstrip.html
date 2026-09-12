@@ -375,6 +375,31 @@
         // Pointer drag and arrow-key navigation still work below.
       }, { passive: true });
 
+      function nextReel() {
+        state.base += 1;
+        state.target = state.base;
+        state.active = false;
+        state.lastInput = performance.now();
+      }
+
+      function prevReel() {
+        state.base -= 1;
+        state.target = state.base;
+        state.active = false;
+        state.lastInput = performance.now();
+      }
+
+      window.nextReel = nextReel;
+      window.prevReel = prevReel;
+
+      window.addEventListener("message", (event) => {
+        if (event.data === "filmstrip:next") {
+          nextReel();
+        } else if (event.data === "filmstrip:prev") {
+          prevReel();
+        }
+      });
+
       addEventListener("keydown", (event) => {
         const forward = event.key === "ArrowRight" || event.key === "ArrowDown";
         const backward = event.key === "ArrowLeft" || event.key === "ArrowUp";
