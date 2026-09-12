@@ -12,16 +12,16 @@ if (typeof window !== "undefined") {
 }
 
 const PLATFORMS = [
-  { id: "all", name: "All Platforms", value: 800, metric: "800M Views", video: "/assets/distribution.mp4", tag: "Omnichannel" },
-  { id: "tiktok", name: "TikTok", value: 390, metric: "390M Views", video: "/assets/clipping.mp4", tag: "Algorithm Priority" },
-  { id: "reels", name: "IG Reels", value: 260, metric: "260M Views", video: "/assets/agency-video-2.mp4", tag: "High Retention" },
-  { id: "shorts", name: "YT Shorts", value: 150, metric: "150M Views", video: "/assets/tracking.mp4", tag: "Search Authority" },
+  { id: "all", name: "All Platforms", value: 800, metric: "+800M Views", video: "/assets/distribution.mp4", tag: "Omnichannel" },
+  { id: "tiktok", name: "TikTok", value: 390, metric: "+390M Views", video: "/assets/clipping.mp4", tag: "Algorithm Priority" },
+  { id: "reels", name: "IG Reels", value: 260, metric: "+260M Views", video: "/assets/agency-video-2.mp4", tag: "High Retention" },
+  { id: "shorts", name: "YT Shorts", value: 150, metric: "+150M Views", video: "/assets/tracking.mp4", tag: "Search Authority" },
 ];
 
 function HeroStatCounter({
   target = 800,
   suffix = "M",
-  prefix = "",
+  prefix = "+",
   duration = 2.2,
 }: {
   target: number;
@@ -655,7 +655,7 @@ export default function Hero() {
             {/* Big Stat Number with interactive active platform binding & increasing counter animation */}
             <div className="flex items-baseline gap-1.5 cursor-default group">
               <span className="font-display text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-moonlight group-hover:text-frost transition-colors">
-                <HeroStatCounter target={activePlatform.value} suffix="M" />
+                <HeroStatCounter target={activePlatform.value} prefix="+" suffix="M" />
               </span>
               <span className="text-xs sm:text-sm font-mono text-muted uppercase tracking-wider">
                 {activePlatform.metric.split(" ")[1] || "Views"}
