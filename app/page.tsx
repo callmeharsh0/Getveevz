@@ -1,9 +1,6 @@
 import Hero from "@/components/sections/Hero";
 import { ParallaxFloatingDemo } from "@/components/ui/parallax-floating-demo";
 import DistributionFlow from "@/components/sections/DistributionFlow-standalone";
-import CapabilitiesCommandCenter from "@/components/sections/CapabilitiesCommandCenter";
-import CapabilitiesBento from "@/components/sections/CapabilitiesBento";
-import CapabilitiesAccordion from "@/components/sections/CapabilitiesAccordion";
 import CapabilitiesFlywheel from "@/components/sections/CapabilitiesFlywheel";
 import Agencies from "@/components/sections/Agencies";
 import Proof from "@/components/sections/Proof";
@@ -29,10 +26,6 @@ export default function Home() {
         <ParallaxFloatingDemo />
       </section>
       <DistributionFlow />
-      {/* 4 CONCEPTS FOR USER REVIEW: Everything You Need to Turn Content Into Distribution */}
-      <CapabilitiesCommandCenter />
-      <CapabilitiesBento />
-      <CapabilitiesAccordion />
       <CapabilitiesFlywheel />
       <Agencies />
       <ReelsFilmstrip />
