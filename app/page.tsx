@@ -3,10 +3,6 @@ import { ParallaxFloatingDemo } from "@/components/ui/parallax-floating-demo";
 import DistributionFlow from "@/components/sections/DistributionFlow-standalone";
 import CapabilitiesFlywheel from "@/components/sections/CapabilitiesFlywheel";
 import Agencies from "@/components/sections/Agencies";
-import Proof from "@/components/sections/Proof";
-import Problem from "@/components/sections/Problem";
-import WhatWeDo from "@/components/sections/WhatWeDo";
-import HowItWorks from "@/components/sections/HowItWorks";
 import ReelsFilmstrip from "@/components/sections/ReelsFilmstrip";
 import WhyUs from "@/components/sections/WhyUs";
 import Pricing from "@/components/sections/Pricing";
@@ -29,11 +25,7 @@ export default function Home() {
       <CapabilitiesFlywheel />
       <Agencies />
       <ReelsFilmstrip />
-      <Proof />
       <AudienceRepurpose />
-      <Problem />
-      <WhatWeDo />
-      <HowItWorks />
       <WeHandleItAll />
       <ClientTestimonials />
       <WhyUs />
