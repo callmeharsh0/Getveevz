@@ -64,44 +64,44 @@ function Counter({
 
 const exampleImages = [
   {
-    url: "https://cdn.21st.dev/assets/mirror/52/52b151d355aa4cb6cb37f97fbd8ec4220186496e0e2cb63975a2b7756f3430ff.jpg",
-    title: "Viral Hook Frame",
-    tag: "4.2M Views",
+    url: "/assets/WhatsApp Image 2026-09-12 at 8.17.31 PM.jpeg",
+    title: "Maggi Masala Origin Story",
+    tag: "24M Views",
   },
   {
-    url: "https://cdn.21st.dev/assets/mirror/63/63536c1429b0897bad2245e153f83b4cd5edb05295ced36f5abd5c42639b6f.jpg",
-    title: "Color Grade & Hooks",
-    tag: "+412% Reach",
+    url: "/assets/WhatsApp Image 2026-09-12 at 8.17.30 PM.jpeg",
+    title: "The ₹5 Maggi Secret",
+    tag: "17M Views",
   },
   {
-    url: "https://cdn.21st.dev/assets/mirror/e4/e4889c24cd905daec03b7e1e1b80272a5dc257bdde184b6ab490880302638213.jpg",
-    title: "Audience Retention",
-    tag: "1.8M Plays",
+    url: "/assets/WhatsApp Image 2026-09-12 at 8.17.30 PM (1).jpeg",
+    title: "Why India Will Never Beat China",
+    tag: "23M Views",
   },
   {
-    url: "https://cdn.21st.dev/assets/mirror/ef/ef4b3850e919b354ceae8e2ee350f0ba264ee59636ac3dad6413c062baa18584.jpg",
-    title: "Motion Waveform",
-    tag: "92% Watch Time",
+    url: "/assets/WhatsApp Image 2026-09-12 at 8.17.30 PM (2).jpeg",
+    title: "Pickle Business Strategy",
+    tag: "5.7M Views",
   },
   {
-    url: "https://cdn.21st.dev/assets/mirror/0c/0cf551640ccf256e3b0ca6a86d1e35097ef7dadb74db3424380647192a30170d.jpg",
-    title: "Podcast Ingestion",
-    tag: "14 Clips Cut",
+    url: "/assets/WhatsApp Image 2026-09-12 at 8.17.29 PM.jpeg",
+    title: "Power Of Indian Cricket",
+    tag: "7.8M Views",
   },
   {
-    url: "https://cdn.21st.dev/assets/mirror/b8/b830e628d8435311cd2a2b055311f44c25684f94c2f7ee06c187f1e3ca24c37d.jpg",
-    title: "Creator Placement",
-    tag: "SaaS Keynote",
+    url: "/assets/WhatsApp Image 2026-09-12 at 8.18.16 PM.jpeg",
+    title: "Podcast Cutdown",
+    tag: "1.0M Views",
   },
   {
-    url: "https://cdn.21st.dev/assets/mirror/f6/f6c549ea344a0680070bb5afa17dadb44ad3108cf18d1ff2743881741fe8dba5.jpg",
-    title: "Syndication Drop",
-    tag: "45 Channels",
+    url: "/assets/WhatsApp Image 2026-09-12 at 8.17.30 PM (1).jpeg",
+    title: "Start A Business In 1 Min",
+    tag: "7.1M Views",
   },
   {
-    url: "https://cdn.21st.dev/assets/mirror/de/de33e61d893c390086271e3ff0dbfbe8d6f5684f85909b0cda563ce3b3fcaa27.jpg",
-    title: "Keynote Cutdown",
-    tag: "850K Likes",
+    url: "/assets/WhatsApp Image 2026-09-12 at 8.17.29 PM.jpeg",
+    title: "Think School Distribution",
+    tag: "4.8M Views",
   },
 ];
 
