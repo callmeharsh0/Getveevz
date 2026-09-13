@@ -122,7 +122,7 @@ export function ParallaxFloatingDemo() {
   return (
     <div
       ref={scope}
-      className="relative flex w-full min-h-[780px] sm:min-h-[860px] md:min-h-[940px] lg:min-h-[1000px] justify-center items-center overflow-hidden bg-[#02122F] text-moonlight select-none border-b border-border/40"
+      className="relative flex w-full min-h-[780px] sm:min-h-[860px] md:min-h-[940px] lg:min-h-[1000px] justify-center items-center overflow-hidden bg-[#000000] text-moonlight select-none border-b border-border/40"
     >
       {/* Ambient background depth & glow matching Hero and site theme */}
       <div
@@ -135,7 +135,7 @@ export function ParallaxFloatingDemo() {
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_50%,transparent_15%,#02122F_100%)] z-10"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_50%,transparent_15%,#000000_100%)] z-10"
       />
 
       {/* ========================================================================= */}

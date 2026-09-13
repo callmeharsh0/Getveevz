@@ -32,7 +32,7 @@ const CLIENT_TESTIMONIALS: Testimonial[] = [
 
 export default function ClientTestimonials() {
   return (
-    <section id="testimonials" className="relative w-full py-28 sm:py-36 px-6 overflow-hidden bg-[#02122F]">
+    <section id="testimonials" className="relative w-full py-28 sm:py-36 px-6 overflow-hidden bg-[#000000]">
       {/* Background Depth & Glow */}
       <div
         aria-hidden="true"

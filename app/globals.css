@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --bg: #02122F;        /* Oxford Blue — page background */
+  --bg: #000000;        /* Black — page background */
   --surface: #23354D;   /* Storm — cards, nav pill fill */
   --text-primary: #F0ECDD;  /* Moonlight — headline/display text */
   --text-muted: #8BA3C5;    /* Frost Blue — supporting copy, borders */
