@@ -109,7 +109,7 @@ export default function Hero() {
         top: (i * 41 + 17) % 80 + 10,
         size: (i % 3) + 1.5,
         opacity: 0.12 + (i % 4) * 0.06,
-        color: i % 3 === 0 ? "bg-frost/40" : i % 3 === 1 ? "bg-moonlight/30" : "bg-emerald-400/40",
+        color: i % 3 === 0 ? "bg-frost/40" : i % 3 === 1 ? "bg-moonlight/30" : "bg-[#177DFD]/40",
       })),
     []
   );
@@ -408,7 +408,7 @@ export default function Hero() {
                 Navigation
               </span>
               <div className="flex items-center gap-2 text-xs text-oxford font-medium">
-                <span className="w-2 h-2 rounded-full bg-emerald-600 inline-block animate-ping" />
+                <span className="w-2 h-2 rounded-full bg-[#177DFD] inline-block animate-ping" />
                 <span>Engine Active</span>
               </div>
             </div>
@@ -461,7 +461,7 @@ export default function Hero() {
         {/* Left Eyebrows */}
         <div className="flex flex-wrap items-baseline gap-4 sm:gap-8">
           <span className="eyebrow-item text-[11px] sm:text-xs tracking-eyebrow uppercase font-medium text-muted flex items-center gap-1.5">
-            <Radio className="w-3 h-3 text-emerald-400 animate-pulse" />
+            <Radio className="w-3 h-3 text-[#177DFD] animate-pulse" />
             Welcome to GetVeevz
           </span>
           <span className="eyebrow-item text-[11px] sm:text-xs tracking-eyebrow uppercase font-medium text-muted flex items-center gap-2">
@@ -512,7 +512,7 @@ export default function Hero() {
         >
           <div className="flex items-center justify-between">
             <span className="text-[10px] font-mono uppercase tracking-wider text-frost flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block animate-ping" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#177DFD] inline-block animate-ping" />
               Source Stream
             </span>
             <span className="text-[10px] font-mono text-muted">4K ProRes</span>
@@ -522,7 +522,7 @@ export default function Hero() {
           </p>
           <div className="flex items-center gap-1.5 mt-1">
             <div className="flex-1 h-1.5 rounded-full bg-background overflow-hidden">
-              <div className="h-full bg-gradient-to-r from-emerald-400 to-frost w-3/4 rounded-full animate-pulse" />
+              <div className="h-full bg-gradient-to-r from-[#177DFD] to-frost w-3/4 rounded-full animate-pulse" />
             </div>
             <span className="text-[10px] font-mono text-muted">14 Clips</span>
           </div>
@@ -612,7 +612,7 @@ export default function Hero() {
               <Share2 className="w-3.5 h-3.5 text-frost" />
               <span>{activePlatform.name} Route</span>
             </div>
-            <span className="text-[10px] font-mono text-emerald-400 font-semibold">98.4% Sync</span>
+            <span className="text-[10px] font-mono text-[#177DFD] font-semibold">98.4% Sync</span>
           </div>
         </div>
       </div>

@@ -107,7 +107,7 @@ export default function LiveAnalytics() {
                   <span className="ml-3 font-display text-xs font-semibold text-foreground">Overview</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#177DFD] animate-pulse" />
                   <span className="font-mono text-[10px] text-muted uppercase tracking-wider">Live</span>
                 </div>
               </div>
@@ -118,14 +118,14 @@ export default function LiveAnalytics() {
                   <p className="text-xs text-muted">Live Views</p>
                   <div className="mt-1.5 flex items-baseline gap-2">
                     <span className="font-display text-2xl font-bold text-foreground">8,246</span>
-                    <span className="text-[11px] font-mono text-green-400">+12.5%</span>
+                    <span className="text-[11px] font-mono text-[#177DFD]">+12.5%</span>
                   </div>
                 </div>
                 <div className="bg-surface p-4">
                   <p className="text-xs text-muted">Engagement</p>
                   <div className="mt-1.5 flex items-baseline gap-2">
                     <span className="font-display text-2xl font-bold text-foreground">5,682</span>
-                    <span className="text-[11px] font-mono text-green-400">+8.3%</span>
+                    <span className="text-[11px] font-mono text-[#177DFD]">+8.3%</span>
                   </div>
                 </div>
               </div>
@@ -189,7 +189,7 @@ export default function LiveAnalytics() {
                     <span className="text-foreground font-medium">{p}</span>
                     <div className="flex items-center gap-2">
                       <span className="font-display font-semibold text-foreground">{v}</span>
-                      <span className="font-mono text-[11px] text-green-400">{g}</span>
+                      <span className="font-mono text-[11px] text-[#177DFD]">{g}</span>
                     </div>
                   </div>
                 ))}

@@ -131,7 +131,7 @@ export function ParallaxFloatingDemo() {
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute top-1/4 right-1/4 w-[420px] h-[420px] bg-emerald-500/5 blur-[150px] rounded-full"
+        className="pointer-events-none absolute top-1/4 right-1/4 w-[420px] h-[420px] bg-[#177DFD]/5 blur-[150px] rounded-full"
       />
       <div
         aria-hidden="true"
@@ -150,7 +150,7 @@ export function ParallaxFloatingDemo() {
           transition={{ duration: 0.6 }}
           className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface/90 border border-border/90 text-[11px] sm:text-xs font-mono uppercase tracking-eyebrow text-frost mb-6 backdrop-blur-xl shadow-xl"
         >
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+          <span className="w-2 h-2 rounded-full bg-[#177DFD] animate-pulse" />
           <span>(02) Verified Results &amp; Distribution Scale</span>
         </motion.div>
 
@@ -163,7 +163,7 @@ export function ParallaxFloatingDemo() {
           className="font-display font-medium text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight text-moonlight leading-[1.08]"
         >
           Built to Distribute Content
-          <span className="block text-transparent bg-clip-text bg-gradient-to-r from-frost via-white to-emerald-300 mt-1">
+          <span className="block text-transparent bg-clip-text bg-gradient-to-r from-frost via-white to-[#177DFD] mt-1">
             and Scale.
           </span>
         </motion.h2>
@@ -197,7 +197,7 @@ export function ParallaxFloatingDemo() {
           </div>
 
           <div className="flex flex-col items-center justify-center p-3.5 sm:p-4 rounded-2xl bg-surface/80 border border-border/90 backdrop-blur-xl shadow-xl hover:border-frost/60 transition-all duration-300 group">
-            <span className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-emerald-400 group-hover:scale-105 transition-transform duration-300">
+            <span className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#177DFD] to-[#177DFD] group-hover:scale-105 transition-transform duration-300">
               <Counter value={380} suffix="+" />
             </span>
             <span className="mt-1 text-[11px] sm:text-xs text-muted font-medium uppercase tracking-wider text-center">
@@ -215,7 +215,7 @@ export function ParallaxFloatingDemo() {
           </div>
 
           <div className="flex flex-col items-center justify-center p-3.5 sm:p-4 rounded-2xl bg-surface/80 border border-border/90 backdrop-blur-xl shadow-xl hover:border-frost/60 transition-all duration-300 group">
-            <span className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-emerald-400 group-hover:scale-105 transition-transform duration-300">
+            <span className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#177DFD] to-[#177DFD] group-hover:scale-105 transition-transform duration-300">
               <Counter value={45} suffix="+" />
             </span>
             <span className="mt-1 text-[11px] sm:text-xs text-muted font-medium uppercase tracking-wider text-center">
@@ -256,7 +256,7 @@ export function ParallaxFloatingDemo() {
               alt={exampleImages[0].title}
               className="w-24 h-24 sm:w-28 sm:h-28 md:w-36 md:h-36 lg:w-40 lg:h-40 object-cover cursor-pointer"
             />
-            <div className="absolute bottom-2 left-2 px-2 py-0.5 rounded-md bg-black/75 backdrop-blur-md border border-white/20 text-[10px] sm:text-xs font-mono text-emerald-300 font-semibold tracking-wide shadow-lg">
+            <div className="absolute bottom-2 left-2 px-2 py-0.5 rounded-md bg-black/75 backdrop-blur-md border border-white/20 text-[10px] sm:text-xs font-mono text-[#177DFD] font-semibold tracking-wide shadow-lg">
               {exampleImages[0].tag}
             </div>
           </div>
@@ -286,7 +286,7 @@ export function ParallaxFloatingDemo() {
               alt={exampleImages[2].title}
               className="w-28 h-40 sm:w-32 sm:h-48 md:w-36 md:h-56 lg:w-40 lg:h-60 object-cover cursor-pointer"
             />
-            <div className="absolute bottom-2.5 left-2.5 px-2 py-0.5 rounded-md bg-black/75 backdrop-blur-md border border-white/20 text-[10px] sm:text-xs font-mono text-emerald-300 font-semibold tracking-wide shadow-lg">
+            <div className="absolute bottom-2.5 left-2.5 px-2 py-0.5 rounded-md bg-black/75 backdrop-blur-md border border-white/20 text-[10px] sm:text-xs font-mono text-[#177DFD] font-semibold tracking-wide shadow-lg">
               {exampleImages[2].tag}
             </div>
           </div>
@@ -316,7 +316,7 @@ export function ParallaxFloatingDemo() {
               alt={exampleImages[4].title}
               className="w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 lg:w-44 lg:h-44 object-cover cursor-pointer"
             />
-            <div className="absolute bottom-2 left-2 px-2 py-0.5 rounded-md bg-black/75 backdrop-blur-md border border-white/20 text-[10px] sm:text-xs font-mono text-emerald-300 font-semibold tracking-wide shadow-lg">
+            <div className="absolute bottom-2 left-2 px-2 py-0.5 rounded-md bg-black/75 backdrop-blur-md border border-white/20 text-[10px] sm:text-xs font-mono text-[#177DFD] font-semibold tracking-wide shadow-lg">
               {exampleImages[4].tag}
             </div>
           </div>
@@ -346,7 +346,7 @@ export function ParallaxFloatingDemo() {
               alt={exampleImages[5].title}
               className="w-36 sm:w-40 md:w-48 lg:w-52 h-auto aspect-[4/5] object-cover cursor-pointer"
             />
-            <div className="absolute bottom-2.5 left-2.5 px-2 py-0.5 rounded-md bg-black/75 backdrop-blur-md border border-white/20 text-[10px] sm:text-xs font-mono text-emerald-300 font-semibold tracking-wide shadow-lg">
+            <div className="absolute bottom-2.5 left-2.5 px-2 py-0.5 rounded-md bg-black/75 backdrop-blur-md border border-white/20 text-[10px] sm:text-xs font-mono text-[#177DFD] font-semibold tracking-wide shadow-lg">
               {exampleImages[5].tag}
             </div>
           </div>
