@@ -62,7 +62,7 @@ export default function WeHandleItAll() {
           <h2 className="mt-3 font-display text-3xl sm:text-4xl md:text-6xl font-bold tracking-tight leading-[1.1]">
             Everything.
             <br />
-            <span className="font-serif italic text-frost">We handle it all.</span>
+            <span className="italic text-frost">We handle it all.</span>
           </h2>
           <p className="mt-4 text-base text-muted max-w-lg">
             From page creation to weekly reporting — our team runs the entire distribution operation so you don&apos;t have to.

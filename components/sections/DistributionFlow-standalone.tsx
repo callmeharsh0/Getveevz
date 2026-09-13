@@ -336,7 +336,7 @@ export default function DistributionFlow({
             <p className="text-sm sm:text-base md:text-lg text-[#f2ece1]/60 tracking-tight font-sans mb-1.5">
               {headlinePrefix}
             </p>
-            <h2 className="text-3xl sm:text-5xl md:text-6xl font-semibold tracking-tight text-[#f2ece1] font-serif leading-[1.1]">
+            <h2 className="text-3xl sm:text-5xl md:text-6xl font-semibold tracking-tight text-[#f2ece1] font-display leading-[1.1]">
               Distribution{" "}
               <span className="text-[#8BA3C6]">
                 {headlineAccent === "Distribution is." ? "is." : headlineAccent}
@@ -348,7 +348,7 @@ export default function DistributionFlow({
         {/* Pinned Punchline (Left Side - Revealed in Act 3) */}
         <div
           ref={finalLineRef}
-          className="absolute left-[6%] top-1/2 -translate-y-1/2 max-w-[220px] sm:max-w-[280px] md:max-w-[340px] text-left z-10 font-serif text-xl sm:text-2xl md:text-4xl font-medium leading-tight text-[#f2ece1]"
+          className="absolute left-[6%] top-1/2 -translate-y-1/2 max-w-[220px] sm:max-w-[280px] md:max-w-[340px] text-left z-10 font-display text-xl sm:text-2xl md:text-4xl font-medium leading-tight text-[#f2ece1]"
         >
           {punchlinePrimary}
           <br />

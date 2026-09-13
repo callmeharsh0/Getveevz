@@ -152,7 +152,7 @@ export default function ReelsFilmstrip() {
           <p className="text-[10px] sm:text-xs font-semibold uppercase tracking-[0.3em] text-[#8BA3C5]">
             The work, in numbers
           </p>
-          <h2 className="mt-3 font-serif text-3xl sm:text-4xl md:text-5xl font-normal tracking-tight text-white">
+          <h2 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-white">
             Real reels. Real reach.
           </h2>
           <p className="mt-3 text-xs sm:text-sm md:text-base text-[#8BA3C5]/90 leading-relaxed text-center max-w-lg">

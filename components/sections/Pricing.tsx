@@ -84,7 +84,7 @@ export default function Pricing() {
           </span>
           <h2 className="mt-4 font-display text-2xl sm:text-3xl md:text-5xl tracking-tight">
             Pick your
-            <span className="font-serif italic text-frost"> velocity.</span>
+            <span className="italic text-frost"> velocity.</span>
           </h2>
         </div>
 

@@ -26,10 +26,11 @@ const config: Config = {
         moonlight: "var(--text-primary)",
       },
       fontFamily: {
-        serif: ["'Instrument Serif'", "'Playfair Display'", "Georgia", "serif"],
-        agency: ["'Oswald'", "'Space Grotesk'", "sans-serif"],
-        display: ["var(--font-display)", "sans-serif"],
-        body: ["var(--font-body)", "sans-serif"],
+        sans: ["var(--font-display)", "'Space Grotesk'", "sans-serif"],
+        display: ["var(--font-display)", "'Space Grotesk'", "sans-serif"],
+        body: ["var(--font-body)", "'Space Grotesk'", "sans-serif"],
+        agency: ["'Space Grotesk'", "sans-serif"],
+        serif: ["'Space Grotesk'", "sans-serif"],
       },
       maxWidth: {
         content: "1280px",

@@ -13,7 +13,7 @@
   --storm: #23354D;
   --oxford: #02122F;
   --moonlight: #F0ECDD;
-  --font-body: "Plus Jakarta Sans", sans-serif;
+  --font-body: "Space Grotesk", sans-serif;
   --font-display: "Space Grotesk", sans-serif;
 }
 
@@ -22,11 +22,12 @@
     scroll-behavior: auto; /* Lenis handles smoothing, not native CSS */
     background-color: var(--bg);
     color: var(--text-primary);
+    font-family: var(--font-body), "Space Grotesk", sans-serif;
   }
   body {
     background-color: var(--bg);
     color: var(--text-primary);
-    font-family: var(--font-body), sans-serif;
+    font-family: var(--font-body), "Space Grotesk", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;

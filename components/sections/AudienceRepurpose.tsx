@@ -69,7 +69,7 @@ export default function AudienceRepurpose() {
           <h2 className="mt-3 font-display text-3xl sm:text-4xl md:text-6xl font-bold tracking-tight leading-[1.1]">
             Your content deserves
             <br />
-            <span className="font-serif italic text-frost">a bigger audience.</span>
+            <span className="italic text-frost">a bigger audience.</span>
           </h2>
           <p className="mt-4 text-base text-muted">
             We repurpose your long-form content into daily short-form clips — deployed everywhere.
