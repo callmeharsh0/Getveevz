@@ -75,14 +75,14 @@ export default function Pricing() {
   };
 
   return (
-    <section ref={ref} className="px-6 py-28 bg-background">
+    <section ref={ref} className="px-4 sm:px-6 py-14 sm:py-20 md:py-28 bg-background">
       <div className="mx-auto max-w-content">
         {/* ── Header ── */}
         <div data-reveal className="text-center">
           <span className="inline-block font-mono text-xs tracking-eyebrow uppercase text-muted">
             Pricing
           </span>
-          <h2 className="mt-4 font-display text-3xl md:text-5xl tracking-tight">
+          <h2 className="mt-4 font-display text-2xl sm:text-3xl md:text-5xl tracking-tight">
             Pick your
             <span className="font-serif italic text-frost"> velocity.</span>
           </h2>
@@ -114,7 +114,7 @@ export default function Pricing() {
           {plans.map((plan) => (
             <div
               key={plan.id}
-              className="group relative bg-background flex flex-col justify-between p-8 transition-colors duration-300 hover:bg-surface/60"
+              className="group relative bg-background flex flex-col justify-between p-5 sm:p-8 transition-colors duration-300 hover:bg-surface/60"
             >
               {/* Plan Name + Subtitle */}
               <div>
@@ -168,7 +168,7 @@ export default function Pricing() {
         {/* ── Contact Strip ── */}
         <div
           data-reveal
-          className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 rounded-2xl border border-border bg-surface/40 px-8 py-5"
+          className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 rounded-2xl border border-border bg-surface/40 px-5 sm:px-8 py-5"
         >
           <p className="text-sm text-muted text-center sm:text-left">
             Need custom volume or multi-channel scale?{" "}

@@ -266,7 +266,7 @@ export default function Hero() {
     <section
       ref={containerRef}
       id="hero"
-      className="relative flex min-h-[100dvh] flex-col justify-between px-5 sm:px-8 md:px-12 lg:px-16 pt-6 pb-10 md:pb-14 bg-[#07111E] text-foreground overflow-hidden select-none"
+      className="relative flex min-h-[100dvh] flex-col justify-between px-4 sm:px-8 md:px-12 lg:px-16 pt-5 pb-8 md:pb-14 bg-[#07111E] text-foreground overflow-hidden select-none"
     >
       {/* ========================================================================= */}
       {/* 0. INTERACTIVE MOUSE-FOLLOWING LIGHT BEAM & DEPTH MESH                    */}
@@ -455,11 +455,11 @@ export default function Hero() {
       {/* ========================================================================= */}
       <div
         ref={eyebrowsRef}
-        className="w-full mt-10 sm:mt-14 md:mt-16 pt-2 flex flex-col md:flex-row md:items-baseline justify-between gap-4 pb-2 z-10"
+        className="w-full mt-8 sm:mt-14 md:mt-16 pt-2 flex flex-col md:flex-row md:items-baseline justify-between gap-3 pb-2 z-10"
         data-reveal
       >
         {/* Left Eyebrows */}
-        <div className="flex flex-wrap items-baseline gap-4 sm:gap-8">
+        <div className="flex flex-wrap items-baseline gap-3 sm:gap-8">
           <span className="eyebrow-item text-[11px] sm:text-xs tracking-eyebrow uppercase font-medium text-muted flex items-center gap-1.5">
             <Radio className="w-3 h-3 text-[#177DFD] animate-pulse" />
             Welcome to GetVeevz
@@ -475,7 +475,7 @@ export default function Hero() {
           <span className="hidden lg:inline text-[11px] tracking-eyebrow uppercase font-medium text-muted/70 mr-1">
             Active Routing:
           </span>
-          <div className="inline-flex p-1 rounded-full bg-surface/80 border border-border/80 backdrop-blur-md">
+          <div className="inline-flex p-0.5 sm:p-1 rounded-full bg-surface/80 border border-border/80 backdrop-blur-md max-w-full flex-wrap">
             {PLATFORMS.map((p) => {
               const isCurrent = activePlatform.id === p.id;
               return (
@@ -483,7 +483,7 @@ export default function Hero() {
                   key={p.id}
                   onClick={() => setActivePlatform(p)}
                   className={cn(
-                    "px-2.5 py-0.5 text-[10px] font-mono rounded-full transition-all duration-200",
+                    "px-1.5 sm:px-2.5 py-0.5 text-[9px] sm:text-[10px] font-mono rounded-full transition-all duration-200",
                     isCurrent
                       ? "bg-frost text-oxford font-semibold shadow-sm scale-105"
                       : "text-muted hover:text-moonlight hover:bg-surface"
@@ -502,7 +502,7 @@ export default function Hero() {
       {/* ========================================================================= */}
       <div
         ref={wordmarkRef}
-        className="relative my-auto py-12 sm:py-16 md:py-20 flex items-center justify-center text-center overflow-visible z-10"
+        className="relative my-auto py-8 sm:py-14 md:py-20 flex items-center justify-center text-center overflow-visible z-10"
         data-reveal
       >
         {/* Floating Interactive Left Node: 1080p Master Ingestion */}
@@ -620,14 +620,14 @@ export default function Hero() {
       {/* ========================================================================= */}
       {/* 4. BOTTOM CORNERS (SUPPORTING HEADLINE + ARROW & TELEMETRY STATS)          */}
       {/* ========================================================================= */}
-      <div className="w-full mt-8 md:mt-auto pt-6 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-6 items-end z-10">
+      <div className="w-full mt-4 sm:mt-8 md:mt-auto pt-4 sm:pt-6 grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-6 items-end z-10">
         {/* BOTTOM LEFT: Supporting headline + Circular Interactive Arrow Button */}
         <div
           ref={bottomLeftRef}
           className="md:col-span-6 lg:col-span-5 flex flex-col items-start gap-6"
           data-reveal
         >
-          <h2 className="font-display font-normal text-lg sm:text-xl md:text-2xl text-moonlight/95 leading-[1.28] max-w-md tracking-tight">
+          <h2 className="font-display font-normal text-base sm:text-xl md:text-2xl text-moonlight/95 leading-[1.28] max-w-md tracking-tight">
             Turn Your Long-Form Content Into a Short-Form Distribution Engine
           </h2>
 
@@ -647,7 +647,7 @@ export default function Hero() {
         {/* BOTTOM RIGHT: Big Stat Number + Overlapping Avatars + Supporting Copy */}
         <div
           ref={bottomRightRef}
-          className="md:col-span-6 lg:col-span-7 flex flex-col md:items-end gap-4"
+          className="md:col-span-6 lg:col-span-7 flex flex-col md:items-end gap-3"
           data-reveal
         >
           {/* Stat and Avatar Stack Row */}
@@ -687,7 +687,7 @@ export default function Hero() {
           </div>
 
           {/* Supporting Copy */}
-          <p className="text-xs sm:text-sm text-muted leading-relaxed max-w-md md:text-right">
+          <p className="text-xs sm:text-sm text-muted leading-relaxed max-w-md md:text-right text-left">
             GetVeevz turns the content you&apos;re already creating into coordinated short-form distribution across Instagram, YouTube Shorts and TikTok.
           </p>
         </div>

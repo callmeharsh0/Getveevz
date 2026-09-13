@@ -152,7 +152,7 @@ export default function Pricing2() {
   return (
     <section
       id="pricing2"
-      className="relative w-full py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-[#010817] text-white overflow-hidden flex flex-col justify-center border-t border-blue-950/60"
+      className="relative w-full py-10 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-[#010817] text-white overflow-hidden flex flex-col justify-center border-t border-blue-950/60"
     >
       {/* ========================================================================= */}
       {/* 1. ATMOSPHERIC HORIZON ARC & COSMIC BLUE GLOW (Matching first demo image) */}

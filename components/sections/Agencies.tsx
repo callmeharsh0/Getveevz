@@ -245,7 +245,7 @@ export default function Agencies() {
   };
 
   return (
-    <section className="relative w-full bg-[#F3EFEA] text-[#111111] py-28 sm:py-36 px-6 sm:px-8 lg:px-12 overflow-hidden select-none">
+    <section className="relative w-full bg-[#F3EFEA] text-[#111111] py-16 sm:py-28 lg:py-36 px-4 sm:px-8 lg:px-12 overflow-hidden select-none">
       {/* ========================================================================= */}
       {/* SVG CLIP-PATH DEFINITION (FOR CUSTOM CHUNKY CUTOUT IN CARD 1)              */}
       {/* ========================================================================= */}
@@ -265,8 +265,8 @@ export default function Agencies() {
         {/* ========================================================================= */}
         {/* SECTION HEADER                                                            */}
         {/* ========================================================================= */}
-        <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
-          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-[4.25rem] font-bold tracking-tight text-[#111111] leading-[1.08]">
+        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-20">
+          <h2 className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-[4.25rem] font-bold tracking-tight text-[#111111] leading-[1.08]">
             The services we provide
           </h2>
           <p className="mt-5 text-sm sm:text-base md:text-[17px] text-[#2D2D2D] leading-relaxed max-w-xl mx-auto font-normal">
@@ -355,7 +355,7 @@ export default function Agencies() {
                 key={agency.id}
                 ref={(el) => (cardRefs.current[index] = el)}
                 onClick={() => moveToCard(index)}
-                className="group relative z-20 flex flex-col items-center justify-center min-h-[460px] sm:min-h-[500px] md:min-h-[530px] px-6 sm:px-8 py-12 cursor-pointer rounded-3xl"
+                className="group relative z-20 flex flex-col items-center justify-center min-h-[320px] sm:min-h-[460px] md:min-h-[530px] px-5 sm:px-8 py-10 sm:py-12 cursor-pointer rounded-3xl"
               >
                 <div className="flex flex-col items-center justify-center text-center w-full max-w-xs transition-transform duration-300 group-hover:scale-[1.01]">
                   {/* Title */}

@@ -57,7 +57,7 @@ export default function AudienceRepurpose() {
     <section
       id="audience-growth"
       ref={ref}
-      className="border-y border-border bg-background px-6 py-20 overflow-hidden"
+      className="border-y border-border bg-background px-4 sm:px-6 py-14 sm:py-20 overflow-hidden"
     >
       <div className="mx-auto max-w-content">
 
@@ -66,7 +66,7 @@ export default function AudienceRepurpose() {
           <span className="inline-block font-mono text-xs tracking-eyebrow uppercase text-muted">
             Content Distribution
           </span>
-          <h2 className="mt-3 font-display text-4xl md:text-6xl font-bold tracking-tight leading-[1.1]">
+          <h2 className="mt-3 font-display text-3xl sm:text-4xl md:text-6xl font-bold tracking-tight leading-[1.1]">
             Your content deserves
             <br />
             <span className="font-serif italic text-frost">a bigger audience.</span>
@@ -77,10 +77,10 @@ export default function AudienceRepurpose() {
         </div>
 
         {/* ── Flow Diagram ── */}
-        <div data-reveal className="mt-16 flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6">
+        <div data-reveal className="mt-12 sm:mt-16 flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6">
 
           {/* Step 1: Long-form video */}
-          <div className="relative w-full max-w-[260px] aspect-video rounded-xl border border-border bg-surface p-4 flex flex-col justify-between group hover:border-muted transition-colors duration-300">
+          <div className="relative w-full max-w-[240px] sm:max-w-[260px] aspect-video rounded-xl border border-border bg-surface p-4 flex flex-col justify-between group hover:border-muted transition-colors duration-300">
             <div className="flex items-center justify-between text-[11px] text-muted font-mono">
               <span className="px-2 py-0.5 rounded-full bg-background border border-border">4K Master</span>
               <span>48:22</span>
@@ -102,7 +102,7 @@ export default function AudienceRepurpose() {
           <ArrowRight className="w-5 h-5 text-muted rotate-90 md:rotate-0 shrink-0" />
 
           {/* Step 2: Short-form fan of clips */}
-          <div className="relative w-52 h-44 flex items-center justify-center shrink-0">
+          <div className="relative w-44 sm:w-52 h-40 sm:h-44 flex items-center justify-center shrink-0">
             {/* Left card */}
             <div className="absolute -left-4 -rotate-12 w-24 h-36 rounded-xl border border-border bg-surface p-2 flex flex-col justify-between opacity-70 hover:opacity-100 hover:rotate-0 hover:z-20 transition-all duration-300 cursor-default">
               <span className="text-[9px] font-mono text-muted px-1.5 py-0.5 rounded bg-background border border-border w-fit">#01</span>

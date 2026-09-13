@@ -47,3 +47,24 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* ─── Mobile Global Fixes ──────────────────────────────────────── */
+@media (max-width: 767px) {
+  /* Prevent any element from breaking outside viewport width */
+  * {
+    max-width: 100%;
+    word-break: break-word;
+  }
+
+  /* Minimum touch target size for interactive elements */
+  button,
+  a,
+  [role="button"] {
+    min-height: 40px;
+  }
+
+  /* Tighten up large font sizes on very small screens for readability */
+  .font-display {
+    -webkit-font-smoothing: antialiased;
+  }
+}

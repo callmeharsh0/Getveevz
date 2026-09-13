@@ -32,7 +32,7 @@ const CLIENT_TESTIMONIALS: Testimonial[] = [
 
 export default function ClientTestimonials() {
   return (
-    <section id="testimonials" className="relative w-full py-28 sm:py-36 px-6 overflow-hidden bg-[#000000]">
+    <section id="testimonials" className="relative w-full py-16 sm:py-28 md:py-36 px-4 sm:px-6 overflow-hidden bg-[#000000]">
       {/* Background Depth & Glow */}
       <div
         aria-hidden="true"
@@ -67,9 +67,9 @@ export default function ClientTestimonials() {
               arrowHoverBackground: "#8BA3C5",
             }}
             fontSizes={{
-              name: "1.75rem",
-              designation: "1rem",
-              quote: "1.15rem",
+              name: "1.25rem",
+              designation: "0.875rem",
+              quote: "0.95rem",
             }}
           />
         </div>

@@ -348,7 +348,7 @@ export default function DistributionFlow({
         {/* Pinned Punchline (Left Side - Revealed in Act 3) */}
         <div
           ref={finalLineRef}
-          className="absolute left-[6%] top-1/2 -translate-y-1/2 max-w-[340px] text-left z-10 font-serif text-2xl sm:text-3xl md:text-4xl font-medium leading-tight text-[#f2ece1]"
+          className="absolute left-[6%] top-1/2 -translate-y-1/2 max-w-[220px] sm:max-w-[280px] md:max-w-[340px] text-left z-10 font-serif text-xl sm:text-2xl md:text-4xl font-medium leading-tight text-[#f2ece1]"
         >
           {punchlinePrimary}
           <br />
@@ -358,7 +358,7 @@ export default function DistributionFlow({
         {/* Scaled Center Cluster */}
         <div
           ref={contentGroupRef}
-          className="absolute top-1/2 left-1/2 w-[1000px] h-[800px] -ml-[500px] -mt-[400px]"
+          className="absolute top-1/2 left-1/2 w-[1000px] h-[800px] -ml-[500px] -mt-[400px] scale-[0.42] xs:scale-[0.52] sm:scale-75 md:scale-90 lg:scale-100 origin-center"
         >
           {/* Floating Problem Pill Badges */}
           {problemLabels.map((p, i) => (

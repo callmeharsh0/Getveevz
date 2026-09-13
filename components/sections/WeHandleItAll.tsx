@@ -50,7 +50,7 @@ export default function WeHandleItAll() {
     <section
       id="full-service"
       ref={ref}
-      className="border-y border-border bg-surface px-6 py-20"
+      className="border-y border-border bg-surface px-4 sm:px-6 py-14 sm:py-20"
     >
       <div className="mx-auto max-w-content">
 
@@ -59,7 +59,7 @@ export default function WeHandleItAll() {
           <span className="inline-block font-mono text-xs tracking-eyebrow uppercase text-muted">
             What We Deliver
           </span>
-          <h2 className="mt-3 font-display text-4xl md:text-6xl font-bold tracking-tight leading-[1.1]">
+          <h2 className="mt-3 font-display text-3xl sm:text-4xl md:text-6xl font-bold tracking-tight leading-[1.1]">
             Everything.
             <br />
             <span className="font-serif italic text-frost">We handle it all.</span>

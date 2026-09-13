@@ -43,7 +43,7 @@ export default function LiveAnalytics() {
     <section
       id="analytics"
       ref={ref}
-      className="border-t border-border bg-background px-6 py-20 overflow-hidden"
+      className="border-t border-border bg-background px-4 sm:px-6 py-14 sm:py-20 overflow-hidden"
     >
       <div className="mx-auto max-w-content">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center">
@@ -54,7 +54,7 @@ export default function LiveAnalytics() {
               <span className="inline-block font-mono text-xs tracking-eyebrow uppercase text-muted">
                 Performance Tracking
               </span>
-              <h2 className="mt-3 font-display text-4xl md:text-5xl font-bold tracking-tight leading-[1.1]">
+              <h2 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight leading-[1.1]">
                 Your own live{" "}
                 <span className="font-serif italic text-frost">analytics dashboard.</span>
               </h2>

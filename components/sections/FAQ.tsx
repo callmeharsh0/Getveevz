@@ -13,9 +13,9 @@ export default function FAQ() {
   const ref = useScrollReveal<HTMLDivElement>();
 
   return (
-    <section ref={ref} className="px-6 py-28">
+    <section ref={ref} className="px-4 sm:px-6 py-14 sm:py-20 md:py-28">
       <div className="mx-auto max-w-2xl">
-        <h2 data-reveal className="text-center font-display text-3xl md:text-5xl">
+        <h2 data-reveal className="text-center font-display text-2xl sm:text-3xl md:text-5xl">
           FAQ
         </h2>
 

@@ -91,7 +91,7 @@ export default function CapabilitiesFlywheel() {
   return (
     <section
       id="system-capabilities"
-      className="relative w-full bg-[#000000] text-moonlight py-24 sm:py-32 px-6 sm:px-8 lg:px-12 overflow-hidden border-b border-border/30 select-none"
+      className="relative w-full bg-[#000000] text-moonlight py-16 sm:py-24 lg:py-32 px-4 sm:px-8 lg:px-12 overflow-hidden border-b border-border/30 select-none"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
@@ -116,7 +116,7 @@ export default function CapabilitiesFlywheel() {
             <Sparkles className="w-3 h-3 text-blue-400" />
             System Capabilities · Compounding Loop
           </div>
-          <h2 className="font-display font-medium text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight text-white leading-tight">
+          <h2 className="font-display font-medium text-2xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight text-white leading-tight">
             Everything You Need to Turn Content Into Distribution
           </h2>
           <p className="mt-4 text-sm sm:text-base text-muted max-w-xl mx-auto leading-relaxed">
@@ -131,7 +131,7 @@ export default function CapabilitiesFlywheel() {
           {/* ========================================================================= */}
           <div className="lg:col-span-5 flex flex-col items-center justify-center relative p-4 sm:p-8">
             {/* Outer Orbit Ring */}
-            <div className="relative w-[310px] h-[310px] sm:w-[380px] sm:h-[380px] rounded-full border border-white/10 flex items-center justify-center shadow-[0_0_60px_rgba(59,130,246,0.08)]">
+            <div className="relative w-[260px] h-[260px] xs:w-[310px] xs:h-[310px] sm:w-[380px] sm:h-[380px] rounded-full border border-white/10 flex items-center justify-center shadow-[0_0_60px_rgba(59,130,246,0.08)]">
               {/* Spinning subtle dashed accent ring */}
               <div className="absolute inset-4 rounded-full border border-dashed border-blue-500/25 animate-[spin_60s_linear_infinite]" />
 
@@ -221,7 +221,7 @@ export default function CapabilitiesFlywheel() {
               FIXED GENERALIZED SIZE CARD CONTAINER:
               Fixed height (520px) and fixed width behavior prevents any layout jump or aspect ratio distortion!
             */}
-            <div className="relative w-full h-[520px] sm:h-[530px] rounded-3xl bg-[#080b14]/90 border border-white/15 backdrop-blur-2xl shadow-[0_0_60px_rgba(0,0,0,0.85)] p-7 sm:p-9 flex flex-col justify-between overflow-hidden">
+            <div className="relative w-full min-h-[480px] sm:min-h-[520px] rounded-3xl bg-[#080b14]/90 border border-white/15 backdrop-blur-2xl shadow-[0_0_60px_rgba(0,0,0,0.85)] p-5 sm:p-9 flex flex-col justify-between overflow-hidden">
               {/* Corner Ambient Glow */}
               <div className="absolute -top-12 -right-12 w-64 h-64 bg-blue-500/10 blur-[90px] rounded-full pointer-events-none" />
 
