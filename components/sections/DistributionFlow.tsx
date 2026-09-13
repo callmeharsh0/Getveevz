@@ -425,7 +425,7 @@ export default function DistributionFlow({
                 top: `calc(50% + ${p.y}px)`,
                 left: `calc(50% + ${p.x}px)`,
               }}
-              className="absolute -translate-x-1/2 -translate-y-1/2 text-[10px] sm:text-xs font-mono tracking-eyebrow uppercase text-red-300/90 border border-red-500/30 px-3.5 py-1.5 rounded-full bg-red-950/40 backdrop-blur-md z-[6] whitespace-nowrap shadow-lg"
+              className="absolute -translate-x-1/2 -translate-y-1/2 text-[10px] sm:text-xs font-medium tracking-eyebrow uppercase text-black border border-white px-3.5 py-1.5 rounded-full bg-white z-[6] whitespace-nowrap shadow-lg"
             >
               {p.text}
             </div>
