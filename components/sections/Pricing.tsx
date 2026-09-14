@@ -208,14 +208,14 @@ export default function Pricing() {
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute bottom-1/4 right-1/4 translate-x-1/2 w-[640px] h-[440px] bg-[#177DFD]/5 blur-[150px] rounded-full"
+        className="pointer-events-none absolute bottom-1/4 right-1/4 translate-x-1/2 w-[640px] h-[440px] bg-storm/20 blur-[150px] rounded-full"
       />
 
       <div className="relative z-10 mx-auto max-w-7xl">
         {/* Section Header: Wide Horizontal Flow (2 Lines Max) */}
         <div ref={headerRef} className="text-center max-w-4xl mx-auto">
           {/* Eyebrow Pill */}
-          <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 bg-white/[0.04] border border-white/[0.08] text-[10px] sm:text-xs font-mono uppercase tracking-[0.25em] text-frost/90 backdrop-blur-md mb-6 shadow-sm">
+          <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 bg-surface/80 border border-border text-[10px] sm:text-xs font-mono uppercase tracking-[0.25em] text-frost/90 backdrop-blur-md mb-6 shadow-sm">
             <Sparkles className="w-3 h-3 text-frost" />
             <span>Distribution Investment</span>
           </div>
@@ -236,7 +236,7 @@ export default function Pricing() {
 
         {/* Currency Switcher */}
         <div className="mt-10 flex justify-center">
-          <div className="inline-flex items-center p-1 rounded-full bg-white/[0.04] border border-white/[0.08] backdrop-blur-md shadow-inner">
+          <div className="inline-flex items-center p-1 rounded-full bg-surface/80 border border-border/80 backdrop-blur-md shadow-inner">
             {(["USD", "INR"] as Currency[]).map((c) => {
               const isActive = currency === c;
               return (
@@ -274,28 +274,28 @@ export default function Pricing() {
                 onMouseLeave={() => handleMouseLeave(index)}
                 style={{ transformStyle: "preserve-3d" }}
                 className={cn(
-                  // Double-Bezel Outer Hardware Shell
-                  "group relative rounded-[2rem] p-[1.5px] transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] flex flex-col will-change-transform",
+                  // Architectural Outer Shell with Reduced Modern Radius
+                  "group relative rounded-xl p-[1px] transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] flex flex-col will-change-transform",
                   isPopular
-                    ? "bg-gradient-to-b from-cyan-400/60 via-[#177DFD]/30 to-transparent border border-cyan-400/40 shadow-[0_24px_60px_rgba(23,125,253,0.22)] lg:-translate-y-3"
-                    : "bg-gradient-to-b from-white/[0.12] via-white/[0.04] to-white/[0.01] border border-white/[0.06] hover:border-frost/40 hover:shadow-[0_20px_50px_rgba(2,18,47,0.7)]"
+                    ? "bg-gradient-to-b from-frost/60 via-steel/30 to-border/40 border border-frost/50 shadow-[0_24px_60px_rgba(2,18,47,0.85)] lg:-translate-y-3"
+                    : "bg-gradient-to-b from-white/[0.12] via-white/[0.04] to-white/[0.01] border border-border/70 hover:border-frost/40 hover:shadow-[0_20px_50px_rgba(2,18,47,0.7)]"
                 )}
               >
                 {/* Popular Floating Badge */}
                 {isPopular && (
-                  <div className="absolute -top-3.5 inset-x-0 mx-auto w-max z-20">
-                    <span className="inline-flex items-center gap-1.5 px-3.5 py-0.5 rounded-full bg-gradient-to-r from-cyan-400 to-[#177DFD] text-oxford text-[10px] font-mono font-bold tracking-widest uppercase shadow-lg">
-                      <ShieldCheck className="w-3 h-3" />
+                  <div className="absolute -top-3 inset-x-0 mx-auto w-max z-20">
+                    <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-md bg-frost text-oxford text-[10px] font-mono font-bold tracking-widest uppercase shadow-lg border border-white/20">
+                      <ShieldCheck className="w-3 h-3 text-oxford" />
                       {plan.badge}
                     </span>
                   </div>
                 )}
 
-                {/* Double-Bezel Inner Core */}
+                {/* Inner Core */}
                 <div
                   className={cn(
-                    "relative rounded-[calc(2rem-1.5px)] p-7 sm:p-9 shadow-[inset_0_1px_1px_rgba(255,255,255,0.08)] flex flex-col justify-between flex-1 transition-colors duration-300",
-                    isPopular ? "bg-[#091528]/95" : "bg-[#0C131D]/95"
+                    "relative rounded-[11px] p-7 sm:p-9 shadow-[inset_0_1px_1px_rgba(255,255,255,0.06)] border border-border/40 flex flex-col justify-between flex-1 transition-colors duration-300",
+                    isPopular ? "bg-[#0d1522]/95" : "bg-[#0a1017]/95"
                   )}
                 >
                   <div>
@@ -311,7 +311,7 @@ export default function Pricing() {
                       </div>
 
                       {!isPopular && plan.badge && (
-                        <span className="font-mono text-[10px] uppercase tracking-wider text-frost/70 px-2.5 py-0.5 rounded-full bg-white/[0.04] border border-white/[0.08]">
+                        <span className="font-mono text-[10px] uppercase tracking-wider text-frost/80 px-2.5 py-0.5 rounded-md bg-white/[0.04] border border-border/80">
                           {plan.badge}
                         </span>
                       )}
@@ -344,7 +344,7 @@ export default function Pricing() {
                               <CheckCircle2
                                 className={cn(
                                   "w-4 h-4 shrink-0",
-                                  isPopular ? "text-cyan-400" : "text-frost/70"
+                                  isPopular ? "text-frost" : "text-frost/70"
                                 )}
                               />
                               {spec.label}
@@ -399,9 +399,9 @@ export default function Pricing() {
         {/* Executive Enterprise Strip */}
         <div
           ref={enterpriseRef}
-          className="mt-12 sm:mt-16 rounded-[2rem] p-[1.5px] bg-gradient-to-r from-white/[0.1] via-white/[0.04] to-transparent border border-white/[0.06]"
+          className="mt-12 sm:mt-16 rounded-xl p-[1px] bg-gradient-to-r from-border via-border/50 to-transparent border border-border/60 shadow-[0_16px_40px_rgba(2,18,47,0.5)]"
         >
-          <div className="rounded-[calc(2rem-1.5px)] bg-[#0C131D]/90 px-6 sm:px-10 py-6 sm:py-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-[inset_0_1px_1px_rgba(255,255,255,0.06)]">
+          <div className="rounded-[11px] bg-[#0a1017]/95 border border-border/40 px-6 sm:px-10 py-6 sm:py-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-[inset_0_1px_1px_rgba(255,255,255,0.06)]">
             <div className="text-center sm:text-left">
               <h4 className="font-display text-lg sm:text-xl font-bold text-white">
                 Need enterprise volume, multi-host syndication, or white-labeling?
@@ -425,7 +425,7 @@ export default function Pricing() {
 
               <a
                 href="mailto:contact@getveevz.com?subject=GetVeevz%20Enterprise%20Distribution%20Inquiry"
-                className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 border border-white/[0.12] text-xs sm:text-sm font-medium text-muted hover:text-white hover:border-white/30 transition-all active:scale-[0.98]"
+                className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 border border-border/80 text-xs sm:text-sm font-medium text-muted hover:text-moonlight hover:border-frost/50 transition-all active:scale-[0.98] bg-surface/50"
               >
                 <Mail className="w-3.5 h-3.5 text-frost" />
                 <span>Email Team</span>
