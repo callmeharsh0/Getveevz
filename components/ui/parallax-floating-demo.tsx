@@ -189,37 +189,37 @@ export function ParallaxFloatingDemo() {
         >
           <div className="flex flex-col items-center justify-center p-3.5 sm:p-4 rounded-2xl bg-surface/80 border border-border/90 backdrop-blur-xl shadow-xl hover:border-frost/60 transition-all duration-300 group">
             <span className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-moonlight to-frost group-hover:scale-105 transition-transform duration-300">
-              <Counter value={42.8} decimals={1} suffix="M+" />
+              <Counter value={1} suffix="B+" />
             </span>
             <span className="mt-1 text-[11px] sm:text-xs text-muted font-medium uppercase tracking-wider text-center">
-              Organic Views
+              Views Generated
             </span>
           </div>
 
           <div className="flex flex-col items-center justify-center p-3.5 sm:p-4 rounded-2xl bg-surface/80 border border-border/90 backdrop-blur-xl shadow-xl hover:border-frost/60 transition-all duration-300 group">
             <span className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#177DFD] to-[#177DFD] group-hover:scale-105 transition-transform duration-300">
-              <Counter value={380} suffix="+" />
+              <Counter value={1} suffix="M+" />
             </span>
             <span className="mt-1 text-[11px] sm:text-xs text-muted font-medium uppercase tracking-wider text-center">
-              Clips Produced
+              Followers Gained
             </span>
           </div>
 
           <div className="flex flex-col items-center justify-center p-3.5 sm:p-4 rounded-2xl bg-surface/80 border border-border/90 backdrop-blur-xl shadow-xl hover:border-frost/60 transition-all duration-300 group">
             <span className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-moonlight to-frost group-hover:scale-105 transition-transform duration-300">
-              <Counter value={84.2} decimals={1} suffix="%" />
+              <Counter value={200} suffix="+" />
             </span>
             <span className="mt-1 text-[11px] sm:text-xs text-muted font-medium uppercase tracking-wider text-center">
-              Hook Retention
+              Active Pages
             </span>
           </div>
 
           <div className="flex flex-col items-center justify-center p-3.5 sm:p-4 rounded-2xl bg-surface/80 border border-border/90 backdrop-blur-xl shadow-xl hover:border-frost/60 transition-all duration-300 group">
             <span className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#177DFD] to-[#177DFD] group-hover:scale-105 transition-transform duration-300">
-              <Counter value={45} suffix="+" />
+              <Counter value={80} suffix="+" />
             </span>
             <span className="mt-1 text-[11px] sm:text-xs text-muted font-medium uppercase tracking-wider text-center">
-              Channels
+              Editors Live
             </span>
           </div>
         </motion.div>
