@@ -50,7 +50,7 @@ export default function WeHandleItAll() {
     <section
       id="about"
       ref={ref}
-      className="border-y border-border bg-surface px-4 sm:px-6 py-14 sm:py-20"
+      className="border-y border-border bg-[#090e14] px-4 sm:px-6 py-28"
     >
       <div className="mx-auto max-w-content">
 
@@ -77,7 +77,7 @@ export default function WeHandleItAll() {
           {services.map(({ n, title, desc, icon: Icon }) => (
             <div
               key={n}
-              className="group relative bg-surface hover:bg-background transition-colors duration-300 p-8 flex flex-col gap-5"
+              className="group relative bg-surface/50 hover:bg-surface/80 transition-colors duration-300 p-8 flex flex-col gap-5"
             >
               {/* Number */}
               <span className="font-display text-5xl font-bold text-border leading-none select-none transition-colors duration-300 group-hover:text-muted/40">
