@@ -4,15 +4,13 @@ import DistributionFlow from "@/components/sections/DistributionFlow-standalone"
 import CapabilitiesFlywheel from "@/components/sections/CapabilitiesFlywheel";
 import Agencies from "@/components/sections/Agencies";
 import ReelsFilmstrip from "@/components/sections/ReelsFilmstrip";
-import WhyUs from "@/components/sections/WhyUs";
-import Pricing from "@/components/sections/Pricing";
-import Pricing2 from "@/components/sections/Pricing2";
 import AudienceRepurpose from "@/components/sections/AudienceRepurpose";
 import WeHandleItAll from "@/components/sections/WeHandleItAll";
+import Pricing from "@/components/sections/Pricing";
+import Pricing2 from "@/components/sections/Pricing2";
 import LiveAnalytics from "@/components/sections/LiveAnalytics";
 import FAQ from "@/components/sections/FAQ";
 import FinalCTA from "@/components/sections/FinalCTA";
-import ClientTestimonials from "@/components/sections/ClientTestimonials";
 
 export default function Home() {
   return (
@@ -27,8 +25,6 @@ export default function Home() {
       <ReelsFilmstrip />
       <AudienceRepurpose />
       <WeHandleItAll />
-      <ClientTestimonials />
-      <WhyUs />
       <Pricing />
       <Pricing2 />
       <LiveAnalytics />
