@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cn } from "@/lib/utils";
-import { ArrowUpRight, Mail, Sparkles, CheckCircle2, ShieldCheck } from "lucide-react";
+import { ArrowUpRight, Mail, CheckCircle2, ShieldCheck } from "lucide-react";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -214,12 +214,6 @@ export default function Pricing() {
       <div className="relative z-10 mx-auto max-w-7xl">
         {/* Section Header: Wide Horizontal Flow (2 Lines Max) */}
         <div ref={headerRef} className="text-center max-w-4xl mx-auto">
-          {/* Eyebrow Pill */}
-          <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 bg-surface/80 border border-border text-[10px] sm:text-xs font-mono uppercase tracking-[0.25em] text-frost/90 backdrop-blur-md mb-6 shadow-sm">
-            <Sparkles className="w-3 h-3 text-frost" />
-            <span>Distribution Investment</span>
-          </div>
-
           {/* Headline */}
           <h2 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-moonlight leading-[1.05]">
             Pick your
