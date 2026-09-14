@@ -4,7 +4,6 @@ import DistributionFlow from "@/components/sections/DistributionFlow-standalone"
 import CapabilitiesFlywheel from "@/components/sections/CapabilitiesFlywheel";
 import ReelsFilmstrip from "@/components/sections/ReelsFilmstrip";
 import Agencies from "@/components/sections/Agencies";
-import AgencyInfoCards from "@/components/sections/AgencyInfoCards";
 import WeHandleItAll from "@/components/sections/WeHandleItAll";
 import Pricing from "@/components/sections/Pricing";
 import LiveAnalytics from "@/components/sections/LiveAnalytics";
@@ -22,7 +21,6 @@ export default function Home() {
       <CapabilitiesFlywheel />
       <ReelsFilmstrip />
       <Agencies />
-      <AgencyInfoCards />
       <WeHandleItAll />
       <Pricing />
       <LiveAnalytics />
