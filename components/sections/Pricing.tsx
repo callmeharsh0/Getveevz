@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { useScrollReveal } from "@/lib/useScrollReveal";
 import { cn } from "@/lib/utils";
-import { ArrowUpRight, Mail } from "lucide-react";
+import { ArrowUpRight, Mail, Sparkles, CheckCircle2, ShieldCheck } from "lucide-react";
 
 type Currency = "USD" | "INR";
 
@@ -15,6 +15,8 @@ interface PlanSpec {
 interface PlanTier {
   id: string;
   name: string;
+  badge?: string;
+  isPopular?: boolean;
   price: Record<Currency, string>;
   period: string;
   subtitle?: string;
@@ -26,41 +28,47 @@ const plans: PlanTier[] = [
   {
     id: "basic",
     name: "Basic",
+    badge: "PR Sprint",
     price: { USD: "$8K", INR: "₹6.8L" },
     period: "Onwards",
-    subtitle: "PR Campaign",
-    ctaText: "Get Started",
+    subtitle: "Targeted PR & Launch Campaign",
+    ctaText: "Launch Sprint",
     specs: [
-      { label: "Pages", value: "Depends on niche" },
-      { label: "Platforms", value: "YT + IG + FB + TikTok" },
-      { label: "Reports", value: "Yes" },
-      { label: "Quality", value: "10/10" },
+      { label: "Account Network", value: "Tailored to niche" },
+      { label: "Supported Platforms", value: "YT + IG + TikTok + FB" },
+      { label: "Intelligence Reports", value: "Weekly Summary" },
+      { label: "Creative Quality", value: "10/10 Hand-crafted" },
     ],
   },
   {
     id: "authority",
     name: "Authority",
+    badge: "Most Popular",
+    isPopular: true,
     price: { USD: "$40K", INR: "₹34L" },
     period: "/ 3 months",
-    ctaText: "Guaranteed views!",
+    subtitle: "Continuous Compounding Growth",
+    ctaText: "Claim Authority",
     specs: [
-      { label: "Pages", value: "30" },
-      { label: "Platforms", value: "YT + IG + FB + TikTok" },
-      { label: "Weekly Reports", value: "Yes" },
-      { label: "Quality", value: "10/10" },
+      { label: "Account Network", value: "30 Distribution Pages" },
+      { label: "Supported Platforms", value: "Omnichannel Syndicate" },
+      { label: "Intelligence Reports", value: "Live Real-Time Dashboard" },
+      { label: "Audience Target", value: "Guaranteed Impressions" },
     ],
   },
   {
     id: "dominance",
     name: "Dominance",
+    badge: "Full Ecosystem",
     price: { USD: "$80K", INR: "₹68L" },
     period: "/ 3 months",
-    ctaText: "Guaranteed views!",
+    subtitle: "Category Leadership & Mass PR",
+    ctaText: "Dominate Category",
     specs: [
-      { label: "Pages", value: "60" },
-      { label: "Platforms", value: "YT + IG + FB + TikTok" },
-      { label: "Weekly Reports", value: "Yes" },
-      { label: "Quality", value: "10/10" },
+      { label: "Account Network", value: "60 Distribution Pages" },
+      { label: "Supported Platforms", value: "Full Omnichannel Grid" },
+      { label: "Intelligence Reports", value: "Dedicated Strategist" },
+      { label: "Audience Target", value: "Maximum Scale Multiplier" },
     ],
   },
 ];
@@ -75,123 +83,248 @@ export default function Pricing() {
   };
 
   return (
-    <section ref={ref} className="px-4 sm:px-6 py-14 sm:py-20 md:py-28 bg-background">
-      <div className="mx-auto max-w-content">
-        {/* ── Header ── */}
-        <div data-reveal className="text-center">
-          <span className="inline-block font-mono text-xs tracking-eyebrow uppercase text-muted">
-            Pricing
+    <section
+      ref={ref}
+      id="pricing"
+      className="relative w-full overflow-hidden bg-[#090e14] py-24 sm:py-32 md:py-40 px-4 sm:px-8 lg:px-12"
+    >
+      {/* ────────────────────────────────────────────────────────────────────── */}
+      {/* AMBIENT MESH GLOW: Deep Frost & Steel Orbs                             */}
+      {/* ────────────────────────────────────────────────────────────────────── */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute top-1/4 left-1/4 -translate-x-1/2 w-[700px] h-[480px] bg-frost/5 blur-[160px] rounded-full"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute bottom-1/4 right-1/4 translate-x-1/2 w-[600px] h-[420px] bg-[#177DFD]/5 blur-[150px] rounded-full"
+      />
+
+      <div className="relative z-10 mx-auto max-w-7xl">
+        {/* ────────────────────────────────────────────────────────────────── */}
+        {/* SECTION HEADER                                                     */}
+        {/* ────────────────────────────────────────────────────────────────── */}
+        <div data-reveal className="text-center max-w-3xl mx-auto">
+          {/* Eyebrow Badge */}
+          <span className="inline-flex items-center gap-2 rounded-full px-3.5 py-1 bg-white/[0.04] border border-white/[0.08] text-[10px] sm:text-xs font-mono uppercase tracking-[0.25em] text-frost/90 backdrop-blur-md mb-6 shadow-sm">
+            <Sparkles className="w-3 h-3 text-frost animate-pulse" />
+            Transparent Investment
           </span>
-          <h2 className="mt-4 font-display text-2xl sm:text-3xl md:text-5xl tracking-tight">
+
+          {/* Headline */}
+          <h2 className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-moonlight leading-[1.06]">
             Pick your
-            <span className="italic text-frost"> velocity.</span>
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-frost via-moonlight to-white">
+              velocity.
+            </span>
           </h2>
+
+          <p className="mt-5 text-sm sm:text-base md:text-lg text-muted max-w-xl mx-auto leading-relaxed font-normal">
+            Predictable, high-output distribution structures engineered for massive audience conversion and verifiable organic reach.
+          </p>
         </div>
 
-        {/* ── Currency Toggle ── */}
-        <div data-reveal className="mt-8 flex justify-center">
-          <div className="inline-flex items-center gap-1 rounded-full border border-border bg-surface p-1">
-            {(["USD", "INR"] as Currency[]).map((c) => (
-              <button
-                key={c}
-                type="button"
-                onClick={() => setCurrency(c)}
-                className={cn(
-                  "px-4 py-1.5 rounded-full text-xs font-medium tracking-wide transition-all duration-200",
-                  currency === c
-                    ? "bg-foreground text-background shadow-sm"
-                    : "text-muted hover:text-foreground"
-                )}
-              >
-                {c === "USD" ? "USD ($)" : "INR (₹)"}
-              </button>
-            ))}
+        {/* ────────────────────────────────────────────────────────────────── */}
+        {/* HAPTIC CURRENCY TOGGLE                                             */}
+        {/* ────────────────────────────────────────────────────────────────── */}
+        <div data-reveal className="mt-10 flex justify-center">
+          <div className="inline-flex items-center p-1 rounded-full bg-white/[0.04] border border-white/[0.08] backdrop-blur-md shadow-inner">
+            {(["USD", "INR"] as Currency[]).map((c) => {
+              const isActive = currency === c;
+              return (
+                <button
+                  key={c}
+                  type="button"
+                  onClick={() => setCurrency(c)}
+                  className={cn(
+                    "relative px-5 py-2 rounded-full text-xs font-mono tracking-wider uppercase transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]",
+                    isActive
+                      ? "bg-moonlight text-oxford font-semibold shadow-md scale-100"
+                      : "text-muted hover:text-white"
+                  )}
+                >
+                  {c === "USD" ? "USD ($)" : "INR (₹)"}
+                </button>
+              );
+            })}
           </div>
         </div>
 
-        {/* ── Cards Grid ── */}
-        <div data-reveal className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-px bg-border rounded-2xl overflow-hidden">
-          {plans.map((plan) => (
-            <div
-              key={plan.id}
-              className="group relative bg-background flex flex-col justify-between p-5 sm:p-8 transition-colors duration-300 hover:bg-surface/60"
-            >
-              {/* Plan Name + Subtitle */}
-              <div>
-                <h3 className="font-display text-lg font-semibold tracking-tight">
-                  {plan.name}
-                </h3>
-                {plan.subtitle && (
-                  <span className="mt-1 inline-block text-xs font-mono tracking-eyebrow uppercase text-muted">
-                    {plan.subtitle}
-                  </span>
+        {/* ────────────────────────────────────────────────────────────────── */}
+        {/* PRICING CARDS: Double-Bezel Hardware Architecture                  */}
+        {/* ────────────────────────────────────────────────────────────────── */}
+        <div
+          data-reveal
+          className="mt-14 sm:mt-20 grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch"
+        >
+          {plans.map((plan) => {
+            const isPopular = plan.isPopular;
+
+            return (
+              <div
+                key={plan.id}
+                className={cn(
+                  // Double-Bezel Outer Shell
+                  "group relative rounded-[2rem] p-[1.5px] transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] flex flex-col",
+                  isPopular
+                    ? "bg-gradient-to-b from-cyan-400/60 via-[#177DFD]/30 to-transparent border border-cyan-400/40 shadow-[0_20px_50px_rgba(23,125,253,0.2)] lg:-translate-y-2"
+                    : "bg-gradient-to-b from-white/[0.12] via-white/[0.04] to-white/[0.01] border border-white/[0.06] hover:border-frost/40 hover:shadow-[0_16px_40px_rgba(2,18,47,0.6)]"
+                )}
+              >
+                {/* Popular floating badge */}
+                {isPopular && (
+                  <div className="absolute -top-3.5 inset-x-0 mx-auto w-max z-20">
+                    <span className="inline-flex items-center gap-1.5 px-3.5 py-0.5 rounded-full bg-gradient-to-r from-cyan-400 to-[#177DFD] text-oxford text-[10px] font-mono font-bold tracking-widest uppercase shadow-lg">
+                      <ShieldCheck className="w-3 h-3" />
+                      {plan.badge}
+                    </span>
+                  </div>
                 )}
 
-                {/* Price */}
-                <div className="mt-6 flex items-baseline gap-2">
-                  <span
-                    key={currency}
-                    className="font-display text-4xl md:text-5xl font-semibold tracking-tight"
-                  >
-                    {plan.price[currency]}
-                  </span>
-                  <span className="text-sm text-muted">{plan.period}</span>
-                </div>
+                {/* Double-Bezel Inner Core */}
+                <div
+                  className={cn(
+                    "relative rounded-[calc(2rem-1.5px)] p-7 sm:p-9 shadow-[inset_0_1px_1px_rgba(255,255,255,0.08)] flex flex-col justify-between flex-1 transition-colors duration-300",
+                    isPopular ? "bg-[#091528]/95" : "bg-[#0C131D]/95"
+                  )}
+                >
+                  <div>
+                    {/* Header: Tier Name & Subtitle */}
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <h3 className="font-display text-2xl sm:text-3xl font-bold uppercase tracking-tight text-white">
+                          {plan.name}
+                        </h3>
+                        {plan.subtitle && (
+                          <p className="mt-1 text-xs text-muted font-normal">
+                            {plan.subtitle}
+                          </p>
+                        )}
+                      </div>
 
-                {/* Specs */}
-                <dl className="mt-8 space-y-3">
-                  {plan.specs.map((spec) => (
-                    <div
-                      key={spec.label}
-                      className="flex items-center justify-between text-sm border-b border-border/50 pb-3 last:border-0 last:pb-0"
-                    >
-                      <dt className="text-muted">{spec.label}</dt>
-                      <dd className="font-medium">{spec.value}</dd>
+                      {!isPopular && plan.badge && (
+                        <span className="font-mono text-[10px] uppercase tracking-wider text-frost/70 px-2.5 py-0.5 rounded-full bg-white/[0.04] border border-white/[0.08]">
+                          {plan.badge}
+                        </span>
+                      )}
                     </div>
-                  ))}
-                </dl>
-              </div>
 
-              {/* CTA */}
+                    {/* Price Block */}
+                    <div className="mt-8 pb-7 border-b border-white/[0.07]">
+                      <div className="flex items-baseline gap-2">
+                        <span className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white">
+                          {plan.price[currency]}
+                        </span>
+                        <span className="text-xs sm:text-sm font-mono text-muted uppercase tracking-wider">
+                          {plan.period}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Specs / Deliverables list */}
+                    <div className="mt-8 space-y-4">
+                      <p className="text-[11px] font-mono uppercase tracking-[0.2em] text-frost/80 font-semibold">
+                        What&apos;s Included:
+                      </p>
+                      <ul className="space-y-3.5">
+                        {plan.specs.map((spec) => (
+                          <li
+                            key={spec.label}
+                            className="flex items-center justify-between text-xs sm:text-sm"
+                          >
+                            <span className="flex items-center gap-2 text-muted">
+                              <CheckCircle2
+                                className={cn(
+                                  "w-4 h-4 shrink-0",
+                                  isPopular ? "text-cyan-400" : "text-frost/70"
+                                )}
+                              />
+                              {spec.label}
+                            </span>
+                            <span className="font-medium text-white text-right">
+                              {spec.value}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+
+                  {/* Button-in-Button CTA */}
+                  <div className="mt-10 pt-6">
+                    <button
+                      type="button"
+                      onClick={scrollToCTA}
+                      className={cn(
+                        "group/btn w-full inline-flex items-center justify-between pl-6 pr-2 py-2 rounded-full text-xs sm:text-sm font-semibold tracking-wide uppercase transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98] shadow-lg",
+                        isPopular
+                          ? "bg-moonlight text-oxford hover:bg-white"
+                          : "bg-white/[0.06] text-white hover:bg-white hover:text-oxford border border-white/[0.1]"
+                      )}
+                    >
+                      <span>{plan.ctaText}</span>
+                      <span
+                        className={cn(
+                          "inline-flex items-center justify-center w-8 h-8 rounded-full transition-all duration-300",
+                          isPopular
+                            ? "bg-oxford/10 group-hover/btn:bg-oxford"
+                            : "bg-white/10 group-hover/btn:bg-oxford/10"
+                        )}
+                      >
+                        <ArrowUpRight
+                          className={cn(
+                            "w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5",
+                            isPopular
+                              ? "text-oxford group-hover/btn:text-moonlight"
+                              : "text-white group-hover/btn:text-oxford"
+                          )}
+                        />
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* ────────────────────────────────────────────────────────────────── */}
+        {/* EXECUTIVE ENTERPRISE STRIP: Double-Bezel Architecture              */}
+        {/* ────────────────────────────────────────────────────────────────── */}
+        <div
+          data-reveal
+          className="mt-12 sm:mt-16 rounded-[2rem] p-[1.5px] bg-gradient-to-r from-white/[0.1] via-white/[0.04] to-transparent border border-white/[0.06]"
+        >
+          <div className="rounded-[calc(2rem-1.5px)] bg-[#0C131D]/90 px-6 sm:px-10 py-6 sm:py-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-[inset_0_1px_1px_rgba(255,255,255,0.06)]">
+            <div className="text-center sm:text-left">
+              <h4 className="font-display text-lg sm:text-xl font-bold text-white">
+                Need enterprise volume, multi-host syndication, or white-labeling?
+              </h4>
+              <p className="mt-1 text-xs sm:text-sm text-muted">
+                We design custom multi-tier distribution arrangements for high-volume catalogs and creator studios.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap items-center justify-center gap-3 shrink-0">
               <button
                 type="button"
                 onClick={scrollToCTA}
-                className="mt-8 w-full inline-flex items-center justify-center gap-2 rounded-full border border-border px-5 py-3 text-sm font-medium transition-all duration-200 hover:bg-foreground hover:text-background hover:border-foreground group-hover:border-muted active:scale-[0.98]"
+                className="group/call inline-flex items-center gap-3 rounded-full pl-6 pr-2.5 py-2 bg-moonlight text-oxford hover:bg-white text-xs sm:text-sm font-semibold tracking-wide uppercase transition-all duration-300 active:scale-[0.98] shadow-md"
               >
-                <span>{plan.ctaText}</span>
-                <ArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                <span>Book a Call</span>
+                <span className="w-7 h-7 rounded-full bg-oxford/10 group-hover/call:bg-oxford flex items-center justify-center transition-colors">
+                  <ArrowUpRight className="w-3.5 h-3.5 text-oxford group-hover/call:text-moonlight transition-transform group-hover/call:translate-x-0.5 group-hover/call:-translate-y-0.5" />
+                </span>
               </button>
+
+              <a
+                href="mailto:contact@getveevz.com?subject=GetVeevz%20Enterprise%20Distribution%20Inquiry"
+                className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 border border-white/[0.12] text-xs sm:text-sm font-medium text-muted hover:text-white hover:border-white/30 transition-all active:scale-[0.98]"
+              >
+                <Mail className="w-3.5 h-3.5 text-frost" />
+                Email Team
+              </a>
             </div>
-          ))}
-        </div>
-
-        {/* ── Contact Strip ── */}
-        <div
-          data-reveal
-          className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 rounded-2xl border border-border bg-surface/40 px-5 sm:px-8 py-5"
-        >
-          <p className="text-sm text-muted text-center sm:text-left">
-            Need custom volume or multi-channel scale?{" "}
-            <span className="text-foreground font-medium">Let&apos;s talk.</span>
-          </p>
-
-          <div className="flex items-center gap-3 shrink-0">
-            <button
-              type="button"
-              onClick={scrollToCTA}
-              className="inline-flex items-center gap-2 rounded-full bg-foreground text-background px-5 py-2.5 text-xs font-medium tracking-wide transition-all duration-200 hover:bg-frost hover:text-background active:scale-[0.98]"
-            >
-              Book a Call
-              <ArrowUpRight className="w-3.5 h-3.5" />
-            </button>
-
-            <a
-              href="mailto:contact@getveevz.com?subject=GetVeevz%20Distribution%20Inquiry"
-              className="inline-flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-xs font-medium text-muted transition-all duration-200 hover:text-foreground hover:border-foreground active:scale-[0.98]"
-            >
-              <Mail className="w-3.5 h-3.5" />
-              Email Us
-            </a>
           </div>
         </div>
       </div>
