@@ -1,9 +1,14 @@
 "use client";
 
-import React, { useState } from "react";
-import { useScrollReveal } from "@/lib/useScrollReveal";
+import React, { useState, useRef, useEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cn } from "@/lib/utils";
 import { ArrowUpRight, Mail, Sparkles, CheckCircle2, ShieldCheck } from "lucide-react";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 type Currency = "USD" | "INR";
 
@@ -19,7 +24,7 @@ interface PlanTier {
   isPopular?: boolean;
   price: Record<Currency, string>;
   period: string;
-  subtitle?: string;
+  subtitle: string;
   ctaText: string;
   specs: PlanSpec[];
 }
@@ -37,7 +42,7 @@ const plans: PlanTier[] = [
       { label: "Account Network", value: "Tailored to niche" },
       { label: "Supported Platforms", value: "YT + IG + TikTok + FB" },
       { label: "Intelligence Reports", value: "Weekly Summary" },
-      { label: "Creative Quality", value: "10/10 Hand-crafted" },
+      { label: "Creative Direction", value: "Custom Storyboarding" },
     ],
   },
   {
@@ -74,7 +79,11 @@ const plans: PlanTier[] = [
 ];
 
 export default function Pricing() {
-  const ref = useScrollReveal<HTMLDivElement>();
+  const sectionRef = useRef<HTMLElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const cardsContainerRef = useRef<HTMLDivElement>(null);
+  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const enterpriseRef = useRef<HTMLDivElement>(null);
   const [currency, setCurrency] = useState<Currency>("USD");
 
   const scrollToCTA = () => {
@@ -82,52 +91,151 @@ export default function Pricing() {
     el?.scrollIntoView({ behavior: "smooth" });
   };
 
+  // GSAP ScrollTrigger entrance animations
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Header entrance animation
+      if (headerRef.current) {
+        gsap.fromTo(
+          headerRef.current,
+          { opacity: 0, y: 32 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.85,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: headerRef.current,
+              start: "top 85%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+      }
+
+      // Cards staggered entrance animation
+      if (cardsRef.current.length > 0) {
+        gsap.fromTo(
+          cardsRef.current.filter(Boolean),
+          { opacity: 0, y: 48, scale: 0.96 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.9,
+            stagger: 0.15,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: cardsContainerRef.current,
+              start: "top 80%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+      }
+
+      // Enterprise strip entrance animation
+      if (enterpriseRef.current) {
+        gsap.fromTo(
+          enterpriseRef.current,
+          { opacity: 0, y: 28 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: enterpriseRef.current,
+              start: "top 88%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  // 3D Magnetic Card Tilt Interaction
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>, index: number) => {
+    const card = cardsRef.current[index];
+    if (!card) return;
+
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const rotateX = ((y - centerY) / centerY) * -5;
+    const rotateY = ((x - centerX) / centerX) * 5;
+
+    gsap.to(card, {
+      rotateX,
+      rotateY,
+      duration: 0.4,
+      ease: "power2.out",
+      transformPerspective: 1000,
+      overwrite: "auto",
+    });
+  };
+
+  const handleMouseLeave = (index: number) => {
+    const card = cardsRef.current[index];
+    if (!card) return;
+
+    gsap.to(card, {
+      rotateX: 0,
+      rotateY: 0,
+      duration: 0.6,
+      ease: "power3.out",
+      overwrite: "auto",
+    });
+  };
+
   return (
     <section
-      ref={ref}
+      ref={sectionRef}
       id="pricing"
-      className="relative w-full overflow-hidden bg-[#090e14] py-24 sm:py-32 md:py-40 px-4 sm:px-8 lg:px-12"
+      className="relative w-full overflow-hidden bg-[#090e14] py-28 sm:py-36 md:py-44 px-4 sm:px-8 lg:px-12"
     >
-      {/* ────────────────────────────────────────────────────────────────────── */}
-      {/* AMBIENT MESH GLOW: Deep Frost & Steel Orbs                             */}
-      {/* ────────────────────────────────────────────────────────────────────── */}
+      {/* Ambient Radial Depth Mesh */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute top-1/4 left-1/4 -translate-x-1/2 w-[700px] h-[480px] bg-frost/5 blur-[160px] rounded-full"
+        className="pointer-events-none absolute top-1/4 left-1/4 -translate-x-1/2 w-[720px] h-[500px] bg-frost/5 blur-[160px] rounded-full"
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute bottom-1/4 right-1/4 translate-x-1/2 w-[600px] h-[420px] bg-[#177DFD]/5 blur-[150px] rounded-full"
+        className="pointer-events-none absolute bottom-1/4 right-1/4 translate-x-1/2 w-[640px] h-[440px] bg-[#177DFD]/5 blur-[150px] rounded-full"
       />
 
       <div className="relative z-10 mx-auto max-w-7xl">
-        {/* ────────────────────────────────────────────────────────────────── */}
-        {/* SECTION HEADER                                                     */}
-        {/* ────────────────────────────────────────────────────────────────── */}
-        <div data-reveal className="text-center max-w-3xl mx-auto">
-          {/* Eyebrow Badge */}
-          <span className="inline-flex items-center gap-2 rounded-full px-3.5 py-1 bg-white/[0.04] border border-white/[0.08] text-[10px] sm:text-xs font-mono uppercase tracking-[0.25em] text-frost/90 backdrop-blur-md mb-6 shadow-sm">
-            <Sparkles className="w-3 h-3 text-frost animate-pulse" />
-            Transparent Investment
-          </span>
+        {/* Section Header: Wide Horizontal Flow (2 Lines Max) */}
+        <div ref={headerRef} className="text-center max-w-4xl mx-auto">
+          {/* Eyebrow Pill */}
+          <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 bg-white/[0.04] border border-white/[0.08] text-[10px] sm:text-xs font-mono uppercase tracking-[0.25em] text-frost/90 backdrop-blur-md mb-6 shadow-sm">
+            <Sparkles className="w-3 h-3 text-frost" />
+            <span>Distribution Investment</span>
+          </div>
 
           {/* Headline */}
-          <h2 className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-moonlight leading-[1.06]">
+          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-moonlight leading-[1.05]">
             Pick your
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-frost via-moonlight to-white">
+            <span className="inline-block ml-3 sm:ml-4 text-transparent bg-clip-text bg-gradient-to-r from-frost via-moonlight to-white">
               velocity.
             </span>
           </h2>
 
-          <p className="mt-5 text-sm sm:text-base md:text-lg text-muted max-w-xl mx-auto leading-relaxed font-normal">
-            Predictable, high-output distribution structures engineered for massive audience conversion and verifiable organic reach.
+          {/* Subtitle */}
+          <p className="mt-5 text-sm sm:text-base md:text-lg text-muted max-w-2xl mx-auto leading-relaxed font-normal">
+            Predictable distribution infrastructure engineered for exponential algorithmic audience acquisition across Instagram, YouTube Shorts, and TikTok.
           </p>
         </div>
 
-        {/* ────────────────────────────────────────────────────────────────── */}
-        {/* HAPTIC CURRENCY TOGGLE                                             */}
-        {/* ────────────────────────────────────────────────────────────────── */}
-        <div data-reveal className="mt-10 flex justify-center">
+        {/* Currency Switcher */}
+        <div className="mt-10 flex justify-center">
           <div className="inline-flex items-center p-1 rounded-full bg-white/[0.04] border border-white/[0.08] backdrop-blur-md shadow-inner">
             {(["USD", "INR"] as Currency[]).map((c) => {
               const isActive = currency === c;
@@ -150,28 +258,30 @@ export default function Pricing() {
           </div>
         </div>
 
-        {/* ────────────────────────────────────────────────────────────────── */}
-        {/* PRICING CARDS: Double-Bezel Hardware Architecture                  */}
-        {/* ────────────────────────────────────────────────────────────────── */}
+        {/* Cards Grid: Mathematically Balanced 3-Column Bento Architecture */}
         <div
-          data-reveal
-          className="mt-14 sm:mt-20 grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch"
+          ref={cardsContainerRef}
+          className="mt-16 sm:mt-20 grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch"
         >
-          {plans.map((plan) => {
+          {plans.map((plan, index) => {
             const isPopular = plan.isPopular;
 
             return (
               <div
                 key={plan.id}
+                ref={(el) => (cardsRef.current[index] = el)}
+                onMouseMove={(e) => handleMouseMove(e, index)}
+                onMouseLeave={() => handleMouseLeave(index)}
+                style={{ transformStyle: "preserve-3d" }}
                 className={cn(
-                  // Double-Bezel Outer Shell
-                  "group relative rounded-[2rem] p-[1.5px] transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] flex flex-col",
+                  // Double-Bezel Outer Hardware Shell
+                  "group relative rounded-[2rem] p-[1.5px] transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] flex flex-col will-change-transform",
                   isPopular
-                    ? "bg-gradient-to-b from-cyan-400/60 via-[#177DFD]/30 to-transparent border border-cyan-400/40 shadow-[0_20px_50px_rgba(23,125,253,0.2)] lg:-translate-y-2"
-                    : "bg-gradient-to-b from-white/[0.12] via-white/[0.04] to-white/[0.01] border border-white/[0.06] hover:border-frost/40 hover:shadow-[0_16px_40px_rgba(2,18,47,0.6)]"
+                    ? "bg-gradient-to-b from-cyan-400/60 via-[#177DFD]/30 to-transparent border border-cyan-400/40 shadow-[0_24px_60px_rgba(23,125,253,0.22)] lg:-translate-y-3"
+                    : "bg-gradient-to-b from-white/[0.12] via-white/[0.04] to-white/[0.01] border border-white/[0.06] hover:border-frost/40 hover:shadow-[0_20px_50px_rgba(2,18,47,0.7)]"
                 )}
               >
-                {/* Popular floating badge */}
+                {/* Popular Floating Badge */}
                 {isPopular && (
                   <div className="absolute -top-3.5 inset-x-0 mx-auto w-max z-20">
                     <span className="inline-flex items-center gap-1.5 px-3.5 py-0.5 rounded-full bg-gradient-to-r from-cyan-400 to-[#177DFD] text-oxford text-[10px] font-mono font-bold tracking-widest uppercase shadow-lg">
@@ -195,11 +305,9 @@ export default function Pricing() {
                         <h3 className="font-display text-2xl sm:text-3xl font-bold uppercase tracking-tight text-white">
                           {plan.name}
                         </h3>
-                        {plan.subtitle && (
-                          <p className="mt-1 text-xs text-muted font-normal">
-                            {plan.subtitle}
-                          </p>
-                        )}
+                        <p className="mt-1 text-xs text-muted font-normal">
+                          {plan.subtitle}
+                        </p>
                       </div>
 
                       {!isPopular && plan.badge && (
@@ -221,7 +329,7 @@ export default function Pricing() {
                       </div>
                     </div>
 
-                    {/* Specs / Deliverables list */}
+                    {/* Deliverables Specs List */}
                     <div className="mt-8 space-y-4">
                       <p className="text-[11px] font-mono uppercase tracking-[0.2em] text-frost/80 font-semibold">
                         What&apos;s Included:
@@ -288,11 +396,9 @@ export default function Pricing() {
           })}
         </div>
 
-        {/* ────────────────────────────────────────────────────────────────── */}
-        {/* EXECUTIVE ENTERPRISE STRIP: Double-Bezel Architecture              */}
-        {/* ────────────────────────────────────────────────────────────────── */}
+        {/* Executive Enterprise Strip */}
         <div
-          data-reveal
+          ref={enterpriseRef}
           className="mt-12 sm:mt-16 rounded-[2rem] p-[1.5px] bg-gradient-to-r from-white/[0.1] via-white/[0.04] to-transparent border border-white/[0.06]"
         >
           <div className="rounded-[calc(2rem-1.5px)] bg-[#0C131D]/90 px-6 sm:px-10 py-6 sm:py-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-[inset_0_1px_1px_rgba(255,255,255,0.06)]">
@@ -322,7 +428,7 @@ export default function Pricing() {
                 className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 border border-white/[0.12] text-xs sm:text-sm font-medium text-muted hover:text-white hover:border-white/30 transition-all active:scale-[0.98]"
               >
                 <Mail className="w-3.5 h-3.5 text-frost" />
-                Email Team
+                <span>Email Team</span>
               </a>
             </div>
           </div>
