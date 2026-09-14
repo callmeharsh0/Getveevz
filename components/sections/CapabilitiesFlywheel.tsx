@@ -345,10 +345,6 @@ export default function CapabilitiesFlywheel() {
                         </div>
                       </div>
 
-                      <div className="flex items-center justify-between text-[10px] font-mono text-muted/80 pt-1 border-t border-white/5">
-                        <span>Scheduled Deployment Mesh</span>
-                        <span>Broadcast Latency: 120ms</span>
-                      </div>
                     </motion.div>
                   )}
 
