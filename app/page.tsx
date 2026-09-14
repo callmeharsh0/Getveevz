@@ -3,6 +3,7 @@ import { ParallaxFloatingDemo } from "@/components/ui/parallax-floating-demo";
 import DistributionFlow from "@/components/sections/DistributionFlow-standalone";
 import CapabilitiesFlywheel from "@/components/sections/CapabilitiesFlywheel";
 import Agencies from "@/components/sections/Agencies";
+import AgencyInfoCards from "@/components/sections/AgencyInfoCards";
 import ReelsFilmstrip from "@/components/sections/ReelsFilmstrip";
 import WeHandleItAll from "@/components/sections/WeHandleItAll";
 import Pricing from "@/components/sections/Pricing";
@@ -20,6 +21,7 @@ export default function Home() {
       <DistributionFlow />
       <CapabilitiesFlywheel />
       <Agencies />
+      <AgencyInfoCards />
       <ReelsFilmstrip />
       <WeHandleItAll />
       <Pricing />
