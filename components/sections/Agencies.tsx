@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
-import { ArrowUpRight, CheckCircle2, Clock, Sparkles, Target, Zap } from "lucide-react";
+import { ArrowUpRight, CheckCircle2, Clock, Sparkles, Target } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface CampaignModel {
@@ -23,59 +23,59 @@ const campaignModels: CampaignModel[] = [
     id: "long-term",
     name: "Long Term",
     badge: "Sustainable Engine",
-    duration: "Months or Years Contract",
-    headline: "Build perpetual distribution channels for your brand.",
+    duration: "Ongoing / Retainer",
+    headline: "Build perpetual distribution channels and compound audience growth.",
     whoItsFor:
-      "This is for someone who wants to build long-term content distribution channels for their brand.",
+      "For creators, founders, and brands looking to build perpetual, long-term content distribution.",
     includes: [
       {
         title: "CPM-Based Growth Campaign",
-        desc: "Performance-oriented audience scaling with seamless retainer transition.",
+        desc: "Performance-oriented audience scaling with a seamless retainer transition.",
       },
       {
         title: "Normal Clipping & Repurposing",
-        desc: "Consistent, continuous extraction of high-retention short clips from long-form footage.",
+        desc: "Continuous, high-retention extraction and editing from long-form content.",
       },
       {
-        title: "Omnichannel Distribution",
-        desc: "Systematic multi-account scheduling & algorithmic posting on Reels, TikTok & Shorts.",
+        title: "Multi-Platform Distribution",
+        desc: "Systematic multi-account scheduling & algorithmic distribution on Reels, TikTok & Shorts.",
       },
       {
         title: "Dedicated Account Ownership",
-        desc: "Long-term partnership built for clients wanting multi-month or annual brand dominance.",
+        desc: "Long-term partnership built for sustainable, multi-month brand authority.",
       },
     ],
-    ctaText: "Book Long-Term Campaign",
+    ctaText: "Choose Long Term",
     link: "#pricing",
     videoSrc: "/assets/agency-video-2.mp4",
   },
   {
     id: "short-term",
     name: "Short Term",
-    badge: "Immediate Surge",
-    duration: "25 – 30 Days Sprint",
-    headline: "Launch your brand or product and command immediate attention.",
+    badge: "High-Impact Sprint",
+    duration: "25–30 Days",
+    headline: "Launch your brand or product with explosive, immediate attention.",
     whoItsFor:
-      "This is for you if you want to launch your brand or product and need immediate attention.",
+      "For launches, product drops, and announcements requiring immediate feed saturation.",
     includes: [
       {
-        title: "PR & Media Campaign",
-        desc: "High-impact creator seeding, podcast amplification, and strategic press mentions.",
+        title: "PR Campaign & Creator Seeding",
+        desc: "High-impact creator placements, podcast amplification, and strategic press buzz.",
       },
       {
         title: "Mass Clipping Blitz",
-        desc: "Massive volume of varied hooks and cutdowns flooded across short-form channels.",
+        desc: "Aggressive volume of varied hooks and cutdowns flooded across short-form channels.",
       },
       {
-        title: "Launch-Focused Saturation",
-        desc: "Concentrated 25–30 day push designed to dominate social feeds during your launch window.",
+        title: "25–30 Day Turnaround Window",
+        desc: "Intensive 25–30 day saturation sprint designed to dominate social feeds during your launch.",
       },
       {
-        title: "Rapid Execution Turnaround",
-        desc: "Zero ramp-up lag — aggressive timeline built specifically for products and brand drops.",
+        title: "Rapid Execution Velocity",
+        desc: "Zero ramp-up delay — fast-turnaround campaign built for rapid conversions.",
       },
     ],
-    ctaText: "Book Short-Term Sprint",
+    ctaText: "Choose Short Term",
     link: "#pricing",
     videoSrc: "/assets/agency-video-1.mp4",
   },
@@ -169,12 +169,17 @@ export default function Agencies() {
     const mouseX = e.clientX - gridRect.left;
     const mouseY = e.clientY - gridRect.top;
 
-    // Detect which card the cursor is closest to horizontally
+    // Detect which card the cursor is hovering over
     let activeCardIndex = hoveredIndexRef.current;
     cardRefs.current.forEach((cardEl, i) => {
       if (!cardEl) return;
       const rect = cardEl.getBoundingClientRect();
-      if (e.clientX >= rect.left && e.clientX <= rect.right) {
+      const isInside =
+        e.clientX >= rect.left &&
+        e.clientX <= rect.right &&
+        e.clientY >= rect.top &&
+        e.clientY <= rect.bottom;
+      if (isInside) {
         activeCardIndex = i;
       }
     });
@@ -256,41 +261,44 @@ export default function Agencies() {
   }, []);
 
   return (
-    <section className="relative w-full bg-[#F3EFEA] text-[#111111] py-16 sm:py-24 lg:py-32 px-4 sm:px-8 lg:px-12 overflow-hidden select-none">
+    <section className="relative w-full bg-[#F3EFEA] text-[#111111] py-16 sm:py-28 lg:py-36 px-4 sm:px-8 lg:px-12 overflow-hidden select-none">
       <div className="max-w-7xl mx-auto">
         {/* ========================================================================= */}
         {/* SECTION HEADER                                                            */}
         {/* ========================================================================= */}
-        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#111111]/5 border border-[#111111]/10 text-[#111111] text-xs font-mono uppercase tracking-eyebrow mb-4">
+        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-20">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#111111]/5 border border-[#111111]/10 text-xs font-mono uppercase tracking-wider text-[#111111]/80 mb-4">
             <Sparkles className="w-3.5 h-3.5 text-[#0038E2]" />
-            <span>Campaign & Partnership Models</span>
+            <span>Campaign Models</span>
           </div>
-          <h2 className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-[4rem] font-bold tracking-tight text-[#111111] leading-[1.08]">
-            Choose your distribution horizon
+          <h2 className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-[4.25rem] font-bold tracking-tight text-[#111111] leading-[1.08]">
+            The services we provide
           </h2>
-          <p className="mt-4 text-sm sm:text-base md:text-[17px] text-[#2D2D2D] leading-relaxed max-w-xl mx-auto font-normal">
-            Whether you need an explosive 30-day launch surge or a permanent compounding distribution channel — we execute both with surgical focus.
+          <p className="mt-5 text-sm sm:text-base md:text-[17px] text-[#2D2D2D] leading-relaxed max-w-xl mx-auto font-normal">
+            Choose between sustained long-term compounding or an aggressive 25–30 day launch sprint.
+            <br className="hidden sm:inline" /> Engineered to turn one piece of long-form content into millions of views.
           </p>
         </div>
 
         {/* ========================================================================= */}
-        {/* 2-COLUMN INTERACTIVE GRID WITH SHARED SLIDING HOVER SHAPE                 */}
+        {/* 2-COLUMN INTERACTIVE CAMPAIGN GRID WITH SHARED SLIDING HOVER SHAPE         */}
         {/* ========================================================================= */}
         <div
           ref={gridRef}
           onMouseMove={handleGridMouseMove}
           onMouseLeave={handleGridLeave}
-          className="relative grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 items-stretch max-w-5xl mx-auto"
+          style={{ perspective: 1200 }}
+          className="relative grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10 items-stretch max-w-5xl mx-auto"
         >
           {/* ========================================================================= */}
-          {/* SHARED SLIDING GSAP HOVER SHAPE                                           */}
+          {/* SHARED SLIDING GSAP HOVER SHAPE (STRICTLY z-0, NEVER OVERLAPS TEXT)       */}
           {/* ========================================================================= */}
           <div
             ref={slidingShapeRef}
-            className="pointer-events-none absolute top-0 left-0 z-0 overflow-hidden rounded-[2rem] shadow-2xl transition-[border-radius] duration-500 will-change-transform bg-[#0038E2]"
+            style={{ transformStyle: "preserve-3d" }}
+            className="pointer-events-none absolute top-0 left-0 z-0 overflow-hidden shadow-2xl transition-[border-radius] duration-500 will-change-transform bg-[#0038E2] rounded-[2rem]"
           >
-            {/* Ambient Graphic Backdrop for Card 0 */}
+            {/* Swirling cream graphic */}
             <div
               className={cn(
                 "absolute inset-0 transition-opacity duration-500 pointer-events-none z-0",
@@ -301,7 +309,7 @@ export default function Agencies() {
                 viewBox="0 0 340 440"
                 fill="none"
                 preserveAspectRatio="xMidYMid slice"
-                className="absolute inset-0 w-full h-full opacity-15"
+                className="absolute inset-0 w-full h-full"
               >
                 <path
                   fillRule="evenodd"
@@ -485,4 +493,3 @@ export default function Agencies() {
     </section>
   );
 }
-
