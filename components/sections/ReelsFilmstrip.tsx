@@ -131,7 +131,7 @@ export default function ReelsFilmstrip() {
   return (
     <section
       id="character-filmstrip"
-      className="relative w-full overflow-hidden bg-[#000000]"
+      className="relative w-full overflow-hidden bg-[#000000] border-b border-border"
     >
       <div className="w-full h-[640px] sm:h-[720px] md:h-[820px] lg:h-[880px] relative">
         {/* Carousel fills the entire section */}
@@ -152,16 +152,6 @@ export default function ReelsFilmstrip() {
           style={{
             background:
               "linear-gradient(to bottom, #090e14 0%, rgba(9, 14, 20, 0.85) 30%, rgba(9, 14, 20, 0.4) 65%, transparent 100%)",
-          }}
-        />
-
-        {/* Soft bottom gradient fade — smoothly feathers into Agencies (#F3EFEA) */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-32 sm:h-44 md:h-52 z-10"
-          style={{
-            background:
-              "linear-gradient(to bottom, transparent 0%, rgba(243, 239, 234, 0.08) 35%, rgba(243, 239, 234, 0.4) 65%, rgba(243, 239, 234, 0.85) 88%, #F3EFEA 100%)",
           }}
         />
 
