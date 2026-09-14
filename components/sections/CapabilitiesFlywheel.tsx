@@ -333,15 +333,15 @@ export default function CapabilitiesFlywheel() {
                       <div className="grid grid-cols-3 gap-2 py-1">
                         <div className="p-2 rounded-xl bg-[#090d18] border border-white/10 text-center">
                           <p className="text-[11px] font-bold text-white">Instagram</p>
-                          <span className="text-[9px] font-mono text-blue-300">16 Pages Sync</span>
+                          <span className="text-[9px] font-mono text-blue-300">90 Pages Sync</span>
                         </div>
                         <div className="p-2 rounded-xl bg-[#090d18] border border-white/10 text-center">
                           <p className="text-[11px] font-bold text-white">TikTok</p>
-                          <span className="text-[9px] font-mono text-blue-300">18 Pages Sync</span>
+                          <span className="text-[9px] font-mono text-blue-300">70 Pages Sync</span>
                         </div>
                         <div className="p-2 rounded-xl bg-[#090d18] border border-white/10 text-center">
                           <p className="text-[11px] font-bold text-white">YT Shorts</p>
-                          <span className="text-[9px] font-mono text-blue-300">8 Pages Sync</span>
+                          <span className="text-[9px] font-mono text-blue-300">40 Pages Sync</span>
                         </div>
                       </div>
 
