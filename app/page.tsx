@@ -18,7 +18,7 @@ export default function Home() {
   return (
     <main>
       <Hero />
-      <section id="results" className="relative w-full overflow-hidden bg-[#000000]">
+      <section id="results" className="relative w-full overflow-hidden bg-[#090e14]">
         <ParallaxFloatingDemo />
       </section>
       <DistributionFlow />
