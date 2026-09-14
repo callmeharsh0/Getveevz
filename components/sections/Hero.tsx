@@ -505,26 +505,29 @@ export default function Hero() {
         className="relative my-auto py-8 sm:py-14 md:py-20 flex items-center justify-center text-center overflow-visible z-10"
         data-reveal
       >
-        {/* Floating Interactive Left Node: 1080p Master Ingestion */}
+        {/* Floating Interactive Left Node: Real-Time View Generation Engine */}
         <div
           ref={cardLeftRef}
-          className="hidden xl:flex absolute -left-2 top-4 flex-col gap-2 p-3.5 rounded-2xl bg-surface/80 border border-border/90 backdrop-blur-xl shadow-2xl transition-all duration-300 hover:scale-105 hover:border-frost/50 w-52 text-left pointer-events-auto"
+          className="hidden xl:flex absolute -left-2 top-4 flex-col gap-2 p-3.5 rounded-2xl bg-surface/80 border border-border/90 backdrop-blur-xl shadow-2xl transition-all duration-300 hover:scale-105 hover:border-frost/50 w-56 text-left pointer-events-auto"
         >
           <div className="flex items-center justify-between">
             <span className="text-[10px] font-mono uppercase tracking-wider text-frost flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#177DFD] inline-block animate-ping" />
-              Source Stream
+              <span className="w-1.5 h-1.5 rounded-full bg-frost inline-block animate-ping" />
+              Live Generating
             </span>
-            <span className="text-[10px] font-mono text-muted">4K ProRes</span>
+            <span className="text-[10px] font-mono text-frost/80 font-semibold bg-white/[0.04] px-1.5 py-0.5 rounded border border-border/60">
+              +2.4M Views/hr
+            </span>
           </div>
-          <p className="text-xs font-medium text-moonlight truncate">
-            The Dialogue Podcast #84
+          <p className="text-xs font-semibold text-white tracking-tight flex items-center justify-between">
+            <span>Viral View Engine</span>
+            <span className="text-frost font-mono text-[11px] font-bold">18.4M+</span>
           </p>
-          <div className="flex items-center gap-1.5 mt-1">
-            <div className="flex-1 h-1.5 rounded-full bg-background overflow-hidden">
-              <div className="h-full bg-gradient-to-r from-[#177DFD] to-frost w-3/4 rounded-full animate-pulse" />
+          <div className="flex items-center gap-1.5 mt-0.5">
+            <div className="flex-1 h-1.5 rounded-full bg-background overflow-hidden border border-white/5">
+              <div className="h-full bg-gradient-to-r from-frost via-moonlight to-white w-4/5 rounded-full animate-pulse" />
             </div>
-            <span className="text-[10px] font-mono text-muted">14 Clips</span>
+            <span className="text-[10px] font-mono text-muted whitespace-nowrap">Generating Reach</span>
           </div>
         </div>
 
