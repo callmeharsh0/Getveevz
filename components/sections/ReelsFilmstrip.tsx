@@ -145,9 +145,29 @@ export default function ReelsFilmstrip() {
           iframeRef={iframeRef}
         />
 
+        {/* Soft top gradient fade — seamlessly dissolves from CapabilitiesFlywheel (#090e14) */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-0 h-32 sm:h-44 md:h-52 z-10"
+          style={{
+            background:
+              "linear-gradient(to bottom, #090e14 0%, rgba(9, 14, 20, 0.85) 30%, rgba(9, 14, 20, 0.4) 65%, transparent 100%)",
+          }}
+        />
+
+        {/* Soft bottom gradient fade — smoothly feathers into Agencies (#F3EFEA) */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-32 sm:h-44 md:h-52 z-10"
+          style={{
+            background:
+              "linear-gradient(to bottom, transparent 0%, rgba(243, 239, 234, 0.08) 35%, rgba(243, 239, 234, 0.4) 65%, rgba(243, 239, 234, 0.85) 88%, #F3EFEA 100%)",
+          }}
+        />
+
         {/* Text overlay — positioned at the top, blends into the carousel */}
         <div
-          className="pointer-events-none absolute inset-x-0 top-0 z-10 flex flex-col items-center justify-start pt-10 sm:pt-14 md:pt-16 px-6"
+          className="pointer-events-none absolute inset-x-0 top-0 z-20 flex flex-col items-center justify-start pt-10 sm:pt-14 md:pt-16 px-6"
         >
           <p className="text-[10px] sm:text-xs font-semibold uppercase tracking-[0.3em] text-[#8BA3C5]">
             The work, in numbers
