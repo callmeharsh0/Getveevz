@@ -326,7 +326,7 @@ export default function CapabilitiesFlywheel() {
                           Synchronized Platform Network
                         </span>
                         <span className="text-blue-400 font-semibold bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/25">
-                          40+ Nodes Live
+                          200+ Live Pages
                         </span>
                       </div>
 
