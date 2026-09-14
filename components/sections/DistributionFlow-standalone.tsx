@@ -315,11 +315,11 @@ export default function DistributionFlow({
   );
 
   return (
-    <section className={classNames("w-full overflow-hidden bg-black text-[#f2ece1]", className)}>
-      {/* ── GSAP Scroll Pinned Canvas ── */}
+    <section className={classNames("w-full overflow-hidden bg-[#090e14] text-[#f2ece1]", className)}>
+      {/* Pinned Scroll Sequence (GSAP Controlled) */}
       <div
         ref={wrapperRef}
-        className="relative w-full h-screen bg-black overflow-hidden select-none"
+        className="relative w-full h-screen bg-[#090e14] overflow-hidden select-none"
       >
         {/* Ambient Depth Glow */}
         <div

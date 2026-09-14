@@ -360,7 +360,7 @@ export default function DistributionFlow({
   );
 
   return (
-    <section className={`w-full overflow-hidden bg-background text-foreground ${className}`}>
+    <section className={`w-full overflow-hidden bg-[#090e14] text-foreground ${className}`}>
       {/* ── Statement Header ── */}
       {showIntroHeader && (
         <div
@@ -391,7 +391,7 @@ export default function DistributionFlow({
       {/* ── GSAP Scroll Pinned Canvas ── */}
       <div
         ref={wrapperRef}
-        className="relative w-full h-screen bg-background overflow-hidden select-none"
+        className="relative w-full h-screen bg-[#090e14] overflow-hidden select-none"
       >
         {/* Ambient Depth Glow */}
         <div
