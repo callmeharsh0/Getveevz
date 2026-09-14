@@ -2,36 +2,87 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Check, RotateCcw, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
+
+interface ServiceItem {
+  title: string;
+  detail: string;
+}
 
 interface Agency {
   id: string;
   name: string;
+  tagline: string;
+  duration: string;
+  deliverables: string;
   description: string;
   link: string;
   videoSrc: string;
   maskType: "custom-a" | "rounded-rect" | "arch-pill";
+  servicesList: ServiceItem[];
 }
 
 const agencies: Agency[] = [
   {
     id: "long-term",
     name: "Long term",
+    tagline: "Continuous Growth Engine",
+    duration: "Ongoing / Retainer",
+    deliverables: "60+ Clips/Mo • Dedicated Pod",
     description:
       "This will include the CPM based growth campaign (with retainer transition) and normal clipping",
-    link: "#",
+    link: "#cta",
     videoSrc: "/assets/agency-video-1.mp4",
     maskType: "custom-a",
+    servicesList: [
+      {
+        title: "CPM-Based Scaled Growth",
+        detail: "Performance-linked viral campaigns that transition into dedicated monthly retainers.",
+      },
+      {
+        title: "Multi-Page Daily Clipping",
+        detail: "10/10 standard video editing with custom hook isolation, captions, and platform remixing.",
+      },
+      {
+        title: "Full Account Management",
+        detail: "Autonomous page creation, branding, scheduling, and community engagement.",
+      },
+      {
+        title: "Weekly Performance Audits",
+        detail: "In-depth Excel metrics, CPM breakdown, view attribution, and page-by-page ROI.",
+      },
+    ],
   },
   {
     id: "short-term",
     name: "Short term",
+    tagline: "High-Impact Sprint",
+    duration: "25–30 Days",
+    deliverables: "Mass PR Blitz • Omnipresent Reach",
     description:
       "This will include the PR campaign and the mass clipping\nShort term will be 25-30 days",
-    link: "#",
+    link: "#cta",
     videoSrc: "/assets/agency-video-2.mp4",
     maskType: "rounded-rect",
+    servicesList: [
+      {
+        title: "High-Velocity PR Campaign",
+        detail: "Focused media & creator narrative distribution placing your brand across trending feeds.",
+      },
+      {
+        title: "Rapid Mass Clipping Blitz",
+        detail: "Extracting high-engagement hooks from long-form content for immediate multi-platform surge.",
+      },
+      {
+        title: "Cross-Platform Syndication",
+        detail: "Synchronized rollout across YouTube Shorts, Instagram Reels, and TikTok.",
+      },
+      {
+        title: "Complete Campaign Wrap",
+        detail: "Comprehensive reach recap, audience acquisition audit, and post-campaign playbook.",
+      },
+    ],
   },
 ];
 
@@ -43,6 +94,13 @@ export default function Agencies() {
   const [hoveredIndex, setHoveredIndex] = useState<number>(0);
   const hoveredIndexRef = useRef<number>(0);
   const previousIndexRef = useRef<number | null>(null);
+  const [isGridHovered, setIsGridHovered] = useState<boolean>(false);
+  const [flippedIndex, setFlippedIndex] = useState<number | null>(null);
+
+  const toggleFlip = (index: number, e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    setFlippedIndex((prev) => (prev === index ? null : index));
+  };
 
   // Sync ref with state so resize handlers always have the latest index without re-running mount effects
   useEffect(() => {
@@ -125,6 +183,10 @@ export default function Agencies() {
     const gridEl = gridRef.current;
     if (!gridEl || !slidingShapeRef.current) return;
 
+    if (!isGridHovered) {
+      setIsGridHovered(true);
+    }
+
     const gridRect = gridEl.getBoundingClientRect();
     const mouseX = e.clientX - gridRect.left;
     const mouseY = e.clientY - gridRect.top;
@@ -142,6 +204,8 @@ export default function Agencies() {
     if (activeCardIndex !== hoveredIndexRef.current) {
       setHoveredIndex(activeCardIndex);
       previousIndexRef.current = activeCardIndex;
+      // User request: when hover shift make it flip back to normal
+      setFlippedIndex(null);
       videoRefs.current.forEach((video, i) => {
         if (!video) return;
         if (i === activeCardIndex) {
@@ -177,6 +241,8 @@ export default function Agencies() {
   };
 
   const handleGridLeave = () => {
+    setIsGridHovered(false);
+    setFlippedIndex(null);
     // Smoothly settle and center on the last active card instead of resetting to Card 0
     const lastIndex = hoveredIndexRef.current;
     const bounds = getTargetBounds(lastIndex);
@@ -341,55 +407,185 @@ export default function Agencies() {
           {/* ========================================================================= */}
           {agencies.map((agency, index) => {
             const isActive = hoveredIndex === index;
+            const isFlipped = flippedIndex === index;
+
             return (
               <div
                 key={agency.id}
                 ref={(el) => (cardRefs.current[index] = el)}
-                onClick={() => moveToCard(index)}
-                className="group relative z-20 flex flex-col items-center justify-center min-h-[320px] sm:min-h-[460px] md:min-h-[530px] px-5 sm:px-8 py-10 sm:py-12 cursor-pointer rounded-3xl"
+                onClick={() => {
+                  moveToCard(index);
+                  toggleFlip(index);
+                }}
+                className="group relative z-20 min-h-[460px] sm:min-h-[500px] md:min-h-[540px] cursor-pointer rounded-3xl"
+                style={{
+                  perspective: "1400px",
+                  WebkitPerspective: "1400px",
+                }}
               >
-                <div className="flex flex-col items-center justify-center text-center w-full max-w-xs transition-transform duration-300 group-hover:scale-[1.01]">
-                  {/* Title */}
-                  <h3
-                    className={cn(
-                      "font-display font-bold uppercase tracking-tight transition-colors duration-300 select-none whitespace-nowrap",
-                      "text-2xl sm:text-3xl md:text-[2.35rem] lg:text-[2.65rem] leading-none",
-                      isActive ? "text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]" : "text-[#111111]"
-                    )}
-                  >
-                    {agency.name}
-                  </h3>
-
-                  {/* Description: Smoothly collapses on hover so button slides right below the main headline */}
+                {/* 3D FLIPPER CONTAINER */}
+                <div
+                  className="relative w-full h-full min-h-[460px] sm:min-h-[500px] md:min-h-[540px] rounded-3xl transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] preserve-3d"
+                  style={{
+                    transformStyle: "preserve-3d",
+                    WebkitTransformStyle: "preserve-3d",
+                    transform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
+                    WebkitTransform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
+                  }}
+                >
+                  {/* ========================================================= */}
+                  {/* FRONT FACE                                                */}
+                  {/* ========================================================= */}
                   <div
                     className={cn(
-                      "grid transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden",
-                      isActive
-                        ? "grid-rows-[0fr] opacity-0 my-0 -translate-y-2 pointer-events-none"
-                        : "grid-rows-[1fr] opacity-100 mt-5 mb-8 translate-y-0"
+                      "absolute inset-0 w-full h-full backface-hidden flex flex-col items-center justify-center text-center px-6 sm:px-8 py-10 rounded-3xl",
+                      "transition-opacity duration-300",
+                      isFlipped ? "pointer-events-none opacity-0" : "pointer-events-auto opacity-100"
                     )}
+                    style={{
+                      backfaceVisibility: "hidden",
+                      WebkitBackfaceVisibility: "hidden",
+                      transform: "rotateY(0deg)",
+                      WebkitTransform: "rotateY(0deg)",
+                    }}
                   >
-                    <div className="overflow-hidden">
-                      <p className="text-sm sm:text-[15px] leading-relaxed max-w-[280px] sm:max-w-[320px] mx-auto font-normal text-[#333333] whitespace-pre-line">
+                    <div className="flex flex-col items-center justify-center text-center w-full max-w-xs transition-transform duration-300 group-hover:scale-[1.01]">
+                      {/* Eyebrow Tag */}
+                      <div
+                        className={cn(
+                          "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] sm:text-xs font-mono uppercase tracking-wider mb-4 border transition-colors duration-300",
+                          isActive
+                            ? "bg-white/20 border-white/40 text-white"
+                            : "bg-black/[0.04] border-black/10 text-[#495B7D]"
+                        )}
+                      >
+                        <Sparkles className="w-3 h-3" />
+                        <span>{agency.tagline}</span>
+                      </div>
+
+                      {/* Title */}
+                      <h3
+                        className={cn(
+                          "font-display font-bold uppercase tracking-tight transition-colors duration-300 select-none whitespace-nowrap",
+                          "text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] leading-none",
+                          isActive ? "text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]" : "text-[#111111]"
+                        )}
+                      >
+                        {agency.name}
+                      </h3>
+
+                      {/* Description */}
+                      <p
+                        className={cn(
+                          "mt-4 text-sm sm:text-[15px] leading-relaxed max-w-[280px] sm:max-w-[320px] mx-auto font-normal whitespace-pre-line transition-colors duration-300",
+                          isActive ? "text-white/90 drop-shadow-sm" : "text-[#333333]"
+                        )}
+                      >
                         {agency.description}
                       </p>
+
+                      {/* Pill-shaped Flip Button */}
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          moveToCard(index);
+                          toggleFlip(index);
+                        }}
+                        className={cn(
+                          "mt-6 inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-xs sm:text-sm font-medium transition-all duration-300 border cursor-pointer",
+                          isActive
+                            ? "border-white/90 bg-white/25 text-white hover:bg-white hover:text-[#0038E2] shadow-lg"
+                            : "border-[#111111] bg-transparent text-[#111111] hover:bg-[#111111] hover:text-[#F3EFEA]"
+                        )}
+                      >
+                        <span>Reveal Services</span>
+                        <RotateCcw className="h-3.5 w-3.5 transition-transform duration-500 group-hover:rotate-180" />
+                      </button>
                     </div>
                   </div>
 
-                  {/* Pill-shaped Button: Slides smoothly below main headline when description collapses */}
-                  <a
-                    href={agency.link}
-                    onClick={(e) => e.stopPropagation()}
+                  {/* ========================================================= */}
+                  {/* BACK FACE (REVEALED SERVICES BREAKDOWN)                   */}
+                  {/* ========================================================= */}
+                  <div
                     className={cn(
-                      "inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-sm sm:text-[15px] font-medium transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] border",
-                      isActive
-                        ? "mt-4 sm:mt-5 border-white/85 bg-white/15 text-white hover:bg-white hover:text-[#0038E2] shadow-md backdrop-blur-md"
-                        : "mt-0 border-[#111111] bg-transparent text-[#111111] hover:bg-[#111111] hover:text-[#F3EFEA]"
+                      "absolute inset-0 w-full h-full backface-hidden flex flex-col justify-between p-6 sm:p-7 md:p-8 rounded-3xl",
+                      "bg-[#02122F]/95 border border-white/25 text-white shadow-2xl transition-opacity duration-300",
+                      isFlipped ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
                     )}
+                    style={{
+                      backfaceVisibility: "hidden",
+                      WebkitBackfaceVisibility: "hidden",
+                      transform: "rotateY(180deg)",
+                      WebkitTransform: "rotateY(180deg)",
+                    }}
                   >
-                    <span>Find out more</span>
-                    <ArrowUpRight className="h-4 w-4 stroke-[1.6] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                  </a>
+                    {/* Back Header */}
+                    <div>
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-mono uppercase tracking-wider text-frost">
+                          <Sparkles className="w-3 h-3 text-frost" />
+                          <span>{agency.tagline}</span>
+                        </span>
+                        <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-white/10 text-moonlight/90 border border-white/10">
+                          {agency.duration}
+                        </span>
+                      </div>
+                      <h4 className="font-display font-bold text-xl sm:text-2xl text-white mt-2 leading-tight">
+                        {agency.name}: Service Specs
+                      </h4>
+                    </div>
+
+                    {/* Services List */}
+                    <div className="my-2 space-y-2 text-left">
+                      {agency.servicesList.map((srv, sIdx) => (
+                        <div
+                          key={sIdx}
+                          className="flex items-start gap-2.5 p-2 sm:p-2.5 rounded-xl bg-white/[0.06] border border-white/[0.1]"
+                        >
+                          <div className="mt-0.5 flex items-center justify-center w-4 h-4 rounded-full bg-frost/25 text-frost shrink-0">
+                            <Check className="w-2.5 h-2.5 stroke-[3]" />
+                          </div>
+                          <div>
+                            <span className="block text-xs sm:text-sm font-semibold text-white leading-tight">
+                              {srv.title}
+                            </span>
+                            <span className="block text-[11px] sm:text-xs text-white/75 leading-relaxed mt-0.5">
+                              {srv.detail}
+                            </span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Back Footer Actions */}
+                    <div className="flex items-center justify-between gap-3 pt-3 border-t border-white/10">
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setFlippedIndex(null);
+                        }}
+                        className="inline-flex items-center gap-1.5 text-xs text-frost hover:text-white transition-colors cursor-pointer"
+                      >
+                        <RotateCcw className="w-3.5 h-3.5" />
+                        <span>Flip Back</span>
+                      </button>
+                      <a
+                        href={agency.link}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          const cta = document.getElementById("cta") || document.querySelector("footer");
+                          cta?.scrollIntoView({ behavior: "smooth" });
+                        }}
+                        className="inline-flex items-center gap-1.5 px-4 sm:px-5 py-2 rounded-full bg-white text-oxford hover:bg-moonlight text-xs font-semibold tracking-wide transition-all shadow-lg active:scale-95 cursor-pointer"
+                      >
+                        <span>Book Strategy Call</span>
+                        <ArrowUpRight className="w-3.5 h-3.5" />
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
             );
