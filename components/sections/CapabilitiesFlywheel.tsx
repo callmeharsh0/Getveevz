@@ -47,7 +47,7 @@ const NODES: FlywheelNode[] = [
     summary: "Distribute content across relevant short-form platforms and pages.",
     description:
       "Coordinated publishing across TikTok, YouTube Shorts, and Instagram Reels through our proprietary account mesh.",
-    outputStandard: "40+ Synchronized Channels",
+    outputStandard: "200+ Live Pages",
     icon: Share2,
   },
   {
