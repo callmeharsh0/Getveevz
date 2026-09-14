@@ -40,7 +40,7 @@ const plans: PlanTier[] = [
     ctaText: "Launch Sprint",
     specs: [
       { label: "Account Network", value: "Tailored to niche" },
-      { label: "Supported Platforms", value: "YT + IG + TikTok + FB" },
+      { label: "Supported Platforms", value: "YT + IG + TikTok" },
       { label: "Intelligence Reports", value: "Weekly Summary" },
       { label: "Creative Direction", value: "Custom Storyboarding" },
     ],
@@ -56,7 +56,7 @@ const plans: PlanTier[] = [
     ctaText: "Claim Authority",
     specs: [
       { label: "Account Network", value: "30 Distribution Pages" },
-      { label: "Supported Platforms", value: "Omnichannel Syndicate" },
+      { label: "Supported Platforms", value: "YT + IG + TikTok + FB" },
       { label: "Intelligence Reports", value: "Live Real-Time Dashboard" },
       { label: "Audience Target", value: "Guaranteed Impressions" },
     ],
@@ -71,7 +71,7 @@ const plans: PlanTier[] = [
     ctaText: "Dominate Category",
     specs: [
       { label: "Account Network", value: "60 Distribution Pages" },
-      { label: "Supported Platforms", value: "Full Omnichannel Grid" },
+      { label: "Supported Platforms", value: "All Platforms (YT, IG, TikTok, FB)" },
       { label: "Intelligence Reports", value: "Dedicated Strategist" },
       { label: "Audience Target", value: "Maximum Scale Multiplier" },
     ],

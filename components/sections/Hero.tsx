@@ -12,7 +12,7 @@ if (typeof window !== "undefined") {
 }
 
 const PLATFORMS = [
-  { id: "all", name: "All Platforms", value: 800, metric: "+800M Views", video: "/assets/distribution.mp4", tag: "Omnichannel" },
+  { id: "all", name: "All Platforms", value: 800, metric: "+800M Views", video: "/assets/distribution.mp4", tag: "All Platforms" },
   { id: "tiktok", name: "TikTok", value: 390, metric: "+390M Views", video: "/assets/clipping.mp4", tag: "Algorithm Priority" },
   { id: "reels", name: "IG Reels", value: 260, metric: "+260M Views", video: "/assets/agency-video-2.mp4", tag: "High Retention" },
   { id: "shorts", name: "YT Shorts", value: 150, metric: "+150M Views", video: "/assets/tracking.mp4", tag: "Search Authority" },
