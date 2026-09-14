@@ -26,7 +26,7 @@ export function useScrollReveal<T extends HTMLElement>() {
           y: 0,
           duration: 0.8,
           stagger: 0.12,
-          ease: "power2.out",
+          ease: "cubic-bezier(0.32,0.72,0,1)",
           scrollTrigger: {
             trigger: ref.current,
             start: "top 75%",
