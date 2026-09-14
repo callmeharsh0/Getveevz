@@ -6,7 +6,6 @@ import Agencies from "@/components/sections/Agencies";
 import ReelsFilmstrip from "@/components/sections/ReelsFilmstrip";
 import WeHandleItAll from "@/components/sections/WeHandleItAll";
 import Pricing from "@/components/sections/Pricing";
-import Pricing2 from "@/components/sections/Pricing2";
 import LiveAnalytics from "@/components/sections/LiveAnalytics";
 import FAQ from "@/components/sections/FAQ";
 import FinalCTA from "@/components/sections/FinalCTA";
@@ -24,7 +23,6 @@ export default function Home() {
       <ReelsFilmstrip />
       <WeHandleItAll />
       <Pricing />
-      <Pricing2 />
       <LiveAnalytics />
       <FAQ />
       <FinalCTA />
