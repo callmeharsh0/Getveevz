@@ -221,8 +221,14 @@ export default function DistributionFlow({
         if (el) gsap.set(el, { opacity: 0, y: 12 });
       });
 
+      const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+
       if (finalLineRef.current) {
-        gsap.set(finalLineRef.current, { opacity: 0, x: -24 });
+        gsap.set(finalLineRef.current, {
+          opacity: 0,
+          x: isMobile ? 0 : -24,
+          y: isMobile ? -16 : 0,
+        });
       }
 
       if (statementRef.current) {
@@ -295,18 +301,22 @@ export default function DistributionFlow({
         if (el) tl.to(el, { opacity: 1, y: 0, duration: 0.06 }, 0.78 + i * 0.045);
       });
 
-      // 6. Stage shift & punchline reveal
+      // 6. Stage shift & punchline reveal (responsive for mobile vs desktop)
       if (contentGroupRef.current) {
         tl.to(
           contentGroupRef.current,
-          { x: 140, scale: 0.86, duration: 0.12, ease: "power2.out" },
+          isMobile
+            ? { x: 0, y: 36, scale: 0.30, duration: 0.12, ease: "power2.out" }
+            : { x: 140, scale: 0.86, duration: 0.12, ease: "power2.out" },
           0.88
         );
       }
       if (finalLineRef.current) {
         tl.to(
           finalLineRef.current,
-          { opacity: 1, x: 0, duration: 0.1, ease: "power2.out" },
+          isMobile
+            ? { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }
+            : { opacity: 1, x: 0, duration: 0.1, ease: "power2.out" },
           0.9
         );
       }
@@ -345,10 +355,10 @@ export default function DistributionFlow({
           </div>
         )}
 
-        {/* Pinned Punchline (Left Side - Revealed in Act 3) */}
+        {/* Pinned Punchline (Top-centered on Mobile, Left Side on Desktop - Revealed in Act 3) */}
         <div
           ref={finalLineRef}
-          className="absolute left-[6%] top-1/2 -translate-y-1/2 max-w-[220px] sm:max-w-[280px] md:max-w-[340px] text-left z-10 font-display text-xl sm:text-2xl md:text-4xl font-medium leading-tight text-[#f2ece1]"
+          className="absolute top-[8%] sm:top-[10%] md:top-1/2 md:-translate-y-1/2 inset-x-4 md:inset-x-auto md:left-[6%] text-center md:text-left max-w-sm md:max-w-[340px] mx-auto md:mx-0 z-10 font-display text-xl sm:text-2xl md:text-4xl font-medium leading-tight text-[#f2ece1]"
         >
           {punchlinePrimary}
           <br />
@@ -358,7 +368,7 @@ export default function DistributionFlow({
         {/* Scaled Center Cluster */}
         <div
           ref={contentGroupRef}
-          className="absolute top-1/2 left-1/2 w-[1000px] h-[800px] -ml-[500px] -mt-[400px] scale-[0.42] xs:scale-[0.52] sm:scale-75 md:scale-90 lg:scale-100 origin-center"
+          className="absolute top-1/2 left-1/2 w-[1000px] h-[800px] -ml-[500px] -mt-[400px] scale-[0.32] xs:scale-[0.40] sm:scale-70 md:scale-90 lg:scale-100 origin-center"
         >
           {/* Floating Problem Pill Badges */}
           {problemLabels.map((p, i) => (
@@ -432,14 +442,14 @@ export default function DistributionFlow({
                     [isLeft ? "marginRight" : "marginLeft"]: 16,
                   }}
                   className={classNames(
-                    "absolute top-1/2 -translate-y-1/2 w-40 pointer-events-none",
+                    "absolute top-1/2 -translate-y-1/2 w-32 sm:w-40 pointer-events-none",
                     isLeft ? "text-right" : "text-left"
                   )}
                 >
-                  <div className="solution-title text-[13px] text-[#f2ece1] font-medium transition-colors duration-300">
+                  <div className="solution-title text-[12px] sm:text-[13px] text-[#f2ece1] font-medium transition-colors duration-300">
                     {item.solution}
                   </div>
-                  <div className="text-[11px] text-[#f2ece1]/50 mt-1 leading-snug">
+                  <div className="text-[10px] sm:text-[11px] text-[#f2ece1]/50 mt-1 leading-snug">
                     {item.desc}
                   </div>
                 </div>
@@ -449,19 +459,19 @@ export default function DistributionFlow({
         </div>
 
         {/* Bottom Flow Pipeline Indicator */}
-        <div className="absolute bottom-[6%] inset-x-0 flex justify-center items-center gap-6 z-[8] flex-wrap px-4">
+        <div className="absolute bottom-[3%] sm:bottom-[6%] inset-x-0 flex justify-center items-center gap-2 sm:gap-6 z-[8] flex-wrap px-2 sm:px-4">
           {flowSteps.map((step, i) => (
-            <div key={step} className="flex items-center gap-6">
+            <div key={step} className="flex items-center gap-2 sm:gap-6">
               <span
                 ref={(el) => {
                   flowStepRefs.current[i] = el;
                 }}
-                className="text-xs tracking-[0.2em] text-[#8BA3C6] uppercase font-semibold font-mono"
+                className="text-[9px] sm:text-xs tracking-[0.1em] sm:tracking-[0.2em] text-[#8BA3C6] uppercase font-semibold font-mono"
               >
                 {step}
               </span>
               {i < flowSteps.length - 1 && (
-                <span className="text-xs text-[#f2ece1]/40">→</span>
+                <span className="text-[9px] sm:text-xs text-[#f2ece1]/40">→</span>
               )}
             </div>
           ))}

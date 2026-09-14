@@ -247,7 +247,8 @@ export function ParallaxFloatingDemo() {
       {/* 3D PARALLAX FLOATING BACKGROUND IMAGES WITH PERFORMANCE TAGS               */}
       {/* ========================================================================= */}
       <Floating sensitivity={-0.8} easingFactor={0.04} className="overflow-hidden pointer-events-none z-20">
-        <FloatingElement depth={0.5} className="top-[6%] left-[2%] md:left-[8%]">
+        {/* Floating Image 1 (Depth 0.5) - Top Left */}
+        <FloatingElement depth={0.5} className="top-[6%] left-[2%] md:left-[8%] hidden md:block">
           <div className="relative group overflow-hidden rounded-2xl border border-white/20 bg-surface/50 shadow-2xl backdrop-blur-md pointer-events-auto transition-all duration-500 hover:scale-105 hover:border-frost/70 hover:shadow-[0_0_40px_rgba(139,163,197,0.35)]">
             <motion.img
               initial={{ opacity: 0 }}
@@ -262,7 +263,7 @@ export function ParallaxFloatingDemo() {
         </FloatingElement>
 
         {/* Floating Image 2 (Depth 1.0) - Top Left-Center */}
-        <FloatingElement depth={1.0} className="top-[5%] left-[26%] md:left-[29%] hidden sm:block">
+        <FloatingElement depth={1.0} className="top-[5%] left-[26%] md:left-[29%] hidden md:block">
           <div className="relative group overflow-hidden rounded-2xl border border-white/20 bg-surface/50 shadow-2xl backdrop-blur-md pointer-events-auto transition-all duration-500 hover:scale-105 hover:border-frost/70 hover:shadow-[0_0_40px_rgba(139,163,197,0.35)]">
             <motion.img
               initial={{ opacity: 0 }}
@@ -292,7 +293,7 @@ export function ParallaxFloatingDemo() {
         </FloatingElement>
 
         {/* Floating Image 4 (Depth 1.0) - Far Top Right */}
-        <FloatingElement depth={1.0} className="top-[6%] right-[2%] md:right-[6%]">
+        <FloatingElement depth={1.0} className="top-[6%] right-[2%] md:right-[6%] hidden md:block">
           <div className="relative group overflow-hidden rounded-2xl border border-white/20 bg-surface/50 shadow-2xl backdrop-blur-md pointer-events-auto transition-all duration-500 hover:scale-105 hover:border-frost/70 hover:shadow-[0_0_40px_rgba(139,163,197,0.35)]">
             <motion.img
               initial={{ opacity: 0 }}
@@ -307,7 +308,7 @@ export function ParallaxFloatingDemo() {
         </FloatingElement>
 
         {/* Floating Image 5 (Depth 1.0) - Middle Left */}
-        <FloatingElement depth={1.0} className="top-[38%] left-[1%] md:left-[4%] hidden sm:block">
+        <FloatingElement depth={1.0} className="top-[38%] left-[1%] md:left-[4%] hidden md:block">
           <div className="relative group overflow-hidden rounded-2xl border border-white/20 bg-surface/50 shadow-2xl backdrop-blur-md pointer-events-auto transition-all duration-500 hover:scale-105 hover:border-frost/70 hover:shadow-[0_0_40px_rgba(139,163,197,0.35)]">
             <motion.img
               initial={{ opacity: 0 }}
@@ -322,7 +323,7 @@ export function ParallaxFloatingDemo() {
         </FloatingElement>
 
         {/* Floating Image 6 (Depth 2.0) - Middle/Bottom Right */}
-        <FloatingElement depth={2.0} className="top-[54%] right-[1%] md:right-[5%] hidden sm:block">
+        <FloatingElement depth={2.0} className="top-[54%] right-[1%] md:right-[5%] hidden md:block">
           <div className="relative group overflow-hidden rounded-2xl border border-white/20 bg-surface/50 shadow-2xl backdrop-blur-md pointer-events-auto transition-all duration-500 hover:scale-105 hover:border-frost/70 hover:shadow-[0_0_40px_rgba(139,163,197,0.35)]">
             <motion.img
               initial={{ opacity: 0 }}
@@ -352,7 +353,7 @@ export function ParallaxFloatingDemo() {
         </FloatingElement>
 
         {/* Floating Image 8 (Depth 1.0) - Bottom Center/Right */}
-        <FloatingElement depth={1.0} className="top-[76%] right-[20%] md:right-[26%] hidden sm:block">
+        <FloatingElement depth={1.0} className="top-[76%] right-[20%] md:right-[26%] hidden md:block">
           <div className="relative group overflow-hidden rounded-2xl border border-white/20 bg-surface/50 shadow-2xl backdrop-blur-md pointer-events-auto transition-all duration-500 hover:scale-105 hover:border-frost/70 hover:shadow-[0_0_40px_rgba(139,163,197,0.35)]">
             <motion.img
               initial={{ opacity: 0 }}

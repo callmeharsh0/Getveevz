@@ -279,8 +279,14 @@ export default function DistributionFlow({
         if (el) gsap.set(el, { opacity: 0, y: 12 });
       });
 
+      const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+
       if (finalLineRef.current) {
-        gsap.set(finalLineRef.current, { opacity: 0, x: -24 });
+        gsap.set(finalLineRef.current, {
+          opacity: 0,
+          x: isMobile ? 0 : -24,
+          y: isMobile ? -16 : 0,
+        });
       }
 
       const tl = gsap.timeline({
@@ -344,14 +350,18 @@ export default function DistributionFlow({
       if (contentGroupRef.current) {
         tl.to(
           contentGroupRef.current,
-          { x: 140, scale: 0.86, duration: 0.12, ease: "power2.out" },
+          isMobile
+            ? { x: 0, y: 36, scale: 0.30, duration: 0.12, ease: "power2.out" }
+            : { x: 140, scale: 0.86, duration: 0.12, ease: "power2.out" },
           0.88
         );
       }
       if (finalLineRef.current) {
         tl.to(
           finalLineRef.current,
-          { opacity: 1, x: 0, duration: 0.1, ease: "power2.out" },
+          isMobile
+            ? { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }
+            : { opacity: 1, x: 0, duration: 0.1, ease: "power2.out" },
           0.9
         );
       }
@@ -375,23 +385,26 @@ export default function DistributionFlow({
             }`}
           >
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface/80 border border-border/80 text-[11px] sm:text-xs font-mono uppercase tracking-eyebrow text-frost mb-6 backdrop-blur-md">
-              <span>The Distribution Problem</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-frost" />
+              <span>(03) The Distribution Problem</span>
             </div>
-            <h2 className="text-xl sm:text-3xl md:text-4xl font-normal text-muted tracking-tight font-display max-w-xl mx-auto leading-relaxed">
+            <p className="text-base sm:text-xl md:text-2xl text-muted tracking-tight font-sans mb-3">
               {headlinePrefix}
-            </h2>
-            <h2 className="text-3xl sm:text-5xl md:text-7xl font-medium mt-3 tracking-tight text-moonlight font-display leading-[1.05]">
+            </p>
+            <h2 className="text-3xl sm:text-5xl md:text-6xl font-medium tracking-tight text-moonlight font-display">
               Distribution{" "}
-              <span className="text-frost italic">{headlineAccent}</span>
+              <span className="text-frost underline decoration-frost/40 decoration-wavy underline-offset-8">
+                {headlineAccent === "Distribution is." ? "is." : headlineAccent}
+              </span>
             </h2>
           </div>
         </div>
       )}
 
-      {/* ── GSAP Scroll Pinned Canvas ── */}
+      {/* ── Pinned Scroll Stage ── */}
       <div
         ref={wrapperRef}
-        className="relative w-full h-screen bg-[#090e14] overflow-hidden select-none"
+        className="relative w-full h-screen bg-background overflow-hidden select-none"
       >
         {/* Ambient Depth Glow */}
         <div
@@ -399,10 +412,10 @@ export default function DistributionFlow({
           className="pointer-events-none absolute left-1/2 top-1/2 h-[720px] w-[720px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(73,91,125,0.22),transparent_65%)] blur-2xl"
         />
 
-        {/* Pinned Punchline (Left Side) */}
+        {/* Pinned Punchline (Top-centered on Mobile, Left Side on Desktop) */}
         <div
           ref={finalLineRef}
-          className="absolute left-[6%] top-1/2 -translate-y-1/2 max-w-[340px] text-left z-20 font-display text-2xl sm:text-3xl md:text-5xl font-medium leading-tight text-moonlight tracking-tight"
+          className="absolute top-[8%] sm:top-[10%] md:top-1/2 md:-translate-y-1/2 inset-x-4 md:inset-x-auto md:left-[6%] text-center md:text-left max-w-sm md:max-w-[340px] mx-auto md:mx-0 z-20 font-display text-2xl sm:text-3xl md:text-5xl font-medium leading-tight text-moonlight tracking-tight"
         >
           {punchlinePrimary}
           <br />
@@ -412,7 +425,7 @@ export default function DistributionFlow({
         {/* Scaled Center Cluster */}
         <div
           ref={contentGroupRef}
-          className="absolute top-1/2 left-1/2 w-[1000px] h-[800px] -ml-[500px] -mt-[400px]"
+          className="absolute top-1/2 left-1/2 w-[1000px] h-[800px] -ml-[500px] -mt-[400px] scale-[0.32] xs:scale-[0.40] sm:scale-70 md:scale-90 lg:scale-100 origin-center"
         >
           {/* Floating Problem Pill Badges */}
           {problemLabels.map((p, i) => (
@@ -490,14 +503,14 @@ export default function DistributionFlow({
                     [isLeft ? "right" : "left"]: "100%",
                     [isLeft ? "marginRight" : "marginLeft"]: 16,
                   }}
-                  className={`absolute top-1/2 -translate-y-1/2 w-44 pointer-events-none ${
+                  className={`absolute top-1/2 -translate-y-1/2 w-32 sm:w-44 pointer-events-none ${
                     isLeft ? "text-right" : "text-left"
                   }`}
                 >
                   <div className="solution-title text-xs sm:text-sm text-moonlight font-display font-medium tracking-tight transition-colors duration-300">
                     {item.solution}
                   </div>
-                  <div className="text-[11px] sm:text-xs text-muted font-body mt-1 leading-relaxed">
+                  <div className="text-[10px] sm:text-xs text-muted font-body mt-1 leading-relaxed">
                     {item.desc}
                   </div>
                 </div>
@@ -507,19 +520,19 @@ export default function DistributionFlow({
         </div>
 
         {/* Bottom Flow Pipeline Indicator */}
-        <div className="absolute bottom-[6%] inset-x-0 flex justify-center items-center gap-4 sm:gap-6 z-[8] flex-wrap px-4">
+        <div className="absolute bottom-[3%] sm:bottom-[6%] inset-x-0 flex justify-center items-center gap-2 sm:gap-6 z-[8] flex-wrap px-2 sm:px-4">
           {flowSteps.map((step, i) => (
-            <div key={step} className="flex items-center gap-3 sm:gap-5">
+            <div key={step} className="flex items-center gap-2 sm:gap-5">
               <span
                 ref={(el) => {
                   flowStepRefs.current[i] = el;
                 }}
-                className="text-[11px] sm:text-xs tracking-eyebrow text-frost uppercase font-semibold font-mono bg-surface/80 px-3 py-1 rounded-full border border-border/80 backdrop-blur-md shadow-sm"
+                className="text-[9px] sm:text-xs tracking-eyebrow text-frost uppercase font-semibold font-mono bg-surface/80 px-2 sm:px-3 py-0.5 sm:py-1 rounded-full border border-border/80 backdrop-blur-md shadow-sm"
               >
                 {step}
               </span>
               {i < flowSteps.length - 1 && (
-                <span className="text-xs font-mono text-muted/50">→</span>
+                <span className="text-[9px] sm:text-xs font-mono text-muted/50">→</span>
               )}
             </div>
           ))}
