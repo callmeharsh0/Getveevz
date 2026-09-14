@@ -48,7 +48,7 @@ export default function WeHandleItAll() {
 
   return (
     <section
-      id="full-service"
+      id="about"
       ref={ref}
       className="border-y border-border bg-surface px-4 sm:px-6 py-14 sm:py-20"
     >

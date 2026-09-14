@@ -325,7 +325,7 @@ export default function DistributionFlow({
   );
 
   return (
-    <section className={classNames("w-full overflow-hidden bg-[#090e14] text-[#f2ece1]", className)}>
+    <section id="distribution" className={classNames("w-full overflow-hidden bg-[#090e14] text-[#f2ece1]", className)}>
       {/* Pinned Scroll Sequence (GSAP Controlled) */}
       <div
         ref={wrapperRef}

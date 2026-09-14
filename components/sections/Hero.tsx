@@ -229,9 +229,33 @@ export default function Hero() {
     };
   }, []);
 
+  // Update active navigation state based on scroll position
+  useEffect(() => {
+    const navSections = [
+      { id: "results", topOffset: 0 },
+      { id: "distribution", topOffset: 0 },
+      { id: "about", topOffset: 0 },
+      { id: "pricing", topOffset: 0 },
+    ];
+
+    const handleScroll = () => {
+      const scrollPos = window.scrollY + 250;
+      for (let i = navSections.length - 1; i >= 0; i--) {
+        const el = document.getElementById(navSections[i].id);
+        if (el && el.offsetTop <= scrollPos) {
+          setActiveNav(navSections[i].id);
+          break;
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const scrollToNext = () => {
     const nextSection =
-      document.getElementById("proof") ||
+      document.getElementById("results") ||
       document.getElementById("distribution") ||
       document.querySelector("section:nth-of-type(2)");
     if (nextSection) {
@@ -330,13 +354,13 @@ export default function Hero() {
         {/* Center Pill Nav Bar (Desktop, light themed like CTA pill) */}
         <nav
           aria-label="Primary Navigation"
-          className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-1.5 px-3 py-1.5 rounded-full bg-moonlight text-oxford border border-moonlight/60 shadow-[0_8px_28px_rgba(240,236,221,0.18)] transition-all duration-300 hover:shadow-[0_12px_36px_rgba(240,236,221,0.25)]"
+          className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-1 px-2.5 py-1.5 rounded-full bg-moonlight text-oxford border border-moonlight/60 shadow-[0_8px_28px_rgba(240,236,221,0.18)] transition-all duration-300 hover:shadow-[0_12px_36px_rgba(240,236,221,0.25)]"
         >
           {[
-            { id: "case-studies", label: "Case Studies", badge: null },
-            { id: "about", label: "About", badge: null },
-            { id: "distribution", label: "Distribution", badge: "01" },
-            { id: "proof", label: "Network", badge: "24" },
+            { id: "distribution", label: "Distribution" },
+            { id: "results", label: "Results" },
+            { id: "pricing", label: "Pricing" },
+            { id: "about", label: "About" },
           ].map((item) => {
             const isActive = activeNav === item.id;
             return (
@@ -344,25 +368,13 @@ export default function Hero() {
                 key={item.id}
                 onClick={() => handleNavClick(item.id)}
                 className={cn(
-                  "relative px-3.5 py-1.5 text-xs font-medium rounded-full transition-all duration-200 group flex items-center gap-1.5",
+                  "relative px-3.5 py-1.5 text-xs font-medium rounded-full transition-all duration-200 group flex items-center gap-1.5 cursor-pointer",
                   isActive
                     ? "text-moonlight bg-oxford shadow-sm"
                     : "text-oxford/70 hover:text-oxford hover:bg-oxford/10"
                 )}
               >
                 <span>{item.label}</span>
-                {item.badge && (
-                  <span
-                    className={cn(
-                      "text-[10px] font-mono px-1.5 py-0.2 rounded-full",
-                      isActive
-                        ? "bg-moonlight/20 text-moonlight"
-                        : "bg-oxford/10 text-oxford/80"
-                    )}
-                  >
-                    {item.badge}
-                  </span>
-                )}
               </button>
             );
           })}
@@ -408,16 +420,16 @@ export default function Hero() {
                 Navigation
               </span>
               <div className="flex items-center gap-2 text-xs text-oxford font-medium">
-                <span className="w-2 h-2 rounded-full bg-[#177DFD] inline-block animate-ping" />
+                <span className="w-2 h-2 rounded-full bg-frost inline-block animate-ping" />
                 <span>Engine Active</span>
               </div>
             </div>
             <nav className="flex flex-col gap-1.5">
               {[
-                { id: "case-studies", label: "Case Studies" },
+                { id: "distribution", label: "Distribution" },
+                { id: "results", label: "Results" },
+                { id: "pricing", label: "Pricing" },
                 { id: "about", label: "About" },
-                { id: "distribution", label: "Distribution (01)" },
-                { id: "proof", label: "Network (24)" },
               ].map((item) => (
                 <button
                   key={item.id}
@@ -426,7 +438,7 @@ export default function Hero() {
                     setMobileMenuOpen(false);
                   }}
                   className={cn(
-                    "text-left px-3 py-2.5 rounded-lg text-sm transition-colors",
+                    "text-left px-3 py-2.5 rounded-lg text-sm transition-colors cursor-pointer",
                     activeNav === item.id
                       ? "bg-oxford text-moonlight font-medium"
                       : "text-oxford hover:bg-oxford/10"

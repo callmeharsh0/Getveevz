@@ -370,7 +370,7 @@ export default function DistributionFlow({
   );
 
   return (
-    <section className={`w-full overflow-hidden bg-[#090e14] text-foreground ${className}`}>
+    <section id="distribution" className={`w-full overflow-hidden bg-[#090e14] text-foreground ${className}`}>
       {/* ── Statement Header ── */}
       {showIntroHeader && (
         <div
