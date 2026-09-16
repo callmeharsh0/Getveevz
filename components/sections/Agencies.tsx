@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ArrowUpRight, Check, RotateCcw, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { LiquidGlassButton } from "@/components/ui/liquid-glass";
 
 interface ServiceItem {
   title: string;
@@ -572,18 +573,20 @@ export default function Agencies() {
                         <RotateCcw className="w-3.5 h-3.5" />
                         <span>Flip Back</span>
                       </button>
-                      <a
+                      <LiquidGlassButton
+                        size="sm"
+                        variant="frost"
                         href={agency.link}
                         onClick={(e) => {
                           e.stopPropagation();
                           const cta = document.getElementById("cta") || document.querySelector("footer");
                           cta?.scrollIntoView({ behavior: "smooth" });
                         }}
-                        className="inline-flex items-center gap-1.5 px-4 sm:px-5 py-2 rounded-full bg-white text-oxford hover:bg-moonlight text-xs font-semibold tracking-wide transition-all shadow-lg active:scale-95 cursor-pointer"
+                        className="px-4 sm:px-5 py-1.5 text-xs font-semibold tracking-wide gap-1.5"
                       >
                         <span>Book Strategy Call</span>
-                        <ArrowUpRight className="w-3.5 h-3.5" />
-                      </a>
+                        <ArrowUpRight className="w-3.5 h-3.5 text-frost" />
+                      </LiquidGlassButton>
                     </div>
                   </div>
                 </div>

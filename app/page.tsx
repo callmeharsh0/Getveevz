@@ -9,10 +9,12 @@ import Pricing from "@/components/sections/Pricing";
 import LiveAnalytics from "@/components/sections/LiveAnalytics";
 import FAQ from "@/components/sections/FAQ";
 import FinalCTA from "@/components/sections/FinalCTA";
+import { GlassFilter } from "@/components/ui/liquid-glass";
 
 export default function Home() {
   return (
     <main>
+      <GlassFilter />
       <Hero />
       <section id="results" className="relative w-full overflow-hidden bg-[#090e14]">
         <ParallaxFloatingDemo />

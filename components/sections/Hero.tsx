@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight, Menu, X, Play, Pause, Sparkles, Radio, Activity, Share2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { LiquidGlassButton } from "@/components/ui/liquid-glass";
 import { cn } from "@/lib/utils";
 import GlobeMorph from "@/components/ui/GlobeMorph";
 
@@ -396,17 +397,18 @@ export default function Hero() {
 
         {/* CTA (Right) */}
         <div ref={ctaButtonRef} className="flex items-center gap-3">
-          <Button
+          <LiquidGlassButton
             size="sm"
-            className="hidden sm:inline-flex bg-[#111111] text-[#F0ECDD] hover:bg-[#02122F] hover:text-white font-medium px-5 text-xs h-9 rounded-full shadow-md hover:shadow-xl transition-all duration-300 active:scale-95"
+            variant="dark"
+            className="hidden sm:inline-flex"
             onClick={() => {
               const cta = document.getElementById("cta") || document.querySelector("footer");
               if (cta) cta.scrollIntoView({ behavior: "smooth" });
             }}
           >
-            <Sparkles className="w-3.5 h-3.5 mr-1.5 text-frost opacity-80" />
+            <Sparkles className="w-3.5 h-3.5 mr-1 text-frost opacity-85" />
             Book a Strategy Call
-          </Button>
+          </LiquidGlassButton>
 
           {/* Mobile Menu Toggle Button */}
           <button
@@ -462,8 +464,10 @@ export default function Hero() {
                 </button>
               ))}
             </nav>
-            <Button
-              className="w-full mt-2 bg-oxford text-moonlight hover:bg-oxford/90"
+            <LiquidGlassButton
+              size="default"
+              variant="dark"
+              className="w-full mt-2"
               onClick={() => {
                 setMobileMenuOpen(false);
                 const cta = document.getElementById("cta") || document.querySelector("footer");
@@ -471,7 +475,7 @@ export default function Hero() {
               }}
             >
               Book a Strategy Call
-            </Button>
+            </LiquidGlassButton>
           </div>
         </>
       )}

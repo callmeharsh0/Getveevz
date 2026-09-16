@@ -11,6 +11,7 @@ import {
   Layers,
 } from "lucide-react";
 import Floating, { FloatingElement } from "@/components/ui/parallax-floating";
+import { LiquidGlassButton } from "@/components/ui/liquid-glass";
 
 function Counter({
   value,
@@ -232,14 +233,16 @@ export function ParallaxFloatingDemo() {
           transition={{ duration: 0.7, delay: 0.4 }}
           className="mt-8 flex items-center gap-4"
         >
-          <button
+          <LiquidGlassButton
+            variant="frost"
+            size="default"
             onClick={scrollToCTA}
-            className="inline-flex items-center gap-2.5 rounded-full px-7 py-3 text-xs sm:text-sm font-medium tracking-wide uppercase bg-moonlight text-oxford hover:bg-white hover:shadow-[0_0_30px_rgba(240,236,221,0.4)] transition-all duration-300 active:scale-95 shadow-xl"
+            className="px-7 py-3 text-xs sm:text-sm tracking-wide uppercase gap-2.5"
           >
-            <Sparkles className="w-4 h-4 text-oxford" />
+            <Sparkles className="w-4 h-4 text-frost opacity-90" />
             <span>Book a Distribution Call</span>
-            <ArrowUpRight className="w-4 h-4" />
-          </button>
+            <ArrowUpRight className="w-4 h-4 text-frost" />
+          </LiquidGlassButton>
         </motion.div>
       </div>
 
