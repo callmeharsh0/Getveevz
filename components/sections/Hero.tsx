@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight, Menu, X, Play, Pause, Sparkles, Radio, Activity, Share2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import GlobeMorph from "@/components/ui/GlobeMorph";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -108,8 +109,8 @@ export default function Hero() {
         left: (i * 37 + 13) % 94 + 3,
         top: (i * 41 + 17) % 80 + 10,
         size: (i % 3) + 1.5,
-        opacity: 0.12 + (i % 4) * 0.06,
-        color: i % 3 === 0 ? "bg-frost/40" : i % 3 === 1 ? "bg-moonlight/30" : "bg-[#177DFD]/40",
+        opacity: 0.15 + (i % 4) * 0.06,
+        color: i % 3 === 0 ? "bg-[#495B7D]/40" : i % 3 === 1 ? "bg-[#02122F]/30" : "bg-[#0038E2]/35",
       })),
     []
   );
@@ -290,7 +291,7 @@ export default function Hero() {
     <section
       ref={containerRef}
       id="hero"
-      className="relative flex min-h-[100dvh] flex-col justify-between px-4 sm:px-8 md:px-12 lg:px-16 pt-5 pb-8 md:pb-14 bg-[#07111E] text-foreground overflow-hidden select-none"
+      className="relative flex min-h-[100dvh] flex-col justify-between px-4 sm:px-8 md:px-12 lg:px-16 pt-5 pb-8 md:pb-14 bg-[#F3EFEA] text-[#111111] overflow-hidden select-none"
     >
       {/* ========================================================================= */}
       {/* 0. INTERACTIVE MOUSE-FOLLOWING LIGHT BEAM & DEPTH MESH                    */}
@@ -298,14 +299,27 @@ export default function Hero() {
       <div
         ref={spotlightRef}
         aria-hidden="true"
-        className="pointer-events-none absolute -top-48 -left-48 w-96 h-96 rounded-full bg-gradient-to-br from-frost/25 via-moonlight/10 to-transparent blur-[120px] will-change-transform z-0"
+        className="pointer-events-none absolute -top-48 -left-48 w-96 h-96 rounded-full bg-gradient-to-br from-frost/30 via-blue-200/25 to-transparent blur-[120px] will-change-transform z-0"
       />
 
-      {/* Ambient background glows */}
+      {/* 3D Globe Morph Background Layer (Inverted: Dark continents on cream bg) */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute top-1/4 left-1/2 -translate-x-1/2 w-[850px] h-[450px] bg-gradient-to-b from-[#1C3252]/45 via-[#0C1E34]/25 to-transparent blur-[150px] opacity-70 z-0"
-      />
+        className="pointer-events-none absolute inset-0 w-full h-full z-0 overflow-hidden opacity-60"
+      >
+        <GlobeMorph
+          hex="#1C3252"
+          ocean="#F3EFEA"
+          bg="#F3EFEA"
+          landOpacity={0.85}
+          globeOpacity={0.3}
+          density={460}
+          className="w-full h-full min-h-full min-w-full bg-transparent"
+        />
+        {/* Soft edge vignetting to blend seamlessly into cream background */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#F3EFEA] via-transparent to-[#F3EFEA]/80 pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_35%,#F3EFEA_85%)] pointer-events-none" />
+      </div>
 
       {/* Floating particles */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0">
@@ -336,25 +350,25 @@ export default function Hero() {
         {/* Logo Mark (Left) */}
         <a
           href="/"
-          className="group flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-frost rounded-full"
+          className="group flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] rounded-full"
           aria-label="GetVeevz Home"
         >
-          <div className="relative flex items-center justify-center w-11 h-11 rounded-full overflow-hidden bg-surface/90 border border-border group-hover:border-frost/40 group-hover:bg-surface transition-all duration-300 shadow-inner group-hover:scale-105">
+          <div className="relative flex items-center justify-center w-11 h-11 rounded-full overflow-hidden bg-white border border-[#111111]/10 group-hover:border-[#111111]/30 transition-all duration-300 shadow-sm group-hover:scale-105">
             <img
               src="/assets/Logo.png"
               alt="GetVeevz logo"
               className="w-full h-full object-cover scale-[1.15]"
             />
           </div>
-          <span className="hidden sm:inline-block font-display font-medium text-lg tracking-tight text-moonlight group-hover:text-frost transition-colors">
+          <span className="hidden sm:inline-block font-display font-medium text-lg tracking-tight text-[#111111] group-hover:text-[#0038E2] transition-colors">
             GetVeevz
           </span>
         </a>
 
-        {/* Center Pill Nav Bar (Desktop, light themed like CTA pill) */}
+        {/* Center Pill Nav Bar (Desktop, high-contrast dark pill on light hero) */}
         <nav
           aria-label="Primary Navigation"
-          className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-1 px-2.5 py-1.5 rounded-full bg-moonlight text-oxford border border-moonlight/60 shadow-[0_8px_28px_rgba(240,236,221,0.18)] transition-all duration-300 hover:shadow-[0_12px_36px_rgba(240,236,221,0.25)]"
+          className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-1 px-2.5 py-1.5 rounded-full bg-[#111111] text-[#F3EFEA] border border-black/10 shadow-[0_8px_28px_rgba(0,0,0,0.12)] transition-all duration-300 hover:shadow-[0_12px_36px_rgba(0,0,0,0.2)]"
         >
           {[
             { id: "distribution", label: "Distribution" },
@@ -370,8 +384,8 @@ export default function Hero() {
                 className={cn(
                   "relative px-3.5 py-1.5 text-xs font-medium rounded-full transition-all duration-200 group flex items-center gap-1.5 cursor-pointer",
                   isActive
-                    ? "text-moonlight bg-oxford shadow-sm"
-                    : "text-oxford/70 hover:text-oxford hover:bg-oxford/10"
+                    ? "text-[#111111] bg-white shadow-sm font-semibold"
+                    : "text-[#F3EFEA]/75 hover:text-white hover:bg-white/10"
                 )}
               >
                 <span>{item.label}</span>
@@ -384,7 +398,7 @@ export default function Hero() {
         <div ref={ctaButtonRef} className="flex items-center gap-3">
           <Button
             size="sm"
-            className="hidden sm:inline-flex bg-moonlight text-oxford hover:bg-white font-medium px-5 text-xs h-9 rounded-full shadow-md hover:shadow-xl transition-all duration-300 active:scale-95"
+            className="hidden sm:inline-flex bg-[#111111] text-[#F0ECDD] hover:bg-[#02122F] hover:text-white font-medium px-5 text-xs h-9 rounded-full shadow-md hover:shadow-xl transition-all duration-300 active:scale-95"
             onClick={() => {
               const cta = document.getElementById("cta") || document.querySelector("footer");
               if (cta) cta.scrollIntoView({ behavior: "smooth" });
@@ -398,7 +412,7 @@ export default function Hero() {
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden flex items-center justify-center w-10 h-10 rounded-full bg-surface border border-border text-moonlight hover:text-frost focus:outline-none focus:ring-2 focus:ring-frost"
+            className="md:hidden flex items-center justify-center w-10 h-10 rounded-full bg-white border border-[#111111]/15 text-[#111111] hover:text-[#0038E2] focus:outline-none focus:ring-2 focus:ring-[#0038E2]"
             aria-label="Toggle mobile menu"
             aria-expanded={mobileMenuOpen}
           >
@@ -472,22 +486,22 @@ export default function Hero() {
       >
         {/* Left Eyebrows */}
         <div className="flex flex-wrap items-baseline gap-3 sm:gap-8">
-          <span className="eyebrow-item text-[11px] sm:text-xs tracking-eyebrow uppercase font-medium text-muted flex items-center gap-1.5">
-            <Radio className="w-3 h-3 text-[#177DFD] animate-pulse" />
+          <span className="eyebrow-item text-[11px] sm:text-xs tracking-eyebrow uppercase font-medium text-[#495B7D] flex items-center gap-1.5">
+            <Radio className="w-3 h-3 text-[#0038E2] animate-pulse" />
             Welcome to GetVeevz
           </span>
-          <span className="eyebrow-item text-[11px] sm:text-xs tracking-eyebrow uppercase font-medium text-muted flex items-center gap-2">
-            <span className="text-frost font-mono text-[10px] sm:text-xs">(01)</span>
+          <span className="eyebrow-item text-[11px] sm:text-xs tracking-eyebrow uppercase font-medium text-[#495B7D] flex items-center gap-2">
+            <span className="text-[#0038E2] font-mono text-[10px] sm:text-xs font-semibold">(01)</span>
             Distribution Engine
           </span>
         </div>
 
         {/* Right Eyebrow: Interactive Platform Selector */}
         <div className="eyebrow-item flex items-center gap-2 md:justify-end">
-          <span className="hidden lg:inline text-[11px] tracking-eyebrow uppercase font-medium text-muted/70 mr-1">
+          <span className="hidden lg:inline text-[11px] tracking-eyebrow uppercase font-medium text-[#495B7D]/80 mr-1">
             Active Routing:
           </span>
-          <div className="inline-flex p-0.5 sm:p-1 rounded-full bg-surface/80 border border-border/80 backdrop-blur-md max-w-full flex-wrap">
+          <div className="inline-flex p-0.5 sm:p-1 rounded-full bg-white/85 border border-[#111111]/10 backdrop-blur-md shadow-sm max-w-full flex-wrap">
             {PLATFORMS.map((p) => {
               const isCurrent = activePlatform.id === p.id;
               return (
@@ -497,8 +511,8 @@ export default function Hero() {
                   className={cn(
                     "px-1.5 sm:px-2.5 py-0.5 text-[9px] sm:text-[10px] font-mono rounded-full transition-all duration-200",
                     isCurrent
-                      ? "bg-frost text-oxford font-semibold shadow-sm scale-105"
-                      : "text-muted hover:text-moonlight hover:bg-surface"
+                      ? "bg-[#111111] text-white font-semibold shadow-sm scale-105"
+                      : "text-[#555555] hover:text-[#111111] hover:bg-black/5"
                   )}
                 >
                   {p.name}
@@ -520,37 +534,36 @@ export default function Hero() {
         {/* Floating Interactive Left Node: Real-Time View Generation Engine */}
         <div
           ref={cardLeftRef}
-          className="hidden xl:flex absolute -left-2 top-4 flex-col gap-2 p-3.5 rounded-2xl bg-surface/80 border border-border/90 backdrop-blur-xl shadow-2xl transition-all duration-300 hover:scale-105 hover:border-frost/50 w-56 text-left pointer-events-auto"
+          className="hidden xl:flex absolute -left-2 top-4 flex-col gap-2 p-3.5 rounded-2xl bg-white/90 border border-[#111111]/10 backdrop-blur-xl shadow-xl transition-all duration-300 hover:scale-105 hover:border-[#111111]/25 w-56 text-left pointer-events-auto"
         >
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-mono uppercase tracking-wider text-frost flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-frost inline-block animate-ping" />
+            <span className="text-[10px] font-mono uppercase tracking-wider text-[#0038E2] flex items-center gap-1.5 font-semibold">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#0038E2] inline-block animate-ping" />
               Live Generating
             </span>
-            <span className="text-[10px] font-mono text-frost/80 font-semibold bg-white/[0.04] px-1.5 py-0.5 rounded border border-border/60">
+            <span className="text-[10px] font-mono text-[#0038E2] font-semibold bg-black/[0.04] px-1.5 py-0.5 rounded border border-[#111111]/10">
               +2.4M Views/hr
             </span>
           </div>
-          <p className="text-xs font-semibold text-white tracking-tight flex items-center justify-between">
+          <p className="text-xs font-semibold text-[#111111] tracking-tight flex items-center justify-between">
             <span>Viral View Engine</span>
-            <span className="text-frost font-mono text-[11px] font-bold">18.4M+</span>
+            <span className="text-[#0038E2] font-mono text-[11px] font-bold">18.4M+</span>
           </p>
           <div className="flex items-center gap-1.5 mt-0.5">
-            <div className="flex-1 h-1.5 rounded-full bg-background overflow-hidden border border-white/5">
-              <div className="h-full bg-gradient-to-r from-frost via-moonlight to-white w-4/5 rounded-full animate-pulse" />
+            <div className="flex-1 h-1.5 rounded-full bg-black/10 overflow-hidden">
+              <div className="h-full bg-gradient-to-r from-[#0038E2] via-[#495B7D] to-[#111111] w-4/5 rounded-full animate-pulse" />
             </div>
-            <span className="text-[10px] font-mono text-muted whitespace-nowrap">Generating Reach</span>
+            <span className="text-[10px] font-mono text-[#666666] whitespace-nowrap">Generating Reach</span>
           </div>
         </div>
 
         {/* Main Central Interactive Wordmark */}
         <div className="relative inline-flex items-baseline justify-center group cursor-default">
           <h1
-            className="font-display font-medium text-[clamp(3.85rem,15.5vw,14.2rem)] leading-[0.88] tracking-[-0.04em] text-moonlight select-none transition-all duration-300 flex"
+            className="font-display font-medium text-[clamp(3.85rem,15.5vw,14.2rem)] leading-[0.88] tracking-[-0.04em] text-[#111111] select-none transition-all duration-300 flex"
             style={{
               fontFeatureSettings: '"cv02", "cv03", "cv04", "cv11"',
-              textShadow:
-                "0 2px 3px rgba(0, 0, 0, 0.4), 0 4px 20px rgba(2, 18, 47, 0.6), 0 0 50px rgba(139, 163, 197, 0.25)",
+              textShadow: "0 2px 24px rgba(0, 0, 0, 0.08)",
             }}
           >
             {letters.map((char, index) => (
@@ -561,9 +574,9 @@ export default function Hero() {
                 className={cn(
                   "inline-block transition-transform duration-300 ease-out will-change-transform",
                   hoveredLetter === index
-                    ? "scale-110 -translate-y-2 text-white drop-shadow-[0_0_24px_rgba(240,236,221,0.8)]"
+                    ? "scale-110 -translate-y-2 text-[#0038E2] drop-shadow-[0_0_24px_rgba(0,56,226,0.3)]"
                     : hoveredLetter === index - 1 || hoveredLetter === index + 1
-                    ? "scale-105 -translate-y-1 text-frost/90"
+                    ? "scale-105 -translate-y-1 text-[#495B7D]"
                     : ""
                 )}
               >
@@ -578,7 +591,7 @@ export default function Hero() {
               const currentIdx = PLATFORMS.findIndex((p) => p.id === activePlatform.id);
               setActivePlatform(PLATFORMS[(currentIdx + 1) % PLATFORMS.length]);
             }}
-            className="hidden sm:flex items-center justify-center w-7 h-7 md:w-9 md:h-9 rounded-full border border-muted/40 text-[10px] md:text-xs font-mono text-muted ml-2 md:ml-3 self-end mb-3 md:mb-5 hover:scale-110 hover:border-frost hover:text-frost hover:bg-surface/80 hover:rotate-180 transition-all duration-500 cursor-pointer shadow-lg active:scale-95"
+            className="hidden sm:flex items-center justify-center w-7 h-7 md:w-9 md:h-9 rounded-full border border-[#111111]/20 text-[10px] md:text-xs font-mono text-[#555555] ml-2 md:ml-3 self-end mb-3 md:mb-5 hover:scale-110 hover:border-[#111111] hover:text-[#111111] hover:bg-white hover:rotate-180 transition-all duration-500 cursor-pointer shadow-sm active:scale-95"
             title="Click to cycle distribution engine mode"
           >
             ©
@@ -589,10 +602,10 @@ export default function Hero() {
         <div
           ref={cardRightRef}
           onClick={toggleVideoPlayback}
-          className="hidden xl:flex absolute -right-2 -bottom-2 flex-col gap-2.5 p-3 rounded-2xl bg-surface/90 border border-border/90 backdrop-blur-xl shadow-2xl transition-all duration-300 hover:scale-105 hover:border-frost/60 w-56 text-left cursor-pointer group pointer-events-auto"
+          className="hidden xl:flex absolute -right-2 -bottom-2 flex-col gap-2.5 p-3 rounded-2xl bg-white/90 border border-[#111111]/10 backdrop-blur-xl shadow-xl transition-all duration-300 hover:scale-105 hover:border-[#111111]/25 w-56 text-left cursor-pointer group pointer-events-auto"
         >
           {/* Micro Video Card Screen */}
-          <div className="relative w-full h-28 rounded-xl overflow-hidden bg-background border border-border/60">
+          <div className="relative w-full h-28 rounded-xl overflow-hidden bg-black border border-black/10">
             <video
               ref={videoPreviewRef}
               src={activePlatform.video}
@@ -602,10 +615,10 @@ export default function Hero() {
               playsInline
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-oxford/80 via-transparent to-transparent pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
             
             {/* Play/Pause Overlay Indicator */}
-            <div className="absolute top-2 right-2 px-1.5 py-0.5 rounded-md bg-oxford/70 backdrop-blur-md text-[9px] font-mono text-frost flex items-center gap-1 border border-border/40">
+            <div className="absolute top-2 right-2 px-1.5 py-0.5 rounded-md bg-black/70 backdrop-blur-md text-[9px] font-mono text-white flex items-center gap-1 border border-white/20">
               {isVideoPlaying ? <Activity className="w-2.5 h-2.5 animate-spin" /> : <Pause className="w-2.5 h-2.5" />}
               <span>LIVE</span>
             </div>
@@ -615,7 +628,7 @@ export default function Hero() {
               <span className="text-[10px] font-bold text-white font-display drop-shadow-md">
                 {activePlatform.metric}
               </span>
-              <span className="text-[9px] font-mono text-frost/90 bg-surface/80 px-1.5 py-0.2 rounded border border-border/50">
+              <span className="text-[9px] font-mono text-white/90 bg-white/20 backdrop-blur-md px-1.5 py-0.2 rounded border border-white/30">
                 {activePlatform.tag}
               </span>
             </div>
@@ -623,11 +636,11 @@ export default function Hero() {
 
           {/* Micro Card Label */}
           <div className="flex items-center justify-between px-1">
-            <div className="flex items-center gap-1.5 text-xs text-moonlight font-medium">
-              <Share2 className="w-3.5 h-3.5 text-frost" />
+            <div className="flex items-center gap-1.5 text-xs text-[#111111] font-medium">
+              <Share2 className="w-3.5 h-3.5 text-[#0038E2]" />
               <span>{activePlatform.name} Route</span>
             </div>
-            <span className="text-[10px] font-mono text-[#177DFD] font-semibold">98.4% Sync</span>
+            <span className="text-[10px] font-mono text-[#0038E2] font-semibold">98.4% Sync</span>
           </div>
         </div>
       </div>
@@ -642,7 +655,7 @@ export default function Hero() {
           className="md:col-span-6 lg:col-span-5 flex flex-col items-start gap-6"
           data-reveal
         >
-          <h2 className="font-display font-normal text-base sm:text-xl md:text-2xl text-moonlight/95 leading-[1.28] max-w-md tracking-tight">
+          <h2 className="font-display font-normal text-base sm:text-xl md:text-2xl text-[#111111] leading-[1.28] max-w-md tracking-tight">
             Turn Your Long-Form Content Into a Short-Form Distribution Engine
           </h2>
 
@@ -651,11 +664,11 @@ export default function Hero() {
             ref={arrowRef}
             onClick={scrollToNext}
             aria-label="Scroll to learn more about GetVeevz"
-            className="group relative flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-full border border-border bg-surface/85 hover:bg-surface backdrop-blur-md shadow-lg transition-all duration-300 hover:scale-[1.12] hover:border-frost/60 hover:shadow-[0_0_24px_rgba(139,163,197,0.3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-frost cursor-pointer active:scale-95"
+            className="group relative flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-full border border-[#111111]/15 bg-white hover:bg-[#111111] hover:text-white backdrop-blur-md shadow-md hover:shadow-xl transition-all duration-300 hover:scale-[1.12] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] cursor-pointer active:scale-95"
           >
-            <ArrowRight className="w-6 h-6 text-frost group-hover:rotate-45 group-hover:text-moonlight transition-all duration-300 ease-out" />
+            <ArrowRight className="w-6 h-6 text-[#111111] group-hover:rotate-45 group-hover:text-white transition-all duration-300 ease-out" />
             <span className="sr-only">Scroll down</span>
-            <span className="absolute inset-0 rounded-full border border-frost/0 group-hover:border-frost/40 transition-colors pointer-events-none" />
+            <span className="absolute inset-0 rounded-full border border-[#111111]/0 group-hover:border-[#111111]/30 transition-colors pointer-events-none" />
           </button>
         </div>
 
@@ -669,17 +682,17 @@ export default function Hero() {
           <div className="flex items-center gap-5 md:justify-end">
             {/* Big Stat Number with interactive active platform binding & increasing counter animation */}
             <div className="flex items-baseline gap-1.5 cursor-default group">
-              <span className="font-display text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-moonlight group-hover:text-frost transition-colors">
+              <span className="font-display text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-[#111111] group-hover:text-[#0038E2] transition-colors">
                 <HeroStatCounter target={activePlatform.value} prefix="+" suffix="M" />
               </span>
-              <span className="text-xs sm:text-sm font-mono text-muted uppercase tracking-wider">
+              <span className="text-xs sm:text-sm font-mono text-[#495B7D] uppercase tracking-wider">
                 {activePlatform.metric.split(" ")[1] || "Views"}
               </span>
             </div>
 
             {/* Overlapping Avatar Stack */}
             <div className="flex items-center -space-x-2.5 overflow-hidden pl-2">
-              <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-full ring-2 ring-background overflow-hidden bg-surface shadow-md hover:scale-110 hover:z-20 transition-all">
+              <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-full ring-2 ring-[#F3EFEA] overflow-hidden bg-white shadow-md hover:scale-110 hover:z-20 transition-all">
                 <img
                   src="/avatars/avatar1.jpg"
                   alt="Creator on GetVeevz network"
@@ -687,7 +700,7 @@ export default function Hero() {
                   loading="lazy"
                 />
               </div>
-              <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-full ring-2 ring-background overflow-hidden bg-surface shadow-md hover:scale-110 hover:z-20 transition-all">
+              <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-full ring-2 ring-[#F3EFEA] overflow-hidden bg-white shadow-md hover:scale-110 hover:z-20 transition-all">
                 <img
                   src="/avatars/avatar2.jpg"
                   alt="Creative Director on GetVeevz network"
@@ -695,14 +708,14 @@ export default function Hero() {
                   loading="lazy"
                 />
               </div>
-              <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-full ring-2 ring-background bg-accent/60 flex items-center justify-center text-[11px] font-mono font-medium text-moonlight shadow-md hover:scale-110 hover:z-20 transition-all cursor-pointer">
+              <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-full ring-2 ring-[#F3EFEA] bg-[#111111] flex items-center justify-center text-[11px] font-mono font-medium text-[#F3EFEA] shadow-md hover:scale-110 hover:z-20 transition-all cursor-pointer">
                 <span>+40</span>
               </div>
             </div>
           </div>
 
           {/* Supporting Copy */}
-          <p className="text-xs sm:text-sm text-muted leading-relaxed max-w-md md:text-right text-left">
+          <p className="text-xs sm:text-sm text-[#495B7D] leading-relaxed max-w-md md:text-right text-left">
             GetVeevz turns the content you&apos;re already creating into coordinated short-form distribution across Instagram, YouTube Shorts and TikTok.
           </p>
         </div>
