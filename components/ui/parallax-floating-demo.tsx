@@ -11,7 +11,7 @@ import {
   Layers,
 } from "lucide-react";
 import Floating, { FloatingElement } from "@/components/ui/parallax-floating";
-import { LiquidGlassButton } from "@/components/ui/liquid-glass";
+import { GlassButton, GlassCard } from "@/components/ui/glass-button";
 
 function Counter({
   value,
@@ -172,34 +172,34 @@ export function ParallaxFloatingDemo() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.3 }}
-          className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 w-full max-w-xl"
+          className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-4 w-full max-w-xl"
         >
-          <div className="flex flex-col items-center justify-center p-3.5 sm:p-4 rounded-xl bg-surface/80 border border-border/90 backdrop-blur-xl shadow-xl hover:border-frost/60 transition-all duration-300 group">
+          <GlassCard className="p-3.5 sm:p-4 rounded-xl">
             <span className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-moonlight to-frost group-hover:scale-105 transition-transform duration-300">
               <Counter value={1} suffix="B+" />
             </span>
             <span className="mt-1 text-[11px] sm:text-xs text-muted font-medium uppercase tracking-wider text-center">
               Views Generated
             </span>
-          </div>
+          </GlassCard>
 
-          <div className="flex flex-col items-center justify-center p-3.5 sm:p-4 rounded-xl bg-surface/80 border border-border/90 backdrop-blur-xl shadow-xl hover:border-frost/60 transition-all duration-300 group">
+          <GlassCard className="p-3.5 sm:p-4 rounded-xl">
             <span className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-moonlight to-frost group-hover:scale-105 transition-transform duration-300">
               <Counter value={200} suffix="+" />
             </span>
             <span className="mt-1 text-[11px] sm:text-xs text-muted font-medium uppercase tracking-wider text-center">
               Active Pages
             </span>
-          </div>
+          </GlassCard>
 
-          <div className="flex flex-col items-center justify-center p-3.5 sm:p-4 rounded-xl bg-surface/80 border border-border/90 backdrop-blur-xl shadow-xl hover:border-frost/60 transition-all duration-300 group">
+          <GlassCard className="p-3.5 sm:p-4 rounded-xl">
             <span className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-moonlight to-frost group-hover:scale-105 transition-transform duration-300">
               <Counter value={80} suffix="+" />
             </span>
             <span className="mt-1 text-[11px] sm:text-xs text-muted font-medium uppercase tracking-wider text-center">
               Editors Live
             </span>
-          </div>
+          </GlassCard>
         </motion.div>
 
         {/* Action Button */}
@@ -210,16 +210,15 @@ export function ParallaxFloatingDemo() {
           transition={{ duration: 0.7, delay: 0.4 }}
           className="mt-8 flex items-center gap-4"
         >
-          <LiquidGlassButton
-            variant="frost"
+          <GlassButton
             size="default"
             onClick={scrollToCTA}
-            className="px-7 py-3 text-xs sm:text-sm tracking-wide uppercase gap-2.5"
+            contentClassName="flex items-center gap-2.5 text-xs sm:text-sm tracking-wide uppercase"
           >
             <Sparkles className="w-4 h-4 text-frost opacity-90" />
             <span>Book a Distribution Call</span>
             <ArrowUpRight className="w-4 h-4 text-frost" />
-          </LiquidGlassButton>
+          </GlassButton>
         </motion.div>
       </div>
 

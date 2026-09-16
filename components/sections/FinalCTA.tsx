@@ -1,6 +1,6 @@
 "use client";
 
-import { LiquidGlassButton } from "@/components/ui/liquid-glass";
+import { GlassButton } from "@/components/ui/glass-button";
 import { useScrollReveal } from "@/lib/useScrollReveal";
 import { Sparkles } from "lucide-react";
 
@@ -22,15 +22,15 @@ export default function FinalCTA() {
           Let&apos;s see what we can build around your existing content.
         </p>
         <div data-reveal className="mt-10 flex justify-center">
-          <LiquidGlassButton
+          <GlassButton
             size="lg"
-            variant="frost"
             href="mailto:contact@getveevz.com?subject=GetVeevz%20Strategy%20Call%20Booking"
-            className="px-9 sm:px-11 py-4 text-base sm:text-lg shadow-2xl hover:scale-105"
+            className="hover:scale-105"
+            contentClassName="flex items-center gap-2.5 text-base sm:text-lg"
           >
             <Sparkles className="w-5 h-5 text-frost opacity-90 animate-pulse" />
             <span>Book a Strategy Call</span>
-          </LiquidGlassButton>
+          </GlassButton>
         </div>
       </div>
     </section>

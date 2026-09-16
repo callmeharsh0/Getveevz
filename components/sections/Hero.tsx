@@ -5,7 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight, Menu, X, Play, Pause, Sparkles, Radio, Activity, Share2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { LiquidGlassButton } from "@/components/ui/liquid-glass";
+import { GlassButton } from "@/components/ui/glass-button";
 import { cn } from "@/lib/utils";
 import GlobeMorph from "@/components/ui/GlobeMorph";
 
@@ -397,18 +397,17 @@ export default function Hero() {
 
         {/* CTA (Right) */}
         <div ref={ctaButtonRef} className="flex items-center gap-3">
-          <LiquidGlassButton
+          <GlassButton
             size="sm"
-            variant="dark"
-            className="hidden sm:inline-flex"
+            className="hidden sm:inline-flex glass-button-dark"
             onClick={() => {
               const cta = document.getElementById("cta") || document.querySelector("footer");
               if (cta) cta.scrollIntoView({ behavior: "smooth" });
             }}
           >
-            <Sparkles className="w-3.5 h-3.5 mr-1 text-frost opacity-85" />
-            Book a Strategy Call
-          </LiquidGlassButton>
+            <Sparkles className="w-3.5 h-3.5 mr-1.5 text-frost opacity-85" />
+            <span>Book a Strategy Call</span>
+          </GlassButton>
 
           {/* Mobile Menu Toggle Button */}
           <button
@@ -464,10 +463,9 @@ export default function Hero() {
                 </button>
               ))}
             </nav>
-            <LiquidGlassButton
+            <GlassButton
               size="default"
-              variant="dark"
-              className="w-full mt-2"
+              className="w-full mt-2 glass-button-dark"
               onClick={() => {
                 setMobileMenuOpen(false);
                 const cta = document.getElementById("cta") || document.querySelector("footer");
@@ -475,7 +473,7 @@ export default function Hero() {
               }}
             >
               Book a Strategy Call
-            </LiquidGlassButton>
+            </GlassButton>
           </div>
         </>
       )}

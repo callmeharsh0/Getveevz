@@ -5,7 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cn } from "@/lib/utils";
 import { ArrowUpRight, Mail, CheckCircle2, ShieldCheck } from "lucide-react";
-import { LiquidGlassButton } from "@/components/ui/liquid-glass";
+import { GlassButton } from "@/components/ui/glass-button";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -407,17 +407,16 @@ export default function Pricing() {
             </div>
 
             <div className="flex flex-wrap items-center justify-center gap-3 shrink-0">
-              <LiquidGlassButton
-                variant="frost"
+              <GlassButton
                 size="default"
                 onClick={scrollToCTA}
-                className="pl-5 pr-2 py-1.5 gap-2.5"
+                contentClassName="flex items-center gap-2.5 text-xs sm:text-sm font-semibold tracking-wide uppercase"
               >
                 <span>Book a Call</span>
-                <span className="w-6 h-6 rounded-full bg-white/20 group-hover:bg-white flex items-center justify-center transition-colors">
-                  <ArrowUpRight className="w-3.5 h-3.5 text-moonlight group-hover:text-black transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                <span className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center transition-colors">
+                  <ArrowUpRight className="w-3.5 h-3.5 text-white" />
                 </span>
-              </LiquidGlassButton>
+              </GlassButton>
 
               <a
                 href="mailto:contact@getveevz.com?subject=GetVeevz%20Enterprise%20Distribution%20Inquiry"
