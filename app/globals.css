@@ -91,3 +91,25 @@
     -webkit-font-smoothing: antialiased;
   }
 }
+
+/* ─── Liquid Glass Animation & Utilities ────────────────────────── */
+@keyframes moveBackground {
+  from {
+    background-position: 0% 0%;
+  }
+  to {
+    background-position: 0% -1000%;
+  }
+}
+
+.rounded-inherit {
+  border-radius: inherit;
+}
+
+.rounded-4xl {
+  border-radius: 2rem;
+}
+
+.hover\:rounded-4xl:hover {
+  border-radius: 2rem;
+}

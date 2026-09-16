@@ -38,14 +38,22 @@ const config: Config = {
       letterSpacing: {
         eyebrow: "0.18em",
       },
+      borderRadius: {
+        "4xl": "2rem",
+      },
       keyframes: {
         "fade-up": {
           "0%": { opacity: "0", transform: "translateY(24px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
+        moveBackground: {
+          from: { backgroundPosition: "0% 0%" },
+          to: { backgroundPosition: "0% -1000%" },
+        },
       },
       animation: {
         "fade-up": "fade-up 0.8s ease forwards",
+        moveBackground: "moveBackground 60s linear infinite",
       },
     },
   },
