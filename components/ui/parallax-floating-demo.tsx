@@ -163,22 +163,8 @@ export function ParallaxFloatingDemo() {
           transition={{ duration: 0.7, delay: 0.1 }}
           className="font-display font-medium text-3xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight text-moonlight leading-[1.08]"
         >
-          Built to Distribute Content
-          <span className="block text-transparent bg-clip-text bg-gradient-to-r from-frost via-moonlight to-white mt-1">
-            and Scale.
-          </span>
+          10M+ Followers Gained
         </motion.h2>
-
-        {/* Subtitle */}
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.2 }}
-          className="mt-5 text-sm sm:text-base md:text-[17px] text-muted max-w-xl mx-auto font-normal leading-relaxed"
-        >
-          We turn raw podcasts, keynotes, and interviews into high-retention short clips — engineered with algorithmic precision to generate compounding reach across every platform.
-        </motion.p>
 
         {/* Metric Cards with Increasing Counter Effect */}
         <motion.div
