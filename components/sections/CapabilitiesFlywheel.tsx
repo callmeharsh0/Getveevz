@@ -10,6 +10,7 @@ import {
   RotateCw,
   CheckCircle2,
   ArrowRight,
+  Sparkles,
   Zap,
   Play,
   Activity,
@@ -46,7 +47,7 @@ const NODES: FlywheelNode[] = [
     summary: "Distribute content across relevant short-form platforms and pages.",
     description:
       "Coordinated publishing across TikTok, YouTube Shorts, and Instagram Reels through our proprietary account mesh.",
-    outputStandard: "200+ Live Pages",
+    outputStandard: "40+ Synchronized Channels",
     icon: Share2,
   },
   {
@@ -90,7 +91,7 @@ export default function CapabilitiesFlywheel() {
   return (
     <section
       id="system-capabilities"
-      className="relative w-full bg-[#090e14] text-moonlight py-16 sm:py-24 lg:py-32 px-4 sm:px-8 lg:px-12 overflow-hidden select-none"
+      className="relative w-full bg-[#000000] text-moonlight py-24 sm:py-32 px-6 sm:px-8 lg:px-12 overflow-hidden border-b border-border/30 select-none"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
@@ -111,7 +112,11 @@ export default function CapabilitiesFlywheel() {
       <div className="mx-auto max-w-content relative z-10">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
-          <h2 className="font-display font-medium text-2xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight text-white leading-tight">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/25 text-[11px] font-mono uppercase tracking-wider text-blue-400 mb-4">
+            <Sparkles className="w-3 h-3 text-blue-400" />
+            System Capabilities · Compounding Loop
+          </div>
+          <h2 className="font-display font-medium text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight text-white leading-tight">
             Everything You Need to Turn Content Into Distribution
           </h2>
           <p className="mt-4 text-sm sm:text-base text-muted max-w-xl mx-auto leading-relaxed">
@@ -126,7 +131,7 @@ export default function CapabilitiesFlywheel() {
           {/* ========================================================================= */}
           <div className="lg:col-span-5 flex flex-col items-center justify-center relative p-4 sm:p-8">
             {/* Outer Orbit Ring */}
-            <div className="relative w-[260px] h-[260px] xs:w-[310px] xs:h-[310px] sm:w-[380px] sm:h-[380px] rounded-full border border-white/10 flex items-center justify-center shadow-[0_0_60px_rgba(59,130,246,0.08)]">
+            <div className="relative w-[310px] h-[310px] sm:w-[380px] sm:h-[380px] rounded-full border border-white/10 flex items-center justify-center shadow-[0_0_60px_rgba(59,130,246,0.08)]">
               {/* Spinning subtle dashed accent ring */}
               <div className="absolute inset-4 rounded-full border border-dashed border-blue-500/25 animate-[spin_60s_linear_infinite]" />
 
@@ -166,20 +171,18 @@ export default function CapabilitiesFlywheel() {
                     aria-label={`Select ${node.title}`}
                   >
                     <div
-                      className={`w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center border transition-all duration-300 shadow-2xl ${
-                        isActive
+                      className={`w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center border transition-all duration-300 shadow-2xl ${isActive
                           ? "bg-white text-black border-white scale-110 shadow-[0_0_35px_rgba(59,130,246,0.6)] ring-4 ring-blue-500/40"
                           : "bg-[#0b0e18] text-frost border-white/10 hover:border-blue-400/50 hover:text-white hover:scale-105"
-                      }`}
+                        }`}
                     >
                       <Icon className="w-5 h-5 sm:w-6 sm:h-6 transition-transform group-hover:scale-110" />
                     </div>
                     <span
-                      className={`mt-2 px-3 py-0.5 rounded-full text-[10px] sm:text-[11px] font-mono transition-all duration-300 whitespace-nowrap ${
-                        isActive
+                      className={`mt-2 px-3 py-0.5 rounded-full text-[10px] sm:text-[11px] font-mono transition-all duration-300 whitespace-nowrap ${isActive
                           ? "bg-blue-500/25 text-blue-300 border border-blue-500/50 font-semibold shadow-md scale-105"
                           : "text-muted group-hover:text-white bg-black/80 border border-white/10"
-                      }`}
+                        }`}
                     >
                       {node.step}. {node.title}
                     </span>
@@ -194,11 +197,10 @@ export default function CapabilitiesFlywheel() {
                 <button
                   key={n.id}
                   onClick={() => setActiveNode(idx)}
-                  className={`h-1.5 rounded-full transition-all duration-300 relative overflow-hidden ${
-                    activeNode === idx
+                  className={`h-1.5 rounded-full transition-all duration-300 relative overflow-hidden ${activeNode === idx
                       ? "w-9 bg-blue-400 shadow-[0_0_12px_rgba(59,130,246,0.8)]"
                       : "w-2 bg-white/20 hover:bg-white/40"
-                  }`}
+                    }`}
                   aria-label={`Go to step ${idx + 1}`}
                 />
               ))}
@@ -216,7 +218,7 @@ export default function CapabilitiesFlywheel() {
               FIXED GENERALIZED SIZE CARD CONTAINER:
               Fixed height (520px) and fixed width behavior prevents any layout jump or aspect ratio distortion!
             */}
-            <div className="relative w-full min-h-[480px] sm:min-h-[520px] rounded-3xl bg-[#080b14]/90 border border-white/15 backdrop-blur-2xl shadow-[0_0_60px_rgba(0,0,0,0.85)] p-5 sm:p-9 flex flex-col justify-between overflow-hidden">
+            <div className="relative w-full h-[520px] sm:h-[530px] rounded-3xl bg-[#080b14]/90 border border-white/15 backdrop-blur-2xl shadow-[0_0_60px_rgba(0,0,0,0.85)] p-7 sm:p-9 flex flex-col justify-between overflow-hidden">
               {/* Corner Ambient Glow */}
               <div className="absolute -top-12 -right-12 w-64 h-64 bg-blue-500/10 blur-[90px] rounded-full pointer-events-none" />
 
@@ -287,11 +289,10 @@ export default function CapabilitiesFlywheel() {
                           (val, i) => (
                             <div
                               key={i}
-                              className={`flex-1 rounded-sm transition-all duration-300 ${
-                                val >= 85
+                              className={`flex-1 rounded-sm transition-all duration-300 ${val >= 85
                                   ? "bg-gradient-to-t from-blue-600 to-blue-300 shadow-[0_0_8px_rgba(96,165,250,0.6)]"
                                   : "bg-frost/25 hover:bg-frost/50"
-                              }`}
+                                }`}
                               style={{ height: `${val}%` }}
                             />
                           )
@@ -321,25 +322,29 @@ export default function CapabilitiesFlywheel() {
                           Synchronized Platform Network
                         </span>
                         <span className="text-blue-400 font-semibold bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/25">
-                          200+ Live Pages
+                          40+ Nodes Live
                         </span>
                       </div>
 
                       <div className="grid grid-cols-3 gap-2 py-1">
                         <div className="p-2 rounded-xl bg-[#090d18] border border-white/10 text-center">
                           <p className="text-[11px] font-bold text-white">Instagram</p>
-                          <span className="text-[9px] font-mono text-blue-300">90 Pages Sync</span>
+                          <span className="text-[9px] font-mono text-blue-300">16 Pages Sync</span>
                         </div>
                         <div className="p-2 rounded-xl bg-[#090d18] border border-white/10 text-center">
                           <p className="text-[11px] font-bold text-white">TikTok</p>
-                          <span className="text-[9px] font-mono text-blue-300">70 Pages Sync</span>
+                          <span className="text-[9px] font-mono text-blue-300">18 Pages Sync</span>
                         </div>
                         <div className="p-2 rounded-xl bg-[#090d18] border border-white/10 text-center">
                           <p className="text-[11px] font-bold text-white">YT Shorts</p>
-                          <span className="text-[9px] font-mono text-blue-300">40 Pages Sync</span>
+                          <span className="text-[9px] font-mono text-blue-300">8 Pages Sync</span>
                         </div>
                       </div>
 
+                      <div className="flex items-center justify-between text-[10px] font-mono text-muted/80 pt-1 border-t border-white/5">
+                        <span>Scheduled Deployment Mesh</span>
+                        <span>Broadcast Latency: 120ms</span>
+                      </div>
                     </motion.div>
                   )}
 

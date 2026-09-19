@@ -151,7 +151,7 @@ export default function ReelsFilmstrip() {
           className="pointer-events-none absolute inset-x-0 top-0 h-32 sm:h-44 md:h-52 z-10"
           style={{
             background:
-              "linear-gradient(to bottom, #090e14 0%, rgba(9, 14, 20, 0.85) 30%, rgba(9, 14, 20, 0.4) 65%, transparent 100%)",
+              "linear-gradient(to bottom, #000000 0%, rgba(0, 0, 0, 0.85) 30%, rgba(0, 0, 0, 0.4) 65%, transparent 100%)",
           }}
         />
 
