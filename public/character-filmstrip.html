@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -47,13 +48,11 @@
       touch-action: none;
       background:
         linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px) 50% 0 / 25% 100%,
-        repeating-linear-gradient(
-          0deg,
+        repeating-linear-gradient(0deg,
           transparent 0,
           transparent 109px,
           rgba(255, 255, 255, 0.025) 110px,
-          transparent 111px
-        ),
+          transparent 111px),
         radial-gradient(circle at var(--pointer-x) 48%, rgba(255, 255, 255, 0.07), transparent 38%),
         #000000;
     }
@@ -77,13 +76,11 @@
       inset: 0;
       z-index: 4;
       pointer-events: none;
-      background: linear-gradient(
-        90deg,
-        rgba(0, 0, 0, 0.85),
-        transparent 14%,
-        transparent 86%,
-        rgba(0, 0, 0, 0.85)
-      );
+      background: linear-gradient(90deg,
+          rgba(0, 0, 0, 0.85),
+          transparent 14%,
+          transparent 86%,
+          rgba(0, 0, 0, 0.85));
     }
 
     .deck {
@@ -107,8 +104,7 @@
       color: #ffffff;
       background: #121214;
       box-shadow:
-        0 calc(10px + var(--focus) * 24px) calc(20px + var(--focus) * 36px)
-          rgba(0, 0, 0, calc(0.6 + var(--focus) * 0.35)),
+        0 calc(10px + var(--focus) * 24px) calc(20px + var(--focus) * 36px) rgba(0, 0, 0, calc(0.6 + var(--focus) * 0.35)),
         inset 0 0 0 1px rgba(255, 255, 255, calc(0.06 + var(--focus) * 0.15));
       appearance: none;
       outline: none;
@@ -146,8 +142,7 @@
       object-fit: cover;
       transform: scale(calc(1.04 + (1 - var(--focus)) * 0.06));
       filter:
-        saturate(calc(0.75 + var(--focus) * 0.35))
-        contrast(1.05);
+        saturate(calc(0.75 + var(--focus) * 0.35)) contrast(1.05);
     }
 
     .portrait video {
@@ -157,8 +152,7 @@
       object-fit: cover;
       transform: scale(calc(1.04 + (1 - var(--focus)) * 0.06));
       filter:
-        saturate(calc(0.75 + var(--focus) * 0.35))
-        contrast(1.05);
+        saturate(calc(0.75 + var(--focus) * 0.35)) contrast(1.05);
     }
 
     .footer {
@@ -236,13 +230,11 @@
         cursor: ns-resize;
         background:
           linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px) 50% 0 / 50% 100%,
-          repeating-linear-gradient(
-            0deg,
+          repeating-linear-gradient(0deg,
             transparent 0,
             transparent 87px,
             rgba(255, 255, 255, 0.025) 88px,
-            transparent 89px
-          ),
+            transparent 89px),
           radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.07), transparent 38%),
           #000000;
       }
@@ -259,6 +251,7 @@
     }
   </style>
 </head>
+
 <body>
   <main class="stage" id="stage" aria-label="Interactive editorial character filmstrip">
     <h1 class="sr-only">Character Filmstrip</h1>
@@ -269,25 +262,22 @@
   <script>
     (() => {
       const media = {
-        thinkschool: "/assets/Reels/thinkschool-maggi-masala.mp4",
-        vaibhav: "/assets/Reels/ai-coding-business.mp4",
-        draper: "/assets/Reels/future-of-payment.mp4",
-        rachitroo1: "/assets/Reels/rachitroo-comedy-clip.mp4",
-        aiZero: "/assets/Reels/start-using-ai-zero-rupees.mp4",
-        parents: "/assets/Reels/indian-parents-reality.mp4",
-        maggiSecret: "/assets/Reels/viral-maggi-secret.mp4",
-        rachitroo2: "/assets/Reels/rachitroo-dark-humor.mp4"
+        sophie: "/assets/clipping.mp4",
+        marcus: "/assets/distribution.mp4",
+        julian: "/assets/clipping.mp4",
+        elena: "/assets/clipping.mp4"
       };
 
       const profiles = [
-        ["ThinkSchool · Maggi Origins", "4.8M VIEWS", "thinkschool"],
-        ["Vaibhav Sisinty · AI Coding", "2.4M VIEWS", "vaibhav"],
-        ["DraperTV · Future of Payment", "1.9M VIEWS", "draper"],
-        ["Rachitroo · Viral Clip Cut", "5.6M VIEWS", "rachitroo1"],
-        ["Zero Rupees · AI Playbook", "3.2M VIEWS", "aiZero"],
-        ["Podcast Master · Real Life Talk", "1.7M VIEWS", "parents"],
-        ["Viral Secret · ₹5 Maggi Masala", "6.1M VIEWS", "maggiSecret"],
-        ["Rachitroo · Standup Punchline", "4.3M VIEWS", "rachitroo2"]
+        ["Skincare drop · 30s cut", "1.2M VIEWS", "sophie"],
+        ["SaaS launch · 6-channel push", "3.4M VIEWS", "marcus"],
+        ["Podcast teaser · earned clip", "880K VIEWS", "julian"],
+        ["Founder story · subtitled cut", "2.1M VIEWS", "elena"],
+        ["Product tease · vertical remix", "4.7M VIEWS", "sophie"],
+        ["Brand refresh · IG + TikTok", "1.9M VIEWS", "marcus"],
+        ["Investor Q&A · press cut", "640K VIEWS", "julian"],
+        ["Drop day · 9-platform rollout", "5.8M VIEWS", "elena"],
+        ["Customer story · creator cut", "2.6M VIEWS", "marcus"]
       ].map(([name, role, portrait]) => ({ name, role, portrait }));
 
       const stage = document.querySelector("#stage");
@@ -486,4 +476,5 @@
     })();
   </script>
 </body>
+
 </html>

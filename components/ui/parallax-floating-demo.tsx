@@ -4,13 +4,12 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion, stagger, useAnimate, useInView } from "motion/react";
 import {
   TrendingUp,
-  Sparkles,
-  ArrowUpRight,
   Flame,
   Users,
   Layers,
 } from "lucide-react";
 import Floating, { FloatingElement } from "@/components/ui/parallax-floating";
+import { GlassButton } from "@/components/ui/glass-button";
 
 function Counter({
   value,
@@ -162,22 +161,8 @@ export function ParallaxFloatingDemo() {
           transition={{ duration: 0.7, delay: 0.1 }}
           className="font-display font-medium text-3xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight text-moonlight leading-[1.08]"
         >
-          Built to Distribute Content
-          <span className="block text-transparent bg-clip-text bg-gradient-to-r from-frost via-moonlight to-white mt-1">
-            and Scale.
-          </span>
+          10M+ Followers Gained
         </motion.h2>
-
-        {/* Subtitle */}
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.2 }}
-          className="mt-5 text-sm sm:text-base md:text-[17px] text-muted max-w-xl mx-auto font-normal leading-relaxed"
-        >
-          We turn raw podcasts, keynotes, and interviews into high-retention short clips — engineered with algorithmic precision to generate compounding reach across every platform.
-        </motion.p>
 
         {/* Metric Cards with Increasing Counter Effect */}
         <motion.div
@@ -185,7 +170,7 @@ export function ParallaxFloatingDemo() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.3 }}
-          className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 w-full max-w-2xl"
+          className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-4 w-full max-w-xl"
         >
           <div className="flex flex-col items-center justify-center p-3.5 sm:p-4 rounded-xl bg-surface/80 border border-border/90 backdrop-blur-xl shadow-xl hover:border-frost/60 transition-all duration-300 group">
             <span className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-moonlight to-frost group-hover:scale-105 transition-transform duration-300">
@@ -193,15 +178,6 @@ export function ParallaxFloatingDemo() {
             </span>
             <span className="mt-1 text-[11px] sm:text-xs text-muted font-medium uppercase tracking-wider text-center">
               Views Generated
-            </span>
-          </div>
-
-          <div className="flex flex-col items-center justify-center p-3.5 sm:p-4 rounded-xl bg-surface/80 border border-border/90 backdrop-blur-xl shadow-xl hover:border-frost/60 transition-all duration-300 group">
-            <span className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-moonlight to-frost group-hover:scale-105 transition-transform duration-300">
-              <Counter value={1} suffix="M+" />
-            </span>
-            <span className="mt-1 text-[11px] sm:text-xs text-muted font-medium uppercase tracking-wider text-center">
-              Followers Gained
             </span>
           </div>
 
@@ -224,7 +200,7 @@ export function ParallaxFloatingDemo() {
           </div>
         </motion.div>
 
-        {/* Action Button */}
+        {/* Action Buttons */}
         <motion.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -232,14 +208,9 @@ export function ParallaxFloatingDemo() {
           transition={{ duration: 0.7, delay: 0.4 }}
           className="mt-8 flex items-center gap-4"
         >
-          <button
-            onClick={scrollToCTA}
-            className="inline-flex items-center gap-2.5 rounded-full px-7 py-3 text-xs sm:text-sm font-medium tracking-wide uppercase bg-moonlight text-oxford hover:bg-white hover:shadow-[0_0_30px_rgba(240,236,221,0.4)] transition-all duration-300 active:scale-95 shadow-xl"
-          >
-            <Sparkles className="w-4 h-4 text-oxford" />
-            <span>Book a Distribution Call</span>
-            <ArrowUpRight className="w-4 h-4" />
-          </button>
+          <GlassButton onClick={scrollToCTA}>
+            Book a Distribution Call
+          </GlassButton>
         </motion.div>
       </div>
 

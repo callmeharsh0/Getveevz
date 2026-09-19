@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight, Menu, X, Play, Pause, Sparkles, Radio, Activity, Share2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { GlassButton } from "@/components/ui/glass-button";
 import { cn } from "@/lib/utils";
 import GlobeMorph from "@/components/ui/GlobeMorph";
 
@@ -13,15 +14,15 @@ if (typeof window !== "undefined") {
 }
 
 const PLATFORMS = [
-  { id: "all", name: "All Platforms", value: 800, metric: "+800M Views", video: "/assets/distribution.mp4", tag: "All Platforms" },
-  { id: "tiktok", name: "TikTok", value: 390, metric: "+390M Views", video: "/assets/clipping.mp4", tag: "Algorithm Priority" },
-  { id: "reels", name: "IG Reels", value: 260, metric: "+260M Views", video: "/assets/agency-video-2.mp4", tag: "High Retention" },
-  { id: "shorts", name: "YT Shorts", value: 150, metric: "+150M Views", video: "/assets/tracking.mp4", tag: "Search Authority" },
+  { id: "all", name: "All Platforms", value: 1000, suffix: "B", metric: "+1B Views", video: "/assets/distribution.mp4", tag: "All Platforms" },
+  { id: "tiktok", name: "TikTok", value: 480, suffix: "M", metric: "+480M Views", video: "/assets/clipping.mp4", tag: "Algorithm Priority" },
+  { id: "reels", name: "IG Reels", value: 340, suffix: "M", metric: "+340M Views", video: "/assets/agency-video-2.mp4", tag: "High Retention" },
+  { id: "shorts", name: "YT Shorts", value: 180, suffix: "M", metric: "+180M Views", video: "/assets/tracking.mp4", tag: "Search Authority" },
 ];
 
 function HeroStatCounter({
-  target = 800,
-  suffix = "M",
+  target = 1000,
+  suffix = "B",
   prefix = "+",
   duration = 2.2,
 }: {
@@ -31,6 +32,7 @@ function HeroStatCounter({
   duration?: number;
 }) {
   const [displayValue, setDisplayValue] = useState(0);
+  const [isDone, setIsDone] = useState(false);
   const prevTargetRef = useRef(0);
 
   useEffect(() => {
@@ -38,6 +40,7 @@ function HeroStatCounter({
     let animationFrameId: number;
     const startVal = prevTargetRef.current;
     const diff = target - startVal;
+    setIsDone(false);
 
     // Small delay on first load so user visually catches the counter beginning at 0
     const startDelay = prevTargetRef.current === 0 ? 120 : 0;
@@ -57,6 +60,7 @@ function HeroStatCounter({
           animationFrameId = requestAnimationFrame(animate);
         } else {
           setDisplayValue(target);
+          setIsDone(true);
           prevTargetRef.current = target;
         }
       };
@@ -70,11 +74,17 @@ function HeroStatCounter({
     };
   }, [target, duration]);
 
+  // When counting to 1B (target = 1000, suffix = "B"):
+  // While rolling: counts rapidly through millions (+0M -> +980M)
+  // When completed (or target reached): cleanly snaps to +1B!
+  const isBillion = suffix === "B";
+  const showBillion = isBillion && (isDone || displayValue >= 1000);
+
   return (
     <span className="tabular-nums inline-block font-display tracking-tight">
       {prefix}
-      {displayValue}
-      {suffix}
+      {showBillion ? "1" : displayValue}
+      {showBillion ? "B" : (isBillion ? "M" : suffix)}
     </span>
   );
 }
@@ -396,17 +406,17 @@ export default function Hero() {
 
         {/* CTA (Right) */}
         <div ref={ctaButtonRef} className="flex items-center gap-3">
-          <Button
+          <GlassButton
             size="sm"
-            className="hidden sm:inline-flex bg-[#111111] text-[#F0ECDD] hover:bg-[#02122F] hover:text-white font-medium px-5 text-xs h-9 rounded-full shadow-md hover:shadow-xl transition-all duration-300 active:scale-95"
+            className="hidden sm:inline-flex glass-button-dark"
             onClick={() => {
               const cta = document.getElementById("cta") || document.querySelector("footer");
               if (cta) cta.scrollIntoView({ behavior: "smooth" });
             }}
           >
-            <Sparkles className="w-3.5 h-3.5 mr-1.5 text-frost opacity-80" />
-            Book a Strategy Call
-          </Button>
+            <Sparkles className="w-3.5 h-3.5 mr-1.5 text-frost opacity-85" />
+            <span>Book a Strategy Call</span>
+          </GlassButton>
 
           {/* Mobile Menu Toggle Button */}
           <button
@@ -462,8 +472,9 @@ export default function Hero() {
                 </button>
               ))}
             </nav>
-            <Button
-              className="w-full mt-2 bg-oxford text-moonlight hover:bg-oxford/90"
+            <GlassButton
+              size="default"
+              className="w-full mt-2 glass-button-dark"
               onClick={() => {
                 setMobileMenuOpen(false);
                 const cta = document.getElementById("cta") || document.querySelector("footer");
@@ -471,7 +482,7 @@ export default function Hero() {
               }}
             >
               Book a Strategy Call
-            </Button>
+            </GlassButton>
           </div>
         </>
       )}
@@ -683,7 +694,7 @@ export default function Hero() {
             {/* Big Stat Number with interactive active platform binding & increasing counter animation */}
             <div className="flex items-baseline gap-1.5 cursor-default group">
               <span className="font-display text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-[#111111] group-hover:text-[#0038E2] transition-colors">
-                <HeroStatCounter target={activePlatform.value} prefix="+" suffix="M" />
+                <HeroStatCounter target={activePlatform.value} prefix="+" suffix={activePlatform.suffix || "M"} />
               </span>
               <span className="text-xs sm:text-sm font-mono text-[#495B7D] uppercase tracking-wider">
                 {activePlatform.metric.split(" ")[1] || "Views"}

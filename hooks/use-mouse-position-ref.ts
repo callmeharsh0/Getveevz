@@ -23,11 +23,18 @@ export const useMousePositionRef = (
       updatePosition(ev.clientX, ev.clientY);
     };
 
-    // Listen for mouse events
+    const handleTouchMove = (ev: TouchEvent) => {
+      const touch = ev.touches[0];
+      updatePosition(touch.clientX, touch.clientY);
+    };
+
+    // Listen for both mouse and touch events
     window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("touchmove", handleTouchMove);
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("touchmove", handleTouchMove);
     };
   }, [containerRef]);
 

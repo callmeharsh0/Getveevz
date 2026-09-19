@@ -30,7 +30,7 @@ const FAQ_ITEMS: FaqEntry[] = [
       "Any high-value long-form audio or video you produce: video podcasts, keynotes, YouTube long-form, webinars, earnings calls, or live streams. We ingest full 4K ProRes or standard MP4 formats directly through dedicated cloud pipelines.",
   },
   {
-    category: "Platforms",
+    category: "Omnichannel",
     question: "Which distribution platforms do you optimize for?",
     answer:
       "We coordinate synchronized distribution across Instagram Reels, YouTube Shorts, and TikTok. Each platform receives native vertical aspect ratios, customized retention hooks, algorithm-tested pacing, and tailored metadata for search authority.",

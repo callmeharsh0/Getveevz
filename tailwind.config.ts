@@ -8,9 +8,6 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      screens: {
-        xs: "400px",
-      },
       colors: {
         background: "var(--bg)",
         surface: "var(--surface)",
@@ -26,11 +23,10 @@ const config: Config = {
         moonlight: "var(--text-primary)",
       },
       fontFamily: {
-        sans: ["var(--font-display)", "'Space Grotesk'", "sans-serif"],
-        display: ["var(--font-display)", "'Space Grotesk'", "sans-serif"],
-        body: ["var(--font-body)", "'Space Grotesk'", "sans-serif"],
-        agency: ["'Space Grotesk'", "sans-serif"],
-        serif: ["'Space Grotesk'", "sans-serif"],
+        serif: ["'Instrument Serif'", "'Playfair Display'", "Georgia", "serif"],
+        agency: ["'Oswald'", "'Space Grotesk'", "sans-serif"],
+        display: ["var(--font-display)", "sans-serif"],
+        body: ["var(--font-body)", "sans-serif"],
       },
       maxWidth: {
         content: "1280px",
@@ -38,22 +34,14 @@ const config: Config = {
       letterSpacing: {
         eyebrow: "0.18em",
       },
-      borderRadius: {
-        "4xl": "2rem",
-      },
       keyframes: {
         "fade-up": {
           "0%": { opacity: "0", transform: "translateY(24px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
-        moveBackground: {
-          from: { backgroundPosition: "0% 0%" },
-          to: { backgroundPosition: "0% -1000%" },
-        },
       },
       animation: {
         "fade-up": "fade-up 0.8s ease forwards",
-        moveBackground: "moveBackground 60s linear infinite",
       },
     },
   },

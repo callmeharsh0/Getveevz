@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cn } from "@/lib/utils";
 import { ArrowUpRight, Mail, CheckCircle2, ShieldCheck } from "lucide-react";
+import { GlassButton } from "@/components/ui/glass-button";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -406,16 +407,16 @@ export default function Pricing() {
             </div>
 
             <div className="flex flex-wrap items-center justify-center gap-3 shrink-0">
-              <button
-                type="button"
+              <GlassButton
+                size="default"
                 onClick={scrollToCTA}
-                className="group/call inline-flex items-center gap-3 rounded-full pl-6 pr-2.5 py-2 bg-moonlight text-oxford hover:bg-white text-xs sm:text-sm font-semibold tracking-wide uppercase transition-all duration-300 active:scale-[0.98] shadow-md"
+                contentClassName="flex items-center gap-2.5 text-xs sm:text-sm font-semibold tracking-wide uppercase"
               >
                 <span>Book a Call</span>
-                <span className="w-7 h-7 rounded-full bg-oxford/10 group-hover/call:bg-oxford flex items-center justify-center transition-colors">
-                  <ArrowUpRight className="w-3.5 h-3.5 text-oxford group-hover/call:text-moonlight transition-transform group-hover/call:translate-x-0.5 group-hover/call:-translate-y-0.5" />
+                <span className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center transition-colors">
+                  <ArrowUpRight className="w-3.5 h-3.5 text-white" />
                 </span>
-              </button>
+              </GlassButton>
 
               <a
                 href="mailto:contact@getveevz.com?subject=GetVeevz%20Enterprise%20Distribution%20Inquiry"
