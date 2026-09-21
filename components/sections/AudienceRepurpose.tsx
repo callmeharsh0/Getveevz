@@ -38,9 +38,9 @@ function FacebookIcon({ className = "w-5 h-5" }: { className?: string }) {
 
 const stats = [
   { value: "1B+", label: "Views Generated" },
-  { value: "1M+", label: "Followers Gained" },
-  { value: "200+", label: "Active Pages" },
-  { value: "80+", label: "Editors Live" },
+  { value: "1.5M+", label: "Followers Gained" },
+  { value: "250+", label: "Active Pages" },
+  { value: "80+", label: "Editors Trained" },
 ];
 
 const platforms = [

@@ -163,7 +163,7 @@ export function ParallaxFloatingDemo() {
           transition={{ duration: 0.7, delay: 0.1 }}
           className="font-display font-medium text-3xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight text-moonlight leading-[1.08]"
         >
-          10M+ Followers Gained
+          1.5M+ Followers Gained
         </motion.h2>
 
         {/* Metric Cards with Increasing Counter Effect */}
@@ -185,7 +185,7 @@ export function ParallaxFloatingDemo() {
 
           <GlassCard className="p-3.5 sm:p-4 rounded-xl">
             <span className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-moonlight to-frost group-hover:scale-105 transition-transform duration-300">
-              <Counter value={200} suffix="+" />
+              <Counter value={250} suffix="+" />
             </span>
             <span className="mt-1 text-[11px] sm:text-xs text-muted font-medium uppercase tracking-wider text-center">
               Active Pages
@@ -197,7 +197,7 @@ export function ParallaxFloatingDemo() {
               <Counter value={80} suffix="+" />
             </span>
             <span className="mt-1 text-[11px] sm:text-xs text-muted font-medium uppercase tracking-wider text-center">
-              Editors Live
+              Editors Trained
             </span>
           </GlassCard>
         </motion.div>

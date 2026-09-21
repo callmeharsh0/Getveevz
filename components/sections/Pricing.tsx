@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cn } from "@/lib/utils";
-import { ArrowUpRight, Mail, CheckCircle2, ShieldCheck } from "lucide-react";
+import { ArrowUpRight, Mail, CheckCircle2, ShieldCheck, Zap, TrendingUp, Sparkles } from "lucide-react";
 import { GlassButton } from "@/components/ui/glass-button";
 
 if (typeof window !== "undefined") {
@@ -12,6 +12,7 @@ if (typeof window !== "undefined") {
 }
 
 type Currency = "USD" | "INR";
+type ServiceTerm = "short-term" | "long-term";
 
 interface PlanSpec {
   label: string;
@@ -30,24 +31,77 @@ interface PlanTier {
   specs: PlanSpec[];
 }
 
-const plans: PlanTier[] = [
+const shortTermPlans: PlanTier[] = [
   {
-    id: "basic",
-    name: "Basic",
-    badge: "PR Sprint",
+    id: "sprint-pr",
+    name: "PR Sprint",
+    badge: "30-Day Sprint",
     price: { USD: "$8K", INR: "₹6.8L" },
-    period: "Onwards",
+    period: "/ sprint",
     subtitle: "Targeted PR & Launch Campaign",
     ctaText: "Launch Sprint",
     specs: [
-      { label: "Account Network", value: "Tailored to niche" },
+      { label: "Account Network", value: "Tailored to niche (10–15 pages)" },
+      { label: "Content Output", value: "25 Polished Short Clips" },
       { label: "Supported Platforms", value: "YT + IG + TikTok" },
-      { label: "Intelligence Reports", value: "Weekly Summary" },
+      { label: "Intelligence Reports", value: "Weekly Sprint Summary" },
       { label: "Creative Direction", value: "Custom Storyboarding" },
     ],
   },
   {
-    id: "authority",
+    id: "sprint-growth",
+    name: "Growth Blitz",
+    badge: "Most Popular Sprint",
+    isPopular: true,
+    price: { USD: "$18K", INR: "₹15L" },
+    period: "/ 45 days",
+    subtitle: "High-Velocity Multi-Platform Saturation",
+    ctaText: "Start Blitz",
+    specs: [
+      { label: "Account Network", value: "30 Distribution Pages" },
+      { label: "Content Output", value: "60 High-Retention Clips" },
+      { label: "Supported Platforms", value: "YT + IG + TikTok + FB" },
+      { label: "Intelligence Reports", value: "Live Real-Time Dashboard" },
+      { label: "Audience Target", value: "Guaranteed Algorithmic Push" },
+    ],
+  },
+  {
+    id: "sprint-takeover",
+    name: "Takeover",
+    badge: "Maximum Impact",
+    price: { USD: "$32K", INR: "₹27L" },
+    period: "/ 60 days",
+    subtitle: "Category Buzz & Full Saturation",
+    ctaText: "Dominate Category",
+    specs: [
+      { label: "Account Network", value: "50+ Distribution Pages" },
+      { label: "Content Output", value: "120+ Viral Hook Variations" },
+      { label: "Supported Platforms", value: "All Platforms (YT, IG, TikTok, FB)" },
+      { label: "Intelligence Reports", value: "Dedicated Strategist & War Room" },
+      { label: "Audience Target", value: "Mass Scale Multiplier" },
+    ],
+  },
+];
+
+const longTermPlans: PlanTier[] = [
+  {
+    id: "long-growth",
+    name: "Growth Engine",
+    badge: "Quarterly Retainer",
+    price: { USD: "$24K", INR: "₹20L" },
+    period: "/ 3 months",
+    subtitle: "Continuous Compounding Reach",
+    ctaText: "Build Engine",
+    specs: [
+      { label: "Account Network", value: "15 Dedicated Fan Pages" },
+      { label: "Content Output", value: "40 Clips / Month (120 Total)" },
+      { label: "Supported Platforms", value: "YT + IG + TikTok" },
+      { label: "Intelligence Reports", value: "Bi-Weekly Strategy & Reports" },
+      { label: "Strategic Moat", value: "Consistent Algorithmic Growth" },
+    ],
+  },
+  {
+    id: "long-authority",
     name: "Authority",
     badge: "Most Popular",
     isPopular: true,
@@ -57,13 +111,14 @@ const plans: PlanTier[] = [
     ctaText: "Claim Authority",
     specs: [
       { label: "Account Network", value: "30 Distribution Pages" },
+      { label: "Content Output", value: "80 Clips / Month (240 Total)" },
       { label: "Supported Platforms", value: "YT + IG + TikTok + FB" },
       { label: "Intelligence Reports", value: "Live Real-Time Dashboard" },
       { label: "Audience Target", value: "Guaranteed Impressions" },
     ],
   },
   {
-    id: "dominance",
+    id: "long-dominance",
     name: "Dominance",
     badge: "Full Ecosystem",
     price: { USD: "$80K", INR: "₹68L" },
@@ -72,6 +127,7 @@ const plans: PlanTier[] = [
     ctaText: "Dominate Category",
     specs: [
       { label: "Account Network", value: "60 Distribution Pages" },
+      { label: "Content Output", value: "150 Clips / Month (450 Total)" },
       { label: "Supported Platforms", value: "All Platforms (YT, IG, TikTok, FB)" },
       { label: "Intelligence Reports", value: "Dedicated Strategist" },
       { label: "Audience Target", value: "Maximum Scale Multiplier" },
@@ -85,7 +141,11 @@ export default function Pricing() {
   const cardsContainerRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
   const enterpriseRef = useRef<HTMLDivElement>(null);
+
+  const [serviceTerm, setServiceTerm] = useState<ServiceTerm>("short-term");
   const [currency, setCurrency] = useState<Currency>("USD");
+
+  const plans = serviceTerm === "short-term" ? shortTermPlans : longTermPlans;
 
   const scrollToCTA = () => {
     const el = document.getElementById("cta") || document.querySelector("footer");
@@ -158,6 +218,17 @@ export default function Pricing() {
     return () => ctx.revert();
   }, []);
 
+  // Smooth re-animation when switching between Short-Term and Long-Term
+  useEffect(() => {
+    if (cardsRef.current.length > 0) {
+      gsap.fromTo(
+        cardsRef.current.filter(Boolean),
+        { opacity: 0.6, y: 16, scale: 0.98 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.45, stagger: 0.08, ease: "power2.out" }
+      );
+    }
+  }, [serviceTerm]);
+
   // 3D Magnetic Card Tilt Interaction
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>, index: number) => {
     const card = cardsRef.current[index];
@@ -213,24 +284,71 @@ export default function Pricing() {
       />
 
       <div className="relative z-10 mx-auto max-w-7xl">
-        {/* Section Header: Wide Horizontal Flow (2 Lines Max) */}
+        {/* Section Header */}
         <div ref={headerRef} className="text-center max-w-4xl mx-auto">
+          {/* Eyebrow badge */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface/90 border border-border/90 text-[11px] sm:text-xs font-mono uppercase tracking-eyebrow text-frost mb-6 backdrop-blur-xl shadow-xl">
+            <span className="w-2 h-2 rounded-full bg-frost animate-pulse" />
+            <span>(08) Transparent Investment</span>
+          </div>
+
           {/* Headline */}
           <h2 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-moonlight leading-[1.05]">
             Pick your
             <span className="inline-block ml-3 sm:ml-4 text-transparent bg-clip-text bg-gradient-to-r from-frost via-moonlight to-white">
-              velocity.
+              velocity
             </span>
           </h2>
 
           {/* Subtitle */}
           <p className="mt-5 text-sm sm:text-base md:text-lg text-muted max-w-2xl mx-auto leading-relaxed font-normal">
-            Predictable distribution infrastructure engineered for exponential algorithmic audience acquisition across Instagram, YouTube Shorts, and TikTok.
+            Predictable distribution infrastructure engineered for exponential algorithmic audience acquisition across Instagram, YouTube Shorts, and TikTok
           </p>
         </div>
 
-        {/* Currency Switcher */}
-        <div className="mt-10 flex justify-center">
+        {/* Dual Switcher Controls: Service Duration & Currency */}
+        <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-5">
+          {/* Duration Switcher (Short-Term vs Long-Term) */}
+          <div className="inline-flex items-center p-1 rounded-full bg-surface/80 border border-border/80 backdrop-blur-md shadow-inner">
+            <button
+              type="button"
+              onClick={() => setServiceTerm("short-term")}
+              className={cn(
+                "relative px-4 sm:px-6 py-2 rounded-full text-xs sm:text-sm font-mono tracking-wider transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] flex items-center gap-2",
+                serviceTerm === "short-term"
+                  ? "bg-moonlight text-oxford font-semibold shadow-md scale-100"
+                  : "text-muted hover:text-white"
+              )}
+            >
+              <Zap className="w-3.5 h-3.5" />
+              <span>Short-Term Sprints</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setServiceTerm("long-term")}
+              className={cn(
+                "relative px-4 sm:px-6 py-2 rounded-full text-xs sm:text-sm font-mono tracking-wider transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] flex items-center gap-2",
+                serviceTerm === "long-term"
+                  ? "bg-moonlight text-oxford font-semibold shadow-md scale-100"
+                  : "text-muted hover:text-white"
+              )}
+            >
+              <TrendingUp className="w-3.5 h-3.5" />
+              <span>Long-Term Retainers</span>
+              <span
+                className={cn(
+                  "hidden xs:inline-block text-[9px] font-mono px-2 py-0.5 rounded-full font-bold uppercase transition-colors tracking-tight",
+                  serviceTerm === "long-term"
+                    ? "bg-oxford/20 text-oxford"
+                    : "bg-frost/20 text-frost"
+                )}
+              >
+                Best ROI
+              </span>
+            </button>
+          </div>
+
+          {/* Currency Switcher */}
           <div className="inline-flex items-center p-1 rounded-full bg-surface/80 border border-border/80 backdrop-blur-md shadow-inner">
             {(["USD", "INR"] as Currency[]).map((c) => {
               const isActive = currency === c;
@@ -240,7 +358,7 @@ export default function Pricing() {
                   type="button"
                   onClick={() => setCurrency(c)}
                   className={cn(
-                    "relative px-5 py-2 rounded-full text-xs font-mono tracking-wider uppercase transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]",
+                    "relative px-4 py-2 rounded-full text-xs font-mono tracking-wider uppercase transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]",
                     isActive
                       ? "bg-moonlight text-oxford font-semibold shadow-md scale-100"
                       : "text-muted hover:text-white"
@@ -253,10 +371,19 @@ export default function Pricing() {
           </div>
         </div>
 
+        {/* Dynamic Context Label */}
+        <div className="mt-4 text-center">
+          <p className="text-xs sm:text-sm text-frost/90 font-mono tracking-wide">
+            {serviceTerm === "short-term"
+              ? "⚡ Targeted 30–60 day sprint campaigns for product launches, event PR, and rapid market testing"
+              : "📈 3+ month compounding growth retainers for sustained category dominance and audience ownership"}
+          </p>
+        </div>
+
         {/* Cards Grid: Mathematically Balanced 3-Column Bento Architecture */}
         <div
           ref={cardsContainerRef}
-          className="mt-16 sm:mt-20 grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch"
+          className="mt-12 sm:mt-16 grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch"
         >
           {plans.map((plan, index) => {
             const isPopular = plan.isPopular;
@@ -391,10 +518,20 @@ export default function Pricing() {
           })}
         </div>
 
+        {/* Rollover Bridge Note */}
+        <div className="mt-8 sm:mt-10 flex items-center justify-center text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-surface/70 border border-border/80 text-[11px] sm:text-xs text-muted backdrop-blur-md shadow-sm">
+            <Sparkles className="w-3.5 h-3.5 text-frost shrink-0" />
+            <span>
+              Starting with a Short-Term Sprint? 100% of your sprint investment rolls over into an ongoing Long-Term Retainer
+            </span>
+          </div>
+        </div>
+
         {/* Executive Enterprise Strip */}
         <div
           ref={enterpriseRef}
-          className="mt-12 sm:mt-16 rounded-xl p-[1px] bg-gradient-to-r from-border via-border/50 to-transparent border border-border/60 shadow-[0_16px_40px_rgba(2,18,47,0.5)]"
+          className="mt-10 sm:mt-14 rounded-xl p-[1px] bg-gradient-to-r from-border via-border/50 to-transparent border border-border/60 shadow-[0_16px_40px_rgba(2,18,47,0.5)]"
         >
           <div className="rounded-[11px] bg-[#0a1017]/95 border border-border/40 px-6 sm:px-10 py-6 sm:py-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-[inset_0_1px_1px_rgba(255,255,255,0.06)]">
             <div className="text-center sm:text-left">
@@ -402,7 +539,7 @@ export default function Pricing() {
                 Need enterprise volume, multi-host syndication, or white-labeling?
               </h4>
               <p className="mt-1 text-xs sm:text-sm text-muted">
-                We design custom multi-tier distribution arrangements for high-volume catalogs and creator studios.
+                We design custom multi-tier distribution arrangements for high-volume catalogs and creator studios
               </p>
             </div>
 

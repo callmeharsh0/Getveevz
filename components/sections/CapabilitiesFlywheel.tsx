@@ -41,10 +41,10 @@ const NODES: FlywheelNode[] = [
     step: "02",
     stage: "Step 02 · Post Everywhere",
     title: "Distribution",
-    summary: "Post your clips across 200+ active social media pages.",
+    summary: "Post your clips across 250+ active social media pages.",
     description:
       "We publish your content across TikTok, Instagram Reels, and YouTube Shorts using our established network of theme and niche pages.",
-    outputStandard: "200+ Active Social Pages",
+    outputStandard: "250+ Active Social Pages",
     icon: Share2,
   },
   {
@@ -313,7 +313,7 @@ export default function CapabilitiesFlywheel() {
                           Posting Across All Platforms
                         </span>
                         <span className="text-[#0038E2] font-semibold bg-[#0038E2]/10 px-2 py-0.5 rounded border border-[#0038E2]/20">
-                          200+ Active Pages
+                          250+ Active Pages
                         </span>
                       </div>
 
@@ -410,7 +410,7 @@ export default function CapabilitiesFlywheel() {
                         </div>
                         <div className="p-2 rounded-xl bg-white border border-[#111111]/10 text-center shadow-sm">
                           <span className="text-[9px] font-mono text-[#666666] uppercase">Network</span>
-                          <p className="text-sm sm:text-base font-bold font-display text-[#111111]">200+</p>
+                          <p className="text-sm sm:text-base font-bold font-display text-[#111111]">250+</p>
                           <span className="text-[8px] font-mono text-[#0038E2] font-semibold">Pages Active</span>
                         </div>
                       </div>
