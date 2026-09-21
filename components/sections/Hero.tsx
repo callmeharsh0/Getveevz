@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight, Menu, X, Play, Pause, Sparkles, Radio, Activity, Share2 } from "lucide-react";
@@ -81,6 +82,7 @@ function HeroStatCounter({
 }
 
 export default function Hero() {
+  const navigate = useNavigate();
   const containerRef = useRef<HTMLElement>(null);
   const navRef = useRef<HTMLDivElement>(null);
   const eyebrowsRef = useRef<HTMLDivElement>(null);
@@ -269,6 +271,10 @@ export default function Hero() {
 
   const handleNavClick = (id: string) => {
     setActiveNav(id);
+    if (id === "services") {
+      navigate("/services");
+      return;
+    }
     const target = document.getElementById(id);
     if (target) {
       target.scrollIntoView({ behavior: "smooth" });
@@ -281,7 +287,7 @@ export default function Hero() {
       videoPreviewRef.current.pause();
       setIsVideoPlaying(false);
     } else {
-      videoPreviewRef.current.play().catch(() => {});
+      videoPreviewRef.current.play().catch(() => { });
       setIsVideoPlaying(true);
     }
   };
@@ -375,6 +381,7 @@ export default function Hero() {
             { id: "distribution", label: "Distribution" },
             { id: "results", label: "Results" },
             { id: "pricing", label: "Pricing" },
+            { id: "services", label: "Services" },
             { id: "about", label: "About" },
           ].map((item) => {
             const isActive = activeNav === item.id;
@@ -444,6 +451,7 @@ export default function Hero() {
                 { id: "distribution", label: "Distribution" },
                 { id: "results", label: "Results" },
                 { id: "pricing", label: "Pricing" },
+                { id: "services", label: "Services" },
                 { id: "about", label: "About" },
               ].map((item) => (
                 <button
@@ -578,8 +586,8 @@ export default function Hero() {
                   hoveredLetter === index
                     ? "scale-110 -translate-y-2 text-[#0038E2] drop-shadow-[0_0_24px_rgba(0,56,226,0.3)]"
                     : hoveredLetter === index - 1 || hoveredLetter === index + 1
-                    ? "scale-105 -translate-y-1 text-[#495B7D]"
-                    : ""
+                      ? "scale-105 -translate-y-1 text-[#495B7D]"
+                      : ""
                 )}
               >
                 {char}
@@ -618,7 +626,7 @@ export default function Hero() {
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
-            
+
             {/* Play/Pause Overlay Indicator */}
             <div className="absolute top-2 right-2 px-1.5 py-0.5 rounded-md bg-black/70 backdrop-blur-md text-[9px] font-mono text-white flex items-center gap-1 border border-white/20">
               {isVideoPlaying ? <Activity className="w-2.5 h-2.5 animate-spin" /> : <Pause className="w-2.5 h-2.5" />}

@@ -43,10 +43,42 @@ export interface GlassButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
   VariantProps<typeof glassButtonVariants> {
   contentClassName?: string;
+  href?: string;
 }
 
 const GlassButton = React.forwardRef<HTMLButtonElement, GlassButtonProps>(
-  ({ className, children, size, contentClassName, ...props }, ref) => {
+  ({ className, children, size, contentClassName, href, onClick, ...props }, ref) => {
+    const content = (
+      <span
+        className={cn(
+          glassButtonTextVariants({ size }),
+          contentClassName
+        )}
+      >
+        {children}
+      </span>
+    );
+
+    if (href) {
+      return (
+        <div
+          className={cn(
+            "glass-button-wrap cursor-pointer rounded-full",
+            className
+          )}
+        >
+          <a
+            href={href}
+            onClick={onClick as unknown as React.MouseEventHandler<HTMLAnchorElement>}
+            className={cn("glass-button", glassButtonVariants({ size }))}
+          >
+            {content}
+          </a>
+          <div className="glass-button-shadow rounded-full"></div>
+        </div>
+      );
+    }
+
     return (
       <div
         className={cn(
@@ -57,16 +89,10 @@ const GlassButton = React.forwardRef<HTMLButtonElement, GlassButtonProps>(
         <button
           className={cn("glass-button", glassButtonVariants({ size }))}
           ref={ref}
+          onClick={onClick}
           {...props}
         >
-          <span
-            className={cn(
-              glassButtonTextVariants({ size }),
-              contentClassName
-            )}
-          >
-            {children}
-          </span>
+          {content}
         </button>
         <div className="glass-button-shadow rounded-full"></div>
       </div>
@@ -75,4 +101,24 @@ const GlassButton = React.forwardRef<HTMLButtonElement, GlassButtonProps>(
 );
 GlassButton.displayName = "GlassButton";
 
-export { GlassButton, glassButtonVariants };
+export interface GlassCardProps extends React.HTMLAttributes<HTMLDivElement> {}
+
+const GlassCard = React.forwardRef<HTMLDivElement, GlassCardProps>(
+  ({ className, children, ...props }, ref) => {
+    return (
+      <div
+        ref={ref}
+        className={cn(
+          "flex flex-col items-center justify-center p-3.5 sm:p-4 rounded-xl bg-surface/80 border border-border/90 backdrop-blur-xl shadow-xl hover:border-frost/60 transition-all duration-300 group",
+          className
+        )}
+        {...props}
+      >
+        {children}
+      </div>
+    );
+  }
+);
+GlassCard.displayName = "GlassCard";
+
+export { GlassButton, GlassCard, glassButtonVariants };

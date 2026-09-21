@@ -98,18 +98,18 @@
       position: absolute;
       top: 50%;
       left: 50%;
-      width: clamp(154px, 16.8vw, 238px);
-      aspect-ratio: 0.72;
-      padding: 7px;
+      width: clamp(160px, 17.5vw, 240px);
+      aspect-ratio: 9 / 16;
+      padding: 0;
       overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, calc(0.12 + var(--focus) * 0.25));
-      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, calc(0.12 + var(--focus) * 0.28));
+      border-radius: 16px;
       color: #ffffff;
-      background: #121214;
+      background: #08080a;
       box-shadow:
-        0 calc(10px + var(--focus) * 24px) calc(20px + var(--focus) * 36px)
-          rgba(0, 0, 0, calc(0.6 + var(--focus) * 0.35)),
-        inset 0 0 0 1px rgba(255, 255, 255, calc(0.06 + var(--focus) * 0.15));
+        0 calc(12px + var(--focus) * 28px) calc(24px + var(--focus) * 44px)
+          rgba(0, 0, 0, calc(0.65 + var(--focus) * 0.3)),
+        inset 0 0 0 1px rgba(255, 255, 255, calc(0.06 + var(--focus) * 0.16));
       appearance: none;
       outline: none;
       transform-style: preserve-3d;
@@ -120,102 +120,94 @@
     .card::before {
       content: "";
       position: absolute;
-      inset: 5px;
-      z-index: 3;
-      border: 1px solid rgba(255, 255, 255, calc(0.04 + var(--focus) * 0.1));
+      inset: 0;
+      z-index: 4;
+      border-radius: 15px;
+      border: 1px solid rgba(255, 255, 255, calc(0.05 + var(--focus) * 0.15));
       pointer-events: none;
     }
 
     .card:focus-visible {
       box-shadow:
         0 26px 50px rgba(0, 0, 0, 0.8),
-        0 0 0 4px rgba(255, 255, 255, 0.3);
+        0 0 0 4px rgba(255, 255, 255, 0.4);
     }
 
     .portrait {
       position: absolute;
-      inset: 7px 7px 25%;
+      inset: 0;
+      border-radius: 15px;
       overflow: hidden;
       background: #000000;
     }
 
-    .portrait img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transform: scale(calc(1.04 + (1 - var(--focus)) * 0.06));
-      filter:
-        saturate(calc(0.75 + var(--focus) * 0.35))
-        contrast(1.05);
+    .portrait::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.15) 0%,
+        transparent 25%,
+        transparent 58%,
+        rgba(0, 0, 0, 0.82) 100%
+      );
+      pointer-events: none;
     }
 
+    .portrait img,
     .portrait video {
       display: block;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transform: scale(calc(1.04 + (1 - var(--focus)) * 0.06));
+      transform: scale(calc(1.02 + (1 - var(--focus)) * 0.05));
       filter:
-        saturate(calc(0.75 + var(--focus) * 0.35))
+        saturate(calc(0.8 + var(--focus) * 0.3))
         contrast(1.05);
     }
 
-    .footer {
+    .views-badge {
       position: absolute;
-      right: 7px;
-      bottom: 7px;
-      left: 7px;
-      height: calc(25% - 7px);
-      display: grid;
-      grid-template-columns: clamp(26px, 3.2vw, 43px) 1fr;
+      bottom: clamp(12px, 1.4vw, 18px);
+      left: 50%;
+      z-index: 10;
+      transform: translateX(-50%) scale(calc(0.92 + var(--focus) * 0.12));
+      display: inline-flex;
       align-items: center;
-      gap: clamp(6px, 0.7vw, 11px);
-      padding: clamp(7px, 0.8vw, 12px);
-      color: #ffffff;
-      background: #09090b;
-      text-align: left;
-    }
-
-    .index {
-      display: grid;
-      width: clamp(23px, 2.7vw, 37px);
-      aspect-ratio: 1;
-      place-items: center;
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      border-radius: 50%;
-      color: #ffffff;
-      font: 600 clamp(7px, 0.68vw, 11px)/1 ui-monospace, "SFMono-Regular", monospace;
-    }
-
-    .meta {
-      min-width: 0;
-    }
-
-    .name,
-    .role {
-      display: block;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      text-transform: uppercase;
+      justify-content: center;
+      gap: 6px;
+      padding: clamp(6px, 0.75vw, 8px) clamp(11px, 1.1vw, 16px);
+      border-radius: 9999px;
+      background: rgba(9, 14, 20, 0.78);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, calc(0.18 + var(--focus) * 0.28));
+      box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.65),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+      pointer-events: none;
       white-space: nowrap;
+      transition: transform 0.15s ease, border-color 0.15s ease;
     }
 
-    .name {
-      color: #ffffff;
-      font-size: clamp(7px, 0.72vw, 11px);
-      font-weight: 800;
-      letter-spacing: 0.04em;
-      line-height: 1.1;
-    }
-
-    .role {
-      margin-top: clamp(3px, 0.35vw, 5px);
+    .views-icon {
+      width: clamp(12px, 1.1vw, 15px);
+      height: clamp(12px, 1.1vw, 15px);
       color: #8ba3c5;
-      font-size: clamp(6px, 0.56vw, 8.5px);
+      flex-shrink: 0;
+    }
+
+    .views-text {
+      color: #ffffff;
+      font-family: ui-monospace, "SFMono-Regular", "Menlo", monospace;
+      font-size: clamp(9px, 0.85vw, 12px);
       font-weight: 700;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
       line-height: 1;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
     }
 
     .sr-only {
@@ -248,7 +240,7 @@
       }
 
       .card {
-        width: clamp(142px, 47vw, 180px);
+        width: clamp(138px, 42vw, 175px);
       }
     }
 
@@ -297,17 +289,17 @@
         card.className = "card";
         card.type = "button";
         card.dataset.index = String(index);
-        card.setAttribute("aria-label", `Reel: ${profile.name}, ${profile.role}`);
+        card.setAttribute("aria-label", `Reel with ${profile.role}`);
         card.innerHTML = `
           <span class="portrait">
             <video data-media src="${media[profile.portrait]}" muted loop playsinline preload="metadata" aria-hidden="true"></video>
           </span>
-          <span class="footer">
-            <span class="index">${String(index + 1).padStart(2, "0")}</span>
-            <span class="meta">
-              <span class="name">${profile.name}</span>
-              <span class="role">${profile.role}</span>
-            </span>
+          <span class="views-badge">
+            <svg class="views-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+            <span class="views-text">${profile.role}</span>
           </span>`;
         deck.append(card);
         return card;

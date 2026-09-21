@@ -38,20 +38,20 @@ const agencies: Agency[] = [
     maskType: "custom-a",
     servicesList: [
       {
-        title: "CPM-Based Scaled Growth",
-        detail: "Performance-linked viral campaigns that transition into dedicated monthly retainers.",
+        title: "Test & Discover",
+        detail: "Launch with 500–1,000+ clippers to test pages, hooks, formats, and content angles using CPM-based distribution.",
       },
       {
-        title: "Multi-Page Daily Clipping",
-        detail: "10/10 standard video editing with custom hook isolation, captions, and platform remixing.",
+        title: "Identify Winners",
+        detail: "Track performance to identify the top-performing pages and content formats that consistently generate results.",
       },
       {
-        title: "Full Account Management",
-        detail: "Autonomous page creation, branding, scheduling, and community engagement.",
+        title: "Build the Network",
+        detail: "Move the top 10–30 pages into a fixed monthly retainer with defined clips, posting frequency, and quality standards.",
       },
       {
-        title: "Weekly Performance Audits",
-        detail: "In-depth Excel metrics, CPM breakdown, view attribution, and page-by-page ROI.",
+        title: "Scale Continuously",
+        detail: "Build a repeatable distribution system that can be renewed, optimized, and scaled month after month.",
       },
     ],
   },
@@ -68,20 +68,20 @@ const agencies: Agency[] = [
     maskType: "rounded-rect",
     servicesList: [
       {
-        title: "High-Velocity PR Campaign",
-        detail: "Focused media & creator narrative distribution placing your brand across trending feeds.",
+        title: "Activate Fast",
+        detail: "Launch targeted distribution for products, announcements, launches, or narratives without a long testing period.",
       },
       {
-        title: "Rapid Mass Clipping Blitz",
-        detail: "Extracting high-engagement hooks from long-form content for immediate multi-platform surge.",
+        title: "Reach at Scale",
+        detail: "Deploy through mass fan-page clipping and niche theme pages, with CPM campaigns typically structured around $1–$3 / 1K views.",
       },
       {
-        title: "Cross-Platform Syndication",
-        detail: "Synchronized rollout across YouTube Shorts, Instagram Reels, and TikTok.",
+        title: "Seed Everywhere",
+        detail: "Use established pages ranging from niche accounts to 1M–10M+ followers, with fixed cost per post and execution possible within 24 hours.",
       },
       {
-        title: "Complete Campaign Wrap",
-        detail: "Comprehensive reach recap, audience acquisition audit, and post-campaign playbook.",
+        title: "Push & Scale",
+        detail: "Run concentrated campaigns from $12K minimum to $100K+, depending on the required reach, inventory, and timeframe.",
       },
     ],
   },
@@ -327,10 +327,6 @@ export default function Agencies() {
           <h2 className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-[4.25rem] font-bold tracking-tight text-[#111111] leading-[1.08]">
             The services we provide
           </h2>
-          <p className="mt-5 text-sm sm:text-base md:text-[17px] text-[#2D2D2D] leading-relaxed max-w-xl mx-auto font-normal">
-            We specialise in clipping, multi-platform distribution, and creator PR.
-            <br className="hidden sm:inline" /> Working as one unified engine – turning one piece of long-form footage into millions of views.
-          </p>
         </div>
 
         {/* ========================================================================= */}
@@ -450,7 +446,7 @@ export default function Agencies() {
                       WebkitTransform: "rotateY(0deg)",
                     }}
                   >
-                    <div className="flex flex-col items-center justify-center text-center w-full max-w-xs transition-transform duration-300 group-hover:scale-[1.01]">
+                    <div className="flex flex-col items-center justify-center text-center w-full max-w-xs transition-transform duration-300 group-hover:scale-[1.01] -translate-y-6 sm:-translate-y-8">
                       {/* Eyebrow Tag */}
                       <div
                         className={cn(

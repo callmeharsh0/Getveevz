@@ -7,7 +7,7 @@ import Agencies from "@/components/sections/Agencies";
 import WeHandleItAll from "@/components/sections/WeHandleItAll";
 import Pricing from "@/components/sections/Pricing";
 import LiveAnalytics from "@/components/sections/LiveAnalytics";
-import FAQ from "@/components/sections/FAQ";
+import Questionnaire from "@/components/sections/Questionnaire";
 import FinalCTA from "@/components/sections/FinalCTA";
 
 export default function Home() {
@@ -24,7 +24,7 @@ export default function Home() {
       <WeHandleItAll />
       <Pricing />
       <LiveAnalytics />
-      <FAQ />
+      <Questionnaire />
       <FinalCTA />
     </main>
   );
