@@ -174,7 +174,7 @@ export default function Agencies() {
       if (!video) return;
       if (i === index) {
         video.currentTime = 0;
-        video.play().catch(() => {});
+        video.play().catch(() => { });
       } else {
         video.pause();
       }
@@ -213,7 +213,7 @@ export default function Agencies() {
         if (!video) return;
         if (i === activeCardIndex) {
           video.currentTime = 0;
-          video.play().catch(() => {});
+          video.play().catch(() => { });
         } else {
           video.pause();
         }

@@ -20,7 +20,6 @@ export default function ServiceDetailPage() {
   const featuresRef = useScrollReveal<HTMLDivElement>();
   const benefitsRef = useScrollReveal<HTMLDivElement>();
   const processRef = useScrollReveal<HTMLDivElement>();
-  const faqRef = useScrollReveal<HTMLDivElement>();
   const ctaRef = useScrollReveal<HTMLDivElement>();
 
   if (!service) {
@@ -253,32 +252,6 @@ export default function ServiceDetailPage() {
           </div>
         </div>
 
-        {/* ── FAQ Section: LIGHT ACCORDION CARDS ── */}
-        <div ref={faqRef} className="mb-24 sm:mb-28 max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#0038E2] font-semibold">
-              FAQ
-            </span>
-            <h2
-              data-reveal
-              className="font-display font-medium text-2xl sm:text-3xl text-[#111111] tracking-tight mt-1"
-            >
-              Frequently Asked Questions
-            </h2>
-          </div>
-
-          <div className="space-y-4">
-            {service.faq.map((item, i) => (
-              <FAQItem
-                key={i}
-                question={item.question}
-                answer={item.answer}
-                index={i}
-              />
-            ))}
-          </div>
-        </div>
-
         {/* ── Bottom CTA (Light Double-Bezel Card) ── */}
         <div
           ref={ctaRef}
@@ -363,57 +336,6 @@ function DoubleBezelCard({
         )}
       >
         {children}
-      </div>
-    </div>
-  );
-}
-
-/**
- * Animated FAQ — Light Porcelain Card on Cream Canvas
- */
-function FAQItem({
-  question,
-  answer,
-  index,
-}: {
-  question: string;
-  answer: string;
-  index: number;
-}) {
-  const [open, setOpen] = React.useState(false);
-
-  return (
-    <div
-      data-reveal
-      className={cn("overflow-hidden rounded-[2rem] transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]")}
-      style={{ transitionDelay: `${index * 60}ms` }}
-    >
-      <div className="rounded-[2rem] bg-white/75 border border-[#111111]/10 p-1.5 shadow-[0_8px_20px_rgba(0,0,0,0.04)]">
-        <div className="rounded-[calc(2rem-0.375rem)] bg-white border border-[#111111]/5">
-          <button
-            type="button"
-            onClick={() => setOpen(!open)}
-            className="w-full flex items-center justify-between px-6 py-4 sm:py-5 text-left transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-[#FBF9F6]"
-          >
-            <span className="font-display font-medium text-[#111111] text-sm sm:text-base pr-4">
-              {question}
-            </span>
-            <ChevronDown
-              className={cn(
-                "w-4 h-4 text-[#0038E2] shrink-0 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]",
-                open && "rotate-180"
-              )}
-            />
-          </button>
-          <div
-            className={cn(
-              "px-6 overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]",
-              open ? "max-h-56 pb-5 opacity-100" : "max-h-0 opacity-0"
-            )}
-          >
-            <p className="text-xs sm:text-sm text-[#555555] leading-relaxed font-light">{answer}</p>
-          </div>
-        </div>
       </div>
     </div>
   );

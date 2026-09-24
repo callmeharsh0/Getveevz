@@ -40,10 +40,10 @@ const services = [
     n: "03",
     phase: "PHASE 03 // DEPLOYMENT",
     title: "Campaign Launching",
-    desc: "Coordinated clip syndication rollout, automated scheduling, and multi-page short-form publishing.",
+    desc: "Coordinated clip rollout, automated scheduling, and multi-page short-form publishing.",
     icon: Rocket,
-    badge: "Omni-Channel Sync",
-    highlight: "Syndicated Push",
+    badge: "Multi-Platform Sync",
+    highlight: "Coordinated Push",
   },
   {
     n: "04",

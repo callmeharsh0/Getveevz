@@ -79,7 +79,7 @@ const budgetPlans: BudgetPlan[] = [
     highlightNote: "We have a higher budget and need a custom plan",
     specs: [
       { label: "Pages", value: "Unlimited Page Ecosystem" },
-      { label: "Content", value: "Multi-Show Syndication & Seeding" },
+      { label: "Content", value: "Multi-Show Repurposing & Distribution" },
       { label: "Pod", value: "Dedicated In-House Creative Pod" },
       { label: "Guarantees", value: "Custom Algorithmic SLAs" },
       { label: "Access", value: "Direct Access to Founders" },
@@ -132,14 +132,14 @@ export default function Pricing() {
       id="pricing"
       className="relative w-full py-20 sm:py-28 lg:py-32 bg-[#090e14] overflow-hidden"
     >
-      {/* Ambient background gradients matching site theme */}
+      {/* Ambient monochrome grey background glow */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute top-1/4 left-1/4 -translate-x-1/2 w-[720px] h-[500px] bg-frost/5 blur-[160px] rounded-full"
+        className="pointer-events-none absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[580px] bg-white/[0.04] blur-[170px] rounded-full"
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute bottom-1/4 right-1/4 translate-x-1/2 w-[640px] h-[440px] bg-storm/20 blur-[150px] rounded-full"
+        className="pointer-events-none absolute bottom-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[460px] bg-neutral-400/[0.03] blur-[160px] rounded-full"
       />
 
       {/* Atmospheric Fades */}
@@ -152,11 +152,11 @@ export default function Pricing() {
         className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#090e14] to-transparent z-10"
       />
 
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Card Container Matching Site Theme & Selector Architecture */}
         <div
           ref={containerRef}
-          className="relative bg-gradient-to-b from-[#0e1724]/95 via-[#0b131e]/95 to-[#070b10]/95 rounded-[28px] sm:rounded-[36px] p-6 sm:p-10 lg:p-12 shadow-[0_24px_70px_rgba(2,18,47,0.85)] border border-white/[0.12] backdrop-blur-xl select-none text-[#F0ECDD]"
+          className="relative bg-gradient-to-b from-[#0e1724]/95 via-[#0b131e]/95 to-[#070b10]/95 rounded-[32px] sm:rounded-[40px] p-7 sm:p-10 lg:p-12 shadow-[0_24px_70px_rgba(2,18,47,0.85)] border border-white/[0.12] backdrop-blur-xl select-none text-[#F0ECDD]"
         >
           {/* Top Row: Title & Currency Switcher */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-white/[0.08]">
@@ -165,13 +165,13 @@ export default function Pricing() {
                 <Sparkles className="w-3 h-3 text-frost" />
                 <span>Pricing & Scale</span>
               </div>
-              <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-[#F0ECDD]">
+              <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-[#F0ECDD]">
                 Select your budget
               </h2>
             </div>
 
             {/* Currency Switcher (USD, INR, AED) */}
-            <div className="inline-flex items-center self-start sm:self-auto p-1 rounded-xl bg-white/[0.06] border border-white/10 backdrop-blur-md">
+            <div className="inline-flex items-center self-start sm:self-auto p-1.5 rounded-xl bg-white/[0.06] border border-white/10 backdrop-blur-md">
               {(["USD", "INR", "AED"] as Currency[]).map((c) => {
                 const isActive = currency === c;
                 return (
@@ -186,7 +186,7 @@ export default function Pricing() {
                         : "text-white/60 hover:text-white"
                     )}
                   >
-                    {c === "USD" ? "USD ($)" : c === "INR" ? "INR (₹)" : "AED (د.إ)"}
+                    {c === "USD" ? "USD ($)" : c === "INR" ? "INR (₹)" : "AED ($)"}
                   </button>
                 );
               })}
@@ -196,7 +196,7 @@ export default function Pricing() {
           {/* ========================================================= */}
           {/* DESKTOP LAYOUT (3 Side-by-Side Cards)                    */}
           {/* ========================================================= */}
-          <div className="hidden lg:grid grid-cols-3 gap-4 lg:gap-5 mt-8 items-stretch">
+          <div className="hidden lg:grid grid-cols-3 gap-5 lg:gap-6 mt-8 items-stretch">
             {budgetPlans.map((plan) => {
               const isSelected = plan.id === selectedPlanId;
 
@@ -205,9 +205,9 @@ export default function Pricing() {
                   key={plan.id}
                   onClick={() => setSelectedPlanId(plan.id)}
                   className={cn(
-                    "relative rounded-2xl p-6 transition-all duration-300 cursor-pointer flex flex-col justify-between select-none",
+                    "relative rounded-2xl p-7 lg:p-8 min-h-[440px] transition-all duration-300 cursor-pointer flex flex-col justify-between select-none",
                     isSelected
-                      ? "border-2 border-frost bg-frost/[0.08] shadow-[0_0_35px_rgba(139,163,197,0.18)] ring-1 ring-frost/50"
+                      ? "border-2 border-frost bg-frost/[0.08] shadow-[0_0_35px_rgba(139,163,197,0.18)] ring-1 ring-frost/50 scale-[1.01]"
                       : "border border-white/10 bg-white/[0.02] hover:border-frost/40 hover:bg-white/[0.04]"
                   )}
                 >

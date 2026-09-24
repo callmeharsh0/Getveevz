@@ -85,24 +85,24 @@ export const services: Service[] = [
     ],
     faq: [
       {
-        question: "What's the minimum term for a long-term campaign?",
+        question: "How long is the initial commitment?",
         answer:
-          "We recommend a 3-month minimum for CPM-based testing to gather statistically significant performance data.",
+          "We recommend starting with at least 3 months. This gives our team enough time to test different hooks, find what resonates best with your audience, and build steady monthly growth.",
       },
       {
-        question: "How many clippers are deployed?",
+        question: "How many editors work on my content?",
         answer:
-          "Initial testing deploys 500–1,000+ clippers across the agency-owned page network to maximize testing surface area.",
+          "We assign a dedicated team of vetted short-form editors. They turn your long-form videos into engaging clips and test different angles and hooks across multiple pages.",
       },
       {
-        question: "What CPM can we expect?",
+        question: "What does it cost per view?",
         answer:
-          "CPM is typically $1–$3 / 1K views during testing, driven down further as winning pages transition to fixed retainers.",
+          "Most campaigns average $1 to $3 for every 1,000 views during early testing. Over time, that cost goes down as we focus only on the channels bringing the best engagement.",
       },
       {
-        question: "How many pages move to retainers?",
+        question: "How do you pick which accounts keep posting?",
         answer:
-          "Based on performance, we typically shortlist the top 10–30 pages for monthly retainer engagement.",
+          "We track which pages generate the most watch time and followers, then focus ongoing monthly budgets on the top 10 to 30 accounts that consistently deliver real results.",
       },
     ],
     ctaHref: "mailto:contact@getveevz.com?subject=Long-Term%20Distribution%20Inquiry",
@@ -177,24 +177,24 @@ export const services: Service[] = [
     ],
     faq: [
       {
-        question: "What's the minimum budget?",
+        question: "What is the minimum budget?",
         answer:
-          "Minimum seeding budget is $12K. Campaigns can scale to $100K+ in a single day depending on reach requirements.",
+          "Campaigns start at $12,000 for focused launches. We can also scale up to $100,000+ for large single-day product drops and major announcements.",
       },
       {
-        question: "How fast can you execute?",
+        question: "How fast can you launch?",
         answer:
-          "Distribution can be executed within 24 hours from content approval.",
+          "Once you approve the clips, we can have videos going live across our accounts within 24 hours.",
       },
       {
-        question: "What niches do you support?",
+        question: "What topics and industries do you work with?",
         answer:
-          "AI, tech, business, education, and news — plus custom niches on request.",
+          "We regularly cover AI, technology, business, finance, education, and news. We can also reach custom niche audiences upon request.",
       },
       {
-        question: "What page sizes do you access?",
+        question: "What size accounts post the videos?",
         answer:
-          "From niche micro-accounts to established pages with 1M–10M+ followers.",
+          "We post across a wide variety of accounts, from focused niche communities to large creator pages with 1M to 10M+ followers.",
       },
     ],
     ctaHref: "mailto:contact@getveevz.com?subject=Short-Term%20Campaign%20Inquiry",
