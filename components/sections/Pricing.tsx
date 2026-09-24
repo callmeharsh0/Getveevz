@@ -38,31 +38,31 @@ const shortTermPlans: PlanTier[] = [
     badge: "30-Day Sprint",
     price: { USD: "$8K", INR: "₹6.8L" },
     period: "/ sprint",
-    subtitle: "Targeted PR & Launch Campaign",
+    subtitle: "PR & Product Launch Blitz",
     ctaText: "Launch Sprint",
     specs: [
-      { label: "Account Network", value: "Tailored to niche (10–15 pages)" },
-      { label: "Content Output", value: "25 Polished Short Clips" },
-      { label: "Supported Platforms", value: "YT + IG + TikTok" },
-      { label: "Intelligence Reports", value: "Weekly Sprint Summary" },
-      { label: "Creative Direction", value: "Custom Storyboarding" },
+      { label: "Network", value: "10–15 Dedicated Pages" },
+      { label: "Content", value: "25 Short Clips" },
+      { label: "Platforms", value: "YT Shorts, Reels & TikTok" },
+      { label: "Reporting", value: "Weekly Sprint Summary" },
+      { label: "Direction", value: "Custom Storyboarding" },
     ],
   },
   {
     id: "sprint-growth",
     name: "Growth Blitz",
-    badge: "Most Popular Sprint",
+    badge: "Most Popular",
     isPopular: true,
     price: { USD: "$18K", INR: "₹15L" },
     period: "/ 45 days",
-    subtitle: "High-Velocity Multi-Platform Saturation",
+    subtitle: "Multi-Platform Saturation",
     ctaText: "Start Blitz",
     specs: [
-      { label: "Account Network", value: "30 Distribution Pages" },
-      { label: "Content Output", value: "60 High-Retention Clips" },
-      { label: "Supported Platforms", value: "YT + IG + TikTok + FB" },
-      { label: "Intelligence Reports", value: "Live Real-Time Dashboard" },
-      { label: "Audience Target", value: "Guaranteed Algorithmic Push" },
+      { label: "Network", value: "30 Distribution Pages" },
+      { label: "Content", value: "60 High-Retention Clips" },
+      { label: "Platforms", value: "YT Shorts, Reels & TikTok" },
+      { label: "Reporting", value: "Live Real-Time Dashboard" },
+      { label: "Distribution", value: "Guaranteed Algorithmic Push" },
     ],
   },
   {
@@ -71,14 +71,14 @@ const shortTermPlans: PlanTier[] = [
     badge: "Maximum Impact",
     price: { USD: "$32K", INR: "₹27L" },
     period: "/ 60 days",
-    subtitle: "Category Buzz & Full Saturation",
-    ctaText: "Dominate Category",
+    subtitle: "Category Takeover",
+    ctaText: "Start Takeover",
     specs: [
-      { label: "Account Network", value: "50+ Distribution Pages" },
-      { label: "Content Output", value: "120+ Viral Hook Variations" },
-      { label: "Supported Platforms", value: "All Platforms (YT, IG, TikTok, FB)" },
-      { label: "Intelligence Reports", value: "Dedicated Strategist & War Room" },
-      { label: "Audience Target", value: "Mass Scale Multiplier" },
+      { label: "Network", value: "50+ Distribution Pages" },
+      { label: "Content", value: "120+ Viral Hook Variations" },
+      { label: "Platforms", value: "All Major Platforms" },
+      { label: "Reporting", value: "Dedicated Strategist & Pod" },
+      { label: "Scale", value: "Mass Category Saturation" },
     ],
   },
 ];
@@ -87,17 +87,17 @@ const longTermPlans: PlanTier[] = [
   {
     id: "long-growth",
     name: "Growth Engine",
-    badge: "Quarterly Retainer",
+    badge: "Quarterly",
     price: { USD: "$24K", INR: "₹20L" },
     period: "/ 3 months",
     subtitle: "Continuous Compounding Reach",
     ctaText: "Build Engine",
     specs: [
-      { label: "Account Network", value: "15 Dedicated Fan Pages" },
-      { label: "Content Output", value: "40 Clips / Month (120 Total)" },
-      { label: "Supported Platforms", value: "YT + IG + TikTok" },
-      { label: "Intelligence Reports", value: "Bi-Weekly Strategy & Reports" },
-      { label: "Strategic Moat", value: "Consistent Algorithmic Growth" },
+      { label: "Network", value: "15 Dedicated Fan Pages" },
+      { label: "Content", value: "40 Clips / Mo (120 Total)" },
+      { label: "Platforms", value: "YT Shorts, Reels & TikTok" },
+      { label: "Reporting", value: "Bi-Weekly Strategy & Reports" },
+      { label: "Compounding", value: "Continuous Growth Engine" },
     ],
   },
   {
@@ -107,14 +107,14 @@ const longTermPlans: PlanTier[] = [
     isPopular: true,
     price: { USD: "$40K", INR: "₹34L" },
     period: "/ 3 months",
-    subtitle: "Continuous Compounding Growth",
+    subtitle: "Compounding Category Lead",
     ctaText: "Claim Authority",
     specs: [
-      { label: "Account Network", value: "30 Distribution Pages" },
-      { label: "Content Output", value: "80 Clips / Month (240 Total)" },
-      { label: "Supported Platforms", value: "YT + IG + TikTok + FB" },
-      { label: "Intelligence Reports", value: "Live Real-Time Dashboard" },
-      { label: "Audience Target", value: "Guaranteed Impressions" },
+      { label: "Network", value: "30 Dedicated Pages" },
+      { label: "Content", value: "80 Clips / Mo (240 Total)" },
+      { label: "Platforms", value: "YT Shorts, Reels & TikTok" },
+      { label: "Reporting", value: "Live Real-Time Dashboard" },
+      { label: "Distribution", value: "Guaranteed Organic Reach" },
     ],
   },
   {
@@ -123,14 +123,14 @@ const longTermPlans: PlanTier[] = [
     badge: "Full Ecosystem",
     price: { USD: "$80K", INR: "₹68L" },
     period: "/ 3 months",
-    subtitle: "Category Leadership & Mass PR",
+    subtitle: "Omnipresent Market Dominance",
     ctaText: "Dominate Category",
     specs: [
-      { label: "Account Network", value: "60 Distribution Pages" },
-      { label: "Content Output", value: "150 Clips / Month (450 Total)" },
-      { label: "Supported Platforms", value: "All Platforms (YT, IG, TikTok, FB)" },
-      { label: "Intelligence Reports", value: "Dedicated Strategist" },
-      { label: "Audience Target", value: "Maximum Scale Multiplier" },
+      { label: "Network", value: "60 Dedicated Pages" },
+      { label: "Content", value: "150 Clips / Mo (450 Total)" },
+      { label: "Platforms", value: "All Major Platforms" },
+      { label: "Reporting", value: "Dedicated Distribution Pod" },
+      { label: "Scale", value: "Maximum Category Multiplier" },
     ],
   },
 ];
@@ -285,15 +285,15 @@ export default function Pricing() {
 
       <div className="relative z-10 mx-auto max-w-7xl">
         {/* Section Header */}
-        <div ref={headerRef} className="text-center max-w-4xl mx-auto">
+        <div ref={headerRef} className="text-center max-w-3xl mx-auto">
           {/* Eyebrow badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface/90 border border-border/90 text-[11px] sm:text-xs font-mono uppercase tracking-eyebrow text-frost mb-6 backdrop-blur-xl shadow-xl">
-            <span className="w-2 h-2 rounded-full bg-frost animate-pulse" />
-            <span>(08) Transparent Investment</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface/90 border border-border/90 text-xs font-mono uppercase tracking-wider text-frost mb-4 backdrop-blur-xl">
+            <Sparkles className="w-3 h-3 text-frost" />
+            <span>Pricing</span>
           </div>
 
           {/* Headline */}
-          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-moonlight leading-[1.05]">
+          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-moonlight leading-[1.05]">
             Pick your
             <span className="inline-block ml-3 sm:ml-4 text-transparent bg-clip-text bg-gradient-to-r from-frost via-moonlight to-white">
               velocity
@@ -301,13 +301,13 @@ export default function Pricing() {
           </h2>
 
           {/* Subtitle */}
-          <p className="mt-5 text-sm sm:text-base md:text-lg text-muted max-w-2xl mx-auto leading-relaxed font-normal">
-            Predictable distribution infrastructure engineered for exponential algorithmic audience acquisition across Instagram, YouTube Shorts, and TikTok
+          <p className="mt-4 text-sm sm:text-base text-muted max-w-xl mx-auto leading-relaxed font-normal">
+            Predictable, transparent pricing for creators and brands scaling short-form distribution.
           </p>
         </div>
 
         {/* Dual Switcher Controls: Service Duration & Currency */}
-        <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-5">
+        <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-5">
           {/* Duration Switcher (Short-Term vs Long-Term) */}
           <div className="inline-flex items-center p-1 rounded-full bg-surface/80 border border-border/80 backdrop-blur-md shadow-inner">
             <button
@@ -369,15 +369,6 @@ export default function Pricing() {
               );
             })}
           </div>
-        </div>
-
-        {/* Dynamic Context Label */}
-        <div className="mt-4 text-center">
-          <p className="text-xs sm:text-sm text-frost/90 font-mono tracking-wide">
-            {serviceTerm === "short-term"
-              ? "⚡ Targeted 30–60 day sprint campaigns for product launches, event PR, and rapid market testing"
-              : "📈 3+ month compounding growth retainers for sustained category dominance and audience ownership"}
-          </p>
         </div>
 
         {/* Cards Grid: Mathematically Balanced 3-Column Bento Architecture */}
@@ -452,10 +443,7 @@ export default function Pricing() {
                     </div>
 
                     {/* Deliverables Specs List */}
-                    <div className="mt-8 space-y-4">
-                      <p className="text-[11px] font-mono uppercase tracking-[0.2em] text-frost/80 font-semibold">
-                        What&apos;s Included:
-                      </p>
+                    <div className="mt-8 space-y-3.5">
                       <ul className="space-y-3.5">
                         {plan.specs.map((spec) => (
                           <li
@@ -520,10 +508,10 @@ export default function Pricing() {
 
         {/* Rollover Bridge Note */}
         <div className="mt-8 sm:mt-10 flex items-center justify-center text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-surface/70 border border-border/80 text-[11px] sm:text-xs text-muted backdrop-blur-md shadow-sm">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-surface/70 border border-border/80 text-xs text-muted backdrop-blur-md shadow-sm">
             <Sparkles className="w-3.5 h-3.5 text-frost shrink-0" />
             <span>
-              Starting with a Short-Term Sprint? 100% of your sprint investment rolls over into an ongoing Long-Term Retainer
+              100% of your sprint investment rolls over into an ongoing retainer.
             </span>
           </div>
         </div>
@@ -536,10 +524,10 @@ export default function Pricing() {
           <div className="rounded-[11px] bg-[#0a1017]/95 border border-border/40 px-6 sm:px-10 py-6 sm:py-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-[inset_0_1px_1px_rgba(255,255,255,0.06)]">
             <div className="text-center sm:text-left">
               <h4 className="font-display text-lg sm:text-xl font-bold text-white">
-                Need enterprise volume, multi-host syndication, or white-labeling?
+                Need custom volume or multi-show syndication?
               </h4>
               <p className="mt-1 text-xs sm:text-sm text-muted">
-                We design custom multi-tier distribution arrangements for high-volume catalogs and creator studios
+                Custom setups designed for enterprise media and high-volume creator networks.
               </p>
             </div>
 

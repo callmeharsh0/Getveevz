@@ -101,28 +101,24 @@ export default function ClientLogosMarquee() {
   return (
     <section
       id="clients"
-      className="relative w-full py-20 sm:py-28 lg:py-32 bg-gradient-to-b from-[#090e14] via-[#04070d] to-[#02050a] overflow-hidden select-none"
+      className="relative w-full py-20 sm:py-28 lg:py-32 bg-[#090e14] overflow-hidden select-none"
     >
-      {/* ── Top Atmospheric Fade (seamless dissolve from DistributionFlow #090e14) ── */}
+      {/* ── Top Atmospheric Fade (seamless blend with DistributionFlow #090e14) ── */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-28 sm:h-40 bg-gradient-to-b from-[#090e14] via-[#090e14]/75 to-transparent z-10"
+        className="pointer-events-none absolute inset-x-0 top-0 h-24 sm:h-32 bg-gradient-to-b from-[#090e14] to-transparent z-10"
       />
 
-      {/* ── Bottom Atmospheric Fade (dissolves cleanly into next section) ── */}
+      {/* ── Bottom Atmospheric Fade ── */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-28 sm:h-40 bg-gradient-to-t from-[#02050a] via-[#02050a]/75 to-transparent z-10"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-24 sm:h-32 bg-gradient-to-t from-[#090e14] to-transparent z-10"
       />
 
-      {/* ── Spatial Radial Illumination ── */}
+      {/* ── Ambient Depth Glow (Exact match to DistributionFlow) ── */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[380px] bg-gradient-to-r from-frost/10 via-[#0038E2]/15 to-transparent blur-[160px] rounded-full"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute top-1/4 right-1/4 w-[400px] h-[250px] bg-frost/5 blur-[130px] rounded-full"
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[750px] w-[750px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(139,163,198,0.12),transparent_70%)] blur-2xl z-[1]"
       />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
