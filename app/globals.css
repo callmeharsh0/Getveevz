@@ -209,7 +209,43 @@
   border-color: #8BA3C6 !important;
   box-shadow: 0 0 10px rgba(139, 163, 198, 0.3);
 }
-.is-active-step .step-check {
-  color: #8BA3C6 !important;
+
+/* ─── Hero Floating Platform Logos Animation ─────────────────────── */
+@keyframes heroFloatA {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(1.2deg);
+  }
 }
 
+@keyframes heroFloatB {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(8px) rotate(-1.5deg);
+  }
+}
+
+@keyframes heroFloatC {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(-0.8deg);
+  }
+}
+
+.hero-float-a {
+  animation: heroFloatA 4.8s ease-in-out infinite;
+}
+
+.hero-float-b {
+  animation: heroFloatB 5.6s ease-in-out infinite;
+}
+
+.hero-float-c {
+  animation: heroFloatC 6.4s ease-in-out infinite;
+}

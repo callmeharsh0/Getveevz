@@ -21,6 +21,59 @@ const PLATFORMS = [
   { id: "shorts", name: "YT Shorts", value: 150, metric: "+150M Views", counterPrefix: "+", counterSuffix: "M", video: "/assets/tracking.mp4", tag: "Search Authority" },
 ];
 
+const SCATTERED_PLATFORM_LOGOS = [
+  {
+    id: "tiktok",
+    name: "TikTok",
+    src: "/assets/logos/tiktok.png",
+    pos: "top-[25%] left-[5%] sm:left-[7%] lg:left-[8%]",
+    size: "w-11 h-11 sm:w-12 sm:h-12 lg:w-14 lg:h-14",
+    anim: "hero-float-a",
+    platformId: "tiktok",
+    depth: 18,
+  },
+  {
+    id: "instagram",
+    name: "Instagram",
+    src: "/assets/logos/instagram.png",
+    pos: "top-[60%] left-[4%] sm:left-[5%] lg:left-[6%]",
+    size: "w-11 h-11 sm:w-12 sm:h-12 lg:w-13 lg:h-13",
+    anim: "hero-float-b",
+    platformId: "reels",
+    depth: 24,
+  },
+  {
+    id: "shorts",
+    name: "YouTube Shorts",
+    src: "/assets/logos/youtubeshorts.png",
+    pos: "top-[26%] right-[22%] sm:right-[26%] lg:right-[28%]",
+    size: "w-11 h-11 sm:w-12 sm:h-12 lg:w-14 lg:h-14",
+    anim: "hero-float-c",
+    platformId: "shorts",
+    depth: 20,
+  },
+  {
+    id: "youtube",
+    name: "YouTube",
+    src: "/assets/logos/youtube.png",
+    pos: "top-[40%] right-[3%] sm:right-[5%] lg:right-[6%]",
+    size: "w-11 h-11 sm:w-12 sm:h-12 lg:w-14 lg:h-14",
+    anim: "hero-float-a",
+    platformId: "all",
+    depth: 14,
+  },
+  {
+    id: "facebook",
+    name: "Facebook",
+    src: "/assets/logos/facebook.png",
+    pos: "bottom-[22%] left-[10%] sm:left-[12%] lg:left-[14%]",
+    size: "w-10 h-10 sm:w-11 sm:h-11 lg:w-13 lg:h-13",
+    anim: "hero-float-b",
+    platformId: "all",
+    depth: 16,
+  },
+];
+
 function HeroStatCounter({
   platformId = "all",
   target = 1000,
@@ -146,6 +199,7 @@ export default function Hero() {
   // GSAP Entrance, Interactive Spotlight & Mouse Parallax
   useEffect(() => {
     if (!containerRef.current) return;
+    const container = containerRef.current;
 
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -157,16 +211,15 @@ export default function Hero() {
           wordmarkRef.current,
           bottomLeftRef.current,
           bottomRightRef.current,
-          cardLeftRef.current,
           cardRightRef.current,
         ],
         { opacity: 1, y: 0, scale: 1 }
       );
+      gsap.set(container.querySelectorAll(".floating-scatter-logo"), { opacity: 1, scale: 1, y: 0 });
       return;
     }
 
     // Hardware-accelerated quickTo mouse spotlight & parallax
-    const container = containerRef.current;
     let spotlightX = gsap.quickTo(spotlightRef.current, "x", { duration: 0.6, ease: "power2.out" });
     let spotlightY = gsap.quickTo(spotlightRef.current, "y", { duration: 0.6, ease: "power2.out" });
 
@@ -183,17 +236,17 @@ export default function Hero() {
       const normX = (x / rect.width - 0.5) * 2;
       const normY = (y / rect.height - 0.5) * 2;
 
-      // 3D Parallax tilt on floating interactive video cards
-      if (cardLeftRef.current) {
-        gsap.to(cardLeftRef.current, {
-          x: normX * -18,
-          y: normY * -14,
-          rotateY: normX * 8,
-          rotateX: -normY * 8,
-          duration: 0.6,
+      // 3D Parallax on scattered floating platform logos
+      const logoNodes = container.querySelectorAll<HTMLElement>(".floating-scatter-logo");
+      logoNodes.forEach((node) => {
+        const depth = parseFloat(node.dataset.depth || "16");
+        gsap.to(node, {
+          x: normX * -depth,
+          y: normY * -depth,
+          duration: 0.65,
           ease: "power2.out",
         });
-      }
+      });
 
       if (cardRightRef.current) {
         gsap.to(cardRightRef.current, {
@@ -229,15 +282,17 @@ export default function Hero() {
         gsap.set(eyebrowsRef.current.querySelectorAll(".eyebrow-item"), { opacity: 0, y: 16 });
       }
       gsap.set(wordmarkRef.current, { opacity: 0, scale: 0.94, y: 20 });
-      gsap.set([cardLeftRef.current, cardRightRef.current], { opacity: 0, scale: 0.8, y: 30 });
+      gsap.set(".floating-scatter-logo", { opacity: 0, scale: 0.6, y: 20 });
+      gsap.set(cardRightRef.current, { opacity: 0, scale: 0.8, y: 30 });
       gsap.set([bottomLeftRef.current, bottomRightRef.current], { opacity: 0, y: 24 });
 
       // Coordinated Staggered Entrance
       tl.to(navRef.current, { opacity: 1, y: 0, duration: 0.6 })
         .to(eyebrowsRef.current?.querySelectorAll(".eyebrow-item") || [], { opacity: 1, y: 0, duration: 0.5, stagger: 0.06 }, "-=0.35")
         .to(wordmarkRef.current, { opacity: 1, scale: 1, y: 0, duration: 0.7, ease: "power2.out" }, "-=0.3")
+        .to(".floating-scatter-logo", { opacity: 1, scale: 1, y: 0, duration: 0.7, stagger: 0.08, ease: "back.out(1.5)" }, "-=0.5")
         .to([bottomLeftRef.current, bottomRightRef.current], { opacity: 1, y: 0, duration: 0.6, stagger: 0.08 }, "-=0.5")
-        .to([cardLeftRef.current, cardRightRef.current], { opacity: 1, scale: 1, y: 0, duration: 0.7, stagger: 0.12 }, "-=0.4");
+        .to(cardRightRef.current, { opacity: 1, scale: 1, y: 0, duration: 0.7 }, "-=0.4");
 
       // Scroll trigger for nav elevation
       if (navRef.current) {
@@ -372,6 +427,39 @@ export default function Hero() {
       </div>
 
       {/* ========================================================================= */}
+      {/* SCATTERED FLOATING PLATFORM LOGOS (SCATTERED ACROSS ENTIRE HERO SECTION)  */}
+      {/* ========================================================================= */}
+      {SCATTERED_PLATFORM_LOGOS.map((logo) => {
+        const isCurrent = activePlatform.id === logo.platformId;
+        return (
+          <button
+            key={logo.id}
+            type="button"
+            data-depth={logo.depth}
+            onClick={() => {
+              const match = PLATFORMS.find((p) => p.id === logo.platformId);
+              if (match) setActivePlatform(match);
+            }}
+            aria-label={logo.name}
+            className={cn(
+              "floating-scatter-logo absolute z-20 flex items-center justify-center rounded-2xl bg-white/95 border border-[#111111]/10 backdrop-blur-xl shadow-[0_12px_32px_rgba(0,0,0,0.1),0_2px_8px_rgba(0,0,0,0.06)] hover:shadow-2xl hover:border-[#0038E2]/50 hover:scale-120 active:scale-95 transition-all duration-300 cursor-pointer pointer-events-auto p-2 sm:p-2.5",
+              logo.pos,
+              logo.size,
+              logo.anim,
+              isCurrent ? "ring-2 ring-[#0038E2] shadow-[0_0_24px_rgba(0,56,226,0.35)] scale-105" : ""
+            )}
+          >
+            <img
+              src={logo.src}
+              alt=""
+              className="w-full h-full object-contain pointer-events-none drop-shadow-xs"
+              loading="eager"
+            />
+          </button>
+        );
+      })}
+
+      {/* ========================================================================= */}
       {/* 1. TOP NAVIGATION BAR                                                     */}
       {/* ========================================================================= */}
       <header
@@ -491,7 +579,7 @@ export default function Hero() {
       >
         {/* Left Eyebrows */}
         <div className="flex flex-wrap items-baseline gap-3 sm:gap-8">
-          
+
           <span className="eyebrow-item text-[11px] sm:text-xs tracking-eyebrow uppercase font-medium text-[#495B7D] flex items-center gap-2">
             <span className="text-[#0038E2] font-mono text-[10px] sm:text-xs font-semibold">(01)</span>
             Distribution Engine
@@ -527,35 +615,9 @@ export default function Hero() {
       {/* ========================================================================= */}
       <div
         ref={wordmarkRef}
-        className="relative my-auto py-8 sm:py-14 md:py-20 flex items-center justify-center text-center overflow-visible z-10"
+        className="relative my-auto py-8 sm:py-14 md:py-20 flex flex-col items-center justify-center text-center overflow-visible z-10"
         data-reveal
       >
-        {/* Floating Interactive Left Node: Real-Time View Generation Engine */}
-        <div
-          ref={cardLeftRef}
-          className="hidden xl:flex absolute -left-2 top-4 flex-col gap-2 p-3.5 rounded-2xl bg-white/90 border border-[#111111]/10 backdrop-blur-xl shadow-xl transition-all duration-300 hover:scale-105 hover:border-[#111111]/25 w-56 text-left pointer-events-auto"
-        >
-          <div className="flex items-center justify-between">
-            <span className="text-[10px] font-mono uppercase tracking-wider text-[#0038E2] flex items-center gap-1.5 font-semibold">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#0038E2] inline-block animate-ping" />
-              Live Generating
-            </span>
-            <span className="text-[10px] font-mono text-[#0038E2] font-semibold bg-black/[0.04] px-1.5 py-0.5 rounded border border-[#111111]/10">
-              +2.4M Views/hr
-            </span>
-          </div>
-          <p className="text-xs font-semibold text-[#111111] tracking-tight flex items-center justify-between">
-            <span>Viral View Engine</span>
-            <span className="text-[#0038E2] font-mono text-[11px] font-bold">18.4M+</span>
-          </p>
-          <div className="flex items-center gap-1.5 mt-0.5">
-            <div className="flex-1 h-1.5 rounded-full bg-black/10 overflow-hidden">
-              <div className="h-full bg-gradient-to-r from-[#0038E2] via-[#495B7D] to-[#111111] w-4/5 rounded-full animate-pulse" />
-            </div>
-            <span className="text-[10px] font-mono text-[#666666] whitespace-nowrap">Generating Reach</span>
-          </div>
-        </div>
-
         {/* Main Central Interactive Wordmark */}
         <div className="relative inline-flex items-baseline justify-center group cursor-default">
           <h1
@@ -596,6 +658,11 @@ export default function Hero() {
             ©
           </div>
         </div>
+
+        {/* Supporting Headline directly below GetVeevz */}
+        <h2 className="font-display font-normal text-base sm:text-xl md:text-2xl text-[#111111] leading-[1.3] max-w-xl mx-auto mt-4 sm:mt-6 tracking-tight text-center">
+          We cut short form clip from long form content and post across social media platforms
+        </h2>
 
         {/* Floating Interactive Right Node: Real-Time Video Preview Hologram */}
         <div
@@ -645,19 +712,15 @@ export default function Hero() {
       </div>
 
       {/* ========================================================================= */}
-      {/* 4. BOTTOM CORNERS (SUPPORTING HEADLINE + ARROW & TELEMETRY STATS)          */}
+      {/* 4. BOTTOM CORNERS (ARROW & TELEMETRY STATS)                               */}
       {/* ========================================================================= */}
       <div className="w-full mt-4 sm:mt-8 md:mt-auto pt-4 sm:pt-6 grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-6 items-end z-10">
-        {/* BOTTOM LEFT: Supporting headline + Circular Interactive Arrow Button */}
+        {/* BOTTOM LEFT: Circular Interactive Arrow Button */}
         <div
           ref={bottomLeftRef}
-          className="md:col-span-6 lg:col-span-5 flex flex-col items-start gap-6"
+          className="md:col-span-6 lg:col-span-5 flex flex-col items-start gap-4"
           data-reveal
         >
-          <h2 className="font-display font-normal text-base sm:text-xl md:text-2xl text-[#111111] leading-[1.28] max-w-md tracking-tight">
-            Turn Your Long-Form Content Into a Short-Form Distribution Engine
-          </h2>
-
           {/* Circular Interactive Magnetic Arrow Button (Scroll/Next Cue) */}
           <button
             ref={arrowRef}
@@ -671,57 +734,26 @@ export default function Hero() {
           </button>
         </div>
 
-        {/* BOTTOM RIGHT: Big Stat Number + Overlapping Avatars + Supporting Copy */}
+        {/* BOTTOM RIGHT: Big Stat Number */}
         <div
           ref={bottomRightRef}
-          className="md:col-span-6 lg:col-span-7 flex flex-col md:items-end gap-3"
+          className="md:col-span-6 lg:col-span-7 flex flex-col md:items-end justify-end"
           data-reveal
         >
-          {/* Stat and Avatar Stack Row */}
-          <div className="flex items-center gap-5 md:justify-end">
-            {/* Big Stat Number with interactive active platform binding & increasing counter animation */}
-            <div className="flex items-baseline gap-1.5 cursor-default group">
-              <span className="font-display text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-[#111111] group-hover:text-[#0038E2] transition-colors">
-                <HeroStatCounter
-                  platformId={activePlatform.id}
-                  target={activePlatform.value}
-                  prefix={activePlatform.counterPrefix ?? ""}
-                  suffix={activePlatform.counterSuffix || "M"}
-                />
-              </span>
-              <span className="text-xs sm:text-sm font-mono text-[#495B7D] uppercase tracking-wider">
-                {activePlatform.metric.split(" ")[1] || "Views"}
-              </span>
-            </div>
-
-            {/* Overlapping Avatar Stack */}
-            <div className="flex items-center -space-x-2.5 overflow-hidden pl-2">
-              <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-full ring-2 ring-[#F3EFEA] overflow-hidden bg-white shadow-md hover:scale-110 hover:z-20 transition-all">
-                <img
-                  src="/avatars/avatar1.jpg"
-                  alt="Creator on GetVeevz network"
-                  className="absolute inset-0 w-full h-full object-cover"
-                  loading="lazy"
-                />
-              </div>
-              <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-full ring-2 ring-[#F3EFEA] overflow-hidden bg-white shadow-md hover:scale-110 hover:z-20 transition-all">
-                <img
-                  src="/avatars/avatar2.jpg"
-                  alt="Creative Director on GetVeevz network"
-                  className="absolute inset-0 w-full h-full object-cover"
-                  loading="lazy"
-                />
-              </div>
-              <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-full ring-2 ring-[#F3EFEA] bg-[#111111] flex items-center justify-center text-[11px] font-mono font-medium text-[#F3EFEA] shadow-md hover:scale-110 hover:z-20 transition-all cursor-pointer">
-                <span>+40</span>
-              </div>
-            </div>
+          {/* Big Stat Number with interactive active platform binding & increasing counter animation */}
+          <div className="flex items-baseline gap-1.5 cursor-default group">
+            <span className="font-display text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-[#111111] group-hover:text-[#0038E2] transition-colors">
+              <HeroStatCounter
+                platformId={activePlatform.id}
+                target={activePlatform.value}
+                prefix={activePlatform.counterPrefix ?? ""}
+                suffix={activePlatform.counterSuffix || "M"}
+              />
+            </span>
+            <span className="text-xs sm:text-sm font-mono text-[#495B7D] uppercase tracking-wider">
+              {activePlatform.metric.split(" ")[1] || "Views"}
+            </span>
           </div>
-
-          {/* Supporting Copy */}
-          <p className="text-xs sm:text-sm text-[#495B7D] leading-relaxed max-w-md md:text-right text-left">
-            GetVeevz turns the content you&apos;re already creating into coordinated short-form distribution across Instagram, YouTube Shorts and TikTok.
-          </p>
         </div>
       </div>
     </section>
