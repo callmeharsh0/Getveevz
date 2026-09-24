@@ -202,10 +202,10 @@ export default function WeHandleItAll() {
         className="pointer-events-none absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full bg-gradient-to-tl from-[#8BA3C6]/10 via-transparent to-transparent blur-[140px] z-0"
       />
 
-      {/* Smooth gradient transition into Pricing section */}
+      {/* Seamless smooth gradient fade into Pricing section */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute bottom-0 inset-x-0 h-40 bg-gradient-to-b from-transparent to-[#8BA3C6]/[0.03] z-0"
+        className="pointer-events-none absolute bottom-0 inset-x-0 h-48 sm:h-64 bg-gradient-to-b from-transparent via-[#090E14]/70 to-[#090E14] z-10"
       />
 
       <div className="mx-auto max-w-content relative z-10">
@@ -221,19 +221,20 @@ export default function WeHandleItAll() {
         {/* ── Scroll-Driven Laser Spine Timeline with #8BA3C6 Glow ── */}
         <div ref={timelineRef} className="mt-20 sm:mt-24 relative">
           {/* Background Dim Guide Track */}
-          <div className="absolute left-6 md:left-1/2 top-6 bottom-6 -translate-x-1/2 w-[2px] bg-[#8BA3C6]/20" />
+          <div className="absolute left-6 md:left-1/2 top-6 bottom-6 -translate-x-1/2 w-[2px] bg-[#8BA3C6]/20 pointer-events-none" />
 
-          {/* Active Lenis-Scrubbed Glowing Laser Beam */}
+          {/* Active Scrubbed Glowing Laser Beam */}
           <div
             ref={laserBeamRef}
-            className="absolute left-6 md:left-1/2 top-6 bottom-6 -translate-x-1/2 w-[2px] bg-gradient-to-b from-[#8BA3C6] via-[#8BA3C6] to-white shadow-[0_0_15px_rgba(139,163,198,0.85)] origin-top pointer-events-none"
+            className="absolute left-6 md:left-1/2 top-6 bottom-6 -translate-x-1/2 w-[2.5px] bg-gradient-to-b from-[#8BA3C6] via-[#8BA3C6] to-white shadow-[0_0_20px_rgba(139,163,198,1),0_0_8px_#ffffff] origin-top pointer-events-none z-10"
           >
-            {/* Leading Laser Spark Particle in #8BA3C6 */}
+            {/* Leading Laser Spark Particle in #8BA3C6 with White Core */}
             <div
               ref={sparkRef}
-              className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-[#8BA3C6] shadow-[0_0_20px_rgba(139,163,198,1)] opacity-0 transition-opacity duration-200"
+              className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-[#8BA3C6] shadow-[0_0_25px_rgba(139,163,198,1),0_0_10px_#ffffff] opacity-0 transition-opacity duration-200 pointer-events-none z-20"
             >
-              <span className="absolute inset-0 rounded-full bg-[#8BA3C6] animate-ping opacity-75" />
+              <span className="absolute inset-0 rounded-full bg-[#8BA3C6] animate-ping opacity-85" />
+              <span className="absolute inset-1 rounded-full bg-white opacity-95 shadow-[0_0_8px_#ffffff]" />
             </div>
           </div>
 

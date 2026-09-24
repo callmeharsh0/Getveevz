@@ -1,11 +1,12 @@
 "use client";
 
 import { Routes, Route, useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, lazy, Suspense } from "react";
 import Home from "@/app/page";
-import ServicesPage from "@/app/services/page";
-import ServiceDetailPage from "@/app/services/[slug]/page";
 import UnifiedNav from "@/components/layout/UnifiedNav";
+
+const ServicesPage = lazy(() => import("@/app/services/page"));
+const ServiceDetailPage = lazy(() => import("@/app/services/[slug]/page"));
 
 // Scroll to top or anchor on route change
 function ScrollToTop() {
@@ -34,13 +35,15 @@ export default function AppRoutes() {
     <>
       <ScrollToTop />
       <UnifiedNav />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/services" element={<ServicesPage />} />
-        <Route path="/services/:slug" element={<ServiceDetailPage />} />
-        {/* Fallback route for unknown paths */}
-        <Route path="*" element={<Home />} />
-      </Routes>
+      <Suspense fallback={<div className="min-h-screen bg-[#090e14]" />}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/services/:slug" element={<ServiceDetailPage />} />
+          {/* Fallback route for unknown paths */}
+          <Route path="*" element={<Home />} />
+        </Routes>
+      </Suspense>
     </>
   );
 }

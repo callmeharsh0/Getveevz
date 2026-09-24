@@ -138,22 +138,14 @@ export default function ClientLogosMarquee() {
             {row1.map((client, idx) => (
               <div
                 key={`${client.id}-r1-${idx}`}
-                className="group relative p-[1.5px] rounded-[1.25rem] bg-gradient-to-b from-white/[0.14] via-white/[0.05] to-transparent ring-1 ring-white/[0.08] shadow-[0_8px_30px_-6px_rgba(0,0,0,0.7)] transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-[1.02] active:scale-[0.98] hover:-translate-y-0.5 hover:from-frost/40 hover:via-white/[0.12] hover:ring-frost/30 shrink-0 cursor-default"
+                className="group relative p-[1.5px] rounded-[1.25rem] bg-gradient-to-b from-white/[0.14] via-white/[0.05] to-transparent ring-1 ring-white/[0.08] shadow-[0_8px_30px_-6px_rgba(0,0,0,0.7)] transition-all duration-500 ease-gentle hover:scale-[1.02] active:scale-[0.98] hover:-translate-y-0.5 hover:from-frost/40 hover:via-white/[0.12] hover:ring-frost/30 shrink-0 cursor-default"
               >
                 {/* Inner Bezel Core */}
                 <div className="rounded-[calc(1.25rem-1.5px)] bg-gradient-to-b from-[#131b28]/95 via-[#0b1019]/95 to-[#070b12] px-4 py-3 flex items-center gap-3.5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.12)]">
                   <LogoVessel src={client.logo} alt={client.name} />
-                  <div>
-                    <h3 className="font-display text-[13px] sm:text-sm font-semibold tracking-[-0.01em] text-[#F0ECDD] group-hover:text-frost transition-colors duration-300">
-                      {client.name}
-                    </h3>
-                    <div className="flex items-center gap-1.5 mt-0.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-frost/80 shadow-[0_0_8px_rgba(139,163,197,0.8)]" />
-                      <span className="text-[11px] font-mono tracking-tight text-[#8BA3C5]/90">
-                        {client.metric}
-                      </span>
-                    </div>
-                  </div>
+                  <h3 className="font-display text-[13px] sm:text-sm font-semibold tracking-[-0.01em] text-[#F0ECDD] group-hover:text-frost transition-colors duration-300 pr-1">
+                    {client.name}
+                  </h3>
                 </div>
               </div>
             ))}
@@ -166,7 +158,7 @@ export default function ClientLogosMarquee() {
             {row2.map((client, idx) => (
               <div
                 key={`${client.id}-r2-${idx}`}
-                className="group relative p-[1.5px] rounded-[1.25rem] bg-gradient-to-b from-white/[0.10] via-white/[0.03] to-transparent ring-1 ring-white/[0.06] shadow-[0_8px_30px_-6px_rgba(0,0,0,0.7)] transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-[1.02] active:scale-[0.98] hover:-translate-y-0.5 hover:from-frost/40 hover:via-white/[0.12] hover:ring-frost/30 shrink-0 cursor-default"
+                className="group relative p-[1.5px] rounded-[1.25rem] bg-gradient-to-b from-white/[0.10] via-white/[0.03] to-transparent ring-1 ring-white/[0.06] shadow-[0_8px_30px_-6px_rgba(0,0,0,0.7)] transition-all duration-500 ease-gentle hover:scale-[1.02] active:scale-[0.98] hover:-translate-y-0.5 hover:from-frost/40 hover:via-white/[0.12] hover:ring-frost/30 shrink-0 cursor-default"
               >
                 {/* Inner Bezel Core */}
                 <div className="rounded-[calc(1.25rem-1.5px)] bg-gradient-to-b from-[#101724]/90 via-[#090d16]/95 to-[#060910] px-4 py-3 flex items-center gap-3.5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.08)]">

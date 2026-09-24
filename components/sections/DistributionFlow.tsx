@@ -670,7 +670,7 @@ export default function DistributionFlow({
               className="absolute top-1/2 left-1/2 w-[126px] h-[224px] -ml-[63px] -mt-[112px] aspect-[9/16] z-[4] cursor-pointer group"
             >
               {/* 9:16 Short Clip Card Frame with Live Video Reel */}
-              <div className="piece-inner relative w-full h-full rounded-xl overflow-hidden bg-[#070b10] border border-frost/30 shadow-[0_12px_28px_rgba(0,0,0,0.6)] transition-all duration-350 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:border-frost/80 group-hover:shadow-[0_18px_40px_rgba(139,163,198,0.25)]">
+              <div className="piece-inner relative w-full h-full rounded-xl overflow-hidden bg-[#070b10] border border-frost/30 shadow-[0_12px_28px_rgba(0,0,0,0.6)] transition-all duration-350 ease-smooth group-hover:border-frost/80 group-hover:shadow-[0_18px_40px_rgba(139,163,198,0.25)]">
                 {/* Background Reel Video */}
                 {item.videoSrc ? (
                   <video

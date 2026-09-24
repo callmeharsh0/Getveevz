@@ -9,4 +9,16 @@ export default defineConfig({
       "@": path.resolve(__dirname, "."),
     },
   },
+  build: {
+    chunkSizeWarningLimit: 800,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ["react", "react-dom", "react-router-dom"],
+          animations: ["gsap", "@gsap/react", "framer-motion", "motion"],
+          icons: ["lucide-react", "react-icons"],
+        },
+      },
+    },
+  },
 });

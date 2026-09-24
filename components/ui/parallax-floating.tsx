@@ -62,8 +62,25 @@ const Floating = ({
     elementsMap.current.delete(id)
   }, [])
 
+  const isVisibleRef = useRef(false)
+
+  useEffect(() => {
+    const el = containerRef.current
+    if (!el || typeof IntersectionObserver === "undefined") {
+      isVisibleRef.current = true
+      return
+    }
+
+    const observer = new IntersectionObserver(([entry]) => {
+      isVisibleRef.current = entry.isIntersecting
+    })
+
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
   useAnimationFrame(() => {
-    if (!containerRef.current) return
+    if (!containerRef.current || !isVisibleRef.current) return
 
     elementsMap.current.forEach((data) => {
       const strength = (data.depth * sensitivity) / 20
@@ -76,7 +93,10 @@ const Floating = ({
       const dx = newTargetX - data.currentPosition.x
       const dy = newTargetY - data.currentPosition.y
 
-      // Update position only if we're still moving
+      // Skip DOM mutation if settled
+      if (Math.abs(dx) < 0.1 && Math.abs(dy) < 0.1) return
+
+      // Update position
       data.currentPosition.x += dx * easingFactor
       data.currentPosition.y += dy * easingFactor
 

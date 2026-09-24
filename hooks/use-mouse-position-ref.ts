@@ -6,30 +6,38 @@ export const useMousePositionRef = (
   const positionRef = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
-    const updatePosition = (x: number, y: number) => {
-      if (containerRef && containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect();
-        const relativeX = x - rect.left;
-        const relativeY = y - rect.top;
+    let rect: DOMRect | null = null;
 
-        // Calculate relative position even when outside the container
-        positionRef.current = { x: relativeX, y: relativeY };
-      } else {
-        positionRef.current = { x, y };
+    const updateRect = () => {
+      if (containerRef && containerRef.current) {
+        rect = containerRef.current.getBoundingClientRect();
       }
     };
 
+    updateRect();
+    window.addEventListener("resize", updateRect, { passive: true });
+    window.addEventListener("scroll", updateRect, { passive: true });
+
     const handleMouseMove = (ev: MouseEvent) => {
-      updatePosition(ev.clientX, ev.clientY);
+      if (rect) {
+        positionRef.current = {
+          x: ev.clientX - rect.left,
+          y: ev.clientY - rect.top,
+        };
+      } else {
+        positionRef.current = { x: ev.clientX, y: ev.clientY };
+      }
     };
 
-    // Listen for mouse events
-    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
 
     return () => {
+      window.removeEventListener("resize", updateRect);
+      window.removeEventListener("scroll", updateRect);
       window.removeEventListener("mousemove", handleMouseMove);
     };
   }, [containerRef]);
 
   return positionRef;
 };
+

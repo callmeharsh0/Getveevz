@@ -205,12 +205,12 @@ export default function Pricing() {
   return (
     <section
       id="pricing"
-      className="relative w-full py-28 sm:py-36 lg:py-40 bg-[#090E14] text-white border-b border-white/10 overflow-hidden"
+      className="relative w-full pt-20 sm:pt-28 pb-28 sm:pb-36 lg:pb-40 bg-[#090E14] text-white overflow-hidden"
     >
-      {/* Smooth gradient transition from WeHandleItAll */}
+      {/* Seamless smooth gradient fade from WeHandleItAll */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute top-0 inset-x-0 h-40 bg-gradient-to-b from-[#8BA3C6]/[0.03] to-transparent z-0"
+        className="pointer-events-none absolute top-0 inset-x-0 h-48 sm:h-64 bg-gradient-to-b from-[#090E14] via-[#090E14]/70 to-transparent z-10"
       />
 
       {/* Subtle ambient frost blue aura matching WeHandleItAll (#8BA3C6) */}

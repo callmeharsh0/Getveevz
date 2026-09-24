@@ -313,7 +313,7 @@ export default function Hero() {
     };
   }, []);
 
-  // Update active navigation state based on scroll position
+  // Update active navigation state based on scroll position (RAF throttled)
   useEffect(() => {
     const navSections = [
       { id: "results", topOffset: 0 },
@@ -322,14 +322,21 @@ export default function Hero() {
       { id: "pricing", topOffset: 0 },
     ];
 
+    let ticking = false;
     const handleScroll = () => {
-      const scrollPos = window.scrollY + 250;
-      for (let i = navSections.length - 1; i >= 0; i--) {
-        const el = document.getElementById(navSections[i].id);
-        if (el && el.offsetTop <= scrollPos) {
-          setActiveNav(navSections[i].id);
-          break;
-        }
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const scrollPos = window.scrollY + 250;
+          for (let i = navSections.length - 1; i >= 0; i--) {
+            const el = document.getElementById(navSections[i].id);
+            if (el && el.offsetTop <= scrollPos) {
+              setActiveNav(navSections[i].id);
+              break;
+            }
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 

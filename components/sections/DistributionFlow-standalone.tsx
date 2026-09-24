@@ -191,6 +191,27 @@ export default function DistributionFlow({
   const punchline4Ref = useRef<HTMLDivElement | null>(null);
   const linesGroupRef = useRef<SVGSVGElement | null>(null);
 
+  // Viewport IntersectionObserver to prevent parallel decoding of 7 offscreen videos
+  const [isInView, setIsInView] = useState(false);
+
+  useEffect(() => {
+    const el = wrapperRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") {
+      setIsInView(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+      },
+      { rootMargin: "300px 0px" }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   // 3D Parallax Tilt Effect on Source Video
   const handleSourceMouseMove = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
@@ -585,12 +606,13 @@ export default function DistributionFlow({
               className="w-full h-full transition-transform duration-300 ease-out"
             >
               <video
-                src={videoSrc}
+                src={isInView ? videoSrc : undefined}
                 poster={videoPoster}
-                autoPlay
+                autoPlay={isInView}
                 muted
                 loop
                 playsInline
+                preload="none"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -608,15 +630,16 @@ export default function DistributionFlow({
               className="absolute top-1/2 left-1/2 w-[126px] h-[224px] -ml-[63px] -mt-[112px] aspect-[9/16] z-[3] cursor-pointer group"
             >
               {/* 9:16 Short Clip Card Frame with Live Video Reel */}
-              <div className="piece-inner relative w-full h-full rounded-xl overflow-hidden bg-[#070b10] border border-[#8BA3C6]/30 shadow-[0_12px_28px_rgba(0,0,0,0.6)] transition-all duration-350 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:border-[#8BA3C6]/80 group-hover:shadow-[0_18px_40px_rgba(139,163,198,0.25)]">
+              <div className="piece-inner relative w-full h-full rounded-xl overflow-hidden bg-[#070b10] border border-[#8BA3C6]/30 shadow-[0_12px_28px_rgba(0,0,0,0.6)] transition-all duration-350 ease-smooth group-hover:border-[#8BA3C6]/80 group-hover:shadow-[0_18px_40px_rgba(139,163,198,0.25)]">
                 {/* Background Reel Video */}
                 {item.videoSrc ? (
                   <video
-                    src={item.videoSrc}
-                    autoPlay
+                    src={isInView ? item.videoSrc : undefined}
+                    autoPlay={isInView}
                     muted
                     loop
                     playsInline
+                    preload="none"
                     className="w-full h-full object-cover"
                   />
                 ) : (

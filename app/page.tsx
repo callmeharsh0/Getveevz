@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import Hero from "@/components/sections/Hero";
 import { ParallaxFloatingDemo } from "@/components/ui/parallax-floating-demo";
 import DistributionFlow from "@/components/sections/DistributionFlow-standalone";
@@ -8,8 +9,9 @@ import Agencies from "@/components/sections/Agencies";
 import WeHandleItAll from "@/components/sections/WeHandleItAll";
 import Pricing from "@/components/sections/Pricing";
 import LiveAnalytics from "@/components/sections/LiveAnalytics";
-import Questionnaire from "@/components/sections/Questionnaire";
-import FinalCTA from "@/components/sections/FinalCTA";
+
+const Questionnaire = lazy(() => import("@/components/sections/Questionnaire"));
+const FinalCTA = lazy(() => import("@/components/sections/FinalCTA"));
 
 export default function Home() {
   return (
@@ -26,8 +28,11 @@ export default function Home() {
       <WeHandleItAll />
       <Pricing />
       <LiveAnalytics />
-      <Questionnaire />
-      <FinalCTA />
+      <Suspense fallback={null}>
+        <Questionnaire />
+        <FinalCTA />
+      </Suspense>
     </main>
   );
 }
+

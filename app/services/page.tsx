@@ -114,7 +114,7 @@ export default function ServicesPage() {
                   className="block h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] rounded-[2.25rem]"
                 >
                   {/* Outer Shell (Light Porcelain Double-Bezel Enclosure with Soft Ambient Drop Shadow) */}
-                  <div className="relative h-full rounded-[2.25rem] p-2 sm:p-2.5 bg-white/75 border border-[#111111]/10 shadow-[0_20px_48px_rgba(0,0,0,0.06),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:shadow-[0_28px_60px_rgba(0,0,0,0.11)] group-hover:-translate-y-2 group-hover:border-[#0038E2]/35 group-hover:bg-white/95">
+                  <div className="relative h-full rounded-[2.25rem] p-2 sm:p-2.5 bg-white/75 border border-[#111111]/10 shadow-[0_20px_48px_rgba(0,0,0,0.06),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-700 ease-gentle group-hover:shadow-[0_28px_60px_rgba(0,0,0,0.11)] group-hover:-translate-y-2 group-hover:border-[#0038E2]/35 group-hover:bg-white/95">
                     
                     {/* Inner Core (Concentric Machined Cavity in Pure White with Crisp Light-Mode Hierarchy) */}
                     <div className="relative h-full rounded-[calc(2.25rem-0.5rem)] bg-white border border-[#111111]/5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)] p-8 sm:p-10 lg:p-11 flex flex-col justify-between overflow-hidden">
@@ -134,7 +134,7 @@ export default function ServicesPage() {
                       <div>
                         <div className="flex items-center justify-between mb-8">
                           {/* Hardware-Enclosed Icon Badge in Warm Bone */}
-                          <div className="flex items-center justify-center w-14 h-14 rounded-2xl bg-[#F8F6F2] border border-[#111111]/10 shadow-sm transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-105 group-hover:border-[#0038E2]/30">
+                          <div className="flex items-center justify-center w-14 h-14 rounded-2xl bg-[#F8F6F2] border border-[#111111]/10 shadow-sm transition-transform duration-500 ease-gentle group-hover:scale-105 group-hover:border-[#0038E2]/30">
                             <Icon className="w-7 h-7 stroke-[1.5] text-[#0038E2]" />
                           </div>
 
@@ -192,12 +192,12 @@ export default function ServicesPage() {
 
                       {/* Card Footer: Button-in-Button CTA */}
                       <div className="pt-6 border-t border-[#111111]/10 flex items-center justify-between">
-                        <div className="inline-flex items-center gap-3 pl-5 pr-1.5 py-1.5 rounded-full bg-[#111111] text-white border border-[#111111] shadow-sm transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:bg-[#0038E2] group-hover:border-[#0038E2]">
+                        <div className="inline-flex items-center gap-3 pl-5 pr-1.5 py-1.5 rounded-full bg-[#111111] text-white border border-[#111111] shadow-sm transition-all duration-500 ease-gentle group-hover:bg-[#0038E2] group-hover:border-[#0038E2]">
                           <span className="text-xs sm:text-sm font-medium tracking-tight">
                             Explore Architecture
                           </span>
                           {/* Nested trailing icon disc */}
-                          <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white/15 text-white transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:-translate-y-[1px] group-hover:scale-105">
+                          <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white/15 text-white transition-all duration-500 ease-gentle group-hover:translate-x-1 group-hover:-translate-y-[1px] group-hover:scale-105">
                             <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
                           </div>
                         </div>
@@ -362,10 +362,10 @@ export default function ServicesPage() {
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                   <a
                     href="mailto:contact@getveevz.com?subject=Custom%20Distribution%20Inquiry"
-                    className="group relative inline-flex items-center gap-3 pl-7 pr-2 py-2 rounded-full bg-[#111111] text-white font-medium text-sm sm:text-base transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-[#0038E2] hover:scale-105 active:scale-[0.98] shadow-[0_4px_24px_rgba(0,0,0,0.18)]"
+                    className="group relative inline-flex items-center gap-3 pl-7 pr-2 py-2 rounded-full bg-[#111111] text-white font-medium text-sm sm:text-base transition-all duration-500 ease-gentle hover:bg-[#0038E2] hover:scale-105 active:scale-[0.98] shadow-[0_4px_24px_rgba(0,0,0,0.18)]"
                   >
                     <span>Book Strategy Call</span>
-                    <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white/15 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:-translate-y-[1px]">
+                    <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white/15 transition-transform duration-500 ease-gentle group-hover:translate-x-1 group-hover:-translate-y-[1px]">
                       <ArrowUpRight className="w-4 h-4 stroke-[2.5] text-white" />
                     </div>
                   </a>

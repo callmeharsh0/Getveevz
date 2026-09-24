@@ -284,10 +284,10 @@ export default function ServiceDetailPage() {
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                   <a
                     href={service.ctaHref}
-                    className="group relative inline-flex items-center gap-3 pl-7 pr-2 py-2 rounded-full bg-[#111111] text-white font-medium text-sm sm:text-base transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-[#0038E2] hover:scale-105 active:scale-[0.98] shadow-[0_4px_24px_rgba(0,0,0,0.18)]"
+                    className="group relative inline-flex items-center gap-3 pl-7 pr-2 py-2 rounded-full bg-[#111111] text-white font-medium text-sm sm:text-base transition-all duration-500 ease-gentle hover:bg-[#0038E2] hover:scale-105 active:scale-[0.98] shadow-[0_4px_24px_rgba(0,0,0,0.18)]"
                   >
                     <span>Book Strategy Call</span>
-                    <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white/15 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1 group-hover:-translate-y-[1px]">
+                    <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white/15 transition-transform duration-500 ease-gentle group-hover:translate-x-1 group-hover:-translate-y-[1px]">
                       <ArrowRight className="w-3.5 h-3.5 stroke-[2.5] text-white" />
                     </div>
                   </a>
@@ -323,7 +323,7 @@ function DoubleBezelCard({
     <div
       className={cn(
         "relative rounded-[2.25rem] p-2 bg-white/75 border border-[#111111]/10 shadow-[0_16px_36px_rgba(0,0,0,0.05)]",
-        "transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]",
+        "transition-all duration-500 ease-gentle",
         "hover:-translate-y-1.5 hover:border-[#0038E2]/35 hover:shadow-lg hover:bg-white/90",
         className
       )}

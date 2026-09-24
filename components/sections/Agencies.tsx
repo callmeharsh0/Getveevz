@@ -384,7 +384,7 @@ export default function Agencies() {
                 muted
                 loop
                 playsInline
-                preload="metadata"
+                preload="none"
                 className={cn(
                   "absolute inset-0 h-full w-full object-cover transition-opacity duration-500 z-0",
                   hoveredIndex === i ? (i === 0 ? "opacity-25 mix-blend-screen" : "opacity-85") : "opacity-0"
@@ -424,7 +424,7 @@ export default function Agencies() {
               >
                 {/* 3D FLIPPER CONTAINER */}
                 <div
-                  className="relative w-full h-full min-h-[460px] sm:min-h-[500px] md:min-h-[540px] rounded-3xl transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] preserve-3d"
+                  className="relative w-full h-full min-h-[460px] sm:min-h-[500px] md:min-h-[540px] rounded-3xl transition-transform duration-700 ease-spring preserve-3d"
                   style={{
                     transformStyle: "preserve-3d",
                     WebkitTransformStyle: "preserve-3d",

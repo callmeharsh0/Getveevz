@@ -43,44 +43,53 @@ export default function UnifiedNav() {
       { id: "about", target: "testimonials" },
     ];
 
+    let ticking = false;
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
 
-      // ── 1. Smart Hide / Show based on scroll direction ──
-      if (!isAutoScrollingRef.current) {
-        if (currentScrollY <= 80) {
-          // Always visible at the very top of the page
-          setIsVisible(true);
-        } else {
-          const delta = currentScrollY - lastScrollYRef.current;
+          // ── 1. Smart Hide / Show based on scroll direction ──
+          if (!isAutoScrollingRef.current) {
+            if (currentScrollY <= 80) {
+              // Always visible at the very top of the page
+              setIsVisible(true);
+            } else {
+              const delta = currentScrollY - lastScrollYRef.current;
 
-          // Threshold of 8px prevents jitter on trackpad momentum micro-bounces
-          if (delta > 8) {
-            // Scrolling DOWN -> Hide
-            setIsVisible(false);
-          } else if (delta < -8) {
-            // Scrolling UP -> Show
-            setIsVisible(true);
+              // Threshold of 8px prevents jitter on trackpad momentum micro-bounces
+              if (delta > 8) {
+                // Scrolling DOWN -> Hide
+                setIsVisible(false);
+              } else if (delta < -8) {
+                // Scrolling UP -> Show
+                setIsVisible(true);
+              }
+            }
           }
-        }
-      }
 
-      lastScrollYRef.current = currentScrollY;
+          lastScrollYRef.current = currentScrollY;
 
-      // ── 2. Track Active Section on Home ──
-      if (isServices) return;
+          // ── 2. Track Active Section on Home ──
+          if (!isServices) {
+            const scrollPos = currentScrollY + 220;
+            for (let i = navSections.length - 1; i >= 0; i--) {
+              const el = document.getElementById(navSections[i].target);
+              if (el && el.offsetTop <= scrollPos) {
+                setActiveSection(navSections[i].id);
+                ticking = false;
+                return;
+              }
+            }
 
-      const scrollPos = currentScrollY + 220;
-      for (let i = navSections.length - 1; i >= 0; i--) {
-        const el = document.getElementById(navSections[i].target);
-        if (el && el.offsetTop <= scrollPos) {
-          setActiveSection(navSections[i].id);
-          return;
-        }
-      }
+            if (currentScrollY < 300) {
+              setActiveSection("distribution");
+            }
+          }
 
-      if (currentScrollY < 300) {
-        setActiveSection("distribution");
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
