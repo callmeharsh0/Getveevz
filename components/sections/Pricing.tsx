@@ -11,6 +11,7 @@ if (typeof window !== "undefined") {
 }
 
 type Currency = "USD" | "INR" | "AED";
+type ContentFormat = "short-form" | "long-form";
 
 interface PlanSpec {
   label: string;
@@ -28,7 +29,7 @@ interface BudgetPlan {
   specs: PlanSpec[];
 }
 
-const budgetPlans: BudgetPlan[] = [
+const shortFormPlans: BudgetPlan[] = [
   {
     id: "budget-36k",
     name: "Growth Tier",
@@ -62,7 +63,7 @@ const budgetPlans: BudgetPlan[] = [
       { label: "Pages", value: "50+ Dedicated Posting Pages" },
       { label: "Content", value: "140+ Content Variations / mo" },
       { label: "Platforms", value: "All Major Short-Form Platforms" },
-      { label: "Team", value: "Full Dedicated Team" },
+      { label: "Team", value: "Full Dedicated Growth Pod" },
       { label: "Support", value: "24/7 Slack & Strategy Support" },
     ],
   },
@@ -76,35 +77,104 @@ const budgetPlans: BudgetPlan[] = [
       AED: "Custom",
     },
     period: "tailored",
-    highlightNote: "We have a higher budget and need a custom plan",
+    highlightNote: "We have a higher budget and need a custom short-form operation",
     specs: [
       { label: "Pages", value: "Unlimited Posting Pages" },
       { label: "Content", value: "Multi-Show Content & Distribution" },
-      { label: "Pod", value: "Your Own Creative Team" },
-      { label: "Guarantees", value: "Custom Performance Targets" },
-      { label: "Access", value: "Direct Access to Founders" },
+      { label: "Pod", value: "Your Own Dedicated Creative Team" },
+      { label: "Guarantees", value: "Custom Performance & Retention Targets" },
+      { label: "Access", value: "Direct Access to Founders & Lead Editor" },
     ],
   },
 ];
 
-/* ─── Haptic spring curve (no default ease-in-out) ─── */
-const SPRING = "cubic-bezier(0.32, 0.72, 0, 1)";
+const longFormPlans: BudgetPlan[] = [
+  {
+    id: "budget-long-episodic",
+    name: "Episodic Tier",
+    subtitle: "youtube & podcast production",
+    price: {
+      USD: "~$28k",
+      INR: "~₹24L",
+      AED: "~AED 105k",
+    },
+    period: "/ month",
+    specs: [
+      { label: "Episodes", value: "4–6 Full Long-Form Episodes / mo" },
+      { label: "Editing", value: "Full Multi-Cam Cut, Color & Sound" },
+      { label: "Packaging", value: "High-CTR Custom Thumbnails & Titles" },
+      { label: "Motion", value: "Narrative Pacing & Motion Graphics" },
+      { label: "Management", value: "Complete YouTube SEO & Publishing" },
+    ],
+  },
+  {
+    id: "budget-long-engine",
+    name: "Full Engine Tier",
+    subtitle: "episodic mastery + cutdown engine",
+    isPopular: true,
+    price: {
+      USD: "~$58k",
+      INR: "~₹48L",
+      AED: "~AED 215k",
+    },
+    period: "/ month",
+    specs: [
+      { label: "Episodes", value: "8–12 Full Episodes / mo" },
+      { label: "Cutdowns", value: "30+ Short-Form Cutdowns Included" },
+      { label: "Graphics", value: "Custom 3D Animations & Motion Assets" },
+      { label: "Strategy", value: "Audience Retention & Hook Direction" },
+      { label: "Producer", value: "Dedicated YouTube Producer & Lead" },
+    ],
+  },
+  {
+    id: "budget-long-custom",
+    name: "Studio Custom",
+    subtitle: "enterprise media production",
+    price: {
+      USD: "Custom",
+      INR: "Custom",
+      AED: "Custom",
+    },
+    period: "tailored",
+    highlightNote: "We need full-scale multi-show production and custom delivery",
+    specs: [
+      { label: "Shows", value: "Unlimited Multi-Channel Shows" },
+      { label: "Scripting", value: "Full Research, Scripts & Concepting" },
+      { label: "Studio", value: "On-Site / Remote Directorial Support" },
+      { label: "Assets", value: "Complete Project Files & Raw Handoff" },
+      { label: "Executive", value: "Executive Producer Direct Line" },
+    ],
+  },
+];
 
 export default function Pricing() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [contentFormat, setContentFormat] = useState<ContentFormat>("short-form");
   const [selectedPlanId, setSelectedPlanId] = useState<string>("budget-72k");
   const [currency, setCurrency] = useState<Currency>("USD");
 
-  const selectedPlan = budgetPlans.find((p) => p.id === selectedPlanId) || budgetPlans[1];
+  const plans = contentFormat === "short-form" ? shortFormPlans : longFormPlans;
+  const selectedPlan = plans.find((p) => p.id === selectedPlanId) || plans[1];
+
+  const handleFormatChange = (fmt: ContentFormat) => {
+    setContentFormat(fmt);
+    if (fmt === "short-form") {
+      setSelectedPlanId("budget-72k");
+    } else {
+      setSelectedPlanId("budget-long-engine");
+    }
+  };
 
   // Listen for navigation / events from Agencies section or URL params
   useEffect(() => {
     const handleSelectTerm = (e: CustomEvent<string>) => {
       const term = e.detail;
-      if (term === "short-term") {
+      if (term === "short-term" || term === "short-form") {
+        setContentFormat("short-form");
         setSelectedPlanId("budget-36k");
-      } else if (term === "long-term") {
-        setSelectedPlanId("budget-72k");
+      } else if (term === "long-term" || term === "long-form") {
+        setContentFormat("long-form");
+        setSelectedPlanId("budget-long-engine");
       }
     };
 
@@ -113,10 +183,12 @@ export default function Pricing() {
     if (typeof window !== "undefined") {
       const params = new URLSearchParams(window.location.search);
       const term = params.get("term");
-      if (term === "short-term") {
+      if (term === "short-term" || term === "short-form") {
+        setContentFormat("short-form");
         setSelectedPlanId("budget-36k");
-      } else if (term === "long-term") {
-        setSelectedPlanId("budget-72k");
+      } else if (term === "long-term" || term === "long-form") {
+        setContentFormat("long-form");
+        setSelectedPlanId("budget-long-engine");
       }
     }
 
@@ -133,371 +205,311 @@ export default function Pricing() {
   return (
     <section
       id="pricing"
-      className="relative w-full py-28 sm:py-36 lg:py-40 bg-[#090e14] overflow-hidden"
+      className="relative w-full py-28 sm:py-36 lg:py-40 bg-[#090E14] text-white border-y border-white/10 overflow-hidden"
     >
-      {/* Ambient monochrome grey background glow */}
+      {/* Subtle ambient frost blue aura matching WeHandleItAll (#8BA3C6) */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[580px] bg-white/[0.035] blur-[170px] rounded-full"
+        className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 w-[750px] h-[450px] bg-[#8BA3C6]/[0.05] blur-[140px] z-0"
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute bottom-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[460px] bg-neutral-400/[0.025] blur-[160px] rounded-full"
-      />
-
-      {/* Atmospheric Edge Fades */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#090e14] to-transparent z-10"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#090e14] to-transparent z-10"
+        className="pointer-events-none absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full bg-[#8BA3C6]/[0.04] blur-[140px] z-0"
       />
 
       <div className="relative z-10 max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
-
-        {/* ═══════════════════════════════════════════════════════════════
-            DOUBLE-BEZEL OUTER SHELL (Doppelrand Architecture)
-            — Outer tray with hairline ring, inner core with its own surface
-        ═══════════════════════════════════════════════════════════════ */}
-        <div className="rounded-[2.5rem] p-[3px] bg-gradient-to-b from-white/[0.09] via-white/[0.04] to-white/[0.02] shadow-[0_40px_80px_-12px_rgba(0,0,0,0.9)]">
-
-          {/* Inner Core */}
-          <div
-            ref={containerRef}
-            className="relative rounded-[calc(2.5rem-3px)] bg-gradient-to-b from-[#0e1724]/95 via-[#0b131e]/95 to-[#070b10]/95 p-8 sm:p-10 lg:p-14 select-none text-moonlight"
-            style={{
-              boxShadow: "inset 0 1px 1px rgba(255,255,255,0.08), inset 0 -1px 2px rgba(0,0,0,0.5)",
-            }}
-          >
-
-            {/* ── Top Row: Eyebrow + Title + Currency Switcher ── */}
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-5 pb-8 border-b border-white/[0.06]">
-              <div>
-                {/* Eyebrow Pill Badge */}
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0038E2]/[0.06] ring-1 ring-[#0038E2]/20 text-[10px] font-mono uppercase tracking-[0.2em] text-[#0038E2] mb-4">
-                  <Sparkles className="w-3 h-3" />
-                  <span>Pricing & Scale</span>
-                </div>
-                <h2 className="font-display text-3xl sm:text-4xl lg:text-[2.75rem] font-bold tracking-tight text-moonlight leading-[1.1]">
-                  Select your budget
-                </h2>
+        {/* Outer Shell Card with WeHandleItAll tactile aesthetic */}
+        <div
+          ref={containerRef}
+          className="relative rounded-3xl sm:rounded-[2.5rem] bg-[#090E14] border border-[#8BA3C6]/20 p-6 sm:p-10 lg:p-14 shadow-[0_24px_60px_-15px_rgba(0,0,0,0.9)] select-none text-white"
+        >
+          {/* ── Top Row: Eyebrow + Title + Format Switcher & Currency Switcher ── */}
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-8 border-b border-white/10">
+            <div>
+              {/* Eyebrow Pill Badge */}
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#8BA3C6]/10 border border-[#8BA3C6]/25 text-[10px] font-mono uppercase tracking-[0.2em] text-[#8BA3C6] mb-4">
+                <Sparkles className="w-3 h-3 text-[#8BA3C6]" />
+                <span>Pricing & Scale</span>
               </div>
-
-              {/* Currency Switcher — Double-Bezel micro component */}
-              <div className="rounded-2xl p-[2px] bg-gradient-to-b from-white/[0.08] to-white/[0.03] self-start sm:self-auto">
-                <div className="inline-flex items-center p-1.5 rounded-[calc(1rem-2px)] bg-oxford">
-                  {(["USD", "INR", "AED"] as Currency[]).map((c) => {
-                    const isActive = currency === c;
-                    return (
-                      <button
-                        key={c}
-                        type="button"
-                        onClick={() => setCurrency(c)}
-                        className={cn(
-                          "px-4 py-2 rounded-xl text-xs font-mono cursor-pointer",
-                          isActive
-                            ? "bg-[#0038E2] text-white font-bold shadow-[0_0_16px_rgba(0,56,226,0.4)]"
-                            : "text-white/50 hover:text-white/80"
-                        )}
-                        style={{ transition: `all 500ms ${SPRING}` }}
-                      >
-                        {c === "USD" ? "USD ($)" : c === "INR" ? "INR (₹)" : "AED ($)"}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
+              <h2 className="font-display text-3xl sm:text-4xl lg:text-[2.75rem] font-bold tracking-tight text-white leading-[1.1]">
+                Select your budget
+              </h2>
             </div>
 
-            {/* ═════════════════════════════════════════════════════════
-                DESKTOP: 3-Column Bento Grid with Double-Bezel Cards
-            ═════════════════════════════════════════════════════════ */}
-            <div className="hidden lg:grid grid-cols-3 gap-6 mt-10 items-stretch">
-              {budgetPlans.map((plan) => {
-                const isSelected = plan.id === selectedPlanId;
-
-                return (
-                  <div
-                    key={plan.id}
-                    onClick={() => setSelectedPlanId(plan.id)}
-                    className="group cursor-pointer"
-                    style={{ transition: `transform 700ms ${SPRING}` }}
-                  >
-                    {/* Outer Shell */}
-                    <div
+            {/* Switchers Row: Long-Form / Short-Form Switcher + Currency Switcher */}
+            <div className="flex flex-wrap items-center gap-3 self-start lg:self-auto">
+              {/* Format Switcher Pill */}
+              <div className="inline-flex items-center p-1 rounded-xl bg-[#090E14] border border-[#8BA3C6]/25">
+                {(["short-form", "long-form"] as ContentFormat[]).map((fmt) => {
+                  const isActive = contentFormat === fmt;
+                  return (
+                    <button
+                      key={fmt}
+                      type="button"
+                      onClick={() => handleFormatChange(fmt)}
                       className={cn(
-                        "rounded-[2rem] p-[2px] h-full",
-                        isSelected
-                          ? "bg-gradient-to-b from-[#0038E2]/40 via-[#0038E2]/15 to-[#0038E2]/05 shadow-[0_0_50px_rgba(0,56,226,0.15)]"
-                          : "bg-gradient-to-b from-white/[0.08] via-white/[0.03] to-transparent"
+                        "px-3.5 py-1.5 rounded-lg text-xs font-mono uppercase tracking-wider cursor-pointer transition-all duration-300",
+                        isActive
+                          ? "bg-[#8BA3C6] text-[#090E14] font-bold shadow-[0_0_12px_rgba(139,163,198,0.35)]"
+                          : "text-[#8BA3C6]/70 hover:text-white"
                       )}
-                      style={{ transition: `all 700ms ${SPRING}` }}
                     >
-                      {/* Inner Core */}
-                      <div
-                        className={cn(
-                          "relative rounded-[calc(2rem-2px)] p-7 lg:p-8 min-h-[460px] flex flex-col justify-between",
-                          isSelected
-                            ? "bg-oxford"
-                            : "bg-[#090e14] group-hover:bg-[#0b1219]"
-                        )}
-                        style={{
-                          boxShadow: isSelected
-                            ? "inset 0 1px 1px rgba(0,56,226,0.15), inset 0 -1px 2px rgba(0,0,0,0.4)"
-                            : "inset 0 1px 1px rgba(255,255,255,0.06), inset 0 -1px 2px rgba(0,0,0,0.3)",
-                          transition: `all 700ms ${SPRING}`,
-                        }}
-                      >
+                      {fmt === "short-form" ? "Short-Form" : "Long-Form"}
+                    </button>
+                  );
+                })}
+              </div>
 
+              {/* Currency Switcher Pill */}
+              <div className="inline-flex items-center p-1 rounded-xl bg-[#090E14] border border-[#8BA3C6]/25">
+                {(["USD", "INR", "AED"] as Currency[]).map((c) => {
+                  const isActive = currency === c;
+                  return (
+                    <button
+                      key={c}
+                      type="button"
+                      onClick={() => setCurrency(c)}
+                      className={cn(
+                        "px-3 py-1.5 rounded-lg text-xs font-mono cursor-pointer transition-all duration-300",
+                        isActive
+                          ? "bg-[#8BA3C6] text-[#090E14] font-bold shadow-[0_0_12px_rgba(139,163,198,0.35)]"
+                          : "text-[#8BA3C6]/70 hover:text-white"
+                      )}
+                    >
+                      {c === "USD" ? "USD ($)" : c === "INR" ? "INR (₹)" : "AED ($)"}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+
+          {/* ═════════════════════════════════════════════════════════
+              DESKTOP: 3-Column Bento Grid with Tactile Solid Cards
+          ═════════════════════════════════════════════════════════ */}
+          <div className="hidden lg:grid grid-cols-3 gap-6 mt-10 items-stretch">
+            {plans.map((plan) => {
+              const isSelected = plan.id === selectedPlanId;
+
+              return (
+                <div
+                  key={plan.id}
+                  onClick={() => setSelectedPlanId(plan.id)}
+                  className={cn(
+                    "group cursor-pointer rounded-3xl p-7 lg:p-8 min-h-[460px] flex flex-col justify-between transition-all duration-300 bg-[#090E14]",
+                    isSelected
+                      ? "border-2 border-[#8BA3C6] shadow-[0_0_35px_rgba(139,163,198,0.15)] -translate-y-1"
+                      : "border border-[#8BA3C6]/20 hover:border-[#8BA3C6]/50 hover:-translate-y-0.5 shadow-[0_18px_45px_-10px_rgba(0,0,0,0.8)]"
+                  )}
+                >
+                  <div>
+                    {/* Header: Radio + Plan Name + Price */}
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex items-start gap-3.5">
+                        {/* Radio — tactile circle */}
+                        <div
+                          className={cn(
+                            "w-[22px] h-[22px] rounded-full flex items-center justify-center shrink-0 mt-0.5 ring-1 transition-all duration-300",
+                            isSelected
+                              ? "ring-[#8BA3C6] bg-[#8BA3C6]/10"
+                              : "ring-[#8BA3C6]/30 bg-white/[0.02]"
+                          )}
+                        >
+                          <div
+                            className={cn(
+                              "rounded-full transition-all duration-300",
+                              isSelected
+                                ? "w-3 h-3 bg-[#8BA3C6] shadow-[0_0_10px_rgba(139,163,198,0.9)]"
+                                : "w-0 h-0"
+                            )}
+                          />
+                        </div>
 
                         <div>
-                          {/* Header: Radio + Plan Name + Price */}
-                          <div className="flex items-start justify-between gap-3 mt-2">
-                            <div className="flex items-start gap-3.5">
-                              {/* Radio — machined circle */}
-                              <div
-                                className={cn(
-                                  "w-[22px] h-[22px] rounded-full flex items-center justify-center shrink-0 mt-0.5 ring-1",
-                                  isSelected
-                                    ? "ring-[#0038E2] bg-[#0038E2]/10"
-                                    : "ring-white/20 bg-white/[0.03]"
-                                )}
-                                style={{ transition: `all 500ms ${SPRING}` }}
-                              >
-                                <div
-                                  className={cn(
-                                    "rounded-full",
-                                    isSelected
-                                      ? "w-3 h-3 bg-[#0038E2] shadow-[0_0_12px_rgba(0,56,226,0.9)]"
-                                      : "w-0 h-0"
-                                  )}
-                                  style={{ transition: `all 500ms ${SPRING}` }}
-                                />
-                              </div>
+                          <h3 className="font-display font-bold text-xl text-white leading-tight tracking-tight">
+                            {plan.name}
+                          </h3>
+                          <p className="text-xs text-[#8BA3C6]/80 font-normal lowercase mt-1 tracking-wide">
+                            {plan.subtitle}
+                          </p>
+                        </div>
+                      </div>
 
-                              <div>
-                                <h3 className="font-display font-bold text-xl text-moonlight leading-tight tracking-tight">
-                                  {plan.name}
-                                </h3>
-                                <p className="text-xs text-[#495B7D] font-normal lowercase mt-1 tracking-wide">
-                                  {plan.subtitle}
-                                </p>
-                              </div>
-                            </div>
-
-                            {/* Price */}
-                            <div className="text-right shrink-0">
-                              <div className="font-display font-bold text-lg text-moonlight leading-tight tracking-tight">
-                                {plan.price[currency]}
-                              </div>
-                              <div className="text-[11px] text-[#495B7D] font-mono mt-1">
-                                {plan.period}
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* Highlight Note */}
-                          {plan.highlightNote && (
-                            <div
-                              className="mt-5 p-3 rounded-xl bg-[#0038E2]/[0.06] ring-1 ring-[#0038E2]/15 text-[#0038E2] text-xs leading-relaxed"
-                              style={{
-                                boxShadow: "inset 0 1px 0 rgba(0,56,226,0.1)",
-                              }}
-                            >
-                              &ldquo;{plan.highlightNote}&rdquo;
-                            </div>
-                          )}
-
-                          {/* Feature Checklist */}
-                          <ul className="mt-7 space-y-3.5 pt-5 border-t border-white/[0.06]">
-                            {plan.specs.map((spec) => (
-                              <li
-                                key={spec.label}
-                                className="flex items-center gap-3 text-[13px] text-white/75 font-normal"
-                              >
-                                <div className="w-5 h-5 rounded-md bg-[#0038E2]/[0.08] ring-1 ring-[#0038E2]/15 flex items-center justify-center shrink-0">
-                                  <Check className="w-3 h-3 text-[#0038E2] stroke-[2.5]" />
-                                </div>
-                                <span>{spec.value}</span>
-                              </li>
-                            ))}
-                          </ul>
+                      {/* Price */}
+                      <div className="text-right shrink-0">
+                        <div className="font-display font-bold text-lg text-white leading-tight tracking-tight">
+                          {plan.price[currency]}
+                        </div>
+                        <div className="text-[11px] text-[#8BA3C6]/80 font-mono mt-1">
+                          {plan.period}
                         </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
-            </div>
 
-            {/* ═════════════════════════════════════════════════════════
-                MOBILE: Stacked Accordion with Double-Bezel
-            ═════════════════════════════════════════════════════════ */}
-            <div className="lg:hidden flex flex-col gap-3.5 mt-8">
-              {budgetPlans.map((plan) => {
-                const isSelected = plan.id === selectedPlanId;
-
-                return (
-                  <div
-                    key={plan.id}
-                    onClick={() => setSelectedPlanId(plan.id)}
-                    className="cursor-pointer"
-                  >
-                    {/* Outer Shell */}
-                    <div
-                      className={cn(
-                        "rounded-2xl p-[2px]",
-                        isSelected
-                          ? "bg-gradient-to-b from-[#0038E2]/35 via-[#0038E2]/12 to-[#0038E2]/05 shadow-[0_0_35px_rgba(0,56,226,0.12)]"
-                          : "bg-gradient-to-b from-white/[0.07] to-transparent"
-                      )}
-                      style={{ transition: `all 500ms ${SPRING}` }}
-                    >
-                      {/* Inner Core */}
-                      <div
-                        className={cn(
-                          "rounded-[calc(1rem-2px)] p-5",
-                          isSelected ? "bg-oxford" : "bg-[#090e14]"
-                        )}
-                        style={{
-                          boxShadow: isSelected
-                            ? "inset 0 1px 1px rgba(0,56,226,0.12)"
-                            : "inset 0 1px 1px rgba(255,255,255,0.04)",
-                          transition: `all 500ms ${SPRING}`,
-                        }}
-                      >
-                        {/* Header Row */}
-                        <div className="flex items-center justify-between gap-3">
-                          <div className="flex items-center gap-3">
-                            <div
-                              className={cn(
-                                "w-5 h-5 rounded-full flex items-center justify-center shrink-0 ring-1",
-                                isSelected
-                                  ? "ring-[#0038E2] bg-[#0038E2]/10"
-                                  : "ring-white/20 bg-white/[0.03]"
-                              )}
-                              style={{ transition: `all 500ms ${SPRING}` }}
-                            >
-                              {isSelected && (
-                                <div className="w-2.5 h-2.5 rounded-full bg-[#0038E2] shadow-[0_0_8px_rgba(0,56,226,0.9)]" />
-                              )}
-                            </div>
-
-                            <div>
-                              <h3 className="font-display font-bold text-base text-moonlight leading-tight">
-                                {plan.name}
-                              </h3>
-                              <p className="text-[11px] text-[#495B7D] font-normal lowercase mt-0.5">
-                                {plan.subtitle}
-                              </p>
-                            </div>
-                          </div>
-
-                          <div className="text-right shrink-0">
-                            <div className="font-display font-bold text-sm text-moonlight leading-tight">
-                              {plan.price[currency]}
-                            </div>
-                            <div className="text-[10px] text-[#495B7D] font-mono mt-0.5">
-                              {plan.period}
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Expanded Checklist */}
-                        {isSelected && (
-                          <div className="mt-5 pt-4 border-t border-white/[0.06]">
-                            {plan.highlightNote && (
-                              <div className="mb-4 p-3 rounded-xl bg-[#0038E2]/[0.06] ring-1 ring-[#0038E2]/15 text-[#0038E2] text-xs leading-relaxed">
-                                &ldquo;{plan.highlightNote}&rdquo;
-                              </div>
-                            )}
-
-                            <ul className="space-y-3">
-                              {plan.specs.map((spec) => (
-                                <li
-                                  key={spec.label}
-                                  className="flex items-center gap-2.5 text-xs text-white/75 font-normal"
-                                >
-                                  <div className="w-4.5 h-4.5 rounded-md bg-[#0038E2]/[0.08] ring-1 ring-[#0038E2]/15 flex items-center justify-center shrink-0">
-                                    <Check className="w-3 h-3 text-[#0038E2] stroke-[2.5]" />
-                                  </div>
-                                  <span>{spec.value}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        )}
+                    {/* Highlight Note */}
+                    {plan.highlightNote && (
+                      <div className="mt-5 p-3.5 rounded-xl bg-[#8BA3C6]/10 border border-[#8BA3C6]/25 text-[#8BA3C6] text-xs leading-relaxed">
+                        &ldquo;{plan.highlightNote}&rdquo;
                       </div>
-                    </div>
+                    )}
+
+                    {/* Feature Checklist */}
+                    <ul className="mt-7 space-y-3.5 pt-5 border-t border-white/10">
+                      {plan.specs.map((spec) => (
+                        <li
+                          key={spec.label}
+                          className="flex items-center gap-3 text-[13px] text-white/85 font-normal"
+                        >
+                          <div className="w-5 h-5 rounded-md bg-[#8BA3C6]/10 border border-[#8BA3C6]/20 flex items-center justify-center shrink-0">
+                            <Check className="w-3.5 h-3.5 text-[#8BA3C6] stroke-[2.5]" />
+                          </div>
+                          <span>{spec.value}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                );
-              })}
-            </div>
-
-            {/* ═════════════════════════════════════════════════════════
-                BOTTOM BAR — Double-Bezel footer strip
-            ═════════════════════════════════════════════════════════ */}
-
-            {/* Desktop */}
-            <div className="hidden lg:flex items-center justify-between mt-10 pt-7 border-t border-white/[0.06]">
-              {/* Left: Selected summary */}
-              <div className="flex items-center gap-3.5">
-                <span className="text-[10px] font-mono text-[#495B7D] uppercase tracking-[0.2em]">
-                  Selected:
-                </span>
-                <div className="rounded-xl p-[1.5px] bg-gradient-to-r from-white/[0.08] to-white/[0.03]">
-                  <span className="block text-sm font-semibold text-moonlight bg-oxford px-4 py-2 rounded-[calc(0.75rem-1.5px)]">
-                    {selectedPlan.name} — {selectedPlan.price[currency]} {selectedPlan.period}
-                  </span>
                 </div>
-              </div>
-
-              {/* Right: Button-in-Button CTA with trailing icon circle */}
-              <button
-                type="button"
-                onClick={handleOrder}
-                className="group inline-flex items-center gap-0 rounded-full bg-[#0038E2] hover:bg-[#0038E2]/90 pl-7 pr-2 py-2 cursor-pointer active:scale-[0.97]"
-                style={{ transition: `all 600ms ${SPRING}` }}
-              >
-                <span className="text-sm font-semibold text-white tracking-tight mr-3">
-                  {selectedPlan.id === "budget-custom" ? "Discuss Custom Plan" : "Book Strategy Call"}
-                </span>
-                {/* Nested icon circle — the "island" */}
-                <div
-                  className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-0.5 group-hover:-translate-y-px group-hover:scale-105"
-                  style={{ transition: `transform 500ms ${SPRING}` }}
-                >
-                  <ArrowUpRight className="w-4 h-4 text-white" />
-                </div>
-              </button>
-            </div>
-
-            {/* Mobile */}
-            <div className="lg:hidden mt-7">
-              <button
-                type="button"
-                onClick={handleOrder}
-                className="group w-full inline-flex items-center justify-center gap-0 rounded-full bg-[#0038E2] hover:bg-[#0038E2]/90 pl-6 pr-2.5 py-2.5 cursor-pointer active:scale-[0.97]"
-                style={{ transition: `all 600ms ${SPRING}` }}
-              >
-                <span className="text-sm font-semibold text-white tracking-tight mr-3">
-                  {selectedPlan.id === "budget-custom" ? "Discuss Custom Plan" : "Book Strategy Call"}
-                </span>
-                <div
-                  className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center"
-                  style={{ transition: `transform 500ms ${SPRING}` }}
-                >
-                  <ArrowUpRight className="w-4 h-4 text-white" />
-                </div>
-              </button>
-            </div>
-
+              );
+            })}
           </div>
-        </div>
 
+          {/* ═════════════════════════════════════════════════════════
+              MOBILE: Stacked Accordion with Tactile Solid Cards
+          ═════════════════════════════════════════════════════════ */}
+          <div className="lg:hidden flex flex-col gap-3.5 mt-8">
+            {plans.map((plan) => {
+              const isSelected = plan.id === selectedPlanId;
+
+              return (
+                <div
+                  key={plan.id}
+                  onClick={() => setSelectedPlanId(plan.id)}
+                  className="cursor-pointer"
+                >
+                  <div
+                    className={cn(
+                      "rounded-2xl p-5 transition-all duration-300 bg-[#090E14]",
+                      isSelected
+                        ? "border-2 border-[#8BA3C6] shadow-[0_0_25px_rgba(139,163,198,0.15)]"
+                        : "border border-[#8BA3C6]/20 shadow-[0_12px_30px_-10px_rgba(0,0,0,0.8)]"
+                    )}
+                  >
+                    {/* Header Row */}
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-3">
+                        <div
+                          className={cn(
+                            "w-5 h-5 rounded-full flex items-center justify-center shrink-0 ring-1 transition-all duration-300",
+                            isSelected
+                              ? "ring-[#8BA3C6] bg-[#8BA3C6]/10"
+                              : "ring-[#8BA3C6]/30 bg-white/[0.02]"
+                          )}
+                        >
+                          {isSelected && (
+                            <div className="w-2.5 h-2.5 rounded-full bg-[#8BA3C6] shadow-[0_0_8px_rgba(139,163,198,0.9)]" />
+                          )}
+                        </div>
+
+                        <div>
+                          <h3 className="font-display font-bold text-base text-white leading-tight">
+                            {plan.name}
+                          </h3>
+                          <p className="text-[11px] text-[#8BA3C6]/80 font-normal lowercase mt-0.5">
+                            {plan.subtitle}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="text-right shrink-0">
+                        <div className="font-display font-bold text-sm text-white leading-tight">
+                          {plan.price[currency]}
+                        </div>
+                        <div className="text-[10px] text-[#8BA3C6]/80 font-mono mt-0.5">
+                          {plan.period}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Expanded Checklist */}
+                    {isSelected && (
+                      <div className="mt-5 pt-4 border-t border-white/10">
+                        {plan.highlightNote && (
+                          <div className="mb-4 p-3 rounded-xl bg-[#8BA3C6]/10 border border-[#8BA3C6]/25 text-[#8BA3C6] text-xs leading-relaxed">
+                            &ldquo;{plan.highlightNote}&rdquo;
+                          </div>
+                        )}
+
+                        <ul className="space-y-3">
+                          {plan.specs.map((spec) => (
+                            <li
+                              key={spec.label}
+                              className="flex items-center gap-2.5 text-xs text-white/85 font-normal"
+                            >
+                              <div className="w-4.5 h-4.5 rounded-md bg-[#8BA3C6]/10 border border-[#8BA3C6]/20 flex items-center justify-center shrink-0">
+                                <Check className="w-3 h-3 text-[#8BA3C6] stroke-[2.5]" />
+                              </div>
+                              <span>{spec.value}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* ═════════════════════════════════════════════════════════
+              BOTTOM BAR — Solid Footer Strip
+          ═════════════════════════════════════════════════════════ */}
+
+          {/* Desktop */}
+          <div className="hidden lg:flex items-center justify-between mt-10 pt-7 border-t border-white/10">
+            {/* Left: Selected summary */}
+            <div className="flex items-center gap-3.5">
+              <span className="text-[10px] font-mono text-[#8BA3C6]/80 uppercase tracking-[0.2em]">
+                Selected:
+              </span>
+              <span className="text-sm font-semibold text-white bg-[#090E14] border border-[#8BA3C6]/25 px-4 py-2 rounded-xl">
+                {selectedPlan.name} — {selectedPlan.price[currency]} {selectedPlan.period}
+              </span>
+            </div>
+
+            {/* Right: Tactile CTA Button matching WeHandleItAll palette */}
+            <button
+              type="button"
+              onClick={handleOrder}
+              className="group inline-flex items-center gap-3 rounded-full bg-[#8BA3C6] hover:bg-[#9db5d8] text-[#090E14] pl-7 pr-2 py-2 cursor-pointer font-semibold transition-all duration-300 shadow-[0_4px_20px_rgba(139,163,198,0.25)] hover:scale-[1.02] active:scale-[0.98]"
+            >
+              <span className="text-sm font-bold tracking-tight">
+                {selectedPlan.id.includes("custom") ? "Discuss Custom Plan" : "Book Strategy Call"}
+              </span>
+              <div className="w-9 h-9 rounded-full bg-[#090E14] flex items-center justify-center text-white group-hover:translate-x-0.5 group-hover:-translate-y-px transition-transform duration-300">
+                <ArrowUpRight className="w-4 h-4 text-[#8BA3C6]" />
+              </div>
+            </button>
+          </div>
+
+          {/* Mobile */}
+          <div className="lg:hidden mt-7">
+            <button
+              type="button"
+              onClick={handleOrder}
+              className="group w-full inline-flex items-center justify-center gap-3 rounded-full bg-[#8BA3C6] hover:bg-[#9db5d8] text-[#090E14] pl-6 pr-2.5 py-2.5 cursor-pointer font-semibold transition-all duration-300 shadow-[0_4px_20px_rgba(139,163,198,0.25)] active:scale-[0.98]"
+            >
+              <span className="text-sm font-bold tracking-tight">
+                {selectedPlan.id.includes("custom") ? "Discuss Custom Plan" : "Book Strategy Call"}
+              </span>
+              <div className="w-9 h-9 rounded-full bg-[#090E14] flex items-center justify-center">
+                <ArrowUpRight className="w-4 h-4 text-[#8BA3C6]" />
+              </div>
+            </button>
+          </div>
+
+        </div>
       </div>
     </section>
   );
 }
+
