@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import Home from "@/app/page";
 import ServicesPage from "@/app/services/page";
 import ServiceDetailPage from "@/app/services/[slug]/page";
+import UnifiedNav from "@/components/layout/UnifiedNav";
 
 // Scroll to top or anchor on route change
 function ScrollToTop() {
@@ -32,6 +33,7 @@ export default function AppRoutes() {
   return (
     <>
       <ScrollToTop />
+      <UnifiedNav />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/services" element={<ServicesPage />} />

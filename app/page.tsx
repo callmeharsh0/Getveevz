@@ -1,6 +1,7 @@
 import Hero from "@/components/sections/Hero";
 import { ParallaxFloatingDemo } from "@/components/ui/parallax-floating-demo";
 import DistributionFlow from "@/components/sections/DistributionFlow-standalone";
+import ClientLogosMarquee from "@/components/sections/ClientLogosMarquee";
 import CapabilitiesFlywheel from "@/components/sections/CapabilitiesFlywheel";
 import ReelsFilmstrip from "@/components/sections/ReelsFilmstrip";
 import Agencies from "@/components/sections/Agencies";
@@ -18,6 +19,7 @@ export default function Home() {
         <ParallaxFloatingDemo />
       </section>
       <DistributionFlow />
+      <ClientLogosMarquee />
       <CapabilitiesFlywheel />
       <ReelsFilmstrip />
       <Agencies />

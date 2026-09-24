@@ -10,7 +10,6 @@ import {
   RotateCw,
   CheckCircle2,
   ArrowRight,
-  Radio,
 } from "lucide-react";
 
 interface FlywheelNode {
@@ -88,7 +87,7 @@ export default function CapabilitiesFlywheel() {
   return (
     <section
       id="system-capabilities"
-      className="relative w-full bg-white text-[#111111] py-16 sm:py-24 lg:py-32 px-4 sm:px-8 lg:px-12 overflow-hidden select-none border-y border-[#111111]/10"
+      className="relative w-full bg-white text-[#111111] py-16 sm:py-24 lg:py-32 px-4 sm:px-8 lg:px-12 overflow-hidden select-none border-b border-[#111111]/10"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
@@ -109,11 +108,6 @@ export default function CapabilitiesFlywheel() {
       <div className="mx-auto max-w-content relative z-10">
         {/* Section Header with User-Friendly Language */}
         <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#111111]/10 shadow-sm text-[11px] sm:text-xs font-mono uppercase tracking-wider text-[#0038E2] font-semibold mb-4">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#0038E2] inline-block animate-ping" />
-            <Radio className="w-3.5 h-3.5 text-[#0038E2]" />
-            How It Works
-          </div>
           <h2 className="font-display font-medium text-2xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight text-[#111111] leading-tight">
             Everything You Need to Turn Content Into Real Reach
           </h2>

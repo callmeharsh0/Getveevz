@@ -13,7 +13,6 @@ import {
   TrendingUp,
   Compass
 } from "lucide-react";
-import ServicesNav from "@/components/layout/ServicesNav";
 import { services } from "@/lib/services";
 import { cn } from "@/lib/utils";
 import { useScrollReveal } from "@/lib/useScrollReveal";
@@ -41,11 +40,6 @@ export default function ServicesPage() {
         aria-hidden="true" 
         className="pointer-events-none fixed inset-0 z-0 opacity-[0.035] mix-blend-multiply bg-[radial-gradient(#111111_1px,transparent_1px)] [background-size:16px_16px]"
       />
-
-      {/* ── Fluid Island Nav (Fixed dark pill on light hero background) ── */}
-      <div className="relative z-50">
-        <ServicesNav />
-      </div>
 
       {/* ── Main Content Container ── */}
       <div className="relative mx-auto max-w-7xl px-4 sm:px-8 lg:px-12 pt-36 sm:pt-44 lg:pt-48 pb-28 sm:pb-36 lg:pb-40">

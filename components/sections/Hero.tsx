@@ -15,10 +15,10 @@ if (typeof window !== "undefined") {
 }
 
 const PLATFORMS = [
-  { id: "all", name: "All Platforms", value: 800, metric: "+800M Views", video: "/assets/distribution.mp4", tag: "All Platforms" },
-  { id: "tiktok", name: "TikTok", value: 390, metric: "+390M Views", video: "/assets/clipping.mp4", tag: "Algorithm Priority" },
-  { id: "reels", name: "IG Reels", value: 260, metric: "+260M Views", video: "/assets/agency-video-2.mp4", tag: "High Retention" },
-  { id: "shorts", name: "YT Shorts", value: 150, metric: "+150M Views", video: "/assets/tracking.mp4", tag: "Search Authority" },
+  { id: "all", name: "All Platforms", value: 1, metric: "1B+ Views", counterPrefix: "", counterSuffix: "B+", video: "/assets/distribution.mp4", tag: "All Platforms" },
+  { id: "tiktok", name: "TikTok", value: 390, metric: "+390M Views", counterPrefix: "+", counterSuffix: "M", video: "/assets/clipping.mp4", tag: "Algorithm Priority" },
+  { id: "reels", name: "IG Reels", value: 260, metric: "+260M Views", counterPrefix: "+", counterSuffix: "M", video: "/assets/agency-video-2.mp4", tag: "High Retention" },
+  { id: "shorts", name: "YT Shorts", value: 150, metric: "+150M Views", counterPrefix: "+", counterSuffix: "M", video: "/assets/tracking.mp4", tag: "Search Authority" },
 ];
 
 function HeroStatCounter({
@@ -351,13 +351,13 @@ export default function Hero() {
       {/* ========================================================================= */}
       <header
         ref={navRef}
-        className="relative z-50 w-full flex items-center justify-between transition-all duration-500 pt-2"
+        className="relative z-30 w-full flex items-center justify-between pointer-events-none transition-all duration-500 pt-2"
         data-reveal
       >
         {/* Logo Mark (Left) */}
         <a
           href="/"
-          className="group flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] rounded-full"
+          className="pointer-events-auto group flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] rounded-full"
           aria-label="GetVeevz Home"
         >
           <div className="relative flex items-center justify-center w-11 h-11 rounded-full overflow-hidden bg-white border border-[#111111]/10 group-hover:border-[#111111]/30 transition-all duration-300 shadow-sm group-hover:scale-105">
@@ -372,38 +372,8 @@ export default function Hero() {
           </span>
         </a>
 
-        {/* Center Pill Nav Bar (Desktop, high-contrast dark pill on light hero) */}
-        <nav
-          aria-label="Primary Navigation"
-          className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-1 px-2.5 py-1.5 rounded-full bg-[#111111] text-[#F3EFEA] border border-black/10 shadow-[0_8px_28px_rgba(0,0,0,0.12)] transition-all duration-300 hover:shadow-[0_12px_36px_rgba(0,0,0,0.2)]"
-        >
-          {[
-            { id: "distribution", label: "Distribution" },
-            { id: "results", label: "Results" },
-            { id: "pricing", label: "Pricing" },
-            { id: "services", label: "Services" },
-            { id: "about", label: "About" },
-          ].map((item) => {
-            const isActive = activeNav === item.id;
-            return (
-              <button
-                key={item.id}
-                onClick={() => handleNavClick(item.id)}
-                className={cn(
-                  "relative px-3.5 py-1.5 text-xs font-medium rounded-full transition-all duration-200 group flex items-center gap-1.5 cursor-pointer",
-                  isActive
-                    ? "text-[#111111] bg-white shadow-sm font-semibold"
-                    : "text-[#F3EFEA]/75 hover:text-white hover:bg-white/10"
-                )}
-              >
-                <span>{item.label}</span>
-              </button>
-            );
-          })}
-        </nav>
-
         {/* CTA (Right) */}
-        <div ref={ctaButtonRef} className="flex items-center gap-3">
+        <div ref={ctaButtonRef} className="pointer-events-auto flex items-center gap-3">
           <GlassButton
             size="sm"
             className="hidden sm:inline-flex glass-button-dark"
@@ -693,7 +663,11 @@ export default function Hero() {
             {/* Big Stat Number with interactive active platform binding & increasing counter animation */}
             <div className="flex items-baseline gap-1.5 cursor-default group">
               <span className="font-display text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-[#111111] group-hover:text-[#0038E2] transition-colors">
-                <HeroStatCounter target={activePlatform.value} prefix="+" suffix="M" />
+                <HeroStatCounter
+                  target={activePlatform.value}
+                  prefix={activePlatform.counterPrefix || "+"}
+                  suffix={activePlatform.counterSuffix || "M"}
+                />
               </span>
               <span className="text-xs sm:text-sm font-mono text-[#495B7D] uppercase tracking-wider">
                 {activePlatform.metric.split(" ")[1] || "Views"}

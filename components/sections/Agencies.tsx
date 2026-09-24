@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import { ArrowUpRight, Check, RotateCcw, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -88,6 +89,7 @@ const agencies: Agency[] = [
 ];
 
 export default function Agencies() {
+  const navigate = useNavigate();
   const gridRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const slidingShapeRef = useRef<HTMLDivElement>(null);
