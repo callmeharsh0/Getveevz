@@ -503,9 +503,6 @@ export default function Hero() {
 
         {/* Right Eyebrow: Interactive Platform Selector */}
         <div className="eyebrow-item flex items-center gap-2 md:justify-end">
-          <span className="hidden lg:inline text-[11px] tracking-eyebrow uppercase font-medium text-[#495B7D]/80 mr-1">
-            Active Routing:
-          </span>
           <div className="inline-flex p-0.5 sm:p-1 rounded-full bg-white/85 border border-[#111111]/10 backdrop-blur-md shadow-sm max-w-full flex-wrap">
             {PLATFORMS.map((p) => {
               const isCurrent = activePlatform.id === p.id;
