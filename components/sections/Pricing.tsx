@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cn } from "@/lib/utils";
-import { Check, ArrowRight, Sparkles } from "lucide-react";
+import { Check, ArrowUpRight, Sparkles } from "lucide-react";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -32,7 +32,7 @@ const budgetPlans: BudgetPlan[] = [
   {
     id: "budget-36k",
     name: "Growth Tier",
-    subtitle: "high-velocity distribution",
+    subtitle: "fast-track your reach",
     price: {
       USD: "~$36k",
       INR: "~₹30L",
@@ -40,8 +40,8 @@ const budgetPlans: BudgetPlan[] = [
     },
     period: "/ month",
     specs: [
-      { label: "Pages", value: "20–30 Dedicated Distribution Pages" },
-      { label: "Content", value: "60–80 High-Retention Clips / mo" },
+      { label: "Pages", value: "20–30 Dedicated Posting Pages" },
+      { label: "Content", value: "60–80 Short-Form Clips / mo" },
       { label: "Platforms", value: "YT Shorts, Reels & TikTok" },
       { label: "Tracking", value: "Live Real-Time Dashboard" },
       { label: "Team", value: "Dedicated Strategist & Editors" },
@@ -50,7 +50,7 @@ const budgetPlans: BudgetPlan[] = [
   {
     id: "budget-72k",
     name: "Dominance Tier",
-    subtitle: "category saturation",
+    subtitle: "own your category",
     isPopular: true,
     price: {
       USD: "~$72k",
@@ -59,17 +59,17 @@ const budgetPlans: BudgetPlan[] = [
     },
     period: "/ month",
     specs: [
-      { label: "Pages", value: "50+ Dedicated Distribution Pages" },
-      { label: "Content", value: "140+ Viral Hook Variations / mo" },
-      { label: "Platforms", value: "Full Omni-Platform Saturation" },
-      { label: "Team", value: "Full Dedicated Distribution Pod" },
-      { label: "Support", value: "24/7 Slack & Executive Strategy" },
+      { label: "Pages", value: "50+ Dedicated Posting Pages" },
+      { label: "Content", value: "140+ Content Variations / mo" },
+      { label: "Platforms", value: "All Major Short-Form Platforms" },
+      { label: "Team", value: "Full Dedicated Team" },
+      { label: "Support", value: "24/7 Slack & Strategy Support" },
     ],
   },
   {
     id: "budget-custom",
-    name: "Custom Enterprise",
-    subtitle: "bespoke infrastructure",
+    name: "Custom Plan",
+    subtitle: "built around you",
     price: {
       USD: "Custom",
       INR: "Custom",
@@ -78,14 +78,17 @@ const budgetPlans: BudgetPlan[] = [
     period: "tailored",
     highlightNote: "We have a higher budget and need a custom plan",
     specs: [
-      { label: "Pages", value: "Unlimited Page Ecosystem" },
-      { label: "Content", value: "Multi-Show Repurposing & Distribution" },
-      { label: "Pod", value: "Dedicated In-House Creative Pod" },
-      { label: "Guarantees", value: "Custom Algorithmic SLAs" },
+      { label: "Pages", value: "Unlimited Posting Pages" },
+      { label: "Content", value: "Multi-Show Content & Distribution" },
+      { label: "Pod", value: "Your Own Creative Team" },
+      { label: "Guarantees", value: "Custom Performance Targets" },
       { label: "Access", value: "Direct Access to Founders" },
     ],
   },
 ];
+
+/* ─── Haptic spring curve (no default ease-in-out) ─── */
+const SPRING = "cubic-bezier(0.32, 0.72, 0, 1)";
 
 export default function Pricing() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -130,274 +133,370 @@ export default function Pricing() {
   return (
     <section
       id="pricing"
-      className="relative w-full py-20 sm:py-28 lg:py-32 bg-[#090e14] overflow-hidden"
+      className="relative w-full py-28 sm:py-36 lg:py-40 bg-[#090e14] overflow-hidden"
     >
       {/* Ambient monochrome grey background glow */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[580px] bg-white/[0.04] blur-[170px] rounded-full"
+        className="pointer-events-none absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[580px] bg-white/[0.035] blur-[170px] rounded-full"
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute bottom-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[460px] bg-neutral-400/[0.03] blur-[160px] rounded-full"
+        className="pointer-events-none absolute bottom-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[460px] bg-neutral-400/[0.025] blur-[160px] rounded-full"
       />
 
-      {/* Atmospheric Fades */}
+      {/* Atmospheric Edge Fades */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#090e14] to-transparent z-10"
+        className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#090e14] to-transparent z-10"
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#090e14] to-transparent z-10"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#090e14] to-transparent z-10"
       />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Main Card Container Matching Site Theme & Selector Architecture */}
-        <div
-          ref={containerRef}
-          className="relative bg-gradient-to-b from-[#0e1724]/95 via-[#0b131e]/95 to-[#070b10]/95 rounded-[32px] sm:rounded-[40px] p-7 sm:p-10 lg:p-12 shadow-[0_24px_70px_rgba(2,18,47,0.85)] border border-white/[0.12] backdrop-blur-xl select-none text-[#F0ECDD]"
-        >
-          {/* Top Row: Title & Currency Switcher */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-white/[0.08]">
-            <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.05] border border-white/10 text-xs font-mono uppercase tracking-wider text-frost mb-2.5">
-                <Sparkles className="w-3 h-3 text-frost" />
-                <span>Pricing & Scale</span>
+      <div className="relative z-10 max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
+
+        {/* ═══════════════════════════════════════════════════════════════
+            DOUBLE-BEZEL OUTER SHELL (Doppelrand Architecture)
+            — Outer tray with hairline ring, inner core with its own surface
+        ═══════════════════════════════════════════════════════════════ */}
+        <div className="rounded-[2.5rem] p-[3px] bg-gradient-to-b from-white/[0.09] via-white/[0.04] to-white/[0.02] shadow-[0_40px_80px_-12px_rgba(0,0,0,0.9)]">
+
+          {/* Inner Core */}
+          <div
+            ref={containerRef}
+            className="relative rounded-[calc(2.5rem-3px)] bg-gradient-to-b from-[#0e1724]/95 via-[#0b131e]/95 to-[#070b10]/95 p-8 sm:p-10 lg:p-14 select-none text-moonlight"
+            style={{
+              boxShadow: "inset 0 1px 1px rgba(255,255,255,0.08), inset 0 -1px 2px rgba(0,0,0,0.5)",
+            }}
+          >
+
+            {/* ── Top Row: Eyebrow + Title + Currency Switcher ── */}
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-5 pb-8 border-b border-white/[0.06]">
+              <div>
+                {/* Eyebrow Pill Badge */}
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0038E2]/[0.06] ring-1 ring-[#0038E2]/20 text-[10px] font-mono uppercase tracking-[0.2em] text-[#0038E2] mb-4">
+                  <Sparkles className="w-3 h-3" />
+                  <span>Pricing & Scale</span>
+                </div>
+                <h2 className="font-display text-3xl sm:text-4xl lg:text-[2.75rem] font-bold tracking-tight text-moonlight leading-[1.1]">
+                  Select your budget
+                </h2>
               </div>
-              <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-[#F0ECDD]">
-                Select your budget
-              </h2>
+
+              {/* Currency Switcher — Double-Bezel micro component */}
+              <div className="rounded-2xl p-[2px] bg-gradient-to-b from-white/[0.08] to-white/[0.03] self-start sm:self-auto">
+                <div className="inline-flex items-center p-1.5 rounded-[calc(1rem-2px)] bg-oxford">
+                  {(["USD", "INR", "AED"] as Currency[]).map((c) => {
+                    const isActive = currency === c;
+                    return (
+                      <button
+                        key={c}
+                        type="button"
+                        onClick={() => setCurrency(c)}
+                        className={cn(
+                          "px-4 py-2 rounded-xl text-xs font-mono cursor-pointer",
+                          isActive
+                            ? "bg-[#0038E2] text-white font-bold shadow-[0_0_16px_rgba(0,56,226,0.4)]"
+                            : "text-white/50 hover:text-white/80"
+                        )}
+                        style={{ transition: `all 500ms ${SPRING}` }}
+                      >
+                        {c === "USD" ? "USD ($)" : c === "INR" ? "INR (₹)" : "AED ($)"}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
 
-            {/* Currency Switcher (USD, INR, AED) */}
-            <div className="inline-flex items-center self-start sm:self-auto p-1.5 rounded-xl bg-white/[0.06] border border-white/10 backdrop-blur-md">
-              {(["USD", "INR", "AED"] as Currency[]).map((c) => {
-                const isActive = currency === c;
+            {/* ═════════════════════════════════════════════════════════
+                DESKTOP: 3-Column Bento Grid with Double-Bezel Cards
+            ═════════════════════════════════════════════════════════ */}
+            <div className="hidden lg:grid grid-cols-3 gap-6 mt-10 items-stretch">
+              {budgetPlans.map((plan) => {
+                const isSelected = plan.id === selectedPlanId;
+
                 return (
-                  <button
-                    key={c}
-                    type="button"
-                    onClick={() => setCurrency(c)}
-                    className={cn(
-                      "px-3.5 py-1.5 rounded-lg text-xs font-mono transition-all duration-200 cursor-pointer",
-                      isActive
-                        ? "bg-frost text-[#02122F] font-bold shadow-md"
-                        : "text-white/60 hover:text-white"
-                    )}
+                  <div
+                    key={plan.id}
+                    onClick={() => setSelectedPlanId(plan.id)}
+                    className="group cursor-pointer"
+                    style={{ transition: `transform 700ms ${SPRING}` }}
                   >
-                    {c === "USD" ? "USD ($)" : c === "INR" ? "INR (₹)" : "AED ($)"}
-                  </button>
+                    {/* Outer Shell */}
+                    <div
+                      className={cn(
+                        "rounded-[2rem] p-[2px] h-full",
+                        isSelected
+                          ? "bg-gradient-to-b from-[#0038E2]/40 via-[#0038E2]/15 to-[#0038E2]/05 shadow-[0_0_50px_rgba(0,56,226,0.15)]"
+                          : "bg-gradient-to-b from-white/[0.08] via-white/[0.03] to-transparent"
+                      )}
+                      style={{ transition: `all 700ms ${SPRING}` }}
+                    >
+                      {/* Inner Core */}
+                      <div
+                        className={cn(
+                          "relative rounded-[calc(2rem-2px)] p-7 lg:p-8 min-h-[460px] flex flex-col justify-between",
+                          isSelected
+                            ? "bg-oxford"
+                            : "bg-[#090e14] group-hover:bg-[#0b1219]"
+                        )}
+                        style={{
+                          boxShadow: isSelected
+                            ? "inset 0 1px 1px rgba(0,56,226,0.15), inset 0 -1px 2px rgba(0,0,0,0.4)"
+                            : "inset 0 1px 1px rgba(255,255,255,0.06), inset 0 -1px 2px rgba(0,0,0,0.3)",
+                          transition: `all 700ms ${SPRING}`,
+                        }}
+                      >
+
+
+                        <div>
+                          {/* Header: Radio + Plan Name + Price */}
+                          <div className="flex items-start justify-between gap-3 mt-2">
+                            <div className="flex items-start gap-3.5">
+                              {/* Radio — machined circle */}
+                              <div
+                                className={cn(
+                                  "w-[22px] h-[22px] rounded-full flex items-center justify-center shrink-0 mt-0.5 ring-1",
+                                  isSelected
+                                    ? "ring-[#0038E2] bg-[#0038E2]/10"
+                                    : "ring-white/20 bg-white/[0.03]"
+                                )}
+                                style={{ transition: `all 500ms ${SPRING}` }}
+                              >
+                                <div
+                                  className={cn(
+                                    "rounded-full",
+                                    isSelected
+                                      ? "w-3 h-3 bg-[#0038E2] shadow-[0_0_12px_rgba(0,56,226,0.9)]"
+                                      : "w-0 h-0"
+                                  )}
+                                  style={{ transition: `all 500ms ${SPRING}` }}
+                                />
+                              </div>
+
+                              <div>
+                                <h3 className="font-display font-bold text-xl text-moonlight leading-tight tracking-tight">
+                                  {plan.name}
+                                </h3>
+                                <p className="text-xs text-[#495B7D] font-normal lowercase mt-1 tracking-wide">
+                                  {plan.subtitle}
+                                </p>
+                              </div>
+                            </div>
+
+                            {/* Price */}
+                            <div className="text-right shrink-0">
+                              <div className="font-display font-bold text-lg text-moonlight leading-tight tracking-tight">
+                                {plan.price[currency]}
+                              </div>
+                              <div className="text-[11px] text-[#495B7D] font-mono mt-1">
+                                {plan.period}
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Highlight Note */}
+                          {plan.highlightNote && (
+                            <div
+                              className="mt-5 p-3 rounded-xl bg-[#0038E2]/[0.06] ring-1 ring-[#0038E2]/15 text-[#0038E2] text-xs leading-relaxed"
+                              style={{
+                                boxShadow: "inset 0 1px 0 rgba(0,56,226,0.1)",
+                              }}
+                            >
+                              &ldquo;{plan.highlightNote}&rdquo;
+                            </div>
+                          )}
+
+                          {/* Feature Checklist */}
+                          <ul className="mt-7 space-y-3.5 pt-5 border-t border-white/[0.06]">
+                            {plan.specs.map((spec) => (
+                              <li
+                                key={spec.label}
+                                className="flex items-center gap-3 text-[13px] text-white/75 font-normal"
+                              >
+                                <div className="w-5 h-5 rounded-md bg-[#0038E2]/[0.08] ring-1 ring-[#0038E2]/15 flex items-center justify-center shrink-0">
+                                  <Check className="w-3 h-3 text-[#0038E2] stroke-[2.5]" />
+                                </div>
+                                <span>{spec.value}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 );
               })}
             </div>
-          </div>
 
-          {/* ========================================================= */}
-          {/* DESKTOP LAYOUT (3 Side-by-Side Cards)                    */}
-          {/* ========================================================= */}
-          <div className="hidden lg:grid grid-cols-3 gap-5 lg:gap-6 mt-8 items-stretch">
-            {budgetPlans.map((plan) => {
-              const isSelected = plan.id === selectedPlanId;
+            {/* ═════════════════════════════════════════════════════════
+                MOBILE: Stacked Accordion with Double-Bezel
+            ═════════════════════════════════════════════════════════ */}
+            <div className="lg:hidden flex flex-col gap-3.5 mt-8">
+              {budgetPlans.map((plan) => {
+                const isSelected = plan.id === selectedPlanId;
 
-              return (
-                <div
-                  key={plan.id}
-                  onClick={() => setSelectedPlanId(plan.id)}
-                  className={cn(
-                    "relative rounded-2xl p-7 lg:p-8 min-h-[440px] transition-all duration-300 cursor-pointer flex flex-col justify-between select-none",
-                    isSelected
-                      ? "border-2 border-frost bg-frost/[0.08] shadow-[0_0_35px_rgba(139,163,197,0.18)] ring-1 ring-frost/50 scale-[1.01]"
-                      : "border border-white/10 bg-white/[0.02] hover:border-frost/40 hover:bg-white/[0.04]"
-                  )}
-                >
-                  <div>
-                    {/* Header Row: Radio + Plan Name/Subtitle + Price */}
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="flex items-start gap-3">
-                        {/* Radio Button */}
-                        <div
-                          className={cn(
-                            "w-5 h-5 rounded-full flex items-center justify-center shrink-0 mt-0.5 transition-colors",
-                            isSelected
-                              ? "border-2 border-frost"
-                              : "border-2 border-white/30"
-                          )}
-                        >
-                          {isSelected && (
-                            <div className="w-2.5 h-2.5 rounded-full bg-frost shadow-[0_0_8px_rgba(139,163,197,0.9)]" />
-                          )}
-                        </div>
-
-                        <div>
-                          <h3 className="font-display font-bold text-lg text-[#F0ECDD] leading-tight">
-                            {plan.name}
-                          </h3>
-                          <p className="text-xs text-frost/80 font-normal lowercase mt-0.5">
-                            {plan.subtitle}
-                          </p>
-                        </div>
-                      </div>
-
-                      {/* Price on top-right */}
-                      <div className="text-right shrink-0">
-                        <div className="font-display font-bold text-base text-[#F0ECDD] leading-tight">
-                          {plan.price[currency]}
-                        </div>
-                        <div className="text-[11px] text-frost/70 font-normal mt-0.5">
-                          {plan.period}
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Highlight Note for Option 3 */}
-                    {plan.highlightNote && (
-                      <div className="mt-4 p-2.5 rounded-xl bg-frost/10 border border-frost/25 text-frost text-xs font-medium leading-snug">
-                        "{plan.highlightNote}"
-                      </div>
-                    )}
-
-                    {/* Features Checklist */}
-                    <ul className="mt-6 space-y-3 pt-4 border-t border-white/[0.08]">
-                      {plan.specs.map((spec) => (
-                        <li
-                          key={spec.label}
-                          className="flex items-center gap-2.5 text-xs text-white/80 font-normal"
-                        >
-                          <Check className="w-3.5 h-3.5 text-frost stroke-[2.5] shrink-0" />
-                          <span>{spec.value}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* ========================================================= */}
-          {/* MOBILE LAYOUT (Stacked Accordion Matching Reference)    */}
-          {/* ========================================================= */}
-          <div className="lg:hidden flex flex-col gap-3 mt-6">
-            {budgetPlans.map((plan) => {
-              const isSelected = plan.id === selectedPlanId;
-
-              return (
-                <div
-                  key={plan.id}
-                  onClick={() => setSelectedPlanId(plan.id)}
-                  className={cn(
-                    "rounded-2xl p-5 transition-all duration-300 cursor-pointer",
-                    isSelected
-                      ? "border-2 border-frost bg-frost/[0.08] shadow-[0_0_35px_rgba(139,163,197,0.18)]"
-                      : "border border-white/10 bg-white/[0.02] hover:border-frost/40 hover:bg-white/[0.04]"
-                  )}
-                >
-                  {/* Header Row */}
-                  <div className="flex items-center justify-between gap-3">
-                    <div className="flex items-center gap-3">
+                return (
+                  <div
+                    key={plan.id}
+                    onClick={() => setSelectedPlanId(plan.id)}
+                    className="cursor-pointer"
+                  >
+                    {/* Outer Shell */}
+                    <div
+                      className={cn(
+                        "rounded-2xl p-[2px]",
+                        isSelected
+                          ? "bg-gradient-to-b from-[#0038E2]/35 via-[#0038E2]/12 to-[#0038E2]/05 shadow-[0_0_35px_rgba(0,56,226,0.12)]"
+                          : "bg-gradient-to-b from-white/[0.07] to-transparent"
+                      )}
+                      style={{ transition: `all 500ms ${SPRING}` }}
+                    >
+                      {/* Inner Core */}
                       <div
                         className={cn(
-                          "w-5 h-5 rounded-full flex items-center justify-center shrink-0 transition-colors",
-                          isSelected
-                            ? "border-2 border-frost"
-                            : "border-2 border-white/30"
+                          "rounded-[calc(1rem-2px)] p-5",
+                          isSelected ? "bg-oxford" : "bg-[#090e14]"
                         )}
+                        style={{
+                          boxShadow: isSelected
+                            ? "inset 0 1px 1px rgba(0,56,226,0.12)"
+                            : "inset 0 1px 1px rgba(255,255,255,0.04)",
+                          transition: `all 500ms ${SPRING}`,
+                        }}
                       >
+                        {/* Header Row */}
+                        <div className="flex items-center justify-between gap-3">
+                          <div className="flex items-center gap-3">
+                            <div
+                              className={cn(
+                                "w-5 h-5 rounded-full flex items-center justify-center shrink-0 ring-1",
+                                isSelected
+                                  ? "ring-[#0038E2] bg-[#0038E2]/10"
+                                  : "ring-white/20 bg-white/[0.03]"
+                              )}
+                              style={{ transition: `all 500ms ${SPRING}` }}
+                            >
+                              {isSelected && (
+                                <div className="w-2.5 h-2.5 rounded-full bg-[#0038E2] shadow-[0_0_8px_rgba(0,56,226,0.9)]" />
+                              )}
+                            </div>
+
+                            <div>
+                              <h3 className="font-display font-bold text-base text-moonlight leading-tight">
+                                {plan.name}
+                              </h3>
+                              <p className="text-[11px] text-[#495B7D] font-normal lowercase mt-0.5">
+                                {plan.subtitle}
+                              </p>
+                            </div>
+                          </div>
+
+                          <div className="text-right shrink-0">
+                            <div className="font-display font-bold text-sm text-moonlight leading-tight">
+                              {plan.price[currency]}
+                            </div>
+                            <div className="text-[10px] text-[#495B7D] font-mono mt-0.5">
+                              {plan.period}
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Expanded Checklist */}
                         {isSelected && (
-                          <div className="w-2.5 h-2.5 rounded-full bg-frost shadow-[0_0_8px_rgba(139,163,197,0.9)]" />
+                          <div className="mt-5 pt-4 border-t border-white/[0.06]">
+                            {plan.highlightNote && (
+                              <div className="mb-4 p-3 rounded-xl bg-[#0038E2]/[0.06] ring-1 ring-[#0038E2]/15 text-[#0038E2] text-xs leading-relaxed">
+                                &ldquo;{plan.highlightNote}&rdquo;
+                              </div>
+                            )}
+
+                            <ul className="space-y-3">
+                              {plan.specs.map((spec) => (
+                                <li
+                                  key={spec.label}
+                                  className="flex items-center gap-2.5 text-xs text-white/75 font-normal"
+                                >
+                                  <div className="w-4.5 h-4.5 rounded-md bg-[#0038E2]/[0.08] ring-1 ring-[#0038E2]/15 flex items-center justify-center shrink-0">
+                                    <Check className="w-3 h-3 text-[#0038E2] stroke-[2.5]" />
+                                  </div>
+                                  <span>{spec.value}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
                         )}
-                      </div>
-
-                      <div>
-                        <h3 className="font-display font-bold text-base text-[#F0ECDD] leading-tight">
-                          {plan.name}
-                        </h3>
-                        <p className="text-xs text-frost/80 font-normal lowercase mt-0.5">
-                          {plan.subtitle}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="text-right shrink-0">
-                      <div className="font-display font-bold text-sm text-[#F0ECDD] leading-tight">
-                        {plan.price[currency]}
-                      </div>
-                      <div className="text-[10px] text-frost/70 font-normal mt-0.5">
-                        {plan.period}
                       </div>
                     </div>
                   </div>
-
-                  {/* Expanded Checklist on Active Mobile Card */}
-                  {isSelected && (
-                    <div className="mt-5 pt-4 border-t border-white/[0.08]">
-                      {plan.highlightNote && (
-                        <div className="mb-4 p-2.5 rounded-xl bg-frost/10 border border-frost/25 text-frost text-xs font-medium leading-snug">
-                          "{plan.highlightNote}"
-                        </div>
-                      )}
-
-                      <ul className="space-y-3">
-                        {plan.specs.map((spec) => (
-                          <li
-                            key={spec.label}
-                            className="flex items-center gap-2.5 text-xs text-white/80 font-normal"
-                          >
-                            <Check className="w-3.5 h-3.5 text-frost stroke-[2.5] shrink-0" />
-                            <span>{spec.value}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-
-          {/* ========================================================= */}
-          {/* BOTTOM BAR / FOOTER                                      */}
-          {/* ========================================================= */}
-          {/* Desktop Bottom Controls Row */}
-          <div className="hidden lg:flex items-center justify-between mt-8 pt-6 border-t border-white/[0.08]">
-            {/* Left: Selected Tier Summary */}
-            <div className="flex items-center gap-3">
-              <span className="text-xs font-mono text-frost/80 uppercase tracking-wider">
-                Selected Budget:
-              </span>
-              <span className="text-sm font-semibold text-[#F0ECDD] bg-white/[0.06] border border-white/10 px-3.5 py-1.5 rounded-lg">
-                {selectedPlan.name} ({selectedPlan.price[currency]} {selectedPlan.period})
-              </span>
+                );
+              })}
             </div>
 
-            {/* Right: CTA Button */}
-            <button
-              type="button"
-              onClick={handleOrder}
-              className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-frost hover:bg-white text-[#02122F] text-sm font-semibold shadow-[0_0_25px_rgba(139,163,197,0.3)] transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
-            >
-              <span>
-                {selectedPlan.id === "budget-custom" ? "Discuss Custom Plan" : "Book Strategy Call"}
-              </span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
-          </div>
+            {/* ═════════════════════════════════════════════════════════
+                BOTTOM BAR — Double-Bezel footer strip
+            ═════════════════════════════════════════════════════════ */}
 
-          {/* Mobile Bottom Full-Width Button */}
-          <div className="lg:hidden mt-6">
-            <button
-              type="button"
-              onClick={handleOrder}
-              className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl bg-frost hover:bg-white text-[#02122F] text-sm font-semibold shadow-[0_0_25px_rgba(139,163,197,0.3)] transition-all duration-200 active:scale-[0.98] cursor-pointer"
-            >
-              <span>
-                {selectedPlan.id === "budget-custom" ? "Discuss Custom Plan" : "Book Strategy Call"}
-              </span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
+            {/* Desktop */}
+            <div className="hidden lg:flex items-center justify-between mt-10 pt-7 border-t border-white/[0.06]">
+              {/* Left: Selected summary */}
+              <div className="flex items-center gap-3.5">
+                <span className="text-[10px] font-mono text-[#495B7D] uppercase tracking-[0.2em]">
+                  Selected:
+                </span>
+                <div className="rounded-xl p-[1.5px] bg-gradient-to-r from-white/[0.08] to-white/[0.03]">
+                  <span className="block text-sm font-semibold text-moonlight bg-oxford px-4 py-2 rounded-[calc(0.75rem-1.5px)]">
+                    {selectedPlan.name} — {selectedPlan.price[currency]} {selectedPlan.period}
+                  </span>
+                </div>
+              </div>
+
+              {/* Right: Button-in-Button CTA with trailing icon circle */}
+              <button
+                type="button"
+                onClick={handleOrder}
+                className="group inline-flex items-center gap-0 rounded-full bg-[#0038E2] hover:bg-[#0038E2]/90 pl-7 pr-2 py-2 cursor-pointer active:scale-[0.97]"
+                style={{ transition: `all 600ms ${SPRING}` }}
+              >
+                <span className="text-sm font-semibold text-white tracking-tight mr-3">
+                  {selectedPlan.id === "budget-custom" ? "Discuss Custom Plan" : "Book Strategy Call"}
+                </span>
+                {/* Nested icon circle — the "island" */}
+                <div
+                  className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-0.5 group-hover:-translate-y-px group-hover:scale-105"
+                  style={{ transition: `transform 500ms ${SPRING}` }}
+                >
+                  <ArrowUpRight className="w-4 h-4 text-white" />
+                </div>
+              </button>
+            </div>
+
+            {/* Mobile */}
+            <div className="lg:hidden mt-7">
+              <button
+                type="button"
+                onClick={handleOrder}
+                className="group w-full inline-flex items-center justify-center gap-0 rounded-full bg-[#0038E2] hover:bg-[#0038E2]/90 pl-6 pr-2.5 py-2.5 cursor-pointer active:scale-[0.97]"
+                style={{ transition: `all 600ms ${SPRING}` }}
+              >
+                <span className="text-sm font-semibold text-white tracking-tight mr-3">
+                  {selectedPlan.id === "budget-custom" ? "Discuss Custom Plan" : "Book Strategy Call"}
+                </span>
+                <div
+                  className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center"
+                  style={{ transition: `transform 500ms ${SPRING}` }}
+                >
+                  <ArrowUpRight className="w-4 h-4 text-white" />
+                </div>
+              </button>
+            </div>
+
           </div>
         </div>
+
       </div>
     </section>
   );

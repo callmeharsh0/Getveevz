@@ -491,10 +491,7 @@ export default function Hero() {
       >
         {/* Left Eyebrows */}
         <div className="flex flex-wrap items-baseline gap-3 sm:gap-8">
-          <span className="eyebrow-item text-[11px] sm:text-xs tracking-eyebrow uppercase font-medium text-[#495B7D] flex items-center gap-1.5">
-            <Radio className="w-3 h-3 text-[#0038E2] animate-pulse" />
-            Welcome to GetVeevz
-          </span>
+          
           <span className="eyebrow-item text-[11px] sm:text-xs tracking-eyebrow uppercase font-medium text-[#495B7D] flex items-center gap-2">
             <span className="text-[#0038E2] font-mono text-[10px] sm:text-xs font-semibold">(01)</span>
             Distribution Engine

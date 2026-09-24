@@ -21,58 +21,59 @@ const services = [
   {
     n: "01",
     phase: "PHASE 01 // DISCOVERY",
-    title: "Strategy Discuss",
-    desc: "Aligning on campaign goals, audience demographics, content hooks, and high-impact distribution angles.",
+    title: "Strategy Call",
+    desc: "We sit down with you to understand your goals, who you're trying to reach, and what kind of content will resonate with them.",
     icon: MessageSquare,
     badge: "Foundation",
-    highlight: "Audience & Hooks",
+    highlight: "Clear Game Plan",
   },
   {
     n: "02",
     phase: "PHASE 02 // PREPARATION",
-    title: "Warmup Accounts",
-    desc: "Algorithmic account warmup, security verification, and platform seasoning across TikTok, Reels, and Shorts.",
+    title: "Account Setup",
+    desc: "We set up and warm up your posting accounts on TikTok, Instagram Reels, and YouTube Shorts so they're ready to perform from day one.",
     icon: Flame,
-    badge: "Algorithm Seasoning",
-    highlight: "Zero Shadowban",
+    badge: "Platform Ready",
+    highlight: "Clean Start",
   },
   {
     n: "03",
     phase: "PHASE 03 // DEPLOYMENT",
-    title: "Campaign Launching",
-    desc: "Coordinated clip rollout, automated scheduling, and multi-page short-form publishing.",
+    title: "Campaign Launch",
+    desc: "We publish your content across all platforms on a consistent schedule, reaching as many people as possible from the start.",
     icon: Rocket,
-    badge: "Multi-Platform Sync",
-    highlight: "Coordinated Push",
+    badge: "Multi-Platform",
+    highlight: "Content Live",
   },
   {
     n: "04",
     phase: "PHASE 04 // ACCELERATION",
-    title: "Results",
-    desc: "Rapid view generation, algorithmic reach acceleration, and compounding follower growth across your channels.",
+    title: "Growth & Views",
+    desc: "Your content starts getting views, your following grows, and your reach keeps building the more we post.",
     icon: TrendingUp,
-    badge: "Virality Spike",
-    highlight: "Exponential Reach",
+    badge: "Views & Growth",
+    highlight: "Growing Reach",
   },
   {
     n: "05",
     phase: "PHASE 05 // INTELLIGENCE",
     title: "Weekly Report",
-    desc: "Detailed performance breakdown, growth insights, retention analysis, and per-page metrics delivered weekly.",
+    desc: "Every week you get a clear summary of how your content is performing — views, followers gained, what's working, and what we'll improve.",
     icon: BarChart3,
-    badge: "Executive Briefing",
-    highlight: "Weekly Audit",
+    badge: "Weekly Update",
+    highlight: "Clear Results",
   },
   {
     n: "06",
     phase: "PHASE 06 // COMMAND",
-    title: "Tracking on Dashboard",
-    desc: "24/7 consolidated live telemetry to monitor watch time, viral velocity, and audience conversion in real time.",
+    title: "Live Dashboard",
+    desc: "Check your numbers anytime — views, watch time, and follower growth — all in one easy-to-read dashboard.",
     icon: LayoutDashboard,
-    badge: "24/7 Telemetry",
-    highlight: "Real-Time Portal",
+    badge: "24/7 Access",
+    highlight: "Live Stats",
   },
 ];
+
 
 /**
  * Tactical Deep Black Card with #8BA3C6 frost accent and GPU-accelerated spotlight.
@@ -240,8 +241,9 @@ export default function WeHandleItAll() {
                   ref={(el) => {
                     stepRefs.current[idx] = el;
                   }}
-                  className={`step-row relative flex flex-col md:flex-row items-start md:items-center ${isEven ? "md:flex-row-reverse" : ""
-                    } group`}
+                  className={`step-row relative flex flex-col md:flex-row items-start md:items-center ${
+                    isEven ? "md:flex-row-reverse" : ""
+                  } group`}
                 >
                   {/* Content Card Side: Matching #090E14 Card with #8BA3C6 Accents */}
                   <div className="w-full md:w-[calc(50%-44px)] pl-16 md:pl-0">

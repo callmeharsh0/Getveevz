@@ -180,3 +180,36 @@
   text-shadow: none;
 }
 
+/* ─── Laser Spine Timeline Active Step Classes (#8BA3C6 Frost Accent) ─── */
+.is-active-step .step-card {
+  border-color: #8BA3C6 !important;
+  box-shadow: 0 0 35px rgba(139, 163, 198, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+}
+.is-active-step .step-node {
+  background-color: #8BA3C6 !important;
+  color: #090E14 !important;
+  border-color: #ffffff !important;
+  box-shadow: 0 0 24px rgba(139, 163, 198, 0.9) !important;
+  transform: scale(1.1);
+}
+.is-active-step .step-icon-box {
+  background-color: #8BA3C6 !important;
+  color: #090E14 !important;
+  border-color: #8BA3C6 !important;
+  box-shadow: 0 0 16px rgba(139, 163, 198, 0.4);
+  transform: scale(1.05);
+}
+.is-active-step .step-icon-box svg {
+  color: #090E14 !important;
+  stroke: #090E14 !important;
+}
+.is-active-step .step-badge {
+  background-color: #8BA3C6 !important;
+  color: #090E14 !important;
+  border-color: #8BA3C6 !important;
+  box-shadow: 0 0 10px rgba(139, 163, 198, 0.3);
+}
+.is-active-step .step-check {
+  color: #8BA3C6 !important;
+}
+
