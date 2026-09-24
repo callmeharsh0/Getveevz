@@ -661,7 +661,7 @@ export default function Hero() {
 
         {/* Supporting Headline directly below GetVeevz */}
         <h2 className="font-display font-normal text-base sm:text-xl md:text-2xl text-[#111111] leading-[1.3] max-w-xl mx-auto mt-4 sm:mt-6 tracking-tight text-center">
-          We cut short form clip from long form content and post across social media platforms
+          We cut short form clips from long form content and post across social media platforms
         </h2>
 
         {/* Floating Interactive Right Node: Real-Time Video Preview Hologram */}

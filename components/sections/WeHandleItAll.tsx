@@ -190,7 +190,7 @@ export default function WeHandleItAll() {
     <section
       id="about"
       ref={sectionRef}
-      className="relative border-y border-white/10 bg-[#090E14] text-white px-4 sm:px-6 py-28 sm:py-36 overflow-hidden"
+      className="relative border-t border-white/10 bg-[#090E14] text-white px-4 sm:px-6 py-28 sm:py-36 overflow-hidden"
     >
       {/* Subtle ambient frost blue aura matching #8BA3C6 */}
       <div
@@ -200,6 +200,12 @@ export default function WeHandleItAll() {
       <div
         aria-hidden="true"
         className="pointer-events-none absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full bg-gradient-to-tl from-[#8BA3C6]/10 via-transparent to-transparent blur-[140px] z-0"
+      />
+
+      {/* Smooth gradient transition into Pricing section */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute bottom-0 inset-x-0 h-40 bg-gradient-to-b from-transparent to-[#8BA3C6]/[0.03] z-0"
       />
 
       <div className="mx-auto max-w-content relative z-10">
