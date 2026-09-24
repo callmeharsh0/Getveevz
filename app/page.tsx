@@ -18,8 +18,8 @@ export default function Home() {
       <section id="results" className="relative w-full overflow-hidden bg-[#090e14]">
         <ParallaxFloatingDemo />
       </section>
-      <DistributionFlow />
       <ClientLogosMarquee />
+      <DistributionFlow />
       <CapabilitiesFlywheel />
       <ReelsFilmstrip />
       <Agencies />

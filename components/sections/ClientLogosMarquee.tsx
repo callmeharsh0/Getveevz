@@ -101,12 +101,12 @@ export default function ClientLogosMarquee() {
   return (
     <section
       id="clients"
-      className="relative w-full py-20 sm:py-28 lg:py-32 bg-[#090e14] overflow-hidden select-none"
+      className="relative w-full pt-4 sm:pt-6 lg:pt-8 pb-20 sm:pb-24 lg:pb-28 bg-[#090e14] overflow-hidden select-none"
     >
-      {/* ── Top Atmospheric Fade (seamless blend with DistributionFlow #090e14) ── */}
+      {/* ── Top Atmospheric Fade ── */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-24 sm:h-32 bg-gradient-to-b from-[#090e14] to-transparent z-10"
+        className="pointer-events-none absolute inset-x-0 top-0 h-10 sm:h-14 bg-gradient-to-b from-[#090e14] to-transparent z-10"
       />
 
       {/* ── Bottom Atmospheric Fade ── */}
@@ -115,15 +115,10 @@ export default function ClientLogosMarquee() {
         className="pointer-events-none absolute inset-x-0 bottom-0 h-24 sm:h-32 bg-gradient-to-t from-[#090e14] to-transparent z-10"
       />
 
-      {/* ── Ambient Depth Glow (Exact match to DistributionFlow) ── */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-1/2 h-[750px] w-[750px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(139,163,198,0.12),transparent_70%)] blur-2xl z-[1]"
-      />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* ── Section Title (Kinetic Typography & Controlled Tension) ── */}
-        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
           <h2 className="font-display text-2xl sm:text-3xl md:text-[2.65rem] font-medium tracking-[-0.03em] leading-tight text-[#F0ECDD]">
             Trusted by High-Output{" "}
             <span className="relative inline-block text-frost font-semibold">

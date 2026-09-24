@@ -275,9 +275,11 @@ export default function DistributionFlow({
         scrollTrigger: {
           trigger: wrapperRef.current,
           start: "top top",
-          end: "+=300%",
-          scrub: 1,
+          end: "+=380%",
+          scrub: 0.4,
           pin: true,
+          anticipatePin: 1,
+          fastScrollEnd: true,
         },
       });
 
@@ -334,13 +336,13 @@ export default function DistributionFlow({
         );
       });
 
-      // 4. Shift content group slightly right to make room for punchline on left
+      // 4. Shift content group slightly right and up to frame comfortably inside all viewport heights
       if (contentGroupRef.current) {
         tl.to(
           contentGroupRef.current,
           isMobile
-            ? { x: 0, y: 36, scale: 0.30, duration: 0.10, ease: "power2.out" }
-            : { x: 75, scale: 0.92, duration: 0.10, ease: "power2.out" },
+            ? { x: 0, y: 24, scale: 0.30, duration: 0.10, ease: "power2.out" }
+            : { x: 70, y: -20, scale: 0.85, duration: 0.10, ease: "power2.out" },
           0.20
         );
       }
@@ -399,10 +401,14 @@ export default function DistributionFlow({
       if (punchline4Ref.current) {
         tl.to(
           punchline4Ref.current,
-          { opacity: 1, y: 0, duration: 0.07, ease: "back.out(1.3)" },
+          { opacity: 1, y: 0, duration: 0.08, ease: "back.out(1.3)" },
           0.82
         );
       }
+
+      // 7. Holding Cushion: Lock the completed canvas and all elements stably on screen
+      // before unpinning so the scroll never moves prematurely.
+      tl.to({}, { duration: 0.45 });
     },
     { scope: wrapperRef, dependencies: [outputs, problemLabels, flowSteps] }
   );

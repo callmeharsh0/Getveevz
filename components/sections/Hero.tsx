@@ -15,34 +15,39 @@ if (typeof window !== "undefined") {
 }
 
 const PLATFORMS = [
-  { id: "all", name: "All Platforms", value: 1, metric: "1B Views", counterPrefix: "", counterSuffix: "B", video: "/assets/distribution.mp4", tag: "All Platforms" },
+  { id: "all", name: "All Platforms", value: 1000, metric: "+1B Views", counterPrefix: "+", counterSuffix: "B", video: "/assets/distribution.mp4", tag: "All Platforms" },
   { id: "tiktok", name: "TikTok", value: 390, metric: "+390M Views", counterPrefix: "+", counterSuffix: "M", video: "/assets/clipping.mp4", tag: "Algorithm Priority" },
   { id: "reels", name: "IG Reels", value: 260, metric: "+260M Views", counterPrefix: "+", counterSuffix: "M", video: "/assets/agency-video-2.mp4", tag: "High Retention" },
   { id: "shorts", name: "YT Shorts", value: 150, metric: "+150M Views", counterPrefix: "+", counterSuffix: "M", video: "/assets/tracking.mp4", tag: "Search Authority" },
 ];
 
 function HeroStatCounter({
-  target = 800,
+  platformId = "all",
+  target = 1000,
   suffix = "M",
   prefix = "+",
   duration = 2.2,
 }: {
+  platformId?: string;
   target: number;
   suffix?: string;
   prefix?: string;
   duration?: number;
 }) {
-  const [displayValue, setDisplayValue] = useState(0);
-  const prevTargetRef = useRef(0);
+  const isAll = platformId === "all";
+  const [displayValue, setDisplayValue] = useState(isAll ? 800 : 0);
+  const [currentSuffix, setCurrentSuffix] = useState(isAll ? "M" : suffix);
+  const prevTargetRef = useRef(isAll ? 800 : 0);
 
   useEffect(() => {
     let startTime: number | null = null;
     let animationFrameId: number;
-    const startVal = prevTargetRef.current;
+
+    const startVal = isAll ? 800 : prevTargetRef.current;
     const diff = target - startVal;
 
-    // Small delay on first load so user visually catches the counter beginning at 0
-    const startDelay = prevTargetRef.current === 0 ? 120 : 0;
+    // Small delay on load so user visually catches the counter starting at 800M
+    const startDelay = 120;
 
     const timerId = setTimeout(() => {
       const animate = (timestamp: number) => {
@@ -53,13 +58,33 @@ function HeroStatCounter({
         // Smooth easeOutExpo curve
         const ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
         const current = startVal + diff * ease;
-        setDisplayValue(Math.round(current));
+
+        if (isAll) {
+          const rounded = Math.round(current);
+          if (rounded >= 1000) {
+            setDisplayValue(1);
+            setCurrentSuffix("B");
+          } else {
+            setDisplayValue(rounded);
+            setCurrentSuffix("M");
+          }
+        } else {
+          setDisplayValue(Math.round(current));
+          setCurrentSuffix(suffix);
+        }
 
         if (progress < 1) {
           animationFrameId = requestAnimationFrame(animate);
         } else {
-          setDisplayValue(target);
-          prevTargetRef.current = target;
+          if (isAll) {
+            setDisplayValue(1);
+            setCurrentSuffix("B");
+            prevTargetRef.current = 1000;
+          } else {
+            setDisplayValue(target);
+            setCurrentSuffix(suffix);
+            prevTargetRef.current = target;
+          }
         }
       };
 
@@ -70,13 +95,13 @@ function HeroStatCounter({
       clearTimeout(timerId);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [target, duration]);
+  }, [target, duration, isAll, suffix]);
 
   return (
     <span className="tabular-nums inline-block font-display tracking-tight">
       {prefix}
       {displayValue}
-      {suffix}
+      {currentSuffix}
     </span>
   );
 }
@@ -664,8 +689,9 @@ export default function Hero() {
             <div className="flex items-baseline gap-1.5 cursor-default group">
               <span className="font-display text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-[#111111] group-hover:text-[#0038E2] transition-colors">
                 <HeroStatCounter
+                  platformId={activePlatform.id}
                   target={activePlatform.value}
-                  prefix={activePlatform.counterPrefix || "+"}
+                  prefix={activePlatform.counterPrefix ?? ""}
                   suffix={activePlatform.counterSuffix || "M"}
                 />
               </span>

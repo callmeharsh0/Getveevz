@@ -586,15 +586,22 @@ export default function Agencies() {
                       </button>
                       <GlassButton
                         size="sm"
-                        href={agency.link}
                         onClick={(e) => {
                           e.stopPropagation();
-                          const cta = document.getElementById("cta") || document.querySelector("footer");
-                          cta?.scrollIntoView({ behavior: "smooth" });
+                          const targetTerm = agency.id === "long-term" ? "long-term" : "short-term";
+                          window.dispatchEvent(
+                            new CustomEvent("select-pricing-term", { detail: targetTerm })
+                          );
+                          const pricingEl = document.getElementById("pricing");
+                          if (pricingEl) {
+                            pricingEl.scrollIntoView({ behavior: "smooth" });
+                          } else {
+                            navigate(`/#pricing?term=${targetTerm}`);
+                          }
                         }}
                         contentClassName="flex items-center gap-1.5 text-xs font-semibold tracking-wide"
                       >
-                        <span>Book Strategy Call</span>
+                        <span>Explore Pricing</span>
                         <ArrowUpRight className="w-3.5 h-3.5 text-frost" />
                       </GlassButton>
                     </div>

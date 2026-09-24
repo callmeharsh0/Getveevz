@@ -123,7 +123,7 @@ export function ParallaxFloatingDemo() {
   return (
     <div
       ref={scope}
-      className="relative flex w-full min-h-[600px] sm:min-h-[780px] md:min-h-[940px] lg:min-h-[1000px] justify-center items-center overflow-hidden bg-[#090e14] text-moonlight select-none"
+      className="relative flex w-full min-h-[560px] sm:min-h-[680px] md:min-h-[760px] lg:min-h-[800px] pt-16 sm:pt-20 pb-8 sm:pb-10 justify-center items-center overflow-hidden bg-[#090e14] text-moonlight select-none"
     >
       {/* Ambient background depth & glow matching Hero and site theme */}
       <div

@@ -4,276 +4,135 @@ import React, { useState, useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cn } from "@/lib/utils";
-import { ArrowUpRight, Mail, CheckCircle2, ShieldCheck, Zap, TrendingUp, Sparkles } from "lucide-react";
-import { GlassButton } from "@/components/ui/glass-button";
+import { Check, ArrowRight, Sparkles } from "lucide-react";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-type Currency = "USD" | "INR";
-type ServiceTerm = "short-term" | "long-term";
+type Currency = "USD" | "INR" | "AED";
 
 interface PlanSpec {
   label: string;
   value: string;
 }
 
-interface PlanTier {
+interface BudgetPlan {
   id: string;
   name: string;
-  badge?: string;
+  subtitle: string;
   isPopular?: boolean;
   price: Record<Currency, string>;
   period: string;
-  subtitle: string;
-  ctaText: string;
+  highlightNote?: string;
   specs: PlanSpec[];
 }
 
-const shortTermPlans: PlanTier[] = [
+const budgetPlans: BudgetPlan[] = [
   {
-    id: "sprint-pr",
-    name: "PR Sprint",
-    badge: "30-Day Sprint",
-    price: { USD: "$8K", INR: "₹6.8L" },
-    period: "/ sprint",
-    subtitle: "PR & Product Launch Blitz",
-    ctaText: "Launch Sprint",
+    id: "budget-36k",
+    name: "Growth Tier",
+    subtitle: "high-velocity distribution",
+    price: {
+      USD: "~$36k",
+      INR: "~₹30L",
+      AED: "~AED 132k",
+    },
+    period: "/ month",
     specs: [
-      { label: "Network", value: "10–15 Dedicated Pages" },
-      { label: "Content", value: "25 Short Clips" },
+      { label: "Pages", value: "20–30 Dedicated Distribution Pages" },
+      { label: "Content", value: "60–80 High-Retention Clips / mo" },
       { label: "Platforms", value: "YT Shorts, Reels & TikTok" },
-      { label: "Reporting", value: "Weekly Sprint Summary" },
-      { label: "Direction", value: "Custom Storyboarding" },
+      { label: "Tracking", value: "Live Real-Time Dashboard" },
+      { label: "Team", value: "Dedicated Strategist & Editors" },
     ],
   },
   {
-    id: "sprint-growth",
-    name: "Growth Blitz",
-    badge: "Most Popular",
+    id: "budget-72k",
+    name: "Dominance Tier",
+    subtitle: "category saturation",
     isPopular: true,
-    price: { USD: "$18K", INR: "₹15L" },
-    period: "/ 45 days",
-    subtitle: "Multi-Platform Saturation",
-    ctaText: "Start Blitz",
+    price: {
+      USD: "~$72k",
+      INR: "~₹60L",
+      AED: "~AED 264k",
+    },
+    period: "/ month",
     specs: [
-      { label: "Network", value: "30 Distribution Pages" },
-      { label: "Content", value: "60 High-Retention Clips" },
-      { label: "Platforms", value: "YT Shorts, Reels & TikTok" },
-      { label: "Reporting", value: "Live Real-Time Dashboard" },
-      { label: "Distribution", value: "Guaranteed Algorithmic Push" },
+      { label: "Pages", value: "50+ Dedicated Distribution Pages" },
+      { label: "Content", value: "140+ Viral Hook Variations / mo" },
+      { label: "Platforms", value: "Full Omni-Platform Saturation" },
+      { label: "Team", value: "Full Dedicated Distribution Pod" },
+      { label: "Support", value: "24/7 Slack & Executive Strategy" },
     ],
   },
   {
-    id: "sprint-takeover",
-    name: "Takeover",
-    badge: "Maximum Impact",
-    price: { USD: "$32K", INR: "₹27L" },
-    period: "/ 60 days",
-    subtitle: "Category Takeover",
-    ctaText: "Start Takeover",
+    id: "budget-custom",
+    name: "Custom Enterprise",
+    subtitle: "bespoke infrastructure",
+    price: {
+      USD: "Custom",
+      INR: "Custom",
+      AED: "Custom",
+    },
+    period: "tailored",
+    highlightNote: "We have a higher budget and need a custom plan",
     specs: [
-      { label: "Network", value: "50+ Distribution Pages" },
-      { label: "Content", value: "120+ Viral Hook Variations" },
-      { label: "Platforms", value: "All Major Platforms" },
-      { label: "Reporting", value: "Dedicated Strategist & Pod" },
-      { label: "Scale", value: "Mass Category Saturation" },
-    ],
-  },
-];
-
-const longTermPlans: PlanTier[] = [
-  {
-    id: "long-growth",
-    name: "Growth Engine",
-    badge: "Quarterly",
-    price: { USD: "$24K", INR: "₹20L" },
-    period: "/ 3 months",
-    subtitle: "Continuous Compounding Reach",
-    ctaText: "Build Engine",
-    specs: [
-      { label: "Network", value: "15 Dedicated Fan Pages" },
-      { label: "Content", value: "40 Clips / Mo (120 Total)" },
-      { label: "Platforms", value: "YT Shorts, Reels & TikTok" },
-      { label: "Reporting", value: "Bi-Weekly Strategy & Reports" },
-      { label: "Compounding", value: "Continuous Growth Engine" },
-    ],
-  },
-  {
-    id: "long-authority",
-    name: "Authority",
-    badge: "Most Popular",
-    isPopular: true,
-    price: { USD: "$40K", INR: "₹34L" },
-    period: "/ 3 months",
-    subtitle: "Compounding Category Lead",
-    ctaText: "Claim Authority",
-    specs: [
-      { label: "Network", value: "30 Dedicated Pages" },
-      { label: "Content", value: "80 Clips / Mo (240 Total)" },
-      { label: "Platforms", value: "YT Shorts, Reels & TikTok" },
-      { label: "Reporting", value: "Live Real-Time Dashboard" },
-      { label: "Distribution", value: "Guaranteed Organic Reach" },
-    ],
-  },
-  {
-    id: "long-dominance",
-    name: "Dominance",
-    badge: "Full Ecosystem",
-    price: { USD: "$80K", INR: "₹68L" },
-    period: "/ 3 months",
-    subtitle: "Omnipresent Market Dominance",
-    ctaText: "Dominate Category",
-    specs: [
-      { label: "Network", value: "60 Dedicated Pages" },
-      { label: "Content", value: "150 Clips / Mo (450 Total)" },
-      { label: "Platforms", value: "All Major Platforms" },
-      { label: "Reporting", value: "Dedicated Distribution Pod" },
-      { label: "Scale", value: "Maximum Category Multiplier" },
+      { label: "Pages", value: "Unlimited Page Ecosystem" },
+      { label: "Content", value: "Multi-Show Syndication & Seeding" },
+      { label: "Pod", value: "Dedicated In-House Creative Pod" },
+      { label: "Guarantees", value: "Custom Algorithmic SLAs" },
+      { label: "Access", value: "Direct Access to Founders" },
     ],
   },
 ];
 
 export default function Pricing() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const headerRef = useRef<HTMLDivElement>(null);
-  const cardsContainerRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
-  const enterpriseRef = useRef<HTMLDivElement>(null);
-
-  const [serviceTerm, setServiceTerm] = useState<ServiceTerm>("short-term");
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [selectedPlanId, setSelectedPlanId] = useState<string>("budget-72k");
   const [currency, setCurrency] = useState<Currency>("USD");
 
-  const plans = serviceTerm === "short-term" ? shortTermPlans : longTermPlans;
+  const selectedPlan = budgetPlans.find((p) => p.id === selectedPlanId) || budgetPlans[1];
 
-  const scrollToCTA = () => {
-    const el = document.getElementById("cta") || document.querySelector("footer");
-    el?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  // GSAP ScrollTrigger entrance animations
+  // Listen for navigation / events from Agencies section or URL params
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Header entrance animation
-      if (headerRef.current) {
-        gsap.fromTo(
-          headerRef.current,
-          { opacity: 0, y: 32 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.85,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: headerRef.current,
-              start: "top 85%",
-              toggleActions: "play none none none",
-            },
-          }
-        );
+    const handleSelectTerm = (e: CustomEvent<string>) => {
+      const term = e.detail;
+      if (term === "short-term") {
+        setSelectedPlanId("budget-36k");
+      } else if (term === "long-term") {
+        setSelectedPlanId("budget-72k");
       }
+    };
 
-      // Cards staggered entrance animation
-      if (cardsRef.current.length > 0) {
-        gsap.fromTo(
-          cardsRef.current.filter(Boolean),
-          { opacity: 0, y: 48, scale: 0.96 },
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 0.9,
-            stagger: 0.15,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: cardsContainerRef.current,
-              start: "top 80%",
-              toggleActions: "play none none none",
-            },
-          }
-        );
+    window.addEventListener("select-pricing-term" as unknown as string, handleSelectTerm as EventListener);
+
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const term = params.get("term");
+      if (term === "short-term") {
+        setSelectedPlanId("budget-36k");
+      } else if (term === "long-term") {
+        setSelectedPlanId("budget-72k");
       }
+    }
 
-      // Enterprise strip entrance animation
-      if (enterpriseRef.current) {
-        gsap.fromTo(
-          enterpriseRef.current,
-          { opacity: 0, y: 28 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: enterpriseRef.current,
-              start: "top 88%",
-              toggleActions: "play none none none",
-            },
-          }
-        );
-      }
-    }, sectionRef);
-
-    return () => ctx.revert();
+    return () => {
+      window.removeEventListener("select-pricing-term" as unknown as string, handleSelectTerm as EventListener);
+    };
   }, []);
 
-  // Smooth re-animation when switching between Short-Term and Long-Term
-  useEffect(() => {
-    if (cardsRef.current.length > 0) {
-      gsap.fromTo(
-        cardsRef.current.filter(Boolean),
-        { opacity: 0.6, y: 16, scale: 0.98 },
-        { opacity: 1, y: 0, scale: 1, duration: 0.45, stagger: 0.08, ease: "power2.out" }
-      );
-    }
-  }, [serviceTerm]);
-
-  // 3D Magnetic Card Tilt Interaction
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>, index: number) => {
-    const card = cardsRef.current[index];
-    if (!card) return;
-
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-
-    const rotateX = ((y - centerY) / centerY) * -5;
-    const rotateY = ((x - centerX) / centerX) * 5;
-
-    gsap.to(card, {
-      rotateX,
-      rotateY,
-      duration: 0.4,
-      ease: "power2.out",
-      transformPerspective: 1000,
-      overwrite: "auto",
-    });
-  };
-
-  const handleMouseLeave = (index: number) => {
-    const card = cardsRef.current[index];
-    if (!card) return;
-
-    gsap.to(card, {
-      rotateX: 0,
-      rotateY: 0,
-      duration: 0.6,
-      ease: "power3.out",
-      overwrite: "auto",
-    });
+  const handleOrder = () => {
+    const cta = document.getElementById("cta") || document.querySelector("footer");
+    cta?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <section
-      ref={sectionRef}
       id="pricing"
-      className="relative w-full overflow-hidden bg-[#090e14] py-28 sm:py-36 md:py-44 px-4 sm:px-8 lg:px-12"
+      className="relative w-full py-20 sm:py-28 lg:py-32 bg-[#090e14] overflow-hidden"
     >
-      {/* Ambient Radial Depth Mesh */}
+      {/* Ambient background gradients matching site theme */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute top-1/4 left-1/4 -translate-x-1/2 w-[720px] h-[500px] bg-frost/5 blur-[160px] rounded-full"
@@ -283,274 +142,260 @@ export default function Pricing() {
         className="pointer-events-none absolute bottom-1/4 right-1/4 translate-x-1/2 w-[640px] h-[440px] bg-storm/20 blur-[150px] rounded-full"
       />
 
-      <div className="relative z-10 mx-auto max-w-7xl">
-        {/* Section Header */}
-        <div ref={headerRef} className="text-center max-w-3xl mx-auto">
-          {/* Eyebrow badge */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface/90 border border-border/90 text-xs font-mono uppercase tracking-wider text-frost mb-4 backdrop-blur-xl">
-            <Sparkles className="w-3 h-3 text-frost" />
-            <span>Pricing</span>
-          </div>
+      {/* Atmospheric Fades */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#090e14] to-transparent z-10"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#090e14] to-transparent z-10"
+      />
 
-          {/* Headline */}
-          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-moonlight leading-[1.05]">
-            Pick your
-            <span className="inline-block ml-3 sm:ml-4 text-transparent bg-clip-text bg-gradient-to-r from-frost via-moonlight to-white">
-              velocity
-            </span>
-          </h2>
-
-          {/* Subtitle */}
-          <p className="mt-4 text-sm sm:text-base text-muted max-w-xl mx-auto leading-relaxed font-normal">
-            Predictable, transparent pricing for creators and brands scaling short-form distribution.
-          </p>
-        </div>
-
-        {/* Dual Switcher Controls: Service Duration & Currency */}
-        <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-5">
-          {/* Duration Switcher (Short-Term vs Long-Term) */}
-          <div className="inline-flex items-center p-1 rounded-full bg-surface/80 border border-border/80 backdrop-blur-md shadow-inner">
-            <button
-              type="button"
-              onClick={() => setServiceTerm("short-term")}
-              className={cn(
-                "relative px-4 sm:px-6 py-2 rounded-full text-xs sm:text-sm font-mono tracking-wider transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] flex items-center gap-2",
-                serviceTerm === "short-term"
-                  ? "bg-moonlight text-oxford font-semibold shadow-md scale-100"
-                  : "text-muted hover:text-white"
-              )}
-            >
-              <Zap className="w-3.5 h-3.5" />
-              <span>Short-Term Sprints</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => setServiceTerm("long-term")}
-              className={cn(
-                "relative px-4 sm:px-6 py-2 rounded-full text-xs sm:text-sm font-mono tracking-wider transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] flex items-center gap-2",
-                serviceTerm === "long-term"
-                  ? "bg-moonlight text-oxford font-semibold shadow-md scale-100"
-                  : "text-muted hover:text-white"
-              )}
-            >
-              <TrendingUp className="w-3.5 h-3.5" />
-              <span>Long-Term Retainers</span>
-              <span
-                className={cn(
-                  "hidden xs:inline-block text-[9px] font-mono px-2 py-0.5 rounded-full font-bold uppercase transition-colors tracking-tight",
-                  serviceTerm === "long-term"
-                    ? "bg-oxford/20 text-oxford"
-                    : "bg-frost/20 text-frost"
-                )}
-              >
-                Best ROI
-              </span>
-            </button>
-          </div>
-
-          {/* Currency Switcher */}
-          <div className="inline-flex items-center p-1 rounded-full bg-surface/80 border border-border/80 backdrop-blur-md shadow-inner">
-            {(["USD", "INR"] as Currency[]).map((c) => {
-              const isActive = currency === c;
-              return (
-                <button
-                  key={c}
-                  type="button"
-                  onClick={() => setCurrency(c)}
-                  className={cn(
-                    "relative px-4 py-2 rounded-full text-xs font-mono tracking-wider uppercase transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]",
-                    isActive
-                      ? "bg-moonlight text-oxford font-semibold shadow-md scale-100"
-                      : "text-muted hover:text-white"
-                  )}
-                >
-                  {c === "USD" ? "USD ($)" : "INR (₹)"}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Cards Grid: Mathematically Balanced 3-Column Bento Architecture */}
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Main Card Container Matching Site Theme & Selector Architecture */}
         <div
-          ref={cardsContainerRef}
-          className="mt-12 sm:mt-16 grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch"
+          ref={containerRef}
+          className="relative bg-gradient-to-b from-[#0e1724]/95 via-[#0b131e]/95 to-[#070b10]/95 rounded-[28px] sm:rounded-[36px] p-6 sm:p-10 lg:p-12 shadow-[0_24px_70px_rgba(2,18,47,0.85)] border border-white/[0.12] backdrop-blur-xl select-none text-[#F0ECDD]"
         >
-          {plans.map((plan, index) => {
-            const isPopular = plan.isPopular;
+          {/* Top Row: Title & Currency Switcher */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-white/[0.08]">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.05] border border-white/10 text-xs font-mono uppercase tracking-wider text-frost mb-2.5">
+                <Sparkles className="w-3 h-3 text-frost" />
+                <span>Pricing & Scale</span>
+              </div>
+              <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-[#F0ECDD]">
+                Select your budget
+              </h2>
+            </div>
 
-            return (
-              <div
-                key={plan.id}
-                ref={(el) => (cardsRef.current[index] = el)}
-                onMouseMove={(e) => handleMouseMove(e, index)}
-                onMouseLeave={() => handleMouseLeave(index)}
-                style={{ transformStyle: "preserve-3d" }}
-                className={cn(
-                  // Architectural Outer Shell with Reduced Modern Radius
-                  "group relative rounded-xl p-[1px] transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] flex flex-col will-change-transform",
-                  isPopular
-                    ? "bg-gradient-to-b from-frost/60 via-steel/30 to-border/40 border border-frost/50 shadow-[0_24px_60px_rgba(2,18,47,0.85)] lg:-translate-y-3"
-                    : "bg-gradient-to-b from-white/[0.12] via-white/[0.04] to-white/[0.01] border border-border/70 hover:border-frost/40 hover:shadow-[0_20px_50px_rgba(2,18,47,0.7)]"
-                )}
-              >
-                {/* Popular Floating Badge */}
-                {isPopular && (
-                  <div className="absolute -top-3 inset-x-0 mx-auto w-max z-20">
-                    <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-md bg-frost text-oxford text-[10px] font-mono font-bold tracking-widest uppercase shadow-lg border border-white/20">
-                      <ShieldCheck className="w-3 h-3 text-oxford" />
-                      {plan.badge}
-                    </span>
-                  </div>
-                )}
+            {/* Currency Switcher (USD, INR, AED) */}
+            <div className="inline-flex items-center self-start sm:self-auto p-1 rounded-xl bg-white/[0.06] border border-white/10 backdrop-blur-md">
+              {(["USD", "INR", "AED"] as Currency[]).map((c) => {
+                const isActive = currency === c;
+                return (
+                  <button
+                    key={c}
+                    type="button"
+                    onClick={() => setCurrency(c)}
+                    className={cn(
+                      "px-3.5 py-1.5 rounded-lg text-xs font-mono transition-all duration-200 cursor-pointer",
+                      isActive
+                        ? "bg-frost text-[#02122F] font-bold shadow-md"
+                        : "text-white/60 hover:text-white"
+                    )}
+                  >
+                    {c === "USD" ? "USD ($)" : c === "INR" ? "INR (₹)" : "AED (د.إ)"}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
 
-                {/* Inner Core */}
+          {/* ========================================================= */}
+          {/* DESKTOP LAYOUT (3 Side-by-Side Cards)                    */}
+          {/* ========================================================= */}
+          <div className="hidden lg:grid grid-cols-3 gap-4 lg:gap-5 mt-8 items-stretch">
+            {budgetPlans.map((plan) => {
+              const isSelected = plan.id === selectedPlanId;
+
+              return (
                 <div
+                  key={plan.id}
+                  onClick={() => setSelectedPlanId(plan.id)}
                   className={cn(
-                    "relative rounded-[11px] p-7 sm:p-9 shadow-[inset_0_1px_1px_rgba(255,255,255,0.06)] border border-border/40 flex flex-col justify-between flex-1 transition-colors duration-300",
-                    isPopular ? "bg-[#0d1522]/95" : "bg-[#0a1017]/95"
+                    "relative rounded-2xl p-6 transition-all duration-300 cursor-pointer flex flex-col justify-between select-none",
+                    isSelected
+                      ? "border-2 border-frost bg-frost/[0.08] shadow-[0_0_35px_rgba(139,163,197,0.18)] ring-1 ring-frost/50"
+                      : "border border-white/10 bg-white/[0.02] hover:border-frost/40 hover:bg-white/[0.04]"
                   )}
                 >
                   <div>
-                    {/* Header: Tier Name & Subtitle */}
+                    {/* Header Row: Radio + Plan Name/Subtitle + Price */}
                     <div className="flex items-start justify-between gap-3">
+                      <div className="flex items-start gap-3">
+                        {/* Radio Button */}
+                        <div
+                          className={cn(
+                            "w-5 h-5 rounded-full flex items-center justify-center shrink-0 mt-0.5 transition-colors",
+                            isSelected
+                              ? "border-2 border-frost"
+                              : "border-2 border-white/30"
+                          )}
+                        >
+                          {isSelected && (
+                            <div className="w-2.5 h-2.5 rounded-full bg-frost shadow-[0_0_8px_rgba(139,163,197,0.9)]" />
+                          )}
+                        </div>
+
+                        <div>
+                          <h3 className="font-display font-bold text-lg text-[#F0ECDD] leading-tight">
+                            {plan.name}
+                          </h3>
+                          <p className="text-xs text-frost/80 font-normal lowercase mt-0.5">
+                            {plan.subtitle}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Price on top-right */}
+                      <div className="text-right shrink-0">
+                        <div className="font-display font-bold text-base text-[#F0ECDD] leading-tight">
+                          {plan.price[currency]}
+                        </div>
+                        <div className="text-[11px] text-frost/70 font-normal mt-0.5">
+                          {plan.period}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Highlight Note for Option 3 */}
+                    {plan.highlightNote && (
+                      <div className="mt-4 p-2.5 rounded-xl bg-frost/10 border border-frost/25 text-frost text-xs font-medium leading-snug">
+                        "{plan.highlightNote}"
+                      </div>
+                    )}
+
+                    {/* Features Checklist */}
+                    <ul className="mt-6 space-y-3 pt-4 border-t border-white/[0.08]">
+                      {plan.specs.map((spec) => (
+                        <li
+                          key={spec.label}
+                          className="flex items-center gap-2.5 text-xs text-white/80 font-normal"
+                        >
+                          <Check className="w-3.5 h-3.5 text-frost stroke-[2.5] shrink-0" />
+                          <span>{spec.value}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* ========================================================= */}
+          {/* MOBILE LAYOUT (Stacked Accordion Matching Reference)    */}
+          {/* ========================================================= */}
+          <div className="lg:hidden flex flex-col gap-3 mt-6">
+            {budgetPlans.map((plan) => {
+              const isSelected = plan.id === selectedPlanId;
+
+              return (
+                <div
+                  key={plan.id}
+                  onClick={() => setSelectedPlanId(plan.id)}
+                  className={cn(
+                    "rounded-2xl p-5 transition-all duration-300 cursor-pointer",
+                    isSelected
+                      ? "border-2 border-frost bg-frost/[0.08] shadow-[0_0_35px_rgba(139,163,197,0.18)]"
+                      : "border border-white/10 bg-white/[0.02] hover:border-frost/40 hover:bg-white/[0.04]"
+                  )}
+                >
+                  {/* Header Row */}
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="flex items-center gap-3">
+                      <div
+                        className={cn(
+                          "w-5 h-5 rounded-full flex items-center justify-center shrink-0 transition-colors",
+                          isSelected
+                            ? "border-2 border-frost"
+                            : "border-2 border-white/30"
+                        )}
+                      >
+                        {isSelected && (
+                          <div className="w-2.5 h-2.5 rounded-full bg-frost shadow-[0_0_8px_rgba(139,163,197,0.9)]" />
+                        )}
+                      </div>
+
                       <div>
-                        <h3 className="font-display text-2xl sm:text-3xl font-bold uppercase tracking-tight text-white">
+                        <h3 className="font-display font-bold text-base text-[#F0ECDD] leading-tight">
                           {plan.name}
                         </h3>
-                        <p className="mt-1 text-xs text-muted font-normal">
+                        <p className="text-xs text-frost/80 font-normal lowercase mt-0.5">
                           {plan.subtitle}
                         </p>
                       </div>
-
-                      {!isPopular && plan.badge && (
-                        <span className="font-mono text-[10px] uppercase tracking-wider text-frost/80 px-2.5 py-0.5 rounded-md bg-white/[0.04] border border-border/80">
-                          {plan.badge}
-                        </span>
-                      )}
                     </div>
 
-                    {/* Price Block */}
-                    <div className="mt-8 pb-7 border-b border-white/[0.07]">
-                      <div className="flex items-baseline gap-2">
-                        <span className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white">
-                          {plan.price[currency]}
-                        </span>
-                        <span className="text-xs sm:text-sm font-mono text-muted uppercase tracking-wider">
-                          {plan.period}
-                        </span>
+                    <div className="text-right shrink-0">
+                      <div className="font-display font-bold text-sm text-[#F0ECDD] leading-tight">
+                        {plan.price[currency]}
+                      </div>
+                      <div className="text-[10px] text-frost/70 font-normal mt-0.5">
+                        {plan.period}
                       </div>
                     </div>
+                  </div>
 
-                    {/* Deliverables Specs List */}
-                    <div className="mt-8 space-y-3.5">
-                      <ul className="space-y-3.5">
+                  {/* Expanded Checklist on Active Mobile Card */}
+                  {isSelected && (
+                    <div className="mt-5 pt-4 border-t border-white/[0.08]">
+                      {plan.highlightNote && (
+                        <div className="mb-4 p-2.5 rounded-xl bg-frost/10 border border-frost/25 text-frost text-xs font-medium leading-snug">
+                          "{plan.highlightNote}"
+                        </div>
+                      )}
+
+                      <ul className="space-y-3">
                         {plan.specs.map((spec) => (
                           <li
                             key={spec.label}
-                            className="flex items-center justify-between text-xs sm:text-sm"
+                            className="flex items-center gap-2.5 text-xs text-white/80 font-normal"
                           >
-                            <span className="flex items-center gap-2 text-muted">
-                              <CheckCircle2
-                                className={cn(
-                                  "w-4 h-4 shrink-0",
-                                  isPopular ? "text-frost" : "text-frost/70"
-                                )}
-                              />
-                              {spec.label}
-                            </span>
-                            <span className="font-medium text-white text-right">
-                              {spec.value}
-                            </span>
+                            <Check className="w-3.5 h-3.5 text-frost stroke-[2.5] shrink-0" />
+                            <span>{spec.value}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
-                  </div>
-
-                  {/* Button-in-Button CTA */}
-                  <div className="mt-10 pt-6">
-                    <button
-                      type="button"
-                      onClick={scrollToCTA}
-                      className={cn(
-                        "group/btn w-full inline-flex items-center justify-between pl-6 pr-2 py-2 rounded-full text-xs sm:text-sm font-semibold tracking-wide uppercase transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98] shadow-lg",
-                        isPopular
-                          ? "bg-moonlight text-oxford hover:bg-white"
-                          : "bg-white/[0.06] text-white hover:bg-white hover:text-oxford border border-white/[0.1]"
-                      )}
-                    >
-                      <span>{plan.ctaText}</span>
-                      <span
-                        className={cn(
-                          "inline-flex items-center justify-center w-8 h-8 rounded-full transition-all duration-300",
-                          isPopular
-                            ? "bg-oxford/10 group-hover/btn:bg-oxford"
-                            : "bg-white/10 group-hover/btn:bg-oxford/10"
-                        )}
-                      >
-                        <ArrowUpRight
-                          className={cn(
-                            "w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5",
-                            isPopular
-                              ? "text-oxford group-hover/btn:text-moonlight"
-                              : "text-white group-hover/btn:text-oxford"
-                          )}
-                        />
-                      </span>
-                    </button>
-                  </div>
+                  )}
                 </div>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Rollover Bridge Note */}
-        <div className="mt-8 sm:mt-10 flex items-center justify-center text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-surface/70 border border-border/80 text-xs text-muted backdrop-blur-md shadow-sm">
-            <Sparkles className="w-3.5 h-3.5 text-frost shrink-0" />
-            <span>
-              100% of your sprint investment rolls over into an ongoing retainer.
-            </span>
+              );
+            })}
           </div>
-        </div>
 
-        {/* Executive Enterprise Strip */}
-        <div
-          ref={enterpriseRef}
-          className="mt-10 sm:mt-14 rounded-xl p-[1px] bg-gradient-to-r from-border via-border/50 to-transparent border border-border/60 shadow-[0_16px_40px_rgba(2,18,47,0.5)]"
-        >
-          <div className="rounded-[11px] bg-[#0a1017]/95 border border-border/40 px-6 sm:px-10 py-6 sm:py-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-[inset_0_1px_1px_rgba(255,255,255,0.06)]">
-            <div className="text-center sm:text-left">
-              <h4 className="font-display text-lg sm:text-xl font-bold text-white">
-                Need custom volume or multi-show syndication?
-              </h4>
-              <p className="mt-1 text-xs sm:text-sm text-muted">
-                Custom setups designed for enterprise media and high-volume creator networks.
-              </p>
+          {/* ========================================================= */}
+          {/* BOTTOM BAR / FOOTER                                      */}
+          {/* ========================================================= */}
+          {/* Desktop Bottom Controls Row */}
+          <div className="hidden lg:flex items-center justify-between mt-8 pt-6 border-t border-white/[0.08]">
+            {/* Left: Selected Tier Summary */}
+            <div className="flex items-center gap-3">
+              <span className="text-xs font-mono text-frost/80 uppercase tracking-wider">
+                Selected Budget:
+              </span>
+              <span className="text-sm font-semibold text-[#F0ECDD] bg-white/[0.06] border border-white/10 px-3.5 py-1.5 rounded-lg">
+                {selectedPlan.name} ({selectedPlan.price[currency]} {selectedPlan.period})
+              </span>
             </div>
 
-            <div className="flex flex-wrap items-center justify-center gap-3 shrink-0">
-              <GlassButton
-                size="default"
-                onClick={scrollToCTA}
-                contentClassName="flex items-center gap-2.5 text-xs sm:text-sm font-semibold tracking-wide uppercase"
-              >
-                <span>Book a Call</span>
-                <span className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center transition-colors">
-                  <ArrowUpRight className="w-3.5 h-3.5 text-white" />
-                </span>
-              </GlassButton>
+            {/* Right: CTA Button */}
+            <button
+              type="button"
+              onClick={handleOrder}
+              className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-frost hover:bg-white text-[#02122F] text-sm font-semibold shadow-[0_0_25px_rgba(139,163,197,0.3)] transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
+            >
+              <span>
+                {selectedPlan.id === "budget-custom" ? "Discuss Custom Plan" : "Book Strategy Call"}
+              </span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
 
-              <a
-                href="mailto:contact@getveevz.com?subject=GetVeevz%20Enterprise%20Distribution%20Inquiry"
-                className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 border border-border/80 text-xs sm:text-sm font-medium text-muted hover:text-moonlight hover:border-frost/50 transition-all active:scale-[0.98] bg-surface/50"
-              >
-                <Mail className="w-3.5 h-3.5 text-frost" />
-                <span>Email Team</span>
-              </a>
-            </div>
+          {/* Mobile Bottom Full-Width Button */}
+          <div className="lg:hidden mt-6">
+            <button
+              type="button"
+              onClick={handleOrder}
+              className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl bg-frost hover:bg-white text-[#02122F] text-sm font-semibold shadow-[0_0_25px_rgba(139,163,197,0.3)] transition-all duration-200 active:scale-[0.98] cursor-pointer"
+            >
+              <span>
+                {selectedPlan.id === "budget-custom" ? "Discuss Custom Plan" : "Book Strategy Call"}
+              </span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
           </div>
         </div>
       </div>
