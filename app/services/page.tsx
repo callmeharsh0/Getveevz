@@ -91,16 +91,16 @@ export default function ServicesPage() {
             // Tailored metrics for each service
             const specs = isRetainer
               ? [
-                  { label: "Clipping Force", value: "500–1,000+ Creators" },
-                  { label: "Target CPM", value: "$1–$3 / 1K Views" },
-                  { label: "Winning Pages", value: "10–30 Fixed Retainers" },
-                  { label: "Horizon", value: "3-Month Compounding" },
+                  { label: "Model 01", value: "3-Month Test-to-Scale" },
+                  { label: "Model 02", value: "Straight Fixed Retainer" },
+                  { label: "Month 1 CPM", value: "$1–$3 / 1K (500–1K clippers)" },
+                  { label: "Months 2–3", value: "Top 10–30 Pages on Retainer" },
                 ]
               : [
-                  { label: "Execution Speed", value: "Within 24 Hours" },
-                  { label: "Account Reach", value: "1M–10M+ Followers" },
-                  { label: "Surge Scale", value: "Up to $100K+ / Day" },
-                  { label: "Pricing Model", value: "Fixed-Cost Placements" },
+                  { label: "Model 03", value: "CPM Campaign (Fan + Theme)" },
+                  { label: "Model 04", value: "24-Hour High-Volume Seeding" },
+                  { label: "Seeding Budget", value: "$12K min to $100K+ / Day" },
+                  { label: "Account Reach", value: "1M–10M+ Follower Properties" },
                 ];
 
             return (
