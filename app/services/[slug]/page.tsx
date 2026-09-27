@@ -106,6 +106,88 @@ export default function ServiceDetailPage() {
           </div>
         </div>
 
+        {/* ── Engagement Models Breakdown (Strict Client Specifications) ── */}
+        {service.models && service.models.length > 0 && (
+          <div className="mb-24 sm:mb-28">
+            <div className="mb-10">
+              <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#0038E2] font-semibold">
+                Engagement Models
+              </span>
+              <h2
+                data-reveal
+                className="font-display font-medium text-2xl sm:text-3xl text-[#111111] tracking-tight mt-1"
+              >
+                Model Specifications & Structure
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {service.models.map((model, idx) => (
+                <div
+                  key={model.name}
+                  data-reveal
+                  className="rounded-[2.25rem] p-2 sm:p-2.5 bg-white/75 border border-[#111111]/10 shadow-[0_20px_48px_rgba(0,0,0,0.06)]"
+                >
+                  <div className="h-full rounded-[calc(2.25rem-0.5rem)] bg-white border border-[#111111]/5 p-7 sm:p-9 flex flex-col justify-between">
+                    <div>
+                      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0038E2]/5 border border-[#0038E2]/15 text-[10px] font-mono uppercase tracking-widest text-[#0038E2] font-semibold mb-3">
+                        Model 0{idx + 1}
+                      </div>
+                      <h3 className="font-display font-bold text-2xl text-[#111111] tracking-tight mb-1">
+                        {model.name}
+                      </h3>
+                      <p className="text-xs font-mono text-[#0038E2] mb-4">
+                        {model.subtitle}
+                      </p>
+                      <p className="text-sm text-[#555555] font-light leading-relaxed mb-6">
+                        {model.overview}
+                      </p>
+
+                      {/* Detail Phases / Breakdown */}
+                      <div className="space-y-4 mb-6">
+                        {model.details.map((detail, dIdx) => (
+                          <div key={dIdx} className="p-4 rounded-xl bg-[#F8F6F2] border border-[#111111]/8">
+                            <div className="flex items-center justify-between mb-1.5">
+                              <h4 className="text-xs font-bold text-[#111111] font-display">
+                                {detail.heading}
+                              </h4>
+                              {detail.phase && (
+                                <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded bg-white text-[#0038E2] border border-[#0038E2]/20">
+                                  {detail.phase}
+                                </span>
+                              )}
+                            </div>
+                            <p className="text-xs text-[#555555] leading-relaxed font-light">
+                              {detail.text}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Highlights */}
+                    <div className="pt-5 border-t border-[#111111]/10">
+                      <div className="text-[10px] font-mono text-[#777777] uppercase tracking-wider mb-2.5">
+                        Key Parameters
+                      </div>
+                      <ul className="space-y-2">
+                        {model.highlights.map((h, hIdx) => (
+                          <li key={hIdx} className="flex items-start gap-2.5 text-xs text-[#333333]">
+                            <div className="w-4 h-4 rounded-full bg-[#0038E2]/10 text-[#0038E2] flex items-center justify-center shrink-0 mt-0.5">
+                              <Check className="w-2.5 h-2.5 stroke-[2.5]" />
+                            </div>
+                            <span className="font-light">{h}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* ── Features Grid (Asymmetrical Bento: LIGHT DOUBLE-BEZEL CARDS) ── */}
         <div ref={featuresRef} className="mb-24 sm:mb-28">
           <div className="mb-10">
