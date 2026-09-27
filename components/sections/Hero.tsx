@@ -26,7 +26,7 @@ const SCATTERED_PLATFORM_LOGOS = [
     id: "tiktok",
     name: "TikTok",
     src: "/assets/logos/tiktok.png",
-    pos: "top-[23%] left-[19%] sm:top-[25%] sm:left-[7%] lg:left-[8%]",
+    pos: "top-[26%] left-[21%] sm:top-[25%] sm:left-[7%] lg:left-[8%]",
     size: "w-[50px] h-[50px] sm:w-[62px] sm:h-[62px] lg:w-[74px] lg:h-[74px]",
     anim: "hero-float-a",
     rotate: "-rotate-6 sm:-rotate-3",
@@ -37,7 +37,7 @@ const SCATTERED_PLATFORM_LOGOS = [
     id: "youtube",
     name: "YouTube",
     src: "/assets/logos/youtube.png",
-    pos: "top-[25%] right-[15%] sm:top-[40%] sm:right-[5%] lg:right-[6%]",
+    pos: "top-[27%] right-[16%] sm:top-[40%] sm:right-[5%] lg:right-[6%]",
     size: "w-[50px] h-[50px] sm:w-[62px] sm:h-[62px] lg:w-[74px] lg:h-[74px]",
     anim: "hero-float-b",
     rotate: "rotate-6 sm:rotate-3",
@@ -49,10 +49,10 @@ const SCATTERED_PLATFORM_LOGOS = [
     id: "instagram",
     name: "Instagram",
     src: "/assets/logos/instagram.png",
-    pos: "top-[43%] left-3 sm:top-[60%] sm:left-[5%] lg:left-[6%]",
+    pos: "top-[48%] left-2.5 sm:top-[60%] sm:left-[5%] lg:left-[6%]",
     size: "w-[48px] h-[48px] sm:w-[62px] sm:h-[62px] lg:w-[68px] lg:h-[68px]",
     anim: "hero-float-b",
-    rotate: "-rotate-10 sm:-rotate-4",
+    rotate: "-rotate-12 sm:-rotate-4",
     platformId: "reels",
     depth: 24,
   },
@@ -60,10 +60,10 @@ const SCATTERED_PLATFORM_LOGOS = [
     id: "shorts",
     name: "YouTube Shorts",
     src: "/assets/logos/youtubeshorts.png",
-    pos: "top-[44%] right-3 sm:top-[26%] sm:right-[26%] lg:right-[28%]",
+    pos: "top-[49%] right-2.5 sm:top-[26%] sm:right-[26%] lg:right-[28%]",
     size: "w-[48px] h-[48px] sm:w-[62px] sm:h-[62px] lg:w-[74px] lg:h-[74px]",
     anim: "hero-float-c",
-    rotate: "rotate-10 sm:rotate-4",
+    rotate: "rotate-12 sm:rotate-4",
     platformId: "shorts",
     depth: 20,
   },
@@ -71,7 +71,7 @@ const SCATTERED_PLATFORM_LOGOS = [
     id: "facebook",
     name: "Facebook",
     src: "/assets/logos/facebook.png",
-    pos: "top-[54%] left-[21%] sm:bottom-[22%] sm:left-[12%] lg:left-[14%]",
+    pos: "top-[58.5%] left-[22%] sm:bottom-[22%] sm:left-[12%] lg:left-[14%]",
     size: "w-[48px] h-[48px] sm:w-[58px] sm:h-[58px] lg:w-[68px] lg:h-[68px]",
     anim: "hero-float-a",
     rotate: "-rotate-2 sm:rotate-0",
@@ -540,7 +540,7 @@ export default function Hero() {
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden flex items-center justify-center w-11 h-11 rounded-full bg-white border border-[#111111]/15 text-[#111111] shadow-[0_2px_8px_rgba(0,0,0,0.06)] hover:text-[#0038E2] focus:outline-none focus:ring-2 focus:ring-[#0038E2] shrink-0 cursor-pointer active:scale-95 transition-all"
+            className="lg:hidden flex items-center justify-center w-11 h-11 rounded-full bg-white border border-[#111111]/15 text-[#111111] shadow-[0_2px_8px_rgba(0,0,0,0.06)] hover:text-[#0038E2] focus:outline-none focus:ring-2 focus:ring-[#0038E2] shrink-0 cursor-pointer active:scale-95 transition-all"
             aria-label="Toggle mobile menu"
             aria-expanded={mobileMenuOpen}
           >
@@ -553,10 +553,10 @@ export default function Hero() {
       {mobileMenuOpen && (
         <>
           <div
-            className="md:hidden fixed inset-0 bg-background/80 backdrop-blur-sm z-40 animate-in fade-in duration-200"
+            className="lg:hidden fixed inset-0 bg-background/80 backdrop-blur-sm z-40 animate-in fade-in duration-200"
             onClick={() => setMobileMenuOpen(false)}
           />
-          <div className="md:hidden fixed inset-x-4 top-20 z-50 p-6 rounded-2xl bg-moonlight text-oxford border border-moonlight/60 shadow-2xl flex flex-col gap-4 animate-in fade-in slide-in-from-top-4 duration-300">
+          <div className="lg:hidden fixed inset-x-4 top-20 z-50 p-6 rounded-2xl bg-moonlight text-oxford border border-moonlight/60 shadow-2xl flex flex-col gap-4 animate-in fade-in slide-in-from-top-4 duration-300">
             <div className="flex items-center justify-between pb-3 border-b border-oxford/10">
               <span className="text-xs font-mono uppercase tracking-eyebrow text-oxford/60">
                 Navigation
@@ -611,20 +611,20 @@ export default function Hero() {
       {/* ========================================================================= */}
       <div
         ref={eyebrowsRef}
-        className="w-full mt-3 sm:mt-8 md:mt-14 pt-1 sm:pt-2 flex flex-col items-center md:flex-row md:items-baseline md:justify-between gap-2 sm:gap-3 pb-1 z-10"
+        className="w-full mt-9 sm:mt-8 md:mt-14 pt-1 sm:pt-2 flex flex-col items-center md:flex-row md:items-baseline md:justify-between gap-3 sm:gap-3 pb-1 z-10"
         data-reveal
       >
         {/* Left/Center Eyebrow: Section Tag */}
         <div className="flex items-center justify-center gap-2">
-          <span className="eyebrow-item text-[10px] sm:text-xs tracking-eyebrow uppercase font-medium text-[#495B7D] flex items-center gap-2">
-            <span className="text-[#0038E2] font-mono text-[10px] sm:text-xs font-semibold">(01)</span>
+          <span className="eyebrow-item text-[11px] sm:text-xs tracking-[0.2em] uppercase font-medium text-[#495B7D] flex items-center gap-2">
+            <span className="text-[#0038E2] font-mono text-[11px] sm:text-xs font-semibold">( 01 )</span>
             Distribution Engine
           </span>
         </div>
 
         {/* Right Eyebrow: Interactive Platform Selector */}
-        <div className="eyebrow-item flex items-center justify-center md:justify-end">
-          <div className="inline-flex p-0.5 sm:p-1 rounded-full bg-white/90 border border-[#111111]/10 backdrop-blur-md shadow-xs max-w-full">
+        <div className="eyebrow-item flex items-center justify-center md:justify-end w-full md:w-auto">
+          <div className="inline-flex items-center justify-between md:justify-start w-[calc(100%-32px)] max-w-[350px] md:w-auto h-[48px] md:h-auto p-1 rounded-full bg-white/95 border border-[#111111]/10 backdrop-blur-md shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
             {PLATFORMS.map((p) => {
               const isCurrent = activePlatform.id === p.id;
               return (
@@ -632,7 +632,7 @@ export default function Hero() {
                   key={p.id}
                   onClick={() => setActivePlatform(p)}
                   className={cn(
-                    "px-2.5 sm:px-3 py-1 text-[10px] sm:text-[11px] font-mono rounded-full transition-all duration-200 cursor-pointer whitespace-nowrap",
+                    "h-full flex items-center justify-center px-3 sm:px-3.5 py-1.5 md:py-1 text-[11px] sm:text-[11px] font-mono rounded-full transition-all duration-200 cursor-pointer whitespace-nowrap",
                     isCurrent
                       ? "bg-[#111111] text-white font-medium shadow-xs"
                       : "text-[#555555] hover:text-[#111111] hover:bg-black/5"
@@ -657,7 +657,7 @@ export default function Hero() {
         {/* Main Central Interactive Wordmark */}
         <div className="relative inline-flex items-baseline justify-center group cursor-default">
           <h1
-            className="font-display font-medium text-[clamp(3.8rem,16.8vw,14.2rem)] leading-[0.88] tracking-[-0.04em] text-[#111111] select-none transition-all duration-300 flex whitespace-nowrap"
+            className="font-display font-medium text-[clamp(58px,17vw,82px)] md:text-[clamp(3.8rem,16.8vw,14.2rem)] leading-[0.92] tracking-[-0.04em] text-[#111111] select-none transition-all duration-300 flex whitespace-nowrap"
             style={{
               fontFeatureSettings: '"cv02", "cv03", "cv04", "cv11"',
               textShadow: "0 2px 24px rgba(0, 0, 0, 0.08)",
@@ -696,9 +696,10 @@ export default function Hero() {
         </div>
 
         {/* Supporting Headline directly below GetVeevz */}
-        <h2 className="font-display font-normal text-xs sm:text-lg md:text-2xl text-[#111111] leading-[1.38] max-w-[310px] sm:max-w-xl mx-auto mt-2 sm:mt-5 tracking-tight text-center">
-          <span className="block sm:inline">We cut short form clips from long form content and </span>
-          <span className="block sm:inline">post across social media platforms</span>
+        <h2 className="font-display font-normal text-[17px] sm:text-lg md:text-2xl text-[#111111] leading-[1.4] max-w-[310px] sm:max-w-xl mx-auto mt-3 sm:mt-5 tracking-tight text-center">
+          <span className="block sm:inline">We cut short form clips from long form </span>
+          <span className="block sm:inline">content and post across social media </span>
+          <span className="block sm:inline">platforms</span>
         </h2>
 
         {/* Trademark/Engine Glyph on mobile - centered below subtitle */}
@@ -707,7 +708,7 @@ export default function Hero() {
             const currentIdx = PLATFORMS.findIndex((p) => p.id === activePlatform.id);
             setActivePlatform(PLATFORMS[(currentIdx + 1) % PLATFORMS.length]);
           }}
-          className="flex sm:hidden items-center justify-center w-5 h-5 rounded-full border border-[#111111]/25 text-[8px] font-mono text-[#555555] mx-auto mt-2.5 hover:scale-110 active:scale-95 transition-all cursor-pointer shadow-2xs"
+          className="flex sm:hidden items-center justify-center w-5 h-5 rounded-full border border-[#111111]/25 text-[8px] font-mono text-[#555555] mx-auto mt-3 hover:scale-110 active:scale-95 transition-all cursor-pointer shadow-2xs"
           title="Click to cycle distribution engine mode"
         >
           ©
@@ -717,7 +718,7 @@ export default function Hero() {
         <div
           ref={cardRightRef}
           onClick={toggleVideoPlayback}
-          className="mt-14 sm:mt-7 xl:mt-0 xl:absolute xl:-right-2 xl:-bottom-2 flex items-center xl:flex-col gap-3 p-2.5 sm:p-3 rounded-2xl sm:rounded-3xl bg-white border border-[#111111]/10 shadow-[0_12px_36px_rgba(0,0,0,0.08),0_2px_8px_rgba(0,0,0,0.04)] transition-all duration-300 hover:scale-[1.02] xl:hover:scale-105 hover:border-[#111111]/25 w-full max-w-[335px] sm:max-w-[380px] xl:w-56 text-left cursor-pointer group pointer-events-auto mx-auto"
+          className="mt-10 sm:mt-7 xl:mt-0 xl:absolute xl:-right-2 xl:-bottom-2 flex items-center xl:flex-col gap-3 p-3 sm:p-3 rounded-[22px] sm:rounded-3xl bg-white border border-[#111111]/10 shadow-[0_12px_36px_rgba(0,0,0,0.08),0_2px_8px_rgba(0,0,0,0.04)] transition-all duration-300 hover:scale-[1.02] xl:hover:scale-105 hover:border-[#111111]/25 w-[calc(100%-32px)] max-w-[350px] sm:max-w-[380px] xl:w-56 text-left cursor-pointer group pointer-events-auto mx-auto"
         >
           {/* Micro Video Card Screen */}
           <div className="relative w-[138px] sm:w-[170px] xl:w-full h-[84px] sm:h-28 rounded-xl overflow-hidden bg-black border border-black/10 shrink-0">
@@ -743,7 +744,7 @@ export default function Hero() {
               <span className="text-[9px] sm:text-[10px] font-bold text-white font-display drop-shadow-md">
                 {activePlatform.metric}
               </span>
-              <span className="text-[8px] sm:text-[9px] font-mono text-white/90 bg-white/20 backdrop-blur-md px-1.5 py-0.2 rounded border border-white/30">
+              <span className="text-[8px] sm:text-[9px] font-mono text-white/90 bg-white/20 backdrop-blur-md px-1.5 py-0.2 rounded border border-white/30 uppercase">
                 {activePlatform.tag}
               </span>
             </div>
@@ -773,18 +774,18 @@ export default function Hero() {
         {/* BOTTOM CENTER on mobile, LEFT on desktop: Circular Downward Arrow Cue */}
         <div
           ref={bottomLeftRef}
-          className="absolute left-[48%] -translate-x-1/2 sm:static sm:translate-x-0 flex flex-col items-center gap-1"
+          className="absolute left-1/2 -translate-x-1/2 sm:static sm:translate-x-0 flex flex-col items-center gap-1.5"
           data-reveal
         >
           {/* Subtle vertical guide line */}
-          <div className="w-px h-5 sm:h-6 bg-[#111111]/15" />
+          <div className="w-px h-8 sm:h-6 bg-[#111111]/15" />
           <button
             ref={arrowRef}
             onClick={scrollToNext}
             aria-label="Scroll to learn more about GetVeevz"
-            className="group relative flex items-center justify-center w-10 h-10 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full border border-[#111111]/15 bg-white hover:bg-[#111111] hover:text-white backdrop-blur-md shadow-md hover:shadow-xl transition-all duration-300 hover:scale-[1.12] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] cursor-pointer active:scale-95"
+            className="group relative flex items-center justify-center w-[52px] h-[52px] sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full border border-[#111111]/15 bg-white hover:bg-[#111111] hover:text-white backdrop-blur-md shadow-md hover:shadow-xl transition-all duration-300 hover:scale-[1.12] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] cursor-pointer active:scale-95"
           >
-            <ArrowDown className="w-4 h-4 sm:w-5 sm:h-5 text-[#111111] group-hover:text-white group-hover:translate-y-0.5 transition-all duration-300 ease-out" />
+            <ArrowDown className="w-5 h-5 sm:w-5 sm:h-5 text-[#111111] group-hover:text-white group-hover:translate-y-0.5 transition-all duration-300 ease-out" />
             <span className="sr-only">Scroll down</span>
           </button>
         </div>
@@ -796,7 +797,7 @@ export default function Hero() {
           data-reveal
         >
           <div className="flex items-baseline gap-1 sm:gap-1.5 cursor-default group">
-            <span className="font-display text-2xl sm:text-4xl md:text-5xl font-medium tracking-tight text-[#111111] group-hover:text-[#0038E2] transition-colors">
+            <span className="font-display text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-[#111111] group-hover:text-[#0038E2] transition-colors">
               <HeroStatCounter
                 platformId={activePlatform.id}
                 target={activePlatform.value}
@@ -804,7 +805,7 @@ export default function Hero() {
                 suffix={activePlatform.counterSuffix || "M"}
               />
             </span>
-            <span className="text-[10px] sm:text-xs md:text-sm font-mono text-[#495B7D] uppercase tracking-wider">
+            <span className="text-[11px] sm:text-xs md:text-sm font-mono text-[#495B7D] uppercase tracking-wider ml-0.5">
               {activePlatform.metric.split(" ")[1] || "Views"}
             </span>
           </div>

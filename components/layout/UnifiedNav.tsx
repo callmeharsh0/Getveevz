@@ -151,7 +151,7 @@ export default function UnifiedNav() {
         aria-label="Primary Navigation"
         className={cn(
           "pointer-events-auto items-center justify-center",
-          !isServices ? "hidden md:flex" : "flex",
+          !isServices ? "hidden lg:flex" : "flex",
           "px-2 sm:px-2.5 py-1.5 rounded-full",
           "bg-[#111111]/95 text-[#F3EFEA] border border-black/25",
           "backdrop-blur-2xl shadow-[0_10px_32px_rgba(0,0,0,0.28)]",
