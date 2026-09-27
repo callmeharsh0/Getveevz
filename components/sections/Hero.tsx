@@ -718,7 +718,7 @@ export default function Hero() {
         <div
           ref={cardRightRef}
           onClick={toggleVideoPlayback}
-          className="mt-10 sm:mt-7 xl:mt-0 xl:absolute xl:-right-2 xl:-bottom-2 flex items-center xl:flex-col gap-3 p-3 sm:p-3 rounded-[22px] sm:rounded-3xl bg-white border border-[#111111]/10 shadow-[0_12px_36px_rgba(0,0,0,0.08),0_2px_8px_rgba(0,0,0,0.04)] transition-all duration-300 hover:scale-[1.02] xl:hover:scale-105 hover:border-[#111111]/25 w-[calc(100%-32px)] max-w-[350px] sm:max-w-[380px] xl:w-56 text-left cursor-pointer group pointer-events-auto mx-auto"
+          className="mt-16 sm:mt-10 xl:mt-0 xl:absolute xl:-right-2 xl:-bottom-8 flex items-center xl:flex-col gap-3 p-3 sm:p-3 rounded-[22px] sm:rounded-3xl bg-white border border-[#111111]/10 shadow-[0_12px_36px_rgba(0,0,0,0.08),0_2px_8px_rgba(0,0,0,0.04)] transition-all duration-300 hover:scale-[1.02] xl:hover:scale-105 hover:border-[#111111]/25 w-[calc(100%-32px)] max-w-[350px] sm:max-w-[380px] xl:w-56 text-left cursor-pointer group pointer-events-auto mx-auto"
         >
           {/* Micro Video Card Screen */}
           <div className="relative w-[138px] sm:w-[170px] xl:w-full h-[84px] sm:h-28 rounded-xl overflow-hidden bg-black border border-black/10 shrink-0">
