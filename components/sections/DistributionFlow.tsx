@@ -58,7 +58,7 @@ const DEFAULT_OUTPUTS: OutputNode[] = [
     y: -140,
     rot: -5.5,
     scale: 0.94,
-    videoSrc: "/assets/Reels/future-of-payment.mp4",
+    videoSrc: "/assets/Reels/New/reel-1.mp4",
   },
   {
     id: "clip-2",
@@ -69,7 +69,7 @@ const DEFAULT_OUTPUTS: OutputNode[] = [
     y: -260,
     rot: 4.5,
     scale: 1.02,
-    videoSrc: "/assets/Reels/start-using-ai-zero-rupees.mp4",
+    videoSrc: "/assets/Reels/New/reel-2.mp4",
   },
   {
     id: "clip-3",
@@ -80,7 +80,7 @@ const DEFAULT_OUTPUTS: OutputNode[] = [
     y: -150,
     rot: -6,
     scale: 1.05,
-    videoSrc: "/assets/Reels/ai-coding-business.mp4",
+    videoSrc: "/assets/Reels/New/reel-3.mp4",
   },
   {
     id: "clip-4",
@@ -91,7 +91,7 @@ const DEFAULT_OUTPUTS: OutputNode[] = [
     y: 15,
     rot: 6.5,
     scale: 0.98,
-    videoSrc: "/assets/Reels/viral-maggi-secret.mp4",
+    videoSrc: "/assets/Reels/New/reel-4.mp4",
   },
   {
     id: "clip-5",
@@ -102,7 +102,7 @@ const DEFAULT_OUTPUTS: OutputNode[] = [
     y: 190,
     rot: 4,
     scale: 0.95,
-    videoSrc: "/assets/Reels/rachitroo-comedy-clip.mp4",
+    videoSrc: "/assets/Reels/New/reel-5.mp4",
   },
   {
     id: "clip-6",
@@ -113,7 +113,7 @@ const DEFAULT_OUTPUTS: OutputNode[] = [
     y: 230,
     rot: -5,
     scale: 1.03,
-    videoSrc: "/assets/Reels/indian-parents-reality.mp4",
+    videoSrc: "/assets/Reels/New/reel-6.mp4",
   },
 ];
 
