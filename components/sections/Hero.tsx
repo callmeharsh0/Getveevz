@@ -26,8 +26,8 @@ const SCATTERED_PLATFORM_LOGOS = [
     id: "tiktok",
     name: "TikTok",
     src: "/assets/logos/tiktok.png",
-    pos: "top-[23%] left-[12%] sm:top-[25%] sm:left-[7%] lg:left-[8%]",
-    size: "w-[48px] h-[48px] sm:w-[62px] sm:h-[62px] lg:w-[74px] lg:h-[74px]",
+    pos: "top-[23%] left-[19%] sm:top-[25%] sm:left-[7%] lg:left-[8%]",
+    size: "w-[50px] h-[50px] sm:w-[62px] sm:h-[62px] lg:w-[74px] lg:h-[74px]",
     anim: "hero-float-a",
     rotate: "-rotate-6 sm:-rotate-3",
     platformId: "tiktok",
@@ -37,11 +37,11 @@ const SCATTERED_PLATFORM_LOGOS = [
     id: "youtube",
     name: "YouTube",
     src: "/assets/logos/youtube.png",
-    pos: "top-[23%] right-[13%] sm:top-[40%] sm:right-[5%] lg:right-[6%]",
-    size: "w-[48px] h-[48px] sm:w-[62px] sm:h-[62px] lg:w-[74px] lg:h-[74px]",
+    pos: "top-[25%] right-[15%] sm:top-[40%] sm:right-[5%] lg:right-[6%]",
+    size: "w-[50px] h-[50px] sm:w-[62px] sm:h-[62px] lg:w-[74px] lg:h-[74px]",
     anim: "hero-float-b",
     rotate: "rotate-6 sm:rotate-3",
-    glow: "shadow-[0_0_24px_rgba(0,56,226,0.3)] ring-1 ring-[#0038E2]/25",
+    glow: "shadow-[0_0_24px_rgba(0,56,226,0.3)] ring-2 ring-[#0038E2]/30",
     platformId: "all",
     depth: 14,
   },
@@ -49,10 +49,10 @@ const SCATTERED_PLATFORM_LOGOS = [
     id: "instagram",
     name: "Instagram",
     src: "/assets/logos/instagram.png",
-    pos: "top-[39%] left-[2%] sm:top-[60%] sm:left-[5%] lg:left-[6%]",
-    size: "w-[46px] h-[46px] sm:w-[62px] sm:h-[62px] lg:w-[68px] lg:h-[68px]",
+    pos: "top-[43%] left-3 sm:top-[60%] sm:left-[5%] lg:left-[6%]",
+    size: "w-[48px] h-[48px] sm:w-[62px] sm:h-[62px] lg:w-[68px] lg:h-[68px]",
     anim: "hero-float-b",
-    rotate: "-rotate-8 sm:-rotate-4",
+    rotate: "-rotate-10 sm:-rotate-4",
     platformId: "reels",
     depth: 24,
   },
@@ -60,10 +60,10 @@ const SCATTERED_PLATFORM_LOGOS = [
     id: "shorts",
     name: "YouTube Shorts",
     src: "/assets/logos/youtubeshorts.png",
-    pos: "top-[39%] right-[2%] sm:top-[26%] sm:right-[26%] lg:right-[28%]",
-    size: "w-[46px] h-[46px] sm:w-[62px] sm:h-[62px] lg:w-[74px] lg:h-[74px]",
+    pos: "top-[44%] right-3 sm:top-[26%] sm:right-[26%] lg:right-[28%]",
+    size: "w-[48px] h-[48px] sm:w-[62px] sm:h-[62px] lg:w-[74px] lg:h-[74px]",
     anim: "hero-float-c",
-    rotate: "rotate-8 sm:rotate-4",
+    rotate: "rotate-10 sm:rotate-4",
     platformId: "shorts",
     depth: 20,
   },
@@ -71,10 +71,10 @@ const SCATTERED_PLATFORM_LOGOS = [
     id: "facebook",
     name: "Facebook",
     src: "/assets/logos/facebook.png",
-    pos: "top-[50%] left-[15%] sm:bottom-[22%] sm:left-[12%] lg:left-[14%]",
-    size: "w-[46px] h-[46px] sm:w-[58px] sm:h-[58px] lg:w-[68px] lg:h-[68px]",
+    pos: "top-[54%] left-[21%] sm:bottom-[22%] sm:left-[12%] lg:left-[14%]",
+    size: "w-[48px] h-[48px] sm:w-[58px] sm:h-[58px] lg:w-[68px] lg:h-[68px]",
     anim: "hero-float-a",
-    rotate: "-rotate-3 sm:rotate-0",
+    rotate: "-rotate-2 sm:rotate-0",
     glow: "shadow-[0_0_28px_rgba(0,56,226,0.45)] ring-2 ring-[#0038E2]/40",
     platformId: "all",
     depth: 16,
@@ -188,6 +188,16 @@ export default function Hero() {
   const [activePlatform, setActivePlatform] = useState(PLATFORMS[0]);
   const [isVideoPlaying, setIsVideoPlaying] = useState(true);
   const [hoveredLetter, setHoveredLetter] = useState<number | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // Interactive particle coordinates
   const particles = useMemo(
@@ -392,7 +402,7 @@ export default function Hero() {
     <section
       ref={containerRef}
       id="hero"
-      className="relative flex min-h-[100dvh] flex-col justify-between px-4 sm:px-8 md:px-12 lg:px-16 pt-5 pb-8 md:pb-14 bg-[#F3EFEA] text-[#111111] overflow-hidden select-none"
+      className="relative flex min-h-[100svh] min-h-[100dvh] flex-col justify-between px-5 sm:px-8 md:px-12 lg:px-16 pt-3 sm:pt-5 pb-5 sm:pb-8 md:pb-14 bg-[#F3EFEA] text-[#111111] overflow-hidden select-none"
     >
       {/* ========================================================================= */}
       {/* 0. INTERACTIVE MOUSE-FOLLOWING LIGHT BEAM & DEPTH MESH                    */}
@@ -406,7 +416,7 @@ export default function Hero() {
       {/* 3D Interactive Globe Background Layer (React Bits Pro with animated arcs & markers) */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 w-full h-full z-0 overflow-hidden opacity-75 flex items-center justify-center"
+        className="pointer-events-none absolute inset-0 w-full h-full z-0 overflow-hidden opacity-75 flex items-center justify-center -translate-y-4 sm:translate-y-0"
       >
         <div className="relative w-full h-full min-h-[500px] flex items-center justify-center pointer-events-auto">
           <Globe
@@ -422,8 +432,8 @@ export default function Hero() {
             arcCount={12}
             arcInterval={4800}
             arcAnimationDuration={2200}
-            cameraAltitude={2.2}
-            pointSize={0.28}
+            cameraAltitude={isMobile ? 3.35 : 2.2}
+            pointSize={isMobile ? 0.32 : 0.28}
             landMapUrl="/images/globe-map.png"
             className="w-full h-full bg-transparent"
           />
@@ -507,34 +517,34 @@ export default function Hero() {
               className="w-full h-full object-cover scale-[1.15]"
             />
           </div>
-          <span className="font-display font-medium text-base sm:text-lg tracking-tight text-[#111111] group-hover:text-[#0038E2] transition-colors">
+          <span className="font-display font-medium text-base sm:text-lg tracking-tight text-[#111111] group-hover:text-[#0038E2] transition-colors whitespace-nowrap">
             GetVeevz
           </span>
         </a>
 
         {/* CTA (Right) */}
         <div ref={ctaButtonRef} className="pointer-events-auto flex items-center gap-2 sm:gap-3">
-          <GlassButton
-            size="sm"
-            className="inline-flex items-center px-3 sm:px-4 py-1.5 sm:py-2 text-[11px] sm:text-xs font-medium rounded-full bg-[#111111] text-white hover:bg-black transition-all shadow-sm glass-button-dark"
+          <button
+            type="button"
             onClick={() => {
               const cta = document.getElementById("cta") || document.querySelector("footer");
               if (cta) cta.scrollIntoView({ behavior: "smooth" });
             }}
+            className="inline-flex items-center gap-1.5 px-3.5 sm:px-4 h-10 sm:h-11 text-xs font-medium rounded-full bg-[#18181B] text-white hover:bg-black transition-all shadow-sm active:scale-95 border-0 outline-none cursor-pointer shrink-0"
           >
-            <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 mr-1 sm:mr-1.5 text-frost opacity-85 shrink-0" />
+            <Sparkles className="w-3.5 h-3.5 text-white/80 shrink-0" />
             <span className="whitespace-nowrap">Book a Strategy Call</span>
-          </GlassButton>
+          </button>
 
-          {/* Mobile Menu Toggle Button */}
+          {/* Mobile Menu Toggle Button (44-48px white circle) */}
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white border border-[#111111]/15 text-[#111111] shadow-xs hover:text-[#0038E2] focus:outline-none focus:ring-2 focus:ring-[#0038E2] shrink-0 cursor-pointer"
+            className="md:hidden flex items-center justify-center w-11 h-11 rounded-full bg-white border border-[#111111]/15 text-[#111111] shadow-[0_2px_8px_rgba(0,0,0,0.06)] hover:text-[#0038E2] focus:outline-none focus:ring-2 focus:ring-[#0038E2] shrink-0 cursor-pointer active:scale-95 transition-all"
             aria-label="Toggle mobile menu"
             aria-expanded={mobileMenuOpen}
           >
-            {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+            {mobileMenuOpen ? <X className="w-5 h-5 text-[#111111]" /> : <Menu className="w-5 h-5 text-[#111111]" strokeWidth={1.8} />}
           </button>
         </div>
       </header>
@@ -641,13 +651,13 @@ export default function Hero() {
       {/* ========================================================================= */}
       <div
         ref={wordmarkRef}
-        className="relative my-auto py-2 sm:py-8 md:py-14 flex flex-col items-center justify-center text-center overflow-visible z-10"
+        className="relative my-auto py-1 sm:py-8 md:py-14 flex flex-col items-center justify-center text-center overflow-visible z-10"
         data-reveal
       >
         {/* Main Central Interactive Wordmark */}
         <div className="relative inline-flex items-baseline justify-center group cursor-default">
           <h1
-            className="font-display font-medium text-[clamp(3.8rem,16.8vw,14.2rem)] leading-[0.88] tracking-[-0.04em] text-[#111111] select-none transition-all duration-300 flex"
+            className="font-display font-medium text-[clamp(3.8rem,16.8vw,14.2rem)] leading-[0.88] tracking-[-0.04em] text-[#111111] select-none transition-all duration-300 flex whitespace-nowrap"
             style={{
               fontFeatureSettings: '"cv02", "cv03", "cv04", "cv11"',
               textShadow: "0 2px 24px rgba(0, 0, 0, 0.08)",
@@ -672,13 +682,13 @@ export default function Hero() {
             ))}
           </h1>
 
-          {/* Trademark/Engine Glyph with interactive spin */}
+          {/* Trademark/Engine Glyph on desktop */}
           <div
             onClick={() => {
               const currentIdx = PLATFORMS.findIndex((p) => p.id === activePlatform.id);
               setActivePlatform(PLATFORMS[(currentIdx + 1) % PLATFORMS.length]);
             }}
-            className="flex items-center justify-center w-5 h-5 sm:w-7 sm:h-7 md:w-9 md:h-9 rounded-full border border-[#111111]/25 text-[8px] sm:text-[10px] md:text-xs font-mono text-[#555555] ml-1 sm:ml-2 self-end mb-1.5 sm:mb-3 md:mb-5 hover:scale-110 hover:border-[#111111] hover:text-[#111111] hover:bg-white hover:rotate-180 transition-all duration-500 cursor-pointer shadow-xs active:scale-95"
+            className="hidden sm:flex items-center justify-center w-7 h-7 md:w-9 md:h-9 rounded-full border border-[#111111]/25 text-[10px] md:text-xs font-mono text-[#555555] ml-2 self-end mb-3 md:mb-5 hover:scale-110 hover:border-[#111111] hover:text-[#111111] hover:bg-white hover:rotate-180 transition-all duration-500 cursor-pointer shadow-xs active:scale-95"
             title="Click to cycle distribution engine mode"
           >
             ©
@@ -686,18 +696,31 @@ export default function Hero() {
         </div>
 
         {/* Supporting Headline directly below GetVeevz */}
-        <h2 className="font-display font-normal text-xs sm:text-lg md:text-2xl text-[#111111] leading-[1.38] max-w-[310px] sm:max-w-xl mx-auto mt-2.5 sm:mt-5 tracking-tight text-center">
-          We cut short form clips from long form content and post across social media platforms
+        <h2 className="font-display font-normal text-xs sm:text-lg md:text-2xl text-[#111111] leading-[1.38] max-w-[310px] sm:max-w-xl mx-auto mt-2 sm:mt-5 tracking-tight text-center">
+          <span className="block sm:inline">We cut short form clips from long form content and </span>
+          <span className="block sm:inline">post across social media platforms</span>
         </h2>
+
+        {/* Trademark/Engine Glyph on mobile - centered below subtitle */}
+        <div
+          onClick={() => {
+            const currentIdx = PLATFORMS.findIndex((p) => p.id === activePlatform.id);
+            setActivePlatform(PLATFORMS[(currentIdx + 1) % PLATFORMS.length]);
+          }}
+          className="flex sm:hidden items-center justify-center w-5 h-5 rounded-full border border-[#111111]/25 text-[8px] font-mono text-[#555555] mx-auto mt-2.5 hover:scale-110 active:scale-95 transition-all cursor-pointer shadow-2xs"
+          title="Click to cycle distribution engine mode"
+        >
+          ©
+        </div>
 
         {/* Video Card: Positioned centered on mobile, floating on desktop */}
         <div
           ref={cardRightRef}
           onClick={toggleVideoPlayback}
-          className="mt-5 sm:mt-7 xl:mt-0 xl:absolute xl:-right-2 xl:-bottom-2 flex items-center xl:flex-col gap-3 p-2.5 sm:p-3 rounded-2xl sm:rounded-3xl bg-white/95 border border-[#111111]/10 backdrop-blur-xl shadow-[0_12px_36px_rgba(0,0,0,0.08),0_2px_8px_rgba(0,0,0,0.04)] transition-all duration-300 hover:scale-[1.02] xl:hover:scale-105 hover:border-[#111111]/25 w-full max-w-[335px] sm:max-w-[380px] xl:w-56 text-left cursor-pointer group pointer-events-auto mx-auto"
+          className="mt-14 sm:mt-7 xl:mt-0 xl:absolute xl:-right-2 xl:-bottom-2 flex items-center xl:flex-col gap-3 p-2.5 sm:p-3 rounded-2xl sm:rounded-3xl bg-white border border-[#111111]/10 shadow-[0_12px_36px_rgba(0,0,0,0.08),0_2px_8px_rgba(0,0,0,0.04)] transition-all duration-300 hover:scale-[1.02] xl:hover:scale-105 hover:border-[#111111]/25 w-full max-w-[335px] sm:max-w-[380px] xl:w-56 text-left cursor-pointer group pointer-events-auto mx-auto"
         >
           {/* Micro Video Card Screen */}
-          <div className="relative w-[145px] sm:w-[170px] xl:w-full h-[88px] sm:h-28 rounded-xl overflow-hidden bg-black border border-black/10 shrink-0">
+          <div className="relative w-[138px] sm:w-[170px] xl:w-full h-[84px] sm:h-28 rounded-xl overflow-hidden bg-black border border-black/10 shrink-0">
             <video
               ref={videoPreviewRef}
               src={activePlatform.video}
@@ -727,12 +750,18 @@ export default function Hero() {
           </div>
 
           {/* Micro Card Label */}
-          <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-1 xl:gap-0 px-1 w-full">
-            <div className="flex items-center gap-1.5 text-xs text-[#111111] font-medium">
+          <div className="flex items-center justify-between gap-2 px-1 w-full min-w-0">
+            <div className="flex items-center gap-1.5 text-[#111111] font-medium leading-tight shrink-0">
               <Share2 className="w-3.5 h-3.5 text-[#0038E2] shrink-0" />
-              <span className="text-[11px] sm:text-xs">{activePlatform.name} Route</span>
+              <div className="text-[11px] sm:text-xs leading-snug whitespace-nowrap">
+                <div>All Platforms</div>
+                <div>Route</div>
+              </div>
             </div>
-            <span className="text-[10px] sm:text-[11px] font-mono text-[#0038E2] font-semibold">98.4% Sync</span>
+            <div className="text-right font-mono text-[#0038E2] font-bold leading-snug shrink-0 whitespace-nowrap">
+              <div className="text-[11px] sm:text-xs">98.4%</div>
+              <div className="text-[11px] sm:text-xs">Sync</div>
+            </div>
           </div>
         </div>
       </div>
@@ -740,11 +769,11 @@ export default function Hero() {
       {/* ========================================================================= */}
       {/* 4. BOTTOM CONTROLS (DOWN ARROW & TELEMETRY STATS)                         */}
       {/* ========================================================================= */}
-      <div className="w-full mt-2 sm:mt-6 md:mt-auto pt-2 sm:pt-4 flex items-end justify-between z-10">
-        {/* BOTTOM CENTER/LEFT: Circular Downward Arrow Cue */}
+      <div className="w-full mt-2 sm:mt-6 md:mt-auto pt-2 sm:pt-4 flex items-end justify-between relative z-10">
+        {/* BOTTOM CENTER on mobile, LEFT on desktop: Circular Downward Arrow Cue */}
         <div
           ref={bottomLeftRef}
-          className="flex flex-col items-center gap-1"
+          className="absolute left-[48%] -translate-x-1/2 sm:static sm:translate-x-0 flex flex-col items-center gap-1"
           data-reveal
         >
           {/* Subtle vertical guide line */}
@@ -763,7 +792,7 @@ export default function Hero() {
         {/* BOTTOM RIGHT: Big Stat Number */}
         <div
           ref={bottomRightRef}
-          className="flex flex-col items-end justify-end"
+          className="ml-auto flex flex-col items-end justify-end"
           data-reveal
         >
           <div className="flex items-baseline gap-1 sm:gap-1.5 cursor-default group">

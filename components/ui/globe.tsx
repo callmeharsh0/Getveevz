@@ -625,7 +625,6 @@ export const Globe: React.FC<GlobeProps> = ({
     arcCount,
     arcInterval,
     arcAnimationDuration,
-    cameraAltitude,
     landMapUrl,
     sampleLandPoints,
     onReady,
@@ -635,6 +634,13 @@ export const Globe: React.FC<GlobeProps> = ({
     atmosphereAltitude,
     globeOpacity,
   ]);
+
+  // Dynamically update camera altitude when prop changes (e.g. mobile vs desktop)
+  useEffect(() => {
+    if (globeInstanceRef.current && cameraAltitude !== undefined) {
+      globeInstanceRef.current.pointOfView({ altitude: cameraAltitude });
+    }
+  }, [cameraAltitude]);
 
   if (errorMessage) {
     return (
