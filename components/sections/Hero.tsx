@@ -622,9 +622,9 @@ export default function Hero() {
           </span>
         </div>
 
-        {/* Right Eyebrow: Interactive Platform Selector (Reduced height, padding, & font size on mobile) */}
+        {/* Right Eyebrow: Interactive Platform Selector (20% smaller on mobile, unconstrained width on desktop) */}
         <div className="eyebrow-item flex items-center justify-center md:justify-end w-full md:w-auto">
-          <div className="inline-flex items-center justify-between md:justify-start w-auto max-w-[310px] md:w-auto h-[32px] sm:h-[38px] md:h-auto p-0.5 sm:p-1 rounded-full bg-white/95 border border-[#111111]/10 backdrop-blur-md shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
+          <div className="inline-flex items-center justify-between md:justify-start w-auto sm:max-w-none md:max-w-none scale-[0.80] origin-center sm:scale-100 h-[32px] sm:h-[38px] p-0.5 sm:p-1 rounded-full bg-white/95 border border-[#111111]/10 backdrop-blur-md shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
             {PLATFORMS.map((p) => {
               const isCurrent = activePlatform.id === p.id;
               return (
