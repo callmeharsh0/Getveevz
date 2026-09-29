@@ -86,6 +86,36 @@ const agencies: Agency[] = [
       },
     ],
   },
+  {
+    id: "end-to-end-marketing",
+    name: "End-to-End Marketing",
+    tagline: "Full-Stack Marketing",
+    duration: "Turnkey Solution",
+    deliverables: "Production • Distribution • Growth",
+    description:
+      "We make content and distribute it.\nEverything handled for you end to end.",
+    link: "#cta",
+    videoSrc: "/assets/agency-video-3.mp4",
+    maskType: "arch-pill",
+    servicesList: [
+      {
+        title: "Content Production",
+        detail: "We create high-converting content for your brand — scripted, shot, and edited in-house.",
+      },
+      {
+        title: "Omnichannel Distribution",
+        detail: "Distributed across LinkedIn, X, Instagram, YouTube, and Facebook for omnipresent reach.",
+      },
+      {
+        title: "Who It's Built For",
+        detail: "Product launches, brand launches, and executive personal branding looking for scale.",
+      },
+      {
+        title: "Hands-Off Execution",
+        detail: "Everything handled for you end-to-end — zero operational overhead on your team.",
+      },
+    ],
+  },
 ];
 
 export default function Agencies() {
@@ -194,12 +224,28 @@ export default function Agencies() {
     const mouseX = e.clientX - gridRect.left;
     const mouseY = e.clientY - gridRect.top;
 
-    // Detect which card the cursor is closest to horizontally
+    // Detect which card the cursor is closest to
     let activeCardIndex = hoveredIndexRef.current;
+    let minDistance = Infinity;
+
     cardRefs.current.forEach((cardEl, i) => {
       if (!cardEl) return;
       const rect = cardEl.getBoundingClientRect();
-      if (e.clientX >= rect.left && e.clientX <= rect.right) {
+      const cardCenterX = rect.left + rect.width / 2;
+      const cardCenterY = rect.top + rect.height / 2;
+      const dist = Math.hypot(e.clientX - cardCenterX, e.clientY - cardCenterY);
+
+      // Check if cursor is directly inside this card
+      if (
+        e.clientX >= rect.left &&
+        e.clientX <= rect.right &&
+        e.clientY >= rect.top &&
+        e.clientY <= rect.bottom
+      ) {
+        activeCardIndex = i;
+        minDistance = -1; // Exact match
+      } else if (minDistance !== -1 && dist < minDistance) {
+        minDistance = dist;
         activeCardIndex = i;
       }
     });
@@ -207,7 +253,7 @@ export default function Agencies() {
     if (activeCardIndex !== hoveredIndexRef.current) {
       setHoveredIndex(activeCardIndex);
       previousIndexRef.current = activeCardIndex;
-      // User request: when hover shift make it flip back to normal
+      // When switching active card, reset flip state
       setFlippedIndex(null);
       videoRefs.current.forEach((video, i) => {
         if (!video) return;
@@ -245,8 +291,7 @@ export default function Agencies() {
 
   const handleGridLeave = () => {
     setIsGridHovered(false);
-    setFlippedIndex(null);
-    // Smoothly settle and center on the last active card instead of resetting to Card 0
+    // Smoothly settle and center on the last active card without abruptly flipping back
     const lastIndex = hoveredIndexRef.current;
     const bounds = getTargetBounds(lastIndex);
     if (bounds && slidingShapeRef.current) {
@@ -339,7 +384,7 @@ export default function Agencies() {
           onMouseMove={handleGridMouseMove}
           onMouseLeave={handleGridLeave}
           style={{ perspective: 1200 }}
-          className="relative grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10 items-stretch max-w-4xl lg:max-w-5xl mx-auto"
+          className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch max-w-md md:max-w-4xl lg:max-w-7xl mx-auto"
         >
           {/* ========================================================================= */}
           {/* SHARED SLIDING GSAP HOVER SHAPE (STRICTLY z-0, NEVER OVERLAPS TEXT)       */}
@@ -369,7 +414,7 @@ export default function Agencies() {
                 <path
                   fillRule="evenodd"
                   clipRule="evenodd"
-                  d="M 125 16 C 220 16 265 60 265 145 L 265 265 C 265 355 190 415 95 415 C 35 415 0 365 0 285 L 0 160 C 0 65 52 16 125 16 Z M 138 126 C 92 126 56 162 56 208 C 56 254 92 290 138 290 C 184 290 220 254 220 208 C 220 162 184 126 138 126 Z"
+                  d="M 125 16 C 220 16 265 60 265 145 L 265 265 C 265 355 190 415 95 415 C 35 415 0 365 0 285 L 0 160 C 0 65 52 16 125 16 Z M 138 126 C 92 126 56 162 56 208 C 56 254 92 290 138 290 C 220 290 220 254 220 208 C 220 162 184 126 138 126 Z"
                   fill="#EDE6DC"
                 />
               </svg>
@@ -416,7 +461,10 @@ export default function Agencies() {
                   moveToCard(index);
                   toggleFlip(index);
                 }}
-                className="group relative z-20 min-h-[460px] sm:min-h-[500px] md:min-h-[540px] cursor-pointer rounded-3xl"
+                className={cn(
+                  "group relative z-20 min-h-[480px] sm:min-h-[520px] md:min-h-[540px] cursor-pointer rounded-3xl",
+                  index === 2 ? "md:col-span-2 md:max-w-md md:mx-auto md:w-full lg:col-span-1 lg:max-w-none" : ""
+                )}
                 style={{
                   perspective: "1400px",
                   WebkitPerspective: "1400px",
@@ -424,7 +472,7 @@ export default function Agencies() {
               >
                 {/* 3D FLIPPER CONTAINER */}
                 <div
-                  className="relative w-full h-full min-h-[460px] sm:min-h-[500px] md:min-h-[540px] rounded-3xl transition-transform duration-700 ease-spring preserve-3d"
+                  className="relative w-full h-full min-h-[480px] sm:min-h-[520px] md:min-h-[540px] rounded-3xl transition-transform duration-700 ease-spring preserve-3d"
                   style={{
                     transformStyle: "preserve-3d",
                     WebkitTransformStyle: "preserve-3d",
@@ -448,7 +496,7 @@ export default function Agencies() {
                       WebkitTransform: "rotateY(0deg)",
                     }}
                   >
-                    <div className="flex flex-col items-center justify-center text-center w-full max-w-xs transition-transform duration-300 group-hover:scale-[1.01] -translate-y-6 sm:-translate-y-8">
+                    <div className="flex flex-col items-center justify-center text-center w-full max-w-xs transition-transform duration-300 group-hover:scale-[1.01] -translate-y-4 sm:-translate-y-6">
                       {/* Eyebrow Tag */}
                       <div
                         className={cn(
@@ -462,26 +510,30 @@ export default function Agencies() {
                         <span>{agency.tagline}</span>
                       </div>
 
-                      {/* Title */}
-                      <h3
-                        className={cn(
-                          "font-display font-bold uppercase tracking-tight transition-colors duration-300 select-none whitespace-nowrap",
-                          "text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] leading-none",
-                          isActive ? "text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]" : "text-[#111111]"
-                        )}
-                      >
-                        {agency.name}
-                      </h3>
+                      {/* Title Box with Balanced Font Size & Multi-line Support */}
+                      <div className="min-h-[4.5rem] sm:min-h-[5.5rem] flex items-center justify-center w-full">
+                        <h3
+                          className={cn(
+                            "font-display font-bold uppercase tracking-tight transition-colors duration-300 select-none text-center",
+                            "text-2xl sm:text-3xl lg:text-[1.95rem] xl:text-[2.25rem] leading-[1.08] max-w-[270px]",
+                            isActive ? "text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]" : "text-[#111111]"
+                          )}
+                        >
+                          {agency.name}
+                        </h3>
+                      </div>
 
-                      {/* Description */}
-                      <p
-                        className={cn(
-                          "mt-4 text-sm sm:text-[15px] leading-relaxed max-w-[280px] sm:max-w-[320px] mx-auto font-normal whitespace-pre-line transition-colors duration-300",
-                          isActive ? "text-white/90 drop-shadow-sm" : "text-[#333333]"
-                        )}
-                      >
-                        {agency.description}
-                      </p>
+                      {/* Description Box with Matched Height for Perfect Button Alignment */}
+                      <div className="mt-3 min-h-[4.25rem] flex items-center justify-center w-full">
+                        <p
+                          className={cn(
+                            "text-sm sm:text-[15px] leading-relaxed max-w-[250px] sm:max-w-[280px] mx-auto font-normal text-center whitespace-pre-line transition-colors duration-300",
+                            isActive ? "text-white/90 drop-shadow-sm" : "text-[#333333]"
+                          )}
+                        >
+                          {agency.description}
+                        </p>
+                      </div>
 
                       {/* Pill-shaped Flip Button */}
                       <button
@@ -544,8 +596,8 @@ export default function Agencies() {
                           </button>
                         </div>
                       </div>
-                      <h4 className="font-display font-bold text-xl sm:text-2xl text-white mt-2 leading-tight">
-                        {agency.name}: Service Specs
+                      <h4 className="font-display font-bold text-lg sm:text-xl text-white mt-2 leading-tight">
+                        {agency.name}: Specs
                       </h4>
                     </div>
 
@@ -572,14 +624,19 @@ export default function Agencies() {
                     </div>
 
                     {/* Back Footer Actions */}
-                    <div className="flex items-center justify-between gap-3 pt-3 border-t border-white/10">
+                    <div className="flex items-center justify-between gap-2 pt-3 border-t border-white/10">
                       <button
                         type="button"
                         onClick={(e) => {
                           e.stopPropagation();
-                          navigate(agency.id === "long-term" ? "/services/long-term-distribution" : "/services/short-term-campaign");
+                          const routes: Record<string, string> = {
+                            "long-term": "/services/long-term-distribution",
+                            "short-term": "/services/short-term-campaign",
+                            "end-to-end-marketing": "/services/end-to-end-marketing",
+                          };
+                          navigate(routes[agency.id] || "#cta");
                         }}
-                        className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/10 hover:bg-white/25 border border-white/20 text-xs font-semibold text-white transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer shadow-sm"
+                        className="inline-flex items-center gap-1 px-3.5 py-2 rounded-full bg-white/10 hover:bg-white/25 border border-white/20 text-xs font-semibold text-white transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer shadow-sm"
                       >
                         <span>More Info</span>
                         <ArrowUpRight className="w-3.5 h-3.5 text-frost" />
@@ -588,7 +645,7 @@ export default function Agencies() {
                         size="sm"
                         onClick={(e) => {
                           e.stopPropagation();
-                          const targetTerm = agency.id === "long-term" ? "long-term" : "short-term";
+                          const targetTerm = agency.id;
                           window.dispatchEvent(
                             new CustomEvent("select-pricing-term", { detail: targetTerm })
                           );
@@ -599,9 +656,9 @@ export default function Agencies() {
                             navigate(`/#pricing?term=${targetTerm}`);
                           }
                         }}
-                        contentClassName="flex items-center gap-1.5 text-xs font-semibold tracking-wide"
+                        contentClassName="flex items-center gap-1 text-xs font-semibold tracking-wide px-2"
                       >
-                        <span>Explore Pricing</span>
+                        <span>Pricing</span>
                         <ArrowUpRight className="w-3.5 h-3.5 text-frost" />
                       </GlassButton>
                     </div>
