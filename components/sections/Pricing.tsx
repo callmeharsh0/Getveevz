@@ -23,6 +23,7 @@ export interface PricingPlan {
   id: string;
   name: string;
   badge: string;
+  popular?: boolean;
   subtitle: string;
   rateDisplay: {
     USD: string;
@@ -40,6 +41,7 @@ const longTermPlans: PricingPlan[] = [
     id: "long-term-3mo",
     name: "3-Month Campaign",
     badge: "Test ➔ Identify ➔ Scale",
+    popular: true,
     subtitle: "Identify what works first, then scale only the strongest pages",
     rateDisplay: {
       USD: "$1–$3 CPM ➔ Fixed Retainer",
@@ -87,6 +89,7 @@ const shortTermPlans: PricingPlan[] = [
     id: "short-term-cpm",
     name: "CPM-Based Campaign",
     badge: "Defined View Target",
+    popular: true,
     subtitle: "Built to hit an agreed view target over a concentrated timeframe",
     rateDisplay: {
       USD: "$1–$3 / 1K Views",
@@ -249,12 +252,12 @@ export default function Pricing() {
       ref={sectionRef}
       id="pricing"
       aria-label="Pricing and campaign frameworks"
-      className="relative w-full py-28 sm:py-36 lg:py-44 bg-[#090A0D] text-[#F8F6F2] overflow-hidden"
+      className="relative w-full py-16 sm:py-28 lg:py-36 bg-[#090A0D] text-[#F8F6F2] overflow-hidden"
     >
       {/* ── Top Section Border: Subtle Gradient Fade & Feathered Hairline ── */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute top-0 inset-x-0 h-40 sm:h-56 bg-gradient-to-b from-[#090E14] via-[#090A0D]/75 to-transparent z-10"
+        className="pointer-events-none absolute top-0 inset-x-0 h-28 sm:h-48 bg-gradient-to-b from-[#090E14] via-[#090A0D]/75 to-transparent z-10"
       />
       <div
         aria-hidden="true"
@@ -264,7 +267,7 @@ export default function Pricing() {
       {/* ── Bottom Section Border: Subtle Gradient Fade & Feathered Hairline ── */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute bottom-0 inset-x-0 h-40 sm:h-56 bg-gradient-to-t from-[#090E14] via-[#090A0D]/75 to-transparent z-10"
+        className="pointer-events-none absolute bottom-0 inset-x-0 h-28 sm:h-48 bg-gradient-to-t from-[#090E14] via-[#090A0D]/75 to-transparent z-10"
       />
       <div
         aria-hidden="true"
@@ -287,14 +290,14 @@ export default function Pricing() {
         className="pointer-events-none absolute inset-0 z-0 opacity-[0.025] mix-blend-screen bg-[radial-gradient(#F8F6F2_1px,transparent_1px)] [background-size:24px_24px]"
       />
 
-      <div className="relative z-10 max-w-[1340px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 max-w-[1340px] mx-auto px-3.5 sm:px-6 lg:px-8">
         {/* ── Main Doppelrand (Double-Bezel) Outer Hardware Shell in Deep Black ── */}
         <div
           ref={shellRef}
-          className="relative rounded-[2.5rem] p-2.5 sm:p-3.5 bg-[#121316] border border-white/[0.08] shadow-[0_32px_100px_-20px_rgba(0,0,0,0.95)] before:pointer-events-none before:absolute before:inset-x-10 before:top-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent"
+          className="relative rounded-2xl sm:rounded-[2.25rem] lg:rounded-[2.5rem] p-1.5 sm:p-2.5 lg:p-3.5 bg-[#121316] border border-white/[0.08] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.9)] sm:shadow-[0_32px_100px_-20px_rgba(0,0,0,0.95)] before:pointer-events-none before:absolute before:inset-x-10 before:top-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent"
         >
           {/* Inner Concentric Core Enclosure in Solid Carbon Black */}
-          <div className="relative rounded-[calc(2.5rem-0.75rem)] bg-[#0C0D0F] border border-white/[0.05] p-6 sm:p-10 lg:p-14 shadow-[inset_0_1px_1px_rgba(255,255,255,0.06)] overflow-hidden">
+          <div className="relative rounded-[calc(1rem+0.25rem)] sm:rounded-[calc(2.25rem-0.5rem)] lg:rounded-[calc(2.5rem-0.75rem)] bg-[#0C0D0F] border border-white/[0.05] p-4 sm:p-8 lg:p-12 shadow-[inset_0_1px_1px_rgba(255,255,255,0.06)] overflow-hidden">
             
             {/* Ambient Radial Accent inside core */}
             <div
@@ -303,34 +306,26 @@ export default function Pricing() {
             />
 
             {/* ── Section Header Row: Eyebrow + Display Title + White-Shade Controls ── */}
-            <header className="relative z-10 flex flex-col lg:flex-row lg:items-end justify-between gap-8 pb-10 after:pointer-events-none after:absolute after:bottom-0 after:inset-x-0 after:h-px after:bg-gradient-to-r after:from-transparent after:via-white/[0.12] after:to-transparent">
+            <header className="relative z-10 flex flex-col lg:flex-row lg:items-end justify-between gap-6 sm:gap-8 pb-6 sm:pb-8 lg:pb-10 after:pointer-events-none after:absolute after:bottom-0 after:inset-x-0 after:h-px after:bg-gradient-to-r after:from-transparent after:via-white/[0.12] after:to-transparent">
               <div className="max-w-2xl">
-                {/* Hero-Aligned Eyebrow Pill */}
-                <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-[11px] sm:text-xs font-medium text-[#8BA3C6] mb-5 shadow-xs">
-                  <span className="text-[#0038E2] font-mono text-[10px] sm:text-xs font-semibold">(02)</span>
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#0038E2] inline-block animate-pulse" />
-                  <span className="tracking-wide uppercase text-[10px] font-mono text-white/80">Transparent Economics</span>
-                </div>
-
-                <h2 className="font-display font-medium text-3xl sm:text-4xl lg:text-5xl text-white tracking-tight leading-[1.08] [text-wrap:balance]">
-                  Predictable scale.
-                  <br />
-                  <span className="text-[#8BA3C6] italic font-normal">
+                <h2 className="font-display font-medium text-2xl sm:text-4xl lg:text-5xl text-white tracking-tight leading-[1.12] [text-wrap:balance]">
+                  Predictable scale.{" "}
+                  <span className="text-[#8BA3C6] italic font-normal block sm:inline">
                     Calibrated frameworks.
                   </span>
                 </h2>
-                <p className="mt-3.5 text-sm sm:text-base text-white/70 font-light leading-relaxed max-w-xl [text-wrap:pretty]">
+                <p className="mt-2.5 sm:mt-3.5 text-xs sm:text-base text-white/70 font-light leading-relaxed max-w-xl [text-wrap:pretty]">
                   Choose between long-term compounding retainers or high-impact short-term surge pushes.
                 </p>
               </div>
 
               {/* ── White-Shade Controls: Term Switcher & Currency Switcher ── */}
-              <div className="flex flex-wrap items-center gap-3 self-start lg:self-auto">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3 w-full lg:w-auto mt-2 lg:mt-0">
                 {/* Term Switcher: Long-Term vs Short-Term (White Shade Active) */}
                 <div
                   role="tablist"
                   aria-label="Campaign duration selection"
-                  className="inline-flex items-center p-1 sm:p-1.5 rounded-2xl bg-white/[0.04] border border-white/[0.1] shadow-inner backdrop-blur-md"
+                  className="grid grid-cols-2 sm:inline-flex items-center p-1 sm:p-1.5 rounded-xl sm:rounded-2xl bg-white/[0.04] border border-white/[0.1] shadow-inner backdrop-blur-md"
                 >
                   <button
                     type="button"
@@ -338,7 +333,7 @@ export default function Pricing() {
                     aria-selected={termType === "long-term"}
                     onClick={() => handleTermChange("long-term")}
                     className={cn(
-                      "px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-display tracking-wide cursor-pointer transition-all duration-300 ease-gentle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] active:scale-[0.98]",
+                      "px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-lg sm:rounded-xl text-xs sm:text-sm font-display tracking-wide text-center cursor-pointer transition-all duration-300 ease-gentle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] active:scale-[0.98]",
                       termType === "long-term"
                         ? "bg-[#F8F6F2] text-[#111111] font-semibold shadow-[0_2px_14px_rgba(248,246,242,0.25)] scale-[1.02]"
                         : "text-white/70 hover:text-white"
@@ -352,7 +347,7 @@ export default function Pricing() {
                     aria-selected={termType === "short-term"}
                     onClick={() => handleTermChange("short-term")}
                     className={cn(
-                      "px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-display tracking-wide cursor-pointer transition-all duration-300 ease-gentle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] active:scale-[0.98]",
+                      "px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-lg sm:rounded-xl text-xs sm:text-sm font-display tracking-wide text-center cursor-pointer transition-all duration-300 ease-gentle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] active:scale-[0.98]",
                       termType === "short-term"
                         ? "bg-[#F8F6F2] text-[#111111] font-semibold shadow-[0_2px_14px_rgba(248,246,242,0.25)] scale-[1.02]"
                         : "text-white/70 hover:text-white"
@@ -366,7 +361,7 @@ export default function Pricing() {
                 <div
                   role="group"
                   aria-label="Currency selection"
-                  className="inline-flex items-center p-1 sm:p-1.5 rounded-2xl bg-white/[0.04] border border-white/[0.1] shadow-inner backdrop-blur-md"
+                  className="grid grid-cols-2 sm:inline-flex items-center p-1 sm:p-1.5 rounded-xl sm:rounded-2xl bg-white/[0.04] border border-white/[0.1] shadow-inner backdrop-blur-md"
                 >
                   <button
                     type="button"
@@ -374,7 +369,7 @@ export default function Pricing() {
                     aria-pressed={currency === "USD"}
                     onClick={() => setCurrency("USD")}
                     className={cn(
-                      "px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-display tracking-wide cursor-pointer transition-all duration-300 ease-gentle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] active:scale-[0.98]",
+                      "px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl text-xs sm:text-sm font-display tracking-wide text-center cursor-pointer transition-all duration-300 ease-gentle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] active:scale-[0.98]",
                       currency === "USD"
                         ? "bg-[#F8F6F2] text-[#111111] font-semibold shadow-[0_2px_14px_rgba(248,246,242,0.25)] scale-[1.02]"
                         : "text-white/70 hover:text-white"
@@ -388,7 +383,7 @@ export default function Pricing() {
                     aria-pressed={currency === "INR"}
                     onClick={() => setCurrency("INR")}
                     className={cn(
-                      "px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-display tracking-wide cursor-pointer transition-all duration-300 ease-gentle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] active:scale-[0.98]",
+                      "px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl text-xs sm:text-sm font-display tracking-wide text-center cursor-pointer transition-all duration-300 ease-gentle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] active:scale-[0.98]",
                       currency === "INR"
                         ? "bg-[#F8F6F2] text-[#111111] font-semibold shadow-[0_2px_14px_rgba(248,246,242,0.25)] scale-[1.02]"
                         : "text-white/70 hover:text-white"
@@ -405,7 +400,7 @@ export default function Pricing() {
             ═════════════════════════════════════════════════════════ */}
             <div
               ref={cardsContainerRef}
-              className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-12 items-stretch"
+              className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 mt-6 sm:mt-10 lg:mt-12 items-stretch"
             >
               {plans.map((plan) => {
                 const isSelected = plan.id === selectedPlanId;
@@ -426,16 +421,16 @@ export default function Pricing() {
                     }}
                     onMouseMove={handleCardMouseMove}
                     className={cn(
-                      "group relative cursor-pointer rounded-[2.25rem] p-2 transition-all duration-500 ease-gentle flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2]",
+                      "group relative cursor-pointer rounded-2xl sm:rounded-[2rem] lg:rounded-[2.25rem] p-1.5 sm:p-2 transition-all duration-500 ease-gentle flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2]",
                       isSelected
-                        ? "bg-[#18191E] border-2 border-[#0038E2] shadow-[0_24px_64px_-16px_rgba(0,0,0,0.95),0_0_32px_rgba(0,56,226,0.2)] ring-1 ring-[#0038E2]/40 -translate-y-1.5"
-                        : "bg-[#131418] border border-white/[0.08] hover:border-white/[0.18] hover:-translate-y-1 hover:bg-[#16171C] shadow-[0_16px_40px_-10px_rgba(0,0,0,0.7)]"
+                        ? "bg-[#18191E] border-2 border-[#0038E2] shadow-[0_20px_50px_-15px_rgba(0,0,0,0.95),0_0_28px_rgba(0,56,226,0.22)] ring-1 ring-[#0038E2]/40 -translate-y-1 sm:-translate-y-1.5"
+                        : "bg-[#131418] border border-white/[0.08] hover:border-white/[0.18] hover:-translate-y-1 hover:bg-[#16171C] shadow-[0_12px_32px_-10px_rgba(0,0,0,0.7)]"
                     )}
                   >
                     {/* Dynamic Spotlight Glow Layer (Cobalt/White Tint) */}
                     <div
                       aria-hidden="true"
-                      className="pointer-events-none absolute -inset-px rounded-[2.25rem] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                      className="pointer-events-none absolute -inset-px rounded-2xl sm:rounded-[2rem] lg:rounded-[2.25rem] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                       style={{
                         background:
                           "radial-gradient(400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 56, 226, 0.12), transparent 80%)",
@@ -443,15 +438,15 @@ export default function Pricing() {
                     />
 
                     {/* Inner Core Card in Deep Obsidian */}
-                    <div className="relative h-full rounded-[calc(2.25rem-0.5rem)] bg-[#0E0F12] border border-white/[0.04] p-7 sm:p-9 lg:p-10 flex flex-col justify-between shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]">
+                    <div className="relative h-full rounded-[calc(1rem+0.25rem)] sm:rounded-[calc(2rem-0.375rem)] lg:rounded-[calc(2.25rem-0.5rem)] bg-[#0E0F12] border border-white/[0.04] p-4 sm:p-7 lg:p-9 flex flex-col justify-between shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]">
                       <div>
                         {/* Header: Radio Selector + Title + Hardware Icon */}
-                        <div className="flex items-start justify-between gap-4 mb-5">
-                          <div className="flex items-start gap-3.5">
+                        <div className="flex items-start justify-between gap-3 mb-4 sm:mb-5">
+                          <div className="flex items-start gap-2.5 sm:gap-3.5 min-w-0">
                             {/* Machined Radio Button */}
                             <div
                               className={cn(
-                                "w-6 h-6 rounded-full flex items-center justify-center shrink-0 mt-1 ring-1 transition-all duration-500 ease-gentle",
+                                "w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center shrink-0 mt-0.5 sm:mt-1 ring-1 transition-all duration-500 ease-gentle",
                                 isSelected
                                   ? "ring-[#0038E2] bg-[#0038E2]/20"
                                   : "ring-white/20 bg-black/40"
@@ -461,58 +456,60 @@ export default function Pricing() {
                                 className={cn(
                                   "rounded-full transition-all duration-500 ease-gentle",
                                   isSelected
-                                    ? "w-3 h-3 bg-[#0038E2] shadow-[0_0_12px_rgba(0,56,226,0.9)]"
+                                    ? "w-2.5 h-2.5 sm:w-3 sm:h-3 bg-[#0038E2] shadow-[0_0_12px_rgba(0,56,226,0.9)]"
                                     : "w-0 h-0"
                                 )}
                               />
                             </div>
 
-                            <div>
-                              <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-[10px] font-mono uppercase tracking-widest text-[#8BA3C6] font-semibold mb-2">
-                                {plan.badge}
+                            <div className="min-w-0">
+                              <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
+                                <span className="inline-flex items-center px-2 sm:px-2.5 py-0.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-[9px] sm:text-[10px] font-mono uppercase tracking-wider text-[#8BA3C6] font-semibold">
+                                  {plan.badge}
+                                </span>
                               </div>
-                              <h3 className="font-display font-medium text-2xl sm:text-[28px] text-white leading-tight tracking-tight [text-wrap:balance]">
+                              <h3 className="font-display font-medium text-lg sm:text-2xl lg:text-[26px] text-white leading-tight tracking-tight [text-wrap:balance]">
                                 {plan.name}
                               </h3>
                             </div>
                           </div>
 
                           {/* Hardware-Enclosed Icon Vessel */}
-                          <div className="w-12 h-12 rounded-2xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-[#8BA3C6] shrink-0 shadow-xs transition-transform duration-500 ease-gentle group-hover:scale-105 group-hover:text-white">
-                            <Icon className="w-5 h-5 stroke-[1.5]" />
+                          <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-[#8BA3C6] shrink-0 shadow-xs transition-transform duration-500 ease-gentle group-hover:scale-105 group-hover:text-white">
+                            <Icon className="w-4 h-4 sm:w-5 sm:h-5 stroke-[1.5]" />
                           </div>
                         </div>
 
                         {/* Subtitle */}
-                        <p className="text-xs sm:text-sm text-white/70 font-light leading-relaxed mb-6 [text-wrap:pretty]">
+                        <p className="text-xs sm:text-sm text-white/70 font-light leading-relaxed mb-4 sm:mb-5 [text-wrap:pretty]">
                           {plan.subtitle}
                         </p>
 
                         {/* ── Economics Enclosure (Deep Black Container) ── */}
-                        <div className="rounded-2xl p-4 sm:p-5 bg-[#090A0D] border border-white/[0.06] mb-6 shadow-xs">
-                          <div className="text-[10px] sm:text-[11px] font-mono text-[#8BA3C6] uppercase tracking-widest mb-1.5 font-medium">
+                        <div className="rounded-xl sm:rounded-2xl p-3 sm:p-4 lg:p-5 bg-[#090A0D] border border-white/[0.06] mb-4 sm:mb-5 shadow-xs">
+                          <div className="text-[9px] sm:text-[11px] font-mono text-[#8BA3C6] uppercase tracking-widest mb-1 font-medium">
                             Economic Structure
                           </div>
-                          <div className="font-display font-medium text-xl sm:text-2xl text-white tracking-tight tabular-nums">
+                          <div className="font-display font-medium text-lg sm:text-xl lg:text-2xl text-white tracking-tight tabular-nums">
                             {plan.rateDisplay[currency]}
                           </div>
-                          <div className="text-xs text-white/50 font-mono mt-1">
+                          <div className="text-[11px] sm:text-xs text-white/50 font-mono mt-0.5 sm:mt-1">
                             {plan.ratePeriod}
                           </div>
                         </div>
 
                         {/* Sub-Formats (If Applicable) */}
                         {plan.subFormats && (
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 mb-4 sm:mb-5">
                             {plan.subFormats.map((fmt) => (
                               <div
                                 key={fmt.title}
-                                className="rounded-xl p-3.5 bg-[#090A0D] border border-white/[0.06]"
+                                className="rounded-lg sm:rounded-xl p-2.5 sm:p-3.5 bg-[#090A0D] border border-white/[0.06]"
                               >
-                                <h4 className="text-xs font-medium text-white font-display mb-1">
+                                <h4 className="text-[11px] sm:text-xs font-medium text-white font-display mb-0.5 sm:mb-1">
                                   {fmt.title}
                                 </h4>
-                                <p className="text-[11px] text-white/65 leading-relaxed font-light">
+                                <p className="text-[10px] sm:text-[11px] text-white/65 leading-relaxed font-light">
                                   {getLocalized(fmt.desc)}
                                 </p>
                               </div>
@@ -521,29 +518,29 @@ export default function Pricing() {
                         )}
 
                         {/* Editorial Highlight Note with Cobalt Accent Bar */}
-                        <div className="p-4 rounded-xl bg-white/[0.03] border-l-2 border-l-[#0038E2] border border-white/[0.06] text-white/85 text-xs sm:text-[13px] leading-relaxed mb-6 italic font-light">
+                        <div className="p-3 sm:p-4 rounded-lg sm:rounded-xl bg-white/[0.03] border-l-2 border-l-[#0038E2] border border-white/[0.06] text-white/85 text-[11px] sm:text-xs lg:text-[13px] leading-relaxed mb-4 sm:mb-5 italic font-light">
                           &ldquo;{plan.highlightNote}&rdquo;
                         </div>
 
                         {/* Detailed Specifications List */}
-                        <div className="pt-6 border-t border-white/[0.06]">
-                          <div className="text-[10px] sm:text-[11px] font-mono text-[#8BA3C6] uppercase tracking-widest mb-3.5 font-medium">
+                        <div className="pt-4 sm:pt-5 border-t border-white/[0.06]">
+                          <div className="text-[9px] sm:text-[10px] font-mono text-[#8BA3C6] uppercase tracking-widest mb-2.5 sm:mb-3 font-medium">
                             Operational Specifications
                           </div>
-                          <ul className="space-y-3">
+                          <ul className="space-y-2 sm:space-y-2.5">
                             {plan.specs.map((spec) => (
                               <li
                                 key={spec.label}
-                                className="flex items-start gap-3 text-xs sm:text-sm text-white/75 font-light"
+                                className="flex items-start gap-2.5 text-xs sm:text-sm text-white/75 font-light"
                               >
-                                <div className="w-5 h-5 rounded-md bg-[#0038E2]/15 border border-[#0038E2]/30 flex items-center justify-center shrink-0 mt-0.5 text-[#0038E2]">
-                                  <Check className="w-3 h-3 stroke-[2.5]" />
+                                <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-md bg-[#0038E2]/15 border border-[#0038E2]/30 flex items-center justify-center shrink-0 mt-0.5 text-[#0038E2]">
+                                  <Check className="w-2.5 h-2.5 sm:w-3 sm:h-3 stroke-[2.5]" />
                                 </div>
-                                <div>
-                                  <span className="font-medium text-white font-mono text-xs mr-2">
+                                <div className="leading-snug">
+                                  <span className="font-medium text-white font-mono text-[11px] sm:text-xs mr-1.5 sm:mr-2">
                                     {spec.label}:
                                   </span>
-                                  <span className="tabular-nums">{getLocalized(spec.value)}</span>
+                                  <span className="tabular-nums text-white/80">{getLocalized(spec.value)}</span>
                                 </div>
                               </li>
                             ))}
@@ -559,13 +556,13 @@ export default function Pricing() {
             {/* ═════════════════════════════════════════════════════════
                 BOTTOM HARDWARE BAR: Selection Pill & Button-in-Button CTA
             ═════════════════════════════════════════════════════════ */}
-            <footer className="relative flex flex-col sm:flex-row items-center justify-between gap-5 mt-12 pt-8 before:pointer-events-none before:absolute before:top-0 before:inset-x-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-white/[0.12] before:to-transparent">
+            <footer className="relative flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 sm:gap-5 mt-6 sm:mt-10 lg:mt-12 pt-6 sm:pt-8 before:pointer-events-none before:absolute before:top-0 before:inset-x-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-white/[0.12] before:to-transparent">
               {/* Left: Active Selection Pill */}
-              <div className="flex items-center gap-3 self-start sm:self-auto">
-                <span className="text-[10px] font-mono text-[#8BA3C6] uppercase tracking-[0.2em] font-medium">
-                  Active Plan:
+              <div className="flex items-center justify-between sm:justify-start gap-2 sm:gap-3">
+                <span className="text-[9px] sm:text-[10px] font-mono text-[#8BA3C6] uppercase tracking-[0.2em] font-medium shrink-0">
+                  Selected:
                 </span>
-                <span className="text-xs sm:text-sm font-medium text-white bg-white/[0.04] border border-white/[0.1] px-4 py-2 rounded-xl shadow-xs tabular-nums">
+                <span className="text-xs sm:text-sm font-medium text-white bg-white/[0.04] border border-white/[0.1] px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl shadow-xs tabular-nums truncate">
                   {selectedPlan.name} · {selectedPlan.rateDisplay[currency]}
                 </span>
               </div>
@@ -574,17 +571,30 @@ export default function Pricing() {
               <button
                 type="button"
                 onClick={handleOrder}
-                className="group relative w-full sm:w-auto inline-flex items-center justify-between sm:justify-start gap-4 rounded-full bg-[#F8F6F2] hover:bg-white text-[#111111] pl-7 pr-2.5 py-2.5 cursor-pointer font-display font-semibold transition-all duration-300 ease-gentle shadow-[0_4px_28px_rgba(248,246,242,0.22)] hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2]"
+                className="group relative w-full sm:w-auto inline-flex items-center justify-between sm:justify-start gap-3 sm:gap-4 rounded-full bg-[#F8F6F2] hover:bg-white text-[#111111] pl-5 sm:pl-7 pr-2 py-2 sm:py-2.5 cursor-pointer font-display font-semibold transition-all duration-300 ease-gentle shadow-[0_4px_24px_rgba(248,246,242,0.18)] hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2]"
               >
-                <span className="text-xs sm:text-sm tracking-tight">
+                <span className="text-xs sm:text-sm tracking-tight font-medium">
                   Submit Campaign Brief
                 </span>
                 {/* Trailing Icon Disc in Deep Obsidian */}
-                <div className="w-9 h-9 rounded-full bg-[#111111] text-[#F8F6F2] group-hover:bg-[#0038E2] group-hover:text-white flex items-center justify-center transition-all duration-300 ease-gentle group-hover:translate-x-1 group-hover:-translate-y-[1px] group-hover:scale-105 shadow-sm">
-                  <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#111111] text-[#F8F6F2] group-hover:bg-[#0038E2] group-hover:text-white flex items-center justify-center transition-all duration-300 ease-gentle group-hover:translate-x-1 group-hover:-translate-y-[1px] group-hover:scale-105 shadow-sm shrink-0">
+                  <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
                 </div>
               </button>
             </footer>
+
+            {/* Bottom Trust Guarantees */}
+            <div className="mt-6 pt-5 border-t border-white/[0.04] flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[10px] sm:text-xs text-white/50 font-mono">
+              <span className="inline-flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#0038E2]" />
+              </span>
+              <span className="inline-flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#0038E2]" />
+              </span>
+              <span className="inline-flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#0038E2]" />
+              </span>
+            </div>
 
           </div>
         </div>
