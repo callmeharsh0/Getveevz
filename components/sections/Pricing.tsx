@@ -312,8 +312,8 @@ export default function Pricing() {
     termType === "long-term"
       ? longTermPlans
       : termType === "short-term"
-      ? shortTermPlans
-      : endToEndPlans;
+        ? shortTermPlans
+        : endToEndPlans;
   const selectedPlan =
     plans.find((p) => p.id === selectedPlanId) ||
     (termType === "short-term" ? shortTermPlans[0] : longTermPlans[0]);
@@ -419,10 +419,9 @@ export default function Pricing() {
       `I would like to submit a campaign brief for the following pricing framework:`,
       ``,
       `• Framework Selected: ${selectedPlan.name}`,
-      `• Campaign Model: ${
-        termType === "long-term"
-          ? "Long-Term Retainer Engagement"
-          : termType === "short-term"
+      `• Campaign Model: ${termType === "long-term"
+        ? "Long-Term Retainer Engagement"
+        : termType === "short-term"
           ? "Short-Term Blitz Push"
           : "End-to-End Turnkey Solution"
       }`,
@@ -502,7 +501,7 @@ export default function Pricing() {
         >
           {/* Inner Concentric Core Enclosure in Solid Carbon Black */}
           <div className="relative rounded-[calc(1rem+0.25rem)] sm:rounded-[calc(2.25rem-0.5rem)] lg:rounded-[calc(2.5rem-0.75rem)] bg-[#0C0D0F] border border-white/[0.05] p-4 sm:p-8 lg:p-12 shadow-[inset_0_1px_1px_rgba(255,255,255,0.06)] overflow-hidden">
-            
+
             {/* Ambient Radial Accent inside core */}
             <div
               aria-hidden="true"
@@ -644,10 +643,6 @@ export default function Pricing() {
 
                   {/* Top Badges & Workflow Eyebrow */}
                   <div className="relative z-10 flex flex-wrap items-center justify-between gap-3 mb-6 sm:mb-8">
-                    <div className="inline-flex items-center gap-2 px-3 sm:px-3.5 py-1 rounded-full text-[11px] sm:text-xs font-mono font-medium tracking-wider uppercase bg-white/[0.04] text-white/90 border border-white/[0.08]">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#0038E2]" />
-                      Full Turnkey Execution
-                    </div>
                     <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] sm:text-xs font-mono font-semibold tracking-wider uppercase bg-white/[0.05] text-[#8BA3C6] border border-white/[0.08]">
                       Custom Scope · Discussed on Call
                     </div>
@@ -731,12 +726,12 @@ export default function Pricing() {
                           Verified Scale & Growth
                         </h4>
                         <p className="text-xs sm:text-sm text-white/65 leading-relaxed font-light">
-                          Compounding reach, organic audience conversion, retention lift, and transparent real-time telemetry tracking every single view.
+                          Compounding reach, organic audience conversion, retention lift, and transparent real-time tracking every single view.
                         </p>
                       </div>
                       <div className="mt-5 pt-3.5 border-t border-white/[0.05] flex items-center gap-1.5 text-[11px] font-mono text-white/50">
                         <span className="w-1 h-1 rounded-full bg-[#0038E2]" />
-                        Compounding reach & real-time telemetry
+                        Compounding reach & real-time Tracking
                       </div>
                     </div>
                   </div>
@@ -773,189 +768,189 @@ export default function Pricing() {
                 ref={cardsContainerRef}
                 className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 mt-6 sm:mt-10 lg:mt-12 items-stretch"
               >
-              {plans.map((plan) => {
-                const isSelected = plan.id === selectedPlanId;
-                const Icon = plan.icon;
+                {plans.map((plan) => {
+                  const isSelected = plan.id === selectedPlanId;
+                  const Icon = plan.icon;
 
-                return (
-                  <div
-                    key={plan.id}
-                    role="button"
-                    tabIndex={0}
-                    aria-pressed={isSelected}
-                    onClick={() => setSelectedPlanId(plan.id)}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter" || e.key === " ") {
-                        e.preventDefault();
-                        setSelectedPlanId(plan.id);
-                      }
-                    }}
-                    onMouseMove={handleCardMouseMove}
-                    className={cn(
-                      "group relative cursor-pointer rounded-2xl sm:rounded-[2rem] lg:rounded-[2.25rem] p-1.5 sm:p-2 transition-all duration-500 ease-gentle flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2]",
-                      isSelected
-                        ? "bg-[#18191E] border-2 border-[#0038E2] shadow-[0_20px_50px_-15px_rgba(0,0,0,0.95),0_0_28px_rgba(0,56,226,0.22)] ring-1 ring-[#0038E2]/40 -translate-y-1 sm:-translate-y-1.5"
-                        : "bg-[#131418] border border-white/[0.08] hover:border-white/[0.18] hover:-translate-y-1 hover:bg-[#16171C] shadow-[0_12px_32px_-10px_rgba(0,0,0,0.7)]"
-                    )}
-                  >
-                    {/* Dynamic Spotlight Glow Layer (Cobalt/White Tint) */}
+                  return (
                     <div
-                      aria-hidden="true"
-                      className="pointer-events-none absolute -inset-px rounded-2xl sm:rounded-[2rem] lg:rounded-[2.25rem] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                      style={{
-                        background:
-                          "radial-gradient(400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 56, 226, 0.12), transparent 80%)",
+                      key={plan.id}
+                      role="button"
+                      tabIndex={0}
+                      aria-pressed={isSelected}
+                      onClick={() => setSelectedPlanId(plan.id)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          setSelectedPlanId(plan.id);
+                        }
                       }}
-                    />
+                      onMouseMove={handleCardMouseMove}
+                      className={cn(
+                        "group relative cursor-pointer rounded-2xl sm:rounded-[2rem] lg:rounded-[2.25rem] p-1.5 sm:p-2 transition-all duration-500 ease-gentle flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2]",
+                        isSelected
+                          ? "bg-[#18191E] border-2 border-[#0038E2] shadow-[0_20px_50px_-15px_rgba(0,0,0,0.95),0_0_28px_rgba(0,56,226,0.22)] ring-1 ring-[#0038E2]/40 -translate-y-1 sm:-translate-y-1.5"
+                          : "bg-[#131418] border border-white/[0.08] hover:border-white/[0.18] hover:-translate-y-1 hover:bg-[#16171C] shadow-[0_12px_32px_-10px_rgba(0,0,0,0.7)]"
+                      )}
+                    >
+                      {/* Dynamic Spotlight Glow Layer (Cobalt/White Tint) */}
+                      <div
+                        aria-hidden="true"
+                        className="pointer-events-none absolute -inset-px rounded-2xl sm:rounded-[2rem] lg:rounded-[2.25rem] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                        style={{
+                          background:
+                            "radial-gradient(400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 56, 226, 0.12), transparent 80%)",
+                        }}
+                      />
 
-                    {/* Inner Core Card in Deep Obsidian */}
-                    <div className="relative h-full rounded-[calc(1rem+0.25rem)] sm:rounded-[calc(2rem-0.375rem)] lg:rounded-[calc(2.25rem-0.5rem)] bg-[#0E0F12] border border-white/[0.04] p-4 sm:p-7 lg:p-9 flex flex-col justify-between shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]">
-                      <div>
-                        {/* Header: Radio Selector + Title + Hardware Icon */}
-                        <div className="flex items-start justify-between gap-3 mb-4 sm:mb-5">
-                          <div className="flex items-start gap-2.5 sm:gap-3.5 min-w-0">
-                            {/* Machined Radio Button */}
-                            <div
-                              className={cn(
-                                "w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center shrink-0 mt-0.5 sm:mt-1 ring-1 transition-all duration-500 ease-gentle",
-                                isSelected
-                                  ? "ring-[#0038E2] bg-[#0038E2]/20"
-                                  : "ring-white/20 bg-black/40"
-                              )}
-                            >
+                      {/* Inner Core Card in Deep Obsidian */}
+                      <div className="relative h-full rounded-[calc(1rem+0.25rem)] sm:rounded-[calc(2rem-0.375rem)] lg:rounded-[calc(2.25rem-0.5rem)] bg-[#0E0F12] border border-white/[0.04] p-4 sm:p-7 lg:p-9 flex flex-col justify-between shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]">
+                        <div>
+                          {/* Header: Radio Selector + Title + Hardware Icon */}
+                          <div className="flex items-start justify-between gap-3 mb-4 sm:mb-5">
+                            <div className="flex items-start gap-2.5 sm:gap-3.5 min-w-0">
+                              {/* Machined Radio Button */}
                               <div
                                 className={cn(
-                                  "rounded-full transition-all duration-500 ease-gentle",
+                                  "w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center shrink-0 mt-0.5 sm:mt-1 ring-1 transition-all duration-500 ease-gentle",
                                   isSelected
-                                    ? "w-2.5 h-2.5 sm:w-3 sm:h-3 bg-[#0038E2] shadow-[0_0_12px_rgba(0,56,226,0.9)]"
-                                    : "w-0 h-0"
+                                    ? "ring-[#0038E2] bg-[#0038E2]/20"
+                                    : "ring-white/20 bg-black/40"
                                 )}
-                              />
-                            </div>
-
-                            <div className="min-w-0">
-                              <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
-                                <span className="inline-flex items-center px-2 sm:px-2.5 py-0.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-[9px] sm:text-[10px] font-mono uppercase tracking-wider text-[#8BA3C6] font-semibold">
-                                  {getLocalized(plan.badge)}
-                                </span>
-                              </div>
-                              <h3 className="font-display font-medium text-lg sm:text-2xl lg:text-[26px] text-white leading-tight tracking-tight [text-wrap:balance]">
-                                {plan.name}
-                              </h3>
-                            </div>
-                          </div>
-
-                          {/* Hardware-Enclosed Icon Vessel */}
-                          <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-[#8BA3C6] shrink-0 shadow-xs transition-transform duration-500 ease-gentle group-hover:scale-105 group-hover:text-white">
-                            <Icon className="w-4 h-4 sm:w-5 sm:h-5 stroke-[1.5]" />
-                          </div>
-                        </div>
-
-                        {/* Subtitle */}
-                        <p className="text-xs sm:text-sm text-white/70 font-light leading-relaxed mb-4 sm:mb-5 [text-wrap:pretty]">
-                          {plan.subtitle}
-                        </p>
-
-                        {/* ── Economics Enclosure (Deep Black Container) ── */}
-                        <div className="rounded-xl sm:rounded-2xl p-3 sm:p-4 lg:p-5 bg-[#090A0D] border border-white/[0.06] mb-4 sm:mb-5 shadow-xs">
-                          <div className="text-[9px] sm:text-[11px] font-mono text-[#8BA3C6] uppercase tracking-widest mb-1 font-medium">
-                            Economic Structure
-                          </div>
-                          <div className="font-display font-medium text-lg sm:text-xl lg:text-2xl text-white tracking-tight tabular-nums">
-                            {plan.rateDisplay[currency]}
-                          </div>
-                          <div className="text-[11px] sm:text-xs text-white/50 font-mono mt-0.5 sm:mt-1">
-                            {getLocalized(plan.ratePeriod)}
-                          </div>
-                        </div>
-
-                        {/* Sub-Formats (If Applicable) */}
-                        {plan.subFormats && (
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 mb-4 sm:mb-5">
-                            {plan.subFormats.map((fmt, fIdx) => (
-                              <div
-                                key={typeof fmt.title === "string" ? fmt.title : fmt.title.USD || fIdx}
-                                className="rounded-lg sm:rounded-xl p-2.5 sm:p-3.5 bg-[#090A0D] border border-white/[0.06]"
                               >
-                                <h4 className="text-[11px] sm:text-xs font-medium text-white font-display mb-0.5 sm:mb-1">
-                                  {getLocalized(fmt.title)}
-                                </h4>
-                                <p className="text-[10px] sm:text-[11px] text-white/65 leading-relaxed font-light">
-                                  {getLocalized(fmt.desc)}
-                                </p>
+                                <div
+                                  className={cn(
+                                    "rounded-full transition-all duration-500 ease-gentle",
+                                    isSelected
+                                      ? "w-2.5 h-2.5 sm:w-3 sm:h-3 bg-[#0038E2] shadow-[0_0_12px_rgba(0,56,226,0.9)]"
+                                      : "w-0 h-0"
+                                  )}
+                                />
                               </div>
-                            ))}
-                          </div>
-                        )}
 
-                        {/* Editorial Highlight Note with Cobalt Accent Bar */}
-                        <div className="p-3 sm:p-4 rounded-lg sm:rounded-xl bg-white/[0.03] border-l-2 border-l-[#0038E2] border border-white/[0.06] text-white/85 text-[11px] sm:text-xs lg:text-[13px] leading-relaxed mb-4 sm:mb-5 italic font-light">
-                          &ldquo;{getLocalized(plan.highlightNote)}&rdquo;
-                        </div>
-
-                        {/* Detailed Specifications List */}
-                        <div className="pt-4 sm:pt-5 border-t border-white/[0.06]">
-                          <div className="text-[9px] sm:text-[10px] font-mono text-[#8BA3C6] uppercase tracking-widest mb-2.5 sm:mb-3 font-medium">
-                            Operational Specifications
-                          </div>
-                          <ul className="space-y-2 sm:space-y-2.5">
-                            {plan.specs.map((spec) => (
-                              <li
-                                key={spec.label}
-                                className="flex items-start gap-2.5 text-xs sm:text-sm text-white/75 font-light"
-                              >
-                                <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-md bg-[#0038E2]/15 border border-[#0038E2]/30 flex items-center justify-center shrink-0 mt-0.5 text-[#0038E2]">
-                                  <Check className="w-2.5 h-2.5 sm:w-3 sm:h-3 stroke-[2.5]" />
-                                </div>
-                                <div className="leading-snug">
-                                  <span className="font-medium text-white font-mono text-[11px] sm:text-xs mr-1.5 sm:mr-2">
-                                    {spec.label}:
+                              <div className="min-w-0">
+                                <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
+                                  <span className="inline-flex items-center px-2 sm:px-2.5 py-0.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-[9px] sm:text-[10px] font-mono uppercase tracking-wider text-[#8BA3C6] font-semibold">
+                                    {getLocalized(plan.badge)}
                                   </span>
-                                  <span className="tabular-nums text-white/80">{getLocalized(spec.value)}</span>
                                 </div>
-                              </li>
-                            ))}
-                          </ul>
+                                <h3 className="font-display font-medium text-lg sm:text-2xl lg:text-[26px] text-white leading-tight tracking-tight [text-wrap:balance]">
+                                  {plan.name}
+                                </h3>
+                              </div>
+                            </div>
+
+                            {/* Hardware-Enclosed Icon Vessel */}
+                            <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-[#8BA3C6] shrink-0 shadow-xs transition-transform duration-500 ease-gentle group-hover:scale-105 group-hover:text-white">
+                              <Icon className="w-4 h-4 sm:w-5 sm:h-5 stroke-[1.5]" />
+                            </div>
+                          </div>
+
+                          {/* Subtitle */}
+                          <p className="text-xs sm:text-sm text-white/70 font-light leading-relaxed mb-4 sm:mb-5 [text-wrap:pretty]">
+                            {plan.subtitle}
+                          </p>
+
+                          {/* ── Economics Enclosure (Deep Black Container) ── */}
+                          <div className="rounded-xl sm:rounded-2xl p-3 sm:p-4 lg:p-5 bg-[#090A0D] border border-white/[0.06] mb-4 sm:mb-5 shadow-xs">
+                            <div className="text-[9px] sm:text-[11px] font-mono text-[#8BA3C6] uppercase tracking-widest mb-1 font-medium">
+                              Economic Structure
+                            </div>
+                            <div className="font-display font-medium text-lg sm:text-xl lg:text-2xl text-white tracking-tight tabular-nums">
+                              {plan.rateDisplay[currency]}
+                            </div>
+                            <div className="text-[11px] sm:text-xs text-white/50 font-mono mt-0.5 sm:mt-1">
+                              {getLocalized(plan.ratePeriod)}
+                            </div>
+                          </div>
+
+                          {/* Sub-Formats (If Applicable) */}
+                          {plan.subFormats && (
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 mb-4 sm:mb-5">
+                              {plan.subFormats.map((fmt, fIdx) => (
+                                <div
+                                  key={typeof fmt.title === "string" ? fmt.title : fmt.title.USD || fIdx}
+                                  className="rounded-lg sm:rounded-xl p-2.5 sm:p-3.5 bg-[#090A0D] border border-white/[0.06]"
+                                >
+                                  <h4 className="text-[11px] sm:text-xs font-medium text-white font-display mb-0.5 sm:mb-1">
+                                    {getLocalized(fmt.title)}
+                                  </h4>
+                                  <p className="text-[10px] sm:text-[11px] text-white/65 leading-relaxed font-light">
+                                    {getLocalized(fmt.desc)}
+                                  </p>
+                                </div>
+                              ))}
+                            </div>
+                          )}
+
+                          {/* Editorial Highlight Note with Cobalt Accent Bar */}
+                          <div className="p-3 sm:p-4 rounded-lg sm:rounded-xl bg-white/[0.03] border-l-2 border-l-[#0038E2] border border-white/[0.06] text-white/85 text-[11px] sm:text-xs lg:text-[13px] leading-relaxed mb-4 sm:mb-5 italic font-light">
+                            &ldquo;{getLocalized(plan.highlightNote)}&rdquo;
+                          </div>
+
+                          {/* Detailed Specifications List */}
+                          <div className="pt-4 sm:pt-5 border-t border-white/[0.06]">
+                            <div className="text-[9px] sm:text-[10px] font-mono text-[#8BA3C6] uppercase tracking-widest mb-2.5 sm:mb-3 font-medium">
+                              Operational Specifications
+                            </div>
+                            <ul className="space-y-2 sm:space-y-2.5">
+                              {plan.specs.map((spec) => (
+                                <li
+                                  key={spec.label}
+                                  className="flex items-start gap-2.5 text-xs sm:text-sm text-white/75 font-light"
+                                >
+                                  <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-md bg-[#0038E2]/15 border border-[#0038E2]/30 flex items-center justify-center shrink-0 mt-0.5 text-[#0038E2]">
+                                    <Check className="w-2.5 h-2.5 sm:w-3 sm:h-3 stroke-[2.5]" />
+                                  </div>
+                                  <div className="leading-snug">
+                                    <span className="font-medium text-white font-mono text-[11px] sm:text-xs mr-1.5 sm:mr-2">
+                                      {spec.label}:
+                                    </span>
+                                    <span className="tabular-nums text-white/80">{getLocalized(spec.value)}</span>
+                                  </div>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
-            </div>
-          )}
+                  );
+                })}
+              </div>
+            )}
 
-          {/* ═════════════════════════════════════════════════════════
+            {/* ═════════════════════════════════════════════════════════
               BOTTOM HARDWARE BAR: Selection Pill & Button-in-Button CTA
           ═════════════════════════════════════════════════════════ */}
-          {termType !== "end-to-end" && (
-            <footer className="relative flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 sm:gap-5 mt-6 sm:mt-10 lg:mt-12 pt-6 sm:pt-8 before:pointer-events-none before:absolute before:top-0 before:inset-x-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-white/[0.12] before:to-transparent">
-              {/* Left: Active Selection Pill */}
-              <div className="flex items-center justify-between sm:justify-start gap-2 sm:gap-3">
-                <span className="text-[9px] sm:text-[10px] font-mono text-[#8BA3C6] uppercase tracking-[0.2em] font-medium shrink-0">
-                  Selected:
-                </span>
-                <span className="text-xs sm:text-sm font-medium text-white bg-white/[0.04] border border-white/[0.1] px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl shadow-xs tabular-nums truncate">
-                  {selectedPlan.name} · {selectedPlan.rateDisplay[currency]}
-                </span>
-              </div>
-
-              {/* Right: Button-in-Button Trailing Icon CTA (Porcelain White Pill with Dark Inner Disc) */}
-              <a
-                href={getPricingMailtoUrl()}
-                onClick={handleOrder}
-                className="group relative w-full sm:w-auto inline-flex items-center justify-between sm:justify-start gap-3 sm:gap-4 rounded-full bg-[#F8F6F2] hover:bg-white text-[#111111] pl-5 sm:pl-7 pr-2 py-2 sm:py-2.5 cursor-pointer font-display font-semibold transition-all duration-300 ease-gentle shadow-[0_4px_24px_rgba(248,246,242,0.18)] hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2]"
-              >
-                <span className="text-xs sm:text-sm tracking-tight font-medium">
-                  Submit Campaign Brief
-                </span>
-                {/* Trailing Icon Disc in Deep Obsidian */}
-                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#111111] text-[#F8F6F2] group-hover:bg-[#0038E2] group-hover:text-white flex items-center justify-center transition-all duration-300 ease-gentle group-hover:translate-x-1 group-hover:-translate-y-[1px] group-hover:scale-105 shadow-sm shrink-0">
-                  <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
+            {termType !== "end-to-end" && (
+              <footer className="relative flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 sm:gap-5 mt-6 sm:mt-10 lg:mt-12 pt-6 sm:pt-8 before:pointer-events-none before:absolute before:top-0 before:inset-x-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-white/[0.12] before:to-transparent">
+                {/* Left: Active Selection Pill */}
+                <div className="flex items-center justify-between sm:justify-start gap-2 sm:gap-3">
+                  <span className="text-[9px] sm:text-[10px] font-mono text-[#8BA3C6] uppercase tracking-[0.2em] font-medium shrink-0">
+                    Selected:
+                  </span>
+                  <span className="text-xs sm:text-sm font-medium text-white bg-white/[0.04] border border-white/[0.1] px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl shadow-xs tabular-nums truncate">
+                    {selectedPlan.name} · {selectedPlan.rateDisplay[currency]}
+                  </span>
                 </div>
-              </a>
-            </footer>
-          )}
+
+                {/* Right: Button-in-Button Trailing Icon CTA (Porcelain White Pill with Dark Inner Disc) */}
+                <a
+                  href={getPricingMailtoUrl()}
+                  onClick={handleOrder}
+                  className="group relative w-full sm:w-auto inline-flex items-center justify-between sm:justify-start gap-3 sm:gap-4 rounded-full bg-[#F8F6F2] hover:bg-white text-[#111111] pl-5 sm:pl-7 pr-2 py-2 sm:py-2.5 cursor-pointer font-display font-semibold transition-all duration-300 ease-gentle shadow-[0_4px_24px_rgba(248,246,242,0.18)] hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2]"
+                >
+                  <span className="text-xs sm:text-sm tracking-tight font-medium">
+                    Submit Campaign Brief
+                  </span>
+                  {/* Trailing Icon Disc in Deep Obsidian */}
+                  <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#111111] text-[#F8F6F2] group-hover:bg-[#0038E2] group-hover:text-white flex items-center justify-center transition-all duration-300 ease-gentle group-hover:translate-x-1 group-hover:-translate-y-[1px] group-hover:scale-105 shadow-sm shrink-0">
+                    <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
+                  </div>
+                </a>
+              </footer>
+            )}
 
             {/* Bottom Trust Guarantees */}
             <div className="mt-6 pt-5 border-t border-white/[0.04] flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[10px] sm:text-xs text-white/50 font-mono">
