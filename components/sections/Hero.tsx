@@ -444,7 +444,7 @@ export default function Hero() {
           <Globe
             primaryColor="#0038E2"
             neutralColor="#1C3252"
-            atmosphereColor="rgba(0, 56, 226, 0.25)"
+            atmosphereColor="#0038E2"
             globeColor="#F3EFEA"
             globeOpacity={0.35}
             showAtmosphere={true}
@@ -786,6 +786,7 @@ export default function Hero() {
                 muted
                 loop
                 playsInline
+                preload="metadata"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
