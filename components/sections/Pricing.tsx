@@ -585,15 +585,6 @@ export default function Pricing() {
 
             {/* Bottom Trust Guarantees */}
             <div className="mt-6 pt-5 border-t border-white/[0.04] flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[10px] sm:text-xs text-white/50 font-mono">
-              <span className="inline-flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#0038E2]" />
-              </span>
-              <span className="inline-flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#0038E2]" />
-              </span>
-              <span className="inline-flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#0038E2]" />
-              </span>
             </div>
 
           </div>
