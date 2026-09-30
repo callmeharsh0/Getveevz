@@ -76,13 +76,14 @@ export const CLIENT_LOGOS: ClientItem[] = [
  */
 function LogoVessel({ src, alt, id }: { src: string; alt: string; id?: string }) {
   const isTraders = id === "traders-paradise" || src.includes("traderspardise");
+  const isTaiLopez = id === "tai-lopez" || src.includes("tailopez");
 
   return (
     <div className="relative shrink-0 w-11 h-11 rounded-[0.875rem] p-[1px] bg-gradient-to-b from-white/30 via-white/10 to-transparent shadow-[inset_0_1px_1px_rgba(255,255,255,0.4),0_2px_8px_rgba(0,0,0,0.4)]">
       <div
         className={cn(
           "w-full h-full rounded-[calc(0.875rem-1px)] flex items-center justify-center overflow-hidden",
-          isTraders ? "bg-black p-0" : "bg-white/95 p-1.5"
+          isTraders ? "bg-black p-0" : isTaiLopez ? "bg-black p-1.5" : "bg-white/95 p-1.5"
         )}
       >
         <img

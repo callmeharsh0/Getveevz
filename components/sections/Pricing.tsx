@@ -297,94 +297,7 @@ const shortTermPlans: PricingPlan[] = [
   },
 ];
 
-const endToEndPlans: PricingPlan[] = [
-  {
-    id: "end-to-end-turnkey",
-    name: "End-to-End Distribution Suite",
-    badge: {
-      USD: "Full Turnkey Engine",
-      INR: "Full Turnkey Engine",
-      AED: "Full Turnkey Engine",
-    },
-    popular: true,
-    subtitle: "Complete video production, algorithmic hook editing, mass network distribution & real-time telemetry",
-    rateDisplay: {
-      USD: "Custom Enterprise",
-      INR: "Custom Enterprise",
-      AED: "Custom Enterprise",
-    },
-    ratePeriod: {
-      USD: "Tailored Retainer or View Scale",
-      INR: "Tailored Retainer or View Scale",
-      AED: "Tailored Retainer or View Scale",
-    },
-    highlightNote: {
-      USD: "Comprehensive done-for-you execution: we handle narrative direction, clipping pods, account placements, and weekly reach optimization.",
-      INR: "Comprehensive done-for-you execution: we handle narrative direction, clipping pods, account placements, and weekly reach optimization.",
-      AED: "Comprehensive done-for-you execution: we handle narrative direction, clipping pods, account placements, and weekly reach optimization.",
-    },
-    icon: Rocket,
-    specs: [
-      { label: "Content Ingestion & Cut", value: "Long-form to high-hook vertical cuts (TikTok, IG Reels, Shorts)" },
-      { label: "Network Activation", value: "Simultaneous posting across 250+ active theme & creator pages" },
-      { label: "100% Done-For-You", value: "Dedicated project manager, zero freelancer chasing, brand-safe QA" },
-      { label: "Live Telemetry", value: "Real-time client dashboard tracking views, watch time, and click spikes" },
-      { label: "Pricing Structure", value: "Flexible framework configured to your target scale and monthly cadence" },
-    ],
-    subFormats: [
-      {
-        title: "A. Production & Editing Pod",
-        desc: "Scripting, hooks, auto-framing, dynamic captions, and narrative testing across multiple angles.",
-      },
-      {
-        title: "B. Multi-Platform Distribution",
-        desc: "Coordinated distribution engine posting at peak algorithmic windows across all 3 major platforms.",
-      },
-    ],
-  },
-  {
-    id: "end-to-end-dedicated",
-    name: "Dedicated Growth Pod",
-    badge: {
-      USD: "Dedicated Account Pod",
-      INR: "Dedicated Account Pod",
-      AED: "Dedicated Account Pod",
-    },
-    subtitle: "An embedded clipping and distribution unit exclusively assigned to your media properties",
-    rateDisplay: {
-      USD: "Custom Pod Retainer",
-      INR: "Custom Pod Retainer",
-      AED: "Custom Pod Retainer",
-    },
-    ratePeriod: {
-      USD: "Monthly Dedicated Retainer",
-      INR: "Monthly Dedicated Retainer",
-      AED: "Monthly Dedicated Retainer",
-    },
-    highlightNote: {
-      USD: "Exclusive clippers pool and creative leads building long-term organic distribution moat with rapid 24-hr turnaround.",
-      INR: "Exclusive clippers pool and creative leads building long-term organic distribution moat with rapid 24-hr turnaround.",
-      AED: "Exclusive clippers pool and creative leads building long-term organic distribution moat with rapid 24-hr turnaround.",
-    },
-    icon: ShieldCheck,
-    specs: [
-      { label: "Dedicated Pod", value: "Exclusive team of clippers, editors, and platform managers assigned to you" },
-      { label: "Fast Turnaround", value: "Raw video ingested and vertical cuts produced ready to publish within 24 hours" },
-      { label: "Creative Iteration", value: "Weekly narrative review cycles to double down on winning hooks and formats" },
-      { label: "Full Ownership", value: "You retain 100% intellectual property of all edited cuts and creative assets" },
-    ],
-    subFormats: [
-      {
-        title: "1. Dedicated Pod Pipeline",
-        desc: "Dedicated editing pods producing consistent, high-volume vertical drops every single day.",
-      },
-      {
-        title: "2. Algorithmic Compounding",
-        desc: "Compounding follower reach across owned and partner network accounts month over month.",
-      },
-    ],
-  },
-];
+const endToEndPlans: PricingPlan[] = [];
 
 export default function Pricing() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -401,7 +314,9 @@ export default function Pricing() {
       : termType === "short-term"
       ? shortTermPlans
       : endToEndPlans;
-  const selectedPlan = plans.find((p) => p.id === selectedPlanId) || plans[0];
+  const selectedPlan =
+    plans.find((p) => p.id === selectedPlanId) ||
+    (termType === "short-term" ? shortTermPlans[0] : longTermPlans[0]);
 
   const handleTermChange = (type: PricingTerm) => {
     if (type === termType) return;
@@ -411,7 +326,7 @@ export default function Pricing() {
     } else if (type === "short-term") {
       setSelectedPlanId("short-term-cpm");
     } else {
-      setSelectedPlanId("end-to-end-turnkey");
+      setSelectedPlanId("end-to-end");
     }
   };
 
@@ -465,9 +380,9 @@ export default function Pricing() {
       } else if (term === "long-term") {
         setTermType("long-term");
         setSelectedPlanId("long-term-3mo");
-      } else if (term === "end-to-end") {
+      } else if (term === "end-to-end" || term === "end-to-end-marketing") {
         setTermType("end-to-end");
-        setSelectedPlanId("end-to-end-turnkey");
+        setSelectedPlanId("end-to-end");
       }
     };
 
@@ -482,9 +397,9 @@ export default function Pricing() {
       } else if (term === "long-term") {
         setTermType("long-term");
         setSelectedPlanId("long-term-3mo");
-      } else if (term === "end-to-end" || term === "endtoend" || term === "e2e") {
+      } else if (term === "end-to-end" || term === "end-to-end-marketing" || term === "endtoend" || term === "e2e") {
         setTermType("end-to-end");
-        setSelectedPlanId("end-to-end-turnkey");
+        setSelectedPlanId("end-to-end");
       }
     }
 
@@ -608,13 +523,13 @@ export default function Pricing() {
                 </p>
               </div>
 
-              {/* ── White-Shade Controls: Term Switcher & Currency Switcher ── */}
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3 w-full lg:w-auto mt-2 lg:mt-0">
-                {/* Term Switcher: Long-Term vs Short-Term vs End-to-End (White Shade Active) */}
+              {/* ── Precision Control Pills: Model Switcher & Currency Switcher ── */}
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3 w-full lg:w-auto">
+                {/* Model Switcher: Long-Term vs Short-Term vs End-to-End */}
                 <div
                   role="tablist"
-                  aria-label="Campaign duration selection"
-                  className="grid grid-cols-3 sm:inline-flex items-center p-1 sm:p-1.5 rounded-xl sm:rounded-2xl bg-white/[0.04] border border-white/[0.1] shadow-inner backdrop-blur-md"
+                  aria-label="Campaign model selection"
+                  className="grid grid-cols-3 sm:inline-flex items-center p-1 rounded-xl bg-white/[0.04] border border-white/[0.08] shadow-inner backdrop-blur-md"
                 >
                   <button
                     type="button"
@@ -622,9 +537,9 @@ export default function Pricing() {
                     aria-selected={termType === "long-term"}
                     onClick={() => handleTermChange("long-term")}
                     className={cn(
-                      "px-2.5 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl text-xs sm:text-sm font-display tracking-wide text-center cursor-pointer transition-all duration-300 ease-gentle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] active:scale-[0.98]",
+                      "h-8 sm:h-9 px-3 sm:px-4 rounded-lg text-xs sm:text-[13px] font-display tracking-wide flex items-center justify-center cursor-pointer transition-all duration-300 ease-gentle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] active:scale-[0.98] whitespace-nowrap",
                       termType === "long-term"
-                        ? "bg-[#F8F6F2] text-[#111111] font-semibold shadow-[0_2px_14px_rgba(248,246,242,0.25)] scale-[1.02]"
+                        ? "bg-[#F8F6F2] text-[#111111] font-semibold shadow-[0_2px_12px_rgba(248,246,242,0.2)]"
                         : "text-white/70 hover:text-white"
                     )}
                   >
@@ -636,9 +551,9 @@ export default function Pricing() {
                     aria-selected={termType === "short-term"}
                     onClick={() => handleTermChange("short-term")}
                     className={cn(
-                      "px-2.5 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl text-xs sm:text-sm font-display tracking-wide text-center cursor-pointer transition-all duration-300 ease-gentle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] active:scale-[0.98]",
+                      "h-8 sm:h-9 px-3 sm:px-4 rounded-lg text-xs sm:text-[13px] font-display tracking-wide flex items-center justify-center cursor-pointer transition-all duration-300 ease-gentle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] active:scale-[0.98] whitespace-nowrap",
                       termType === "short-term"
-                        ? "bg-[#F8F6F2] text-[#111111] font-semibold shadow-[0_2px_14px_rgba(248,246,242,0.25)] scale-[1.02]"
+                        ? "bg-[#F8F6F2] text-[#111111] font-semibold shadow-[0_2px_12px_rgba(248,246,242,0.2)]"
                         : "text-white/70 hover:text-white"
                     )}
                   >
@@ -650,9 +565,9 @@ export default function Pricing() {
                     aria-selected={termType === "end-to-end"}
                     onClick={() => handleTermChange("end-to-end")}
                     className={cn(
-                      "px-2.5 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl text-xs sm:text-sm font-display tracking-wide text-center cursor-pointer transition-all duration-300 ease-gentle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] active:scale-[0.98]",
+                      "h-8 sm:h-9 px-3 sm:px-4 rounded-lg text-xs sm:text-[13px] font-display tracking-wide flex items-center justify-center cursor-pointer transition-all duration-300 ease-gentle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] active:scale-[0.98] whitespace-nowrap",
                       termType === "end-to-end"
-                        ? "bg-[#F8F6F2] text-[#111111] font-semibold shadow-[0_2px_14px_rgba(248,246,242,0.25)] scale-[1.02]"
+                        ? "bg-[#F8F6F2] text-[#111111] font-semibold shadow-[0_2px_12px_rgba(248,246,242,0.2)]"
                         : "text-white/70 hover:text-white"
                     )}
                   >
@@ -660,11 +575,11 @@ export default function Pricing() {
                   </button>
                 </div>
 
-                {/* Currency Switcher: USD ($) vs INR (₹) vs AED (White Shade Active) */}
+                {/* Currency Switcher: USD ($) vs INR (₹) vs AED */}
                 <div
                   role="group"
                   aria-label="Currency selection"
-                  className="grid grid-cols-3 sm:inline-flex items-center p-1 sm:p-1.5 rounded-xl sm:rounded-2xl bg-white/[0.04] border border-white/[0.1] shadow-inner backdrop-blur-md"
+                  className="grid grid-cols-3 sm:inline-flex items-center p-1 rounded-xl bg-white/[0.04] border border-white/[0.08] shadow-inner backdrop-blur-md"
                 >
                   <button
                     type="button"
@@ -672,9 +587,9 @@ export default function Pricing() {
                     aria-pressed={currency === "USD"}
                     onClick={() => setCurrency("USD")}
                     className={cn(
-                      "px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-lg sm:rounded-xl text-xs sm:text-sm font-display tracking-wide text-center cursor-pointer transition-all duration-300 ease-gentle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] active:scale-[0.98]",
+                      "h-8 sm:h-9 px-3 sm:px-3.5 rounded-lg text-xs sm:text-[13px] font-display tracking-wide flex items-center justify-center cursor-pointer transition-all duration-300 ease-gentle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] active:scale-[0.98] whitespace-nowrap",
                       currency === "USD"
-                        ? "bg-[#F8F6F2] text-[#111111] font-semibold shadow-[0_2px_14px_rgba(248,246,242,0.25)] scale-[1.02]"
+                        ? "bg-[#F8F6F2] text-[#111111] font-semibold shadow-[0_2px_12px_rgba(248,246,242,0.2)]"
                         : "text-white/70 hover:text-white"
                     )}
                   >
@@ -686,9 +601,9 @@ export default function Pricing() {
                     aria-pressed={currency === "INR"}
                     onClick={() => setCurrency("INR")}
                     className={cn(
-                      "px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-lg sm:rounded-xl text-xs sm:text-sm font-display tracking-wide text-center cursor-pointer transition-all duration-300 ease-gentle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] active:scale-[0.98]",
+                      "h-8 sm:h-9 px-3 sm:px-3.5 rounded-lg text-xs sm:text-[13px] font-display tracking-wide flex items-center justify-center cursor-pointer transition-all duration-300 ease-gentle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] active:scale-[0.98] whitespace-nowrap",
                       currency === "INR"
-                        ? "bg-[#F8F6F2] text-[#111111] font-semibold shadow-[0_2px_14px_rgba(248,246,242,0.25)] scale-[1.02]"
+                        ? "bg-[#F8F6F2] text-[#111111] font-semibold shadow-[0_2px_12px_rgba(248,246,242,0.2)]"
                         : "text-white/70 hover:text-white"
                     )}
                   >
@@ -700,13 +615,13 @@ export default function Pricing() {
                     aria-pressed={currency === "AED"}
                     onClick={() => setCurrency("AED")}
                     className={cn(
-                      "px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-lg sm:rounded-xl text-xs sm:text-sm font-display tracking-wide text-center cursor-pointer transition-all duration-300 ease-gentle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] active:scale-[0.98]",
+                      "h-8 sm:h-9 px-3 sm:px-3.5 rounded-lg text-xs sm:text-[13px] font-display tracking-wide flex items-center justify-center cursor-pointer transition-all duration-300 ease-gentle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] active:scale-[0.98] whitespace-nowrap",
                       currency === "AED"
-                        ? "bg-[#F8F6F2] text-[#111111] font-semibold shadow-[0_2px_14px_rgba(248,246,242,0.25)] scale-[1.02]"
+                        ? "bg-[#F8F6F2] text-[#111111] font-semibold shadow-[0_2px_12px_rgba(248,246,242,0.2)]"
                         : "text-white/70 hover:text-white"
                     )}
                   >
-                    AED
+                    AED (د.إ)
                   </button>
                 </div>
               </div>
@@ -715,10 +630,18 @@ export default function Pricing() {
             {/* ═════════════════════════════════════════════════════════
                 DOUBLE-BEZEL ASYMMETRICAL CARDS: Machined Obsidian Hardware
             ═════════════════════════════════════════════════════════ */}
-            <div
-              ref={cardsContainerRef}
-              className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 mt-6 sm:mt-10 lg:mt-12 items-stretch"
-            >
+            {termType === "end-to-end" ? (
+              <div
+                ref={cardsContainerRef}
+                className="mt-6 sm:mt-10 lg:mt-12 w-full rounded-2xl sm:rounded-[2rem] lg:rounded-[2.25rem] p-1.5 sm:p-2 bg-[#131418] border border-white/[0.08] shadow-[0_12px_32px_-10px_rgba(0,0,0,0.7)]"
+              >
+                <div className="w-full min-h-[380px] sm:min-h-[460px] lg:min-h-[500px] rounded-[calc(1rem+0.25rem)] sm:rounded-[calc(2rem-0.375rem)] lg:rounded-[calc(2.25rem-0.5rem)] bg-[#0E0F12] border border-white/[0.04] shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]" />
+              </div>
+            ) : (
+              <div
+                ref={cardsContainerRef}
+                className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 mt-6 sm:mt-10 lg:mt-12 items-stretch"
+              >
               {plans.map((plan) => {
                 const isSelected = plan.id === selectedPlanId;
                 const Icon = plan.icon;
@@ -869,10 +792,12 @@ export default function Pricing() {
                 );
               })}
             </div>
+          )}
 
-            {/* ═════════════════════════════════════════════════════════
-                BOTTOM HARDWARE BAR: Selection Pill & Button-in-Button CTA
-            ═════════════════════════════════════════════════════════ */}
+          {/* ═════════════════════════════════════════════════════════
+              BOTTOM HARDWARE BAR: Selection Pill & Button-in-Button CTA
+          ═════════════════════════════════════════════════════════ */}
+          {termType !== "end-to-end" && (
             <footer className="relative flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 sm:gap-5 mt-6 sm:mt-10 lg:mt-12 pt-6 sm:pt-8 before:pointer-events-none before:absolute before:top-0 before:inset-x-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-white/[0.12] before:to-transparent">
               {/* Left: Active Selection Pill */}
               <div className="flex items-center justify-between sm:justify-start gap-2 sm:gap-3">
@@ -899,6 +824,7 @@ export default function Pricing() {
                 </div>
               </a>
             </footer>
+          )}
 
             {/* Bottom Trust Guarantees */}
             <div className="mt-6 pt-5 border-t border-white/[0.04] flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[10px] sm:text-xs text-white/50 font-mono">
