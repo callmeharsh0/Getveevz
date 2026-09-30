@@ -70,7 +70,9 @@ export function CharacterCarousel({
           border: 0,
           background: "#000000",
           opacity: clampedOpacity,
-          filter: `hue-rotate(${clampedHue}deg) saturate(${clampedSaturation}) brightness(${clampedBrightness})`,
+          ...(clampedHue !== 0 || clampedSaturation !== 1 || clampedBrightness !== 1
+            ? { filter: `hue-rotate(${clampedHue}deg) saturate(${clampedSaturation}) brightness(${clampedBrightness})` }
+            : {}),
         }}
       />
     </div>
@@ -83,6 +85,27 @@ export function CharacterFilmstrip(props: Omit<CharacterCarouselProps, "variant"
 
 export default function ReelsFilmstrip() {
   const iframeRef = useRef<HTMLIFrameElement>(null);
+
+  // Viewport IntersectionObserver to pause iframe animation and videos when off-screen
+  useEffect(() => {
+    const iframe = iframeRef.current;
+    if (!iframe || typeof window === "undefined" || !("IntersectionObserver" in window)) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        try {
+          iframe.contentWindow?.postMessage(
+            entry.isIntersecting ? "filmstrip:resume" : "filmstrip:pause",
+            "*"
+          );
+        } catch {}
+      },
+      { rootMargin: "150px 0px" }
+    );
+
+    observer.observe(iframe);
+    return () => observer.disconnect();
+  }, []);
 
   const handlePrev = () => {
     try {

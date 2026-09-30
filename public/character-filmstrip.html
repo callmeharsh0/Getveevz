@@ -62,9 +62,28 @@
       .stage {
         cursor: default;
         touch-action: pan-y;
+        perspective: 1100px;
+      }
+      .stage::before {
+        display: none !important;
       }
       .card {
         cursor: default;
+        will-change: transform;
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.7);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        filter: none !important;
+      }
+      .portrait img,
+      .portrait video {
+        filter: none !important;
+        transform: scale(1.02) !important;
+      }
+      .views-badge {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        background: rgba(9, 14, 20, 0.94);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
       }
     }
 
@@ -304,7 +323,7 @@
         card.setAttribute("aria-label", `Reel with ${profile.role}`);
         card.innerHTML = `
           <span class="portrait">
-            <video data-media src="${media[profile.portrait]}" muted loop playsinline preload="metadata" aria-hidden="true"></video>
+            <video data-media src="${media[profile.portrait]}" muted loop playsinline preload="none" aria-hidden="true"></video>
           </span>
           <span class="views-badge">
             <svg class="views-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -330,6 +349,24 @@
         lastInput: performance.now()
       };
 
+      let isVisible = true;
+      let isAnimating = false;
+      let animFrameId = null;
+      let currentPlayingIndex = -1;
+      let previousTime = performance.now();
+
+      function isMobileScreen() {
+        return window.innerWidth < 768 || window.matchMedia("(pointer: coarse)").matches;
+      }
+
+      function wakeUp() {
+        if (!isAnimating && isVisible) {
+          isAnimating = true;
+          previousTime = performance.now();
+          animFrameId = requestAnimationFrame(render);
+        }
+      }
+
       function wrappedDelta(index, phase) {
         let delta = index - phase;
         while (delta > count / 2) delta -= count;
@@ -350,10 +387,26 @@
         state.target = state.base;
         state.active = false;
         state.lastInput = performance.now();
+        wakeUp();
       }
 
-      function isMobileScreen() {
-        return window.innerWidth < 768 || window.matchMedia("(pointer: coarse)").matches;
+      function syncVideoPlayback(activeIndex) {
+        if (currentPlayingIndex === activeIndex && !videos[activeIndex]?.paused) return;
+        currentPlayingIndex = activeIndex;
+
+        for (let i = 0; i < videos.length; i++) {
+          const video = videos[i];
+          if (!video) continue;
+          if (i === activeIndex && isVisible && !reducedMotion) {
+            if (video.paused) {
+              video.play().catch(() => {});
+            }
+          } else {
+            if (!video.paused) {
+              video.pause();
+            }
+          }
+        }
       }
 
       cards.forEach((card, index) => {
@@ -362,7 +415,6 @@
       });
 
       stage.addEventListener("pointermove", (event) => {
-        // Disable drag on mobile: only arrow buttons scroll on mobile devices
         if (isMobileScreen() || event.pointerType === "touch") return;
 
         const rect = stage.getBoundingClientRect();
@@ -374,10 +426,7 @@
         state.target = state.base + (innerWidth < 650 ? ny * 2.2 : nx * 3.1);
         state.lastInput = performance.now();
         stage.style.setProperty("--pointer-x", `${(nx + 1) * 50}%`);
-      });
-
-      stage.addEventListener("pointerdown", (event) => {
-        if (isMobileScreen() || event.pointerType === "touch") return;
+        wakeUp();
       });
 
       stage.addEventListener("pointerleave", () => {
@@ -386,18 +435,15 @@
         state.pointerY = 0;
         state.target = state.base;
         stage.style.setProperty("--pointer-x", "50%");
+        wakeUp();
       });
-
-      stage.addEventListener("wheel", (event) => {
-        // Scroll-to-advance disabled: let the page scroll naturally through this section.
-        // Pointer drag and arrow-key navigation still work below.
-      }, { passive: true });
 
       function nextReel() {
         state.base += 1;
         state.target = state.base;
         state.active = false;
         state.lastInput = performance.now();
+        wakeUp();
       }
 
       function prevReel() {
@@ -405,6 +451,7 @@
         state.target = state.base;
         state.active = false;
         state.lastInput = performance.now();
+        wakeUp();
       }
 
       window.nextReel = nextReel;
@@ -415,6 +462,16 @@
           nextReel();
         } else if (event.data === "filmstrip:prev") {
           prevReel();
+        } else if (event.data === "filmstrip:pause") {
+          isVisible = false;
+          isAnimating = false;
+          if (animFrameId) cancelAnimationFrame(animFrameId);
+          videos.forEach((v) => { if (v && !v.paused) v.pause(); });
+          currentPlayingIndex = -1;
+        } else if (event.data === "filmstrip:resume") {
+          isVisible = true;
+          wakeUp();
+          syncVideoPlayback(nearestIndex());
         }
       });
 
@@ -427,41 +484,72 @@
         state.target = state.base;
         state.active = false;
         state.lastInput = performance.now();
+        wakeUp();
       });
 
-      let previousTime = performance.now();
+      window.addEventListener("resize", () => {
+        wakeUp();
+      });
+
+      // Viewport IntersectionObserver to completely halt rendering when scrolled off-screen
+      if ("IntersectionObserver" in window) {
+        const obs = new IntersectionObserver(([entry]) => {
+          isVisible = entry.isIntersecting;
+          if (isVisible) {
+            wakeUp();
+            syncVideoPlayback(nearestIndex());
+          } else {
+            isAnimating = false;
+            if (animFrameId) cancelAnimationFrame(animFrameId);
+            videos.forEach((v) => { if (v && !v.paused) v.pause(); });
+            currentPlayingIndex = -1;
+          }
+        }, { threshold: 0.05 });
+        obs.observe(stage);
+      }
 
       function render(time) {
+        if (!isVisible) {
+          isAnimating = false;
+          return;
+        }
+
+        const isMobile = isMobileScreen();
         const deltaTime = Math.min(32, time - previousTime);
         previousTime = time;
         const ease = reducedMotion ? 1 : 1 - Math.pow(0.001, deltaTime / 1000);
 
-        if (!state.active && time - state.lastInput > 3600) {
+        // Only drift on desktop when not interacting
+        if (!isMobile && !state.active && time - state.lastInput > 3600) {
           const idle = time - state.lastInput - 3600;
           state.target = state.base + Math.sin(idle * 0.00042) * 2.45;
         }
 
-        state.phase += (state.target - state.phase) * ease;
+        const diff = state.target - state.phase;
+        state.phase += diff * ease;
+
         const compact = innerWidth < 650;
         const activeIndex = nearestIndex();
 
-        // Play only the focused card's video; pause all others. Respect reduced-motion.
-        for (let i = 0; i < videos.length; i++) {
-          const video = videos[i];
-          if (!video) continue;
-          if (i === activeIndex && !reducedMotion) {
-            if (video.paused) video.play().catch(() => { });
-          } else if (!video.paused) {
-            video.pause();
-          }
-        }
+        // Sync video playback strictly on index change
+        syncVideoPlayback(activeIndex);
 
         const horizontalSpacing = Math.min(168, Math.max(112, innerWidth * 0.116));
         const verticalSpacing = Math.min(122, Math.max(88, innerHeight * 0.112));
 
-        cards.forEach((card, index) => {
+        for (let index = 0; index < cards.length; index++) {
+          const card = cards[index];
           const delta = wrappedDelta(index, state.phase);
           const distance = Math.abs(delta);
+
+          // On mobile, hide cards outside the active window to minimize composite layers
+          if (isMobile && distance > 3) {
+            if (card.style.display !== "none") card.style.display = "none";
+            continue;
+          } else if (card.style.display === "none") {
+            card.style.display = "";
+          }
+
           const focus = Math.exp(-distance * distance * 1.28);
           const side = Math.max(0, 1 - distance / 5);
           const direction = Math.sign(delta);
@@ -479,25 +567,36 @@
             : -direction * (distance > 0.2 ? 14 + Math.min(distance, 3) * 5 : 0) + state.pointerX * focus * 3;
           const rotateZ = compact ? delta * -1.4 : delta * 0.7;
 
-          card.style.setProperty("--focus", focus.toFixed(4));
+          if (!isMobile) {
+            card.style.setProperty("--focus", focus.toFixed(4));
+            card.style.filter = `blur(${Math.max(0, distance - 1.5) * 0.38}px)`;
+          }
+
           card.style.zIndex = String(Math.round(1000 - distance * 100));
           card.style.opacity = String(Math.max(0.13, side * 0.76 + focus * 0.24));
-          card.style.filter = `blur(${Math.max(0, distance - 1.5) * 0.38}px)`;
           card.style.transform = [
             "translate(-50%, -50%)",
-            `translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, ${z.toFixed(2)}px)`,
-            `rotateX(${rotateX.toFixed(2)}deg)`,
-            `rotateY(${rotateY.toFixed(2)}deg)`,
-            `rotateZ(${rotateZ.toFixed(2)}deg)`,
-            `scale(${scale.toFixed(4)})`
+            `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, ${z.toFixed(1)}px)`,
+            `rotateX(${rotateX.toFixed(1)}deg)`,
+            `rotateY(${rotateY.toFixed(1)}deg)`,
+            `rotateZ(${rotateZ.toFixed(1)}deg)`,
+            `scale(${scale.toFixed(3)})`
           ].join(" ");
           card.setAttribute("aria-current", index === activeIndex ? "true" : "false");
-        });
+        }
 
-        requestAnimationFrame(render);
+        // Sleep when settled on mobile or when resting on desktop
+        if (Math.abs(diff) < 0.0008 && (isMobile || state.active)) {
+          state.phase = state.target;
+          isAnimating = false;
+          return;
+        }
+
+        animFrameId = requestAnimationFrame(render);
       }
 
-      requestAnimationFrame(render);
+      // Initial start
+      wakeUp();
     })();
   </script>
 </body>
