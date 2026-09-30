@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cn } from "@/lib/utils";
-import { Check, ArrowUpRight, Clock, Rocket, Zap, ShieldCheck } from "lucide-react";
+import { Check, ArrowUpRight, Clock, Rocket, Zap, ShieldCheck, Video, Share2, TrendingUp } from "lucide-react";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -635,7 +635,138 @@ export default function Pricing() {
                 ref={cardsContainerRef}
                 className="mt-6 sm:mt-10 lg:mt-12 w-full rounded-2xl sm:rounded-[2rem] lg:rounded-[2.25rem] p-1.5 sm:p-2 bg-[#131418] border border-white/[0.08] shadow-[0_12px_32px_-10px_rgba(0,0,0,0.7)]"
               >
-                <div className="w-full min-h-[380px] sm:min-h-[460px] lg:min-h-[500px] rounded-[calc(1rem+0.25rem)] sm:rounded-[calc(2rem-0.375rem)] lg:rounded-[calc(2.25rem-0.5rem)] bg-[#0E0F12] border border-white/[0.04] shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]" />
+                <div className="relative w-full rounded-[calc(1rem+0.25rem)] sm:rounded-[calc(2rem-0.375rem)] lg:rounded-[calc(2.25rem-0.5rem)] bg-[#0E0F12] border border-white/[0.04] p-6 sm:p-10 lg:p-12 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] overflow-hidden">
+                  {/* Subtle ambient depth accent */}
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute -top-32 right-1/4 w-[500px] h-[500px] rounded-full bg-[#0038E2]/[0.08] blur-[140px]"
+                  />
+
+                  {/* Top Badges & Workflow Eyebrow */}
+                  <div className="relative z-10 flex flex-wrap items-center justify-between gap-3 mb-6 sm:mb-8">
+                    <div className="inline-flex items-center gap-2 px-3 sm:px-3.5 py-1 rounded-full text-[11px] sm:text-xs font-mono font-medium tracking-wider uppercase bg-white/[0.04] text-white/90 border border-white/[0.08]">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#0038E2]" />
+                      Full Turnkey Execution
+                    </div>
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] sm:text-xs font-mono font-semibold tracking-wider uppercase bg-white/[0.05] text-[#8BA3C6] border border-white/[0.08]">
+                      Custom Scope · Discussed on Call
+                    </div>
+                  </div>
+
+                  {/* Main Display Title: Production -> Distribution -> Results */}
+                  <div className="relative z-10 max-w-3xl mb-8 sm:mb-12">
+                    <h3 className="font-display font-medium text-2xl sm:text-4xl lg:text-[42px] text-white tracking-tight leading-[1.14] [text-wrap:balance]">
+                      We will handle everything from{" "}
+                      <span className="text-white font-semibold">production</span> and{" "}
+                      <span className="text-white font-semibold">distribution</span> to getting you the{" "}
+                      <span className="text-[#8BA3C6] italic font-normal">results</span>.
+                    </h3>
+                    <p className="mt-3.5 sm:mt-4 text-xs sm:text-base text-white/70 font-light leading-relaxed max-w-2xl">
+                      A completely bespoke, done-for-you organic growth pipeline. Every clipping unit, content iteration cycle, and distribution channel is configured exclusively for your media properties.
+                    </p>
+                  </div>
+
+                  {/* 3-Pillar Architectural Flow: Production · Distribution · Results */}
+                  <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 lg:gap-6 mb-8 sm:mb-12">
+                    {/* Stage 1: Production */}
+                    <div className="relative p-5 sm:p-6 rounded-xl sm:rounded-2xl bg-[#131418] border border-white/[0.06] shadow-sm flex flex-col justify-between group hover:border-white/[0.16] hover:bg-[#15171D] transition-all duration-300">
+                      <div>
+                        <div className="flex items-center justify-between gap-2 mb-4">
+                          <span className="text-[10px] sm:text-xs font-mono uppercase tracking-[0.2em] text-[#8BA3C6]">
+                            01 / Production
+                          </span>
+                          <div className="p-2 rounded-lg bg-white/[0.04] border border-white/[0.08] text-white/80">
+                            <Video className="w-4 h-4 text-white" />
+                          </div>
+                        </div>
+                        <h4 className="font-display font-semibold text-lg sm:text-xl text-white mb-2 tracking-tight">
+                          End-to-End Production
+                        </h4>
+                        <p className="text-xs sm:text-sm text-white/65 leading-relaxed font-light">
+                          Full video ingestion, high-retention vertical cuts, dynamic subtitles, narrative angle testing, sound design, and creative hook iteration.
+                        </p>
+                      </div>
+                      <div className="mt-5 pt-3.5 border-t border-white/[0.05] flex items-center gap-1.5 text-[11px] font-mono text-white/50">
+                        <span className="w-1 h-1 rounded-full bg-[#0038E2]" />
+                        Dedicated clipping & editing pod
+                      </div>
+                    </div>
+
+                    {/* Stage 2: Distribution */}
+                    <div className="relative p-5 sm:p-6 rounded-xl sm:rounded-2xl bg-[#131418] border border-white/[0.06] shadow-sm flex flex-col justify-between group hover:border-white/[0.16] hover:bg-[#15171D] transition-all duration-300">
+                      <div>
+                        <div className="flex items-center justify-between gap-2 mb-4">
+                          <span className="text-[10px] sm:text-xs font-mono uppercase tracking-[0.2em] text-[#8BA3C6]">
+                            02 / Distribution
+                          </span>
+                          <div className="p-2 rounded-lg bg-white/[0.04] border border-white/[0.08] text-white/80">
+                            <Share2 className="w-4 h-4 text-white" />
+                          </div>
+                        </div>
+                        <h4 className="font-display font-semibold text-lg sm:text-xl text-white mb-2 tracking-tight">
+                          Mass Multi-Platform Drop
+                        </h4>
+                        <p className="text-xs sm:text-sm text-white/65 leading-relaxed font-light">
+                          Simultaneous multi-platform publishing across TikTok, Instagram Reels, and YouTube Shorts at calibrated high-velocity algorithmic windows.
+                        </p>
+                      </div>
+                      <div className="mt-5 pt-3.5 border-t border-white/[0.05] flex items-center gap-1.5 text-[11px] font-mono text-white/50">
+                        <span className="w-1 h-1 rounded-full bg-[#0038E2]" />
+                        250+ active account network
+                      </div>
+                    </div>
+
+                    {/* Stage 3: Results */}
+                    <div className="relative p-5 sm:p-6 rounded-xl sm:rounded-2xl bg-[#131418] border border-white/[0.06] shadow-sm flex flex-col justify-between group hover:border-white/[0.16] hover:bg-[#15171D] transition-all duration-300">
+                      <div>
+                        <div className="flex items-center justify-between gap-2 mb-4">
+                          <span className="text-[10px] sm:text-xs font-mono uppercase tracking-[0.2em] text-[#8BA3C6]">
+                            03 / Results
+                          </span>
+                          <div className="p-2 rounded-lg bg-white/[0.04] border border-white/[0.08] text-white/80">
+                            <TrendingUp className="w-4 h-4 text-white" />
+                          </div>
+                        </div>
+                        <h4 className="font-display font-semibold text-lg sm:text-xl text-white mb-2 tracking-tight">
+                          Verified Scale & Growth
+                        </h4>
+                        <p className="text-xs sm:text-sm text-white/65 leading-relaxed font-light">
+                          Compounding reach, organic audience conversion, retention lift, and transparent real-time telemetry tracking every single view.
+                        </p>
+                      </div>
+                      <div className="mt-5 pt-3.5 border-t border-white/[0.05] flex items-center gap-1.5 text-[11px] font-mono text-white/50">
+                        <span className="w-1 h-1 rounded-full bg-[#0038E2]" />
+                        Compounding reach & real-time telemetry
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Consultation / Call Alignment Bar (Strictly Custom Scope, No Pricing) */}
+                  <div className="relative z-10 pt-6 sm:pt-8 border-t border-white/[0.08] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 sm:gap-6">
+                    <div className="flex items-center gap-3">
+                      <div className="w-2 h-2 rounded-full bg-[#0038E2] shrink-0" />
+                      <p className="text-xs sm:text-sm text-white/80 font-mono">
+                        Pricing is 100% custom and will be tailored directly on our strategy call.
+                      </p>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const cta = document.getElementById("questionnaire") || document.getElementById("cta") || document.querySelector("footer");
+                        cta?.scrollIntoView({ behavior: "smooth" });
+                      }}
+                      className="group relative inline-flex items-center justify-between sm:justify-start gap-3 sm:gap-4 rounded-full bg-[#F8F6F2] hover:bg-white text-[#111111] pl-5 sm:pl-7 pr-2 py-2 sm:py-2.5 cursor-pointer font-display font-semibold transition-all duration-300 ease-gentle shadow-[0_4px_24px_rgba(248,246,242,0.18)] hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2]"
+                    >
+                      <span className="text-xs sm:text-sm tracking-tight font-medium">
+                        Book a Strategy Call
+                      </span>
+                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#111111] text-[#F8F6F2] group-hover:bg-[#0038E2] group-hover:text-white flex items-center justify-center transition-all duration-300 ease-gentle group-hover:translate-x-1 group-hover:-translate-y-[1px] group-hover:scale-105 shadow-sm shrink-0">
+                        <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
+                      </div>
+                    </button>
+                  </div>
+                </div>
               </div>
             ) : (
               <div
