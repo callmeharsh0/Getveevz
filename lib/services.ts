@@ -40,11 +40,12 @@ export const services: Service[] = [
     color: "text-[#0038E2]",
     models: [
       {
-        name: "3-Month Campaign",
-        subtitle: "Test what works first, then scale only the strongest pages",
+        name: "CPM to Retainer Transition",
+        subtitle: "Custom view target (minimum 10M views) to filter winning pages, transitioning into a fixed retainer",
         overview: "Best when we want to identify what works first, then scale only the strongest pages.",
         highlights: [
-          "Month 1: 500–1,000 clippers deployed on CPM basis ($1–$3 / 1K views)",
+          "Month 1: 500–1,000 clippers deployed on CPM basis ($3 / 1K views)",
+          "Custom view volume targets (minimum 10 Million views requirement)",
           "Data-driven filtering for winning pages, hooks, formats, and angles",
           "Months 2–3: Top 10–30 pages moved to fixed monthly retainer",
           "Guaranteed consistent output and distribution from proven pages",
@@ -53,8 +54,8 @@ export const services: Service[] = [
         details: [
           {
             phase: "Month 1",
-            heading: "CPM-Based Mass Clipping & Filtering",
-            text: "We run a large-scale clipping campaign with roughly 500–1,000 clippers posting across platforms. This is run on a CPM basis, structured around $1–$3 per 1,000 views depending on your target audience. The objective is not only volume, but filtering: identifying the pages, formats, hooks, and content angles that consistently perform best.",
+            heading: "CPM-Based Mass Clipping & Filtering ($3 / 1K Views)",
+            text: "We run a large-scale clipping campaign with roughly 500–1,000 clippers posting across platforms. This is run on a CPM basis at $3 per 1,000 views (₹250 / 1K views) based on your custom view target (minimum 10M views). The objective is not only volume, but filtering: identifying the pages, formats, hooks, and content angles that consistently perform best.",
           },
           {
             phase: "Months 2–3",
@@ -64,36 +65,37 @@ export const services: Service[] = [
         ],
       },
       {
-        name: "Straight Retainer",
-        subtitle: "For clients who already get consistent views and need reliable scale",
+        name: "Normal Clipping (Straight Retainer)",
+        subtitle: "For clients who already get consistent views — 36L & 72L monthly tiers",
         overview: "This is for clients who are already getting consistent views and do not need a large testing phase.",
         highlights: [
-          "Fixed monthly retainer with pre-defined deliverables",
+          "Fixed monthly retainer: 36L (Tier 1) & 72L (Tier 2)",
+          "Tier 1: ₹36L / month ($36,000 USD • 132,000 AED / month)",
+          "Tier 2: ₹72L / month ($72,000 USD • 264,000 AED / month)",
           "Set number of clips and designated posting frequency",
           "Dedicated page network with strict quality standards",
-          "Focus on reliable distribution, quality, and sustainability",
           "Zero reliance on view volatility — pure dependable execution",
         ],
         details: [
           {
-            heading: "Defined Monthly Deliverables & Standards",
-            text: "Instead of pricing around views, we work on a fixed monthly retainer with defined deliverables: a set number of clips, pages, posting frequency, and quality standards. The focus is on reliable distribution, quality, and building a sustainable clipping system.",
+            heading: "Defined Monthly Deliverables & Standards (36L & 72L)",
+            text: "Instead of pricing around views, we work on a fixed monthly retainer with defined deliverables: a set number of clips, pages, posting frequency, and quality standards. Tier 1 is priced at ₹36 Lakhs ($36,000 USD / 132,000 AED) and Tier 2 at ₹72 Lakhs ($72,000 USD / 264,000 AED). The focus is on reliable distribution, quality, and building a sustainable clipping system.",
           },
         ],
       },
     ],
     features: [
       {
-        title: "Month 1 CPM Testing",
-        desc: "500–1,000 clippers deployed across platforms at $1–$3 per 1,000 views to test hooks, angles, and pages.",
+        title: "Month 1 CPM Testing ($3/1K)",
+        desc: "500–1,000 clippers deployed across platforms at $3 per 1,000 views (min 10M views) to test hooks, angles, and pages.",
       },
       {
         title: "Retainer for Winners",
         desc: "Shortlist the top 10–30 performing pages and lock them into a fixed monthly retainer for months 2 and 3.",
       },
       {
-        title: "Straight Retainer Option",
-        desc: "Skip testing if you already have consistent views: work on a fixed retainer with set clips, pages, and frequency.",
+        title: "Straight Retainer (36L & 72L)",
+        desc: "Skip testing if you already have consistent views: work on a fixed retainer (₹36L & ₹72L • $36K/$72K • 132K/264K AED) with set clips, pages, and frequency.",
       },
       {
         title: "Sustainable System",
@@ -102,11 +104,12 @@ export const services: Service[] = [
     ],
     benefits: [
       "500–1,000 clippers for large-scale Month 1 testing",
-      "Performance-linked CPM pricing ($1–$3 per 1K views)",
+      "Performance-linked CPM pricing ($3 per 1K views • ₹250 / 1K)",
+      "Target view inquiry with minimum 10 Million views requirement",
       "Systematic filtering of top hooks, formats, and angles",
       "Shortlist top 10–30 performing pages for monthly retainers",
       "Predictable, guaranteed output and distribution for Months 2–3",
-      "Straight retainer available for established brands with consistent reach",
+      "Straight normal clipping retainer (36L & 72L tiers • USD & AED supported)",
       "Defined clip count, posting schedule, and strict quality control",
       "Renew, optimize, and scale month after month",
     ],
@@ -114,12 +117,12 @@ export const services: Service[] = [
       {
         step: "01",
         title: "Strategy & Audience Alignment",
-        desc: "Determine whether your brand requires a 3-month test-and-scale campaign or an immediate straight retainer.",
+        desc: "Determine whether your brand requires a 3-month test-and-scale campaign (min 10M views) or an immediate straight retainer (36L/72L).",
       },
       {
         step: "02",
         title: "Month 1 Mass CPM Deployment",
-        desc: "If starting with the 3-month model, deploy 500–1,000 clippers at $1–$3 CPM across platforms to discover winning hooks.",
+        desc: "If starting with the 3-month model, deploy 500–1,000 clippers at $3 CPM across platforms to discover winning hooks.",
       },
       {
         step: "03",
@@ -139,19 +142,19 @@ export const services: Service[] = [
     ],
     faq: [
       {
-        question: "How does the 3-month campaign work?",
+        question: "How does the CPM to retainer transition work?",
         answer:
-          "Month 1 is run on a CPM basis ($1–$3 per 1K views) with 500–1,000 clippers to filter winning hooks, formats, and pages. In Months 2 and 3, we move the top 10–30 performing pages into a fixed monthly retainer for reliable, consistent output.",
+          "Month 1 is run on a CPM basis ($3 per 1K views • ₹250 / 1K) with 500–1,000 clippers to filter winning hooks, formats, and pages based on your chosen view volume (minimum 10M views). In Months 2 and 3, we move the top 10–30 performing pages into a fixed monthly retainer for reliable, consistent output.",
       },
       {
-        question: "What is the CPM rate during Month 1 testing?",
+        question: "What is the CPM rate and minimum view requirement?",
         answer:
-          "Month 1 mass clipping is structured around $1–$3 per 1,000 views, depending on the specific audience and demographic you want to target.",
+          "Month 1 mass clipping is structured at $3 per 1,000 views (₹250 / 1K views). We ask you how many views you want, with a minimum requirement of 10 Million views.",
       },
       {
-        question: "Who should choose the Straight Retainer model?",
+        question: "Who should choose the Normal Clipping Straight Retainer?",
         answer:
-          "The straight retainer is built for clients who already get consistent views and do not need a large testing phase. You pay a fixed monthly fee with defined clip volume, posting frequency, and strict quality standards.",
+          "The straight retainer is built for clients who already get consistent views and do not need a testing phase. We offer 36L (Tier 1: ₹36L / $36K USD / 132K AED) and 72L (Tier 2: ₹72L / $72K USD / 264K AED) monthly tiers with defined clip volume, posting frequency, and strict quality standards.",
       },
       {
         question: "What happens after Month 3?",
@@ -167,17 +170,18 @@ export const services: Service[] = [
     tagline: "Concentrated, high-impact distribution for launches, events & narrative surges",
     shortDesc: "Targeted short-term campaigns: CPM-based distribution (fan pages & niche theme pages) or 24-hour seeding through 1M–10M+ accounts.",
     longDesc:
-      "Built for immediate impact, product launches, events, and narrative pushes. We offer two clear short-term formats: CPM-based campaigns (via mass fan-page clipping or agency-owned theme pages) and immediate high-volume seeding across established accounts from $12K up to $100K+ in a single day.",
+      "Built for immediate impact, product launches, events, and narrative pushes. We offer two clear short-term formats: CPM-based campaigns ($3 / 1K views with a minimum 10M views requirement via mass fan-page clipping or agency-owned theme pages) and immediate high-volume seeding across established accounts starting at ₹6L ($7,200 USD • ~26,500 AED) up to ₹85L+ ($100K+) completed in 24 hours.",
     icon: Rocket,
     color: "text-frost",
     models: [
       {
         name: "CPM-Based Campaign",
-        subtitle: "Built for a defined view target over a shorter period",
-        overview: "This is built for a defined view target over a shorter period, offered in two distinct formats.",
+        subtitle: "Built for a defined view target — minimum 10 million views requirement",
+        overview: "This is built for a defined view target over a concentrated period: tell us how many views you want (min 10M views).",
         highlights: [
-          "Format A: Mass fan-page clipping across platforms ($1–$3 / 1K views)",
+          "Format A: Mass fan-page clipping across platforms ($3 / 1K views)",
           "Format B: Agency-owned theme pages in Tech, AI, Business, Education, News",
+          "Custom view volume: we ask how many views you want (min. 10M views)",
           "70% native niche content + your content distributed naturally",
           "Pay strictly based on agreed CPM and delivered views",
           "Pages remain in agency network for repeatable future pushes",
@@ -185,25 +189,26 @@ export const services: Service[] = [
         details: [
           {
             phase: "Format A",
-            heading: "Mass Fan-Page Clipping",
-            text: "A large number of clippers post your content across fan pages and platforms, working toward the agreed view target on a CPM basis. Depending on the campaign and content category, this can be structured around $1–$3 per 1,000 views. This is the fastest way to drive broad distribution and test which content performs at scale.",
+            heading: "Mass Fan-Page Clipping ($3 / 1K Views)",
+            text: "A large number of clippers post your content across fan pages and platforms, working toward your agreed view target (min. 10M views) on a CPM basis of $3 per 1,000 views (₹250 / 1K views). This is the fastest way to drive broad distribution and test which content performs at scale.",
           },
           {
             phase: "Format B",
             heading: "Agency-Owned Theme-Page Campaign",
-            text: "For more targeted CPM-based distribution, we run your content through theme pages that we already own and operate in your specific niche—such as tech, AI, business, education, or news. These pages are built to feel native to their audience: around 70% of the content is relevant niche content, including clips from recognised people and topics in that space, while your content is distributed naturally within that ecosystem. You pay based on the agreed CPM and views delivered. Ideal for product launches, events, or announcements. Once the agreed budget is used, the campaign ends, but the pages remain in our network for future pushes under a new CPM budget.",
+            text: "For more targeted CPM-based distribution, we run your content through theme pages that we already own and operate in your specific niche—such as tech, AI, business, education, or news. These pages are built to feel native to their audience: around 70% of the content is relevant niche content, including clips from recognised people and topics in that space, while your content is distributed naturally within that ecosystem. You pay based on $3/1K CPM and views delivered (min. 10M views). Ideal for product launches, events, or announcements. Once the agreed budget is used, the campaign ends, but the pages remain in our network for future pushes under a new CPM budget.",
           },
         ],
       },
       {
         name: "Seeding Campaign",
-        subtitle: "Immediate, high-volume distribution through established theme pages",
-        overview: "Seeding is for immediate, high-volume distribution through established theme pages.",
+        subtitle: "Immediate, high-volume distribution starting at ₹6L ($7,200 USD • ~26,500 AED)",
+        overview: "Seeding is for immediate, high-volume distribution through established theme pages completed within 24 hours.",
         highlights: [
+          "Starting price: ₹6 Lakhs INR ($7,200 USD • ~26,500 AED)",
           "Distribution through existing pages in AI, tech, business, news & updates",
           "Page tiers ranging from targeted niche pages to 1M, 5M, 10M+ followers",
           "Turnaround within 24 hours of brief and narrative approval",
-          "Budget scales from $12,000 minimum to $100,000+ for a single day",
+          "Budget scales from ₹6L ($7,200) up to ₹85L+ ($100,000+) for a single day",
           "Fixed cost per post — we handle page inventory, placements & execution",
         ],
         details: [
@@ -212,16 +217,16 @@ export const services: Service[] = [
             text: "We distribute your content or narrative through existing pages in relevant niches—such as AI, tech, business, news, and updates. These can range from smaller targeted pages to pages with 1M, 5M, or 10M+ followers. You provide the brief and the narrative you want spread; we handle the page inventory, placements, and execution. Distribution can be completed within 24 hours.",
           },
           {
-            heading: "Budget Parameters & Economics",
-            text: "The minimum seeding budget is $12,000, and it can scale to $100,000+ for a single day, depending on the reach and inventory required. Every page has its fixed cost per post.",
+            heading: "Budget Parameters & Economics (Starting at ₹6L / $7.2K)",
+            text: "The starting seeding budget is ₹6 Lakhs ($7,200 USD / ~26,500 AED), and it can scale to ₹85L+ ($100,000+) for single-day high-volume surges, depending on the reach and inventory required. Every page has its transparent fixed cost per post.",
           },
         ],
       },
     ],
     features: [
       {
-        title: "Mass Fan-Page CPM",
-        desc: "Large pool of clippers working toward an agreed view target at $1–$3 per 1,000 views.",
+        title: "Mass Fan-Page CPM ($3/1K)",
+        desc: "Large pool of clippers working toward your chosen view target (min 10M views) at $3 per 1,000 views.",
       },
       {
         title: "Agency-Owned Theme Pages",
@@ -232,26 +237,26 @@ export const services: Service[] = [
         desc: "Immediate distribution through established pages with up to 1M, 5M, or 10M+ followers.",
       },
       {
-        title: "$12K to $100K+ Scale",
-        desc: "Fixed cost per post for seeding placements, scaling from $12,000 minimum to $100,000+ for a single day.",
+        title: "₹6L to ₹85L+ ($7.2K to $100K+) Scale",
+        desc: "Fixed cost per post for seeding placements, starting at ₹6 Lakhs ($7,200 / 26.5K AED) up to ₹85L+ ($100,000+) for a single day.",
       },
     ],
     benefits: [
-      "Targeted view-based delivery on an agreed CPM budget",
-      "Mass fan-page clipping at approximately $1–$3 per 1K views",
+      "Targeted view-based delivery on an agreed CPM budget ($3/1K views)",
+      "Minimum 10 Million views target (we ask how many views you want)",
       "Access to agency-owned theme pages (AI, Tech, Business, Education, News)",
       "70/30 native content ratio ensures high audience receptivity",
       "Re-activatable campaign infrastructure for ongoing product pushes",
       "Immediate seeding execution completed within 24 hours",
       "Placements on mega-accounts ranging from 1M to 10M+ followers",
       "Transparent fixed cost per post pricing for seeding",
-      "Flexible budget range: $12,000 minimum up to $100,000+ single-day blitz",
+      "Starting at ₹6L ($7.2K USD • 26.5K AED) up to ₹85L+ ($100,000+) blitz",
     ],
     processSteps: [
       {
         step: "01",
         title: "Brief & Model Selection",
-        desc: "Determine your goal: CPM view target (fan-page or agency theme pages) or high-impact 24-hour seeding.",
+        desc: "Determine your goal: CPM view target (min 10M views at $3/1K) or high-impact 24-hour seeding (starting at ₹6L).",
       },
       {
         step: "02",
@@ -278,7 +283,7 @@ export const services: Service[] = [
       {
         question: "What is the difference between fan-page clipping and theme-page campaigns?",
         answer:
-          "Fan-page clipping deploys a large pool of clippers across open fan accounts to maximize volume at $1–$3 CPM. Theme-page campaigns distribute through accounts we already own and operate in niches like AI, tech, and business, where 70% of the feed is native niche content.",
+          "Fan-page clipping deploys a large pool of clippers across open fan accounts to maximize volume at $3 CPM (minimum 10M views). Theme-page campaigns distribute through accounts we already own and operate in niches like AI, tech, and business, where 70% of the feed is native niche content.",
       },
       {
         question: "How fast can a seeding campaign go live?",
@@ -288,7 +293,7 @@ export const services: Service[] = [
       {
         question: "What is the budget range for seeding?",
         answer:
-          "The minimum seeding budget is $12,000, and it can scale to $100,000+ for a single day depending on how much reach and account inventory you require. Every page has its fixed cost per post.",
+          "The starting seeding budget is ₹6 Lakhs ($7,200 USD • ~26,500 AED), and it can scale to ₹85L+ ($100,000+) for a single day depending on how much reach and account inventory you require. Every page has its transparent fixed cost per post.",
       },
       {
         question: "What happens after a short-term campaign ends?",

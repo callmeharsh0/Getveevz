@@ -101,14 +101,14 @@ const BUDGET_OPTIONS: {
   {
     id: "36k",
     primary: "$36k / month",
-    inr: "₹31.2L INR",
+    inr: "₹36L INR",
     aed: "132k AED",
     views: "25M – 40M+ Views",
   },
   {
     id: "72k",
     primary: "$72k / month",
-    inr: "₹62.5L INR",
+    inr: "₹72L INR",
     aed: "264k AED",
     views: "55M – 85M+ Views",
   },
@@ -174,15 +174,65 @@ export default function Questionnaire() {
     return Object.keys(errs).length === 0;
   };
 
+  const generateMailtoUrl = () => {
+    const selectedContentType = CONTENT_TYPES.find((c) => c.id === formData.contentType);
+    const contentTypeLabel = selectedContentType
+      ? `${selectedContentType.label} (${selectedContentType.subtitle})`
+      : formData.contentType;
+
+    const platformLabels = formData.platforms
+      .map((p) => PLATFORM_OPTIONS.find((opt) => opt.id === p)?.label || p)
+      .join(", ");
+
+    const budgetDetails = BUDGET_OPTIONS.find((b) => b.id === formData.budget);
+    const budgetFull = budgetDetails
+      ? `${budgetDetails.primary} [${budgetDetails.inr} • ${budgetDetails.aed}] — ${budgetDetails.views}`
+      : formData.budget || "Not Specified";
+
+    const subject = encodeURIComponent(
+      `Campaign Questionnaire Brief - ${formData.companyName || formData.fullName}`
+    );
+
+    const bodyText = [
+      `Hi GetVeevz Distribution Team,`,
+      ``,
+      `Here is my completed campaign questionnaire:`,
+      ``,
+      `• Brand / Company: ${formData.companyName}`,
+      `• Full Name: ${formData.fullName}`,
+      `• Role: ${formData.role}`,
+      `• Contact Phone: ${formData.countryCode} ${formData.contactNo}`,
+      `• Channel / Catalog Link: ${formData.socialLinks}`,
+      `• Primary Content Style: ${contentTypeLabel}`,
+      `• Target Distribution Channels: ${platformLabels}`,
+      `• Monthly Investment Tier: ${budgetFull}`,
+      ``,
+      `Please review our content assets and get in touch with reach projections and onboarding timeline.`,
+      ``,
+      `Best regards,`,
+      `${formData.fullName}`,
+    ].join("\n");
+
+    return `mailto:contact@getveevz.com?subject=${subject}&body=${encodeURIComponent(bodyText)}`;
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateStep3()) return;
 
     setIsSubmitting(true);
+    const mailto = generateMailtoUrl();
+
+    try {
+      window.location.href = mailto;
+    } catch {
+      // fallback
+    }
+
     setTimeout(() => {
       setIsSubmitting(false);
       setIsSubmitted(true);
-    }, 600);
+    }, 500);
   };
 
   return (
@@ -235,7 +285,16 @@ export default function Questionnaire() {
               </span>{" "}
               within 24 hours with your custom reach projection.
             </p>
-            <div className="pt-4">
+            <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+              <a
+                href={generateMailtoUrl()}
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#111111] hover:bg-[#0038E2] text-white text-xs sm:text-sm font-medium transition-colors shadow-xs"
+              >
+                <span>Open in Email Client</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </a>
+            </div>
+            <div className="pt-2">
               <button
                 type="button"
                 onClick={() => {

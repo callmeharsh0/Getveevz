@@ -31,28 +31,28 @@ const agencies: Agency[] = [
     name: "Long term",
     tagline: "Continuous Growth Engine",
     duration: "Ongoing / Retainer",
-    deliverables: "60+ Clips/Mo • Dedicated Pod",
+    deliverables: "Normal Clipping (36L/72L) • CPM Transition",
     description:
-      "This will include the CPM based growth campaign (with retainer transition) and normal clipping",
+      "This includes the CPM-based growth campaign ($3/1K views, min 10M views with retainer transition) and normal clipping (36L & 72L tiers).",
     link: "#cta",
     videoSrc: "/assets/agency-video-1.mp4",
     maskType: "custom-a",
     servicesList: [
       {
         title: "Test & Discover",
-        detail: "Launch with 500–1,000+ clippers to test pages, hooks, formats, and content angles using CPM-based distribution.",
+        detail: "Launch with 500–1,000+ clippers to test pages, hooks, and formats at $3/1K CPM with your target volume (min. 10M views).",
       },
       {
         title: "Identify Winners",
-        detail: "Track performance to identify the top-performing pages and content formats that consistently generate results.",
+        detail: "Track performance to isolate the top-performing creator pages and hooks that generate outsized retention.",
       },
       {
-        title: "Build the Network",
-        detail: "Move the top 10–30 pages into a fixed monthly retainer with defined clips, posting frequency, and quality standards.",
+        title: "Retainer Transition",
+        detail: "Move top 10–30 winning pages into a fixed monthly retainer, or opt directly into straight normal clipping (36L & 72L tiers).",
       },
       {
         title: "Scale Continuously",
-        detail: "Build a repeatable distribution system that can be renewed, optimized, and scaled month after month.",
+        detail: "Build a dependable distribution system that renews, optimizes, and scales month after month across TikTok, IG, and Shorts.",
       },
     ],
   },
@@ -61,28 +61,28 @@ const agencies: Agency[] = [
     name: "Short term",
     tagline: "High-Impact Sprint",
     duration: "25–30 Days",
-    deliverables: "Mass PR Blitz • Omnipresent Reach",
+    deliverables: "CPM Surge ($3/1K) • Seeding (Starts ₹6L)",
     description:
-      "This will include the PR campaign and the mass clipping\nShort term will be 25-30 days",
+      "This will include the PR campaign and mass clipping.\nShort term will be 25-30 days.",
     link: "#cta",
     videoSrc: "/assets/agency-video-2.mp4",
     maskType: "rounded-rect",
     servicesList: [
       {
         title: "Activate Fast",
-        detail: "Launch targeted distribution for products, announcements, launches, or narratives without a long testing period.",
+        detail: "Launch targeted distribution for products, announcements, launches, or narratives without long ramp-up periods.",
       },
       {
-        title: "Reach at Scale",
-        detail: "Deploy through mass fan-page clipping and niche theme pages, with CPM campaigns typically structured around $1–$3 / 1K views.",
+        title: "CPM View Surge",
+        detail: "Deploy through mass fan-page clipping and niche theme pages at $3 / 1K views based on your target view count (min. 10M views).",
       },
       {
-        title: "Seed Everywhere",
-        detail: "Use established pages ranging from niche accounts to 1M–10M+ followers, with fixed cost per post and execution possible within 24 hours.",
+        title: "24-Hour Seeding",
+        detail: "Distribute across established niche accounts to 1M–10M+ follower pages, starting at ₹6L ($7.2K USD • 26.5K AED) with 24-hr execution.",
       },
       {
         title: "Push & Scale",
-        detail: "Run concentrated campaigns from $12K minimum to $100K+, depending on the required reach, inventory, and timeframe.",
+        detail: "Run high-intensity blitzes scaling from ₹6L up to ₹85L+ ($7.2K to $100K+), depending on reach, tier inventory, and timeline.",
       },
     ],
   },

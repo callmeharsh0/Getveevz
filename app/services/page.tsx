@@ -347,10 +347,10 @@ export default function ServicesPage() {
                         Scale Ceiling
                       </td>
                       <td className="py-5 px-6 sm:px-8 text-[#444444]">
-                        Top 10–30 performing pages transitioned to retainers
+                        Top 10–30 winning pages to retainers / 36L & 72L tiers
                       </td>
                       <td className="py-5 px-6 sm:px-8 text-[#444444]">
-                        Scaled from $12K minimum up to $100K+ in a single day
+                        Starting at ₹6L ($7.2K) up to ₹85L+ ($100K+)
                       </td>
                     </tr>
                     <tr className="hover:bg-[#FAF8F5] transition-colors">
@@ -358,10 +358,10 @@ export default function ServicesPage() {
                         Economics
                       </td>
                       <td className="py-5 px-6 sm:px-8 text-[#444444]">
-                        Performance CPM ($1–$3/1K) moving to fixed monthly retainer
+                        $3/1K CPM (min 10M views) ➔ Retainer or 36L/72L straight retainers
                       </td>
                       <td className="py-5 px-6 sm:px-8 text-[#444444]">
-                        Fixed-cost per post with verified audience inventory
+                        $3/1K CPM (min 10M views) or Seeding starting at ₹6L
                       </td>
                     </tr>
                   </tbody>

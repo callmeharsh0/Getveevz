@@ -198,12 +198,21 @@ export default function Footer() {
           {/* Bottom Precision Hardware Row */}
           <div className="pt-6 sm:pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-mono text-white/45">
 
-            {/* Left: Copyright & Designer Credit */}
+            {/* Left: Copyright & Designer Credit with WhatsApp Backlink */}
             <div className="flex items-center gap-2.5 text-center sm:text-left flex-wrap justify-center sm:justify-start">
               <span>© {new Date().getFullYear()} GetVeevz Inc.</span>
               <span className="text-white/20">·</span>
               <span className="text-white/50">
-                Designed by <span className="text-white/80 font-medium">Harsh Paigude</span>
+                Designed & Developed by{" "}
+                <a
+                  href="https://wa.me/918898884828?text=Hi%20Harsh,%20I'm%20reaching%20out%20for%20a%20developer%20enquiry"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white/80 hover:text-white font-medium underline underline-offset-4 decoration-white/25 hover:decoration-white transition-colors cursor-pointer"
+                  title="Developer Enquiry — WhatsApp Harsh Paigude (+91 8898884828)"
+                >
+                  Harsh Paigude
+                </a>
               </span>
             </div>
 
@@ -223,11 +232,19 @@ export default function Footer() {
               ))}
             </div>
 
-            {/* Right: Developer Credit & Scroll to Top Trigger */}
+            {/* Right: Developer Enquiry WhatsApp Link & Scroll to Top Trigger */}
             <div className="flex items-center gap-2.5 flex-wrap justify-center sm:justify-end">
-              <span className="text-white/50">
-                Developed by <span className="text-white/80 font-medium">Devora</span>
-              </span>
+              <a
+                href="https://wa.me/918898884828?text=Hi%20Harsh,%20I'm%20reaching%20out%20for%20a%20developer%20enquiry"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-1.5 text-white/50 hover:text-white transition-colors cursor-pointer"
+                title="WhatsApp developer enquiry — 8898884828"
+              >
+                <span>Developer Enquiry</span>
+                <span className="text-white/30 hidden sm:inline">(8898884828)</span>
+                <ArrowUpRight className="w-3 h-3 stroke-[2] transition-transform duration-300 ease-gentle group-hover:translate-x-0.5 group-hover:-translate-y-0.5 text-[#0038E2]" />
+              </a>
               <span className="text-white/20">·</span>
               <button
                 type="button"

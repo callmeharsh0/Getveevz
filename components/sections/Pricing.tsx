@@ -317,7 +317,39 @@ export default function Pricing() {
     };
   }, []);
 
-  const handleOrder = () => {
+  const getPricingMailtoUrl = () => {
+    const subject = encodeURIComponent(
+      `Campaign Brief: ${selectedPlan.name} [${selectedPlan.rateDisplay[currency]}]`
+    );
+
+    const bodyText = [
+      `Hi GetVeevz Distribution Team,`,
+      ``,
+      `I would like to submit a campaign brief for the following pricing framework:`,
+      ``,
+      `• Framework Selected: ${selectedPlan.name}`,
+      `• Campaign Model: ${termType === "long-term" ? "Long-Term Retainer Engagement" : "Short-Term Blitz Push"}`,
+      `• Chosen Currency: ${currency}`,
+      `• Rate / Investment Structure: ${selectedPlan.rateDisplay[currency]}`,
+      `• Deliverables / Period: ${selectedPlan.ratePeriod}`,
+      `• Framework Highlights: "${selectedPlan.highlightNote}"`,
+      ``,
+      `Please contact us with custom reach projections, account inventory, and onboarding timeline.`,
+      ``,
+      `Best regards,`,
+    ].join("\n");
+
+    return `mailto:contact@getveevz.com?subject=${subject}&body=${encodeURIComponent(bodyText)}`;
+  };
+
+  const handleOrder = (e?: React.MouseEvent) => {
+    const mailto = getPricingMailtoUrl();
+    try {
+      window.location.href = mailto;
+    } catch {
+      // fallback
+    }
+
     const cta = document.getElementById("questionnaire") || document.getElementById("cta") || document.querySelector("footer");
     cta?.scrollIntoView({ behavior: "smooth" });
   };
@@ -657,8 +689,8 @@ export default function Pricing() {
               </div>
 
               {/* Right: Button-in-Button Trailing Icon CTA (Porcelain White Pill with Dark Inner Disc) */}
-              <button
-                type="button"
+              <a
+                href={getPricingMailtoUrl()}
                 onClick={handleOrder}
                 className="group relative w-full sm:w-auto inline-flex items-center justify-between sm:justify-start gap-3 sm:gap-4 rounded-full bg-[#F8F6F2] hover:bg-white text-[#111111] pl-5 sm:pl-7 pr-2 py-2 sm:py-2.5 cursor-pointer font-display font-semibold transition-all duration-300 ease-gentle shadow-[0_4px_24px_rgba(248,246,242,0.18)] hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2]"
               >
@@ -669,7 +701,7 @@ export default function Pricing() {
                 <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#111111] text-[#F8F6F2] group-hover:bg-[#0038E2] group-hover:text-white flex items-center justify-center transition-all duration-300 ease-gentle group-hover:translate-x-1 group-hover:-translate-y-[1px] group-hover:scale-105 shadow-sm shrink-0">
                   <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
                 </div>
-              </button>
+              </a>
             </footer>
 
             {/* Bottom Trust Guarantees */}
