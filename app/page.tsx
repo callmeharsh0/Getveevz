@@ -27,9 +27,9 @@ const ROOT_JSON_LD = [
     "email": "team@getveevz.com",
     "sameAs": [
       "https://x.com",
-      "https://linkedin.com",
+      "https://www.linkedin.com/in/aryankole/",
       "https://youtube.com",
-      "https://instagram.com"
+      "https://www.instagram.com/aryan_kole/"
     ],
     "contactPoint": {
       "@type": "ContactPoint",

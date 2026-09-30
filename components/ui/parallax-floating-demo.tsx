@@ -300,12 +300,26 @@ export function ParallaxFloatingDemo() {
         ref={mobileStageRef}
         className="results-mobile-stage flex md:hidden relative w-full max-w-[430px] mx-auto overflow-hidden px-3 xs:px-4 pt-4 xs:pt-5 pb-8 flex-col items-center select-none bg-[#090e14] text-moonlight"
       >
+        {/* Ambient background depth & glow matching Desktop */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] xs:w-[400px] h-[340px] bg-frost/10 blur-[130px] rounded-full"
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute top-1/4 right-1/4 w-[220px] h-[220px] bg-steel/15 blur-[110px] rounded-full"
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_50%,transparent_15%,#090e14_100%)] z-0"
+        />
+
         {/* TOP FLOATING CARDS CLUSTER */}
-        <div className="relative w-full h-[128px] xs:h-[142px] sm:h-[150px] shrink-0 pointer-events-auto">
+        <div className="relative w-full h-[128px] xs:h-[142px] sm:h-[150px] shrink-0 pointer-events-auto z-10">
           {/* Top Left Card (Maggi Masala Origin Story - 24M Views) */}
           <div
             ref={(el) => { cardRefs.current[0] = el; }}
-            className="absolute top-[8px] left-[2px] xs:left-[6px] sm:left-[10px] w-[86px] xs:w-[96px] sm:w-[104px] h-[108px] xs:h-[118px] sm:h-[128px] rounded-xl xs:rounded-2xl border border-white/20 bg-[#090e14]/80 shadow-[0_10px_30px_rgba(0,0,0,0.7)] overflow-hidden -rotate-[9deg] z-10 will-change-transform"
+            className="absolute top-[8px] left-[2px] xs:left-[6px] sm:left-[10px] w-[86px] xs:w-[96px] sm:w-[104px] h-[108px] xs:h-[118px] sm:h-[128px] rounded-xl xs:rounded-2xl border border-white/20 bg-surface/50 shadow-2xl backdrop-blur-md overflow-hidden -rotate-[9deg] z-10 will-change-transform"
           >
             <img
               src={mobileResultCards[0].url}
@@ -313,7 +327,7 @@ export function ParallaxFloatingDemo() {
               className="w-full h-full object-cover"
               loading="eager"
             />
-            <div className="absolute bottom-1.5 xs:bottom-2 left-1.5 xs:left-2 px-1.5 py-0.5 rounded-md bg-black/85 backdrop-blur-md border border-white/20 text-[8px] xs:text-[9px] font-mono text-white font-semibold shadow-md whitespace-nowrap">
+            <div className="absolute bottom-1.5 xs:bottom-2 left-1.5 xs:left-2 px-1.5 xs:px-2 py-0.5 rounded-md bg-black/75 backdrop-blur-md border border-white/20 text-[8px] xs:text-[9px] font-mono text-frost font-semibold tracking-wide shadow-lg whitespace-nowrap">
               {mobileResultCards[0].tag}
             </div>
           </div>
@@ -321,7 +335,7 @@ export function ParallaxFloatingDemo() {
           {/* Top Center Card (Jio Vs Airtel - 4.8M Views) */}
           <div
             ref={(el) => { cardRefs.current[1] = el; }}
-            className="absolute top-[0px] left-1/2 -translate-x-1/2 w-[82px] xs:w-[92px] sm:w-[102px] h-[104px] xs:h-[116px] sm:h-[126px] rounded-xl xs:rounded-2xl border border-white/20 bg-[#090e14]/80 shadow-[0_10px_30px_rgba(0,0,0,0.7)] overflow-hidden -rotate-[1deg] z-10 will-change-transform"
+            className="absolute top-[0px] left-1/2 -translate-x-1/2 w-[82px] xs:w-[92px] sm:w-[102px] h-[104px] xs:h-[116px] sm:h-[126px] rounded-xl xs:rounded-2xl border border-white/20 bg-surface/50 shadow-2xl backdrop-blur-md overflow-hidden -rotate-[1deg] z-10 will-change-transform"
           >
             <img
               src={mobileResultCards[1].url}
@@ -329,7 +343,7 @@ export function ParallaxFloatingDemo() {
               className="w-full h-full object-cover"
               loading="eager"
             />
-            <div className="absolute bottom-1.5 xs:bottom-2 left-1.5 xs:left-2 px-1.5 py-0.5 rounded-md bg-black/85 backdrop-blur-md border border-white/20 text-[8px] xs:text-[9px] font-mono text-white font-semibold shadow-md whitespace-nowrap">
+            <div className="absolute bottom-1.5 xs:bottom-2 left-1.5 xs:left-2 px-1.5 xs:px-2 py-0.5 rounded-md bg-black/75 backdrop-blur-md border border-white/20 text-[8px] xs:text-[9px] font-mono text-frost font-semibold tracking-wide shadow-lg whitespace-nowrap">
               {mobileResultCards[1].tag}
             </div>
           </div>
@@ -337,7 +351,7 @@ export function ParallaxFloatingDemo() {
           {/* Top Right Card (Teal Suit / Rupay Ka - 3.5M Views) */}
           <div
             ref={(el) => { cardRefs.current[2] = el; }}
-            className="absolute top-[6px] right-[2px] xs:right-[6px] sm:right-[10px] w-[86px] xs:w-[96px] sm:w-[104px] h-[108px] xs:h-[120px] sm:h-[130px] rounded-xl xs:rounded-2xl border border-white/20 bg-[#090e14]/80 shadow-[0_10px_30px_rgba(0,0,0,0.7)] overflow-hidden rotate-[8deg] z-10 will-change-transform"
+            className="absolute top-[6px] right-[2px] xs:right-[6px] sm:right-[10px] w-[86px] xs:w-[96px] sm:w-[104px] h-[108px] xs:h-[120px] sm:h-[130px] rounded-xl xs:rounded-2xl border border-white/20 bg-surface/50 shadow-2xl backdrop-blur-md overflow-hidden rotate-[8deg] z-10 will-change-transform"
           >
             <img
               src={mobileResultCards[2].url}
@@ -345,60 +359,57 @@ export function ParallaxFloatingDemo() {
               className="w-full h-full object-cover"
               loading="eager"
             />
-            <div className="absolute bottom-1.5 xs:bottom-2 left-1.5 xs:left-2 px-1.5 py-0.5 rounded-md bg-black/85 backdrop-blur-md border border-white/20 text-[8px] xs:text-[9px] font-mono text-white font-semibold shadow-md whitespace-nowrap">
+            <div className="absolute bottom-1.5 xs:bottom-2 left-1.5 xs:left-2 px-1.5 xs:px-2 py-0.5 rounded-md bg-black/75 backdrop-blur-md border border-white/20 text-[8px] xs:text-[9px] font-mono text-frost font-semibold tracking-wide shadow-lg whitespace-nowrap">
               {mobileResultCards[2].tag}
             </div>
           </div>
         </div>
 
-        {/* SECTION LABEL BADGE */}
-        <div className="relative z-10 mt-3 xs:mt-4 sm:mt-5 flex items-center justify-center w-full px-1">
-          <div className="inline-flex items-center gap-1.5 xs:gap-2 px-2.5 xs:px-3.5 py-1 xs:py-1.5 rounded-full bg-[#08101d]/90 border border-[#0055ff]/50 backdrop-blur-md shadow-[0_0_16px_rgba(0,85,255,0.18)] max-w-[340px]">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#0066ff] shadow-[0_0_6px_#0066ff] shrink-0" />
-            <span className="font-mono text-[8px] xs:text-[9px] sm:text-[9.5px] tracking-[0.12em] xs:tracking-[0.14em] uppercase text-[#8BA3C5] font-semibold whitespace-nowrap">
-              (02) VERIFIED RESULTS &amp; DISTRIBUTION SCALE
-            </span>
+        {/* SECTION LABEL BADGE MATCHING DESKTOP */}
+        <div className="relative z-10 mt-2.5 xs:mt-3 flex items-center justify-center w-full px-1">
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface/90 border border-border/90 text-[7.5px] xs:text-[8.5px] font-mono uppercase tracking-[0.14em] text-frost backdrop-blur-xl shadow-lg">
+            <span className="w-1.5 h-1.5 rounded-full bg-frost animate-pulse shrink-0" />
+            <span className="whitespace-nowrap">(02) Verified Results &amp; Distribution Scale</span>
           </div>
         </div>
 
-        {/* MAIN DISPLAY HEADING (3 DISTINCT CENTERED LINES) */}
-        <h2 className="relative z-10 font-display font-bold text-[clamp(42px,13.5vw,66px)] leading-[0.98] tracking-[-0.035em] text-white text-center mt-4 xs:mt-5 sm:mt-6">
+        {/* MAIN DISPLAY HEADING MATCHING DESKTOP TYPOGRAPHY */}
+        <h2 className="relative z-10 font-display font-medium text-[clamp(32px,10vw,48px)] leading-[1.08] tracking-tight text-moonlight text-center mt-3.5 xs:mt-4">
           <span className="block">1.5M+</span>
-          <span className="block">Followers</span>
-          <span className="block">Gained</span>
+          <span className="block">Followers Gained</span>
         </h2>
 
-        {/* STATISTIC METRIC CARDS (STRICTLY IN ONE HORIZONTAL ROW) */}
-        <div className="relative z-10 mt-5 xs:mt-6 sm:mt-7 grid grid-cols-3 gap-1.5 xs:gap-2 w-full max-w-[365px] px-0.5">
+        {/* STATISTIC METRIC CARDS MATCHING DESKTOP BLOCK STYLE */}
+        <div className="relative z-10 mt-3 xs:mt-3.5 grid grid-cols-3 gap-1 xs:gap-1.5 w-full max-w-[270px] xs:max-w-[290px] px-0.5">
           {/* Stat 1 */}
-          <div className="rounded-xl bg-[#08101d]/90 border border-[#0044cc]/40 p-2 xs:p-2.5 flex flex-col items-center justify-center backdrop-blur-md shadow-[0_4px_16px_rgba(0,0,0,0.4)]">
-            <span className="font-display text-[18px] xs:text-[21px] sm:text-[23px] font-bold text-white leading-none tracking-tight">
+          <GlassCard className="py-1.5 px-1 xs:py-2 xs:px-1.5 rounded-lg">
+            <span className="font-display text-[14px] xs:text-[16px] font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-moonlight to-frost group-hover:scale-105 transition-transform duration-300">
               <Counter value={1} suffix="B+" />
             </span>
-            <span className="font-mono text-[7px] xs:text-[7.5px] sm:text-[8px] text-[#7892b5] font-semibold uppercase tracking-wider text-center mt-1.5 leading-tight">
+            <span className="mt-0.5 text-[6.5px] xs:text-[7px] text-muted font-medium uppercase tracking-wider text-center leading-tight">
               Views Generated
             </span>
-          </div>
+          </GlassCard>
 
           {/* Stat 2 */}
-          <div className="rounded-xl bg-[#08101d]/90 border border-[#0044cc]/40 p-2 xs:p-2.5 flex flex-col items-center justify-center backdrop-blur-md shadow-[0_4px_16px_rgba(0,0,0,0.4)]">
-            <span className="font-display text-[18px] xs:text-[21px] sm:text-[23px] font-bold text-white leading-none tracking-tight">
+          <GlassCard className="py-1.5 px-1 xs:py-2 xs:px-1.5 rounded-lg">
+            <span className="font-display text-[14px] xs:text-[16px] font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-moonlight to-frost group-hover:scale-105 transition-transform duration-300">
               <Counter value={250} suffix="+" />
             </span>
-            <span className="font-mono text-[7px] xs:text-[7.5px] sm:text-[8px] text-[#7892b5] font-semibold uppercase tracking-wider text-center mt-1.5 leading-tight">
+            <span className="mt-0.5 text-[6.5px] xs:text-[7px] text-muted font-medium uppercase tracking-wider text-center leading-tight">
               Active Pages
             </span>
-          </div>
+          </GlassCard>
 
           {/* Stat 3 */}
-          <div className="rounded-xl bg-[#08101d]/90 border border-[#0044cc]/40 p-2 xs:p-2.5 flex flex-col items-center justify-center backdrop-blur-md shadow-[0_4px_16px_rgba(0,0,0,0.4)]">
-            <span className="font-display text-[18px] xs:text-[21px] sm:text-[23px] font-bold text-white leading-none tracking-tight">
+          <GlassCard className="py-1.5 px-1 xs:py-2 xs:px-1.5 rounded-lg">
+            <span className="font-display text-[14px] xs:text-[16px] font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-moonlight to-frost group-hover:scale-105 transition-transform duration-300">
               <Counter value={200} suffix="+" />
             </span>
-            <span className="font-mono text-[7px] xs:text-[7.5px] sm:text-[8px] text-[#7892b5] font-semibold uppercase tracking-wider text-center mt-1.5 leading-tight">
+            <span className="mt-0.5 text-[6.5px] xs:text-[7px] text-muted font-medium uppercase tracking-wider text-center leading-tight">
               Editors Trained
             </span>
-          </div>
+          </GlassCard>
         </div>
 
         {/* CTA BUTTON */}
@@ -415,11 +426,11 @@ export function ParallaxFloatingDemo() {
         </div>
 
         {/* BOTTOM FLOATING CARDS CLUSTER */}
-        <div className="relative w-full h-[150px] xs:h-[162px] sm:h-[172px] shrink-0 mt-4 xs:mt-5 sm:mt-6 pointer-events-auto">
+        <div className="relative w-full h-[150px] xs:h-[162px] sm:h-[172px] shrink-0 mt-4 xs:mt-5 sm:mt-6 pointer-events-auto z-10">
           {/* Bottom Left Card (Nikhil Kamath Podcast - 1.0M Views) */}
           <div
             ref={(el) => { cardRefs.current[3] = el; }}
-            className="absolute top-[10px] left-[2px] xs:left-[6px] sm:left-[10px] w-[86px] xs:w-[96px] sm:w-[104px] h-[108px] xs:h-[120px] sm:h-[130px] rounded-xl xs:rounded-2xl border border-white/20 bg-[#090e14]/80 shadow-[0_10px_30px_rgba(0,0,0,0.7)] overflow-hidden -rotate-[8deg] z-10 will-change-transform"
+            className="absolute top-[10px] left-[2px] xs:left-[6px] sm:left-[10px] w-[86px] xs:w-[96px] sm:w-[104px] h-[108px] xs:h-[120px] sm:h-[130px] rounded-xl xs:rounded-2xl border border-white/20 bg-surface/50 shadow-2xl backdrop-blur-md overflow-hidden -rotate-[8deg] z-10 will-change-transform"
           >
             <img
               src={mobileResultCards[3].url}
@@ -427,7 +438,7 @@ export function ParallaxFloatingDemo() {
               className="w-full h-full object-cover"
               loading="lazy"
             />
-            <div className="absolute bottom-1.5 xs:bottom-2 left-1.5 xs:left-2 px-1.5 py-0.5 rounded-md bg-black/85 backdrop-blur-md border border-white/20 text-[8px] xs:text-[9px] font-mono text-white font-semibold shadow-md whitespace-nowrap">
+            <div className="absolute bottom-1.5 xs:bottom-2 left-1.5 xs:left-2 px-1.5 xs:px-2 py-0.5 rounded-md bg-black/75 backdrop-blur-md border border-white/20 text-[8px] xs:text-[9px] font-mono text-frost font-semibold tracking-wide shadow-lg whitespace-nowrap">
               {mobileResultCards[3].tag}
             </div>
           </div>
@@ -435,7 +446,7 @@ export function ParallaxFloatingDemo() {
           {/* Bottom Center Card (The Comeback / Laughing Guy - 2.4M Views) */}
           <div
             ref={(el) => { cardRefs.current[4] = el; }}
-            className="absolute top-[22px] xs:top-[26px] left-[39%] -translate-x-[20%] w-[82px] xs:w-[92px] sm:w-[100px] h-[104px] xs:h-[116px] sm:h-[126px] rounded-xl xs:rounded-2xl border border-white/20 bg-[#090e14]/80 shadow-[0_10px_30px_rgba(0,0,0,0.7)] overflow-hidden -rotate-[3deg] z-10 will-change-transform"
+            className="absolute top-[22px] xs:top-[26px] left-[39%] -translate-x-[20%] w-[82px] xs:w-[92px] sm:w-[100px] h-[104px] xs:h-[116px] sm:h-[126px] rounded-xl xs:rounded-2xl border border-white/20 bg-surface/50 shadow-2xl backdrop-blur-md overflow-hidden -rotate-[3deg] z-10 will-change-transform"
           >
             <img
               src={mobileResultCards[4].url}
@@ -443,7 +454,7 @@ export function ParallaxFloatingDemo() {
               className="w-full h-full object-cover"
               loading="lazy"
             />
-            <div className="absolute bottom-1.5 xs:bottom-2 left-1.5 xs:left-2 px-1.5 py-0.5 rounded-md bg-black/85 backdrop-blur-md border border-white/20 text-[8px] xs:text-[9px] font-mono text-white font-semibold shadow-md whitespace-nowrap">
+            <div className="absolute bottom-1.5 xs:bottom-2 left-1.5 xs:left-2 px-1.5 xs:px-2 py-0.5 rounded-md bg-black/75 backdrop-blur-md border border-white/20 text-[8px] xs:text-[9px] font-mono text-frost font-semibold tracking-wide shadow-lg whitespace-nowrap">
               {mobileResultCards[4].tag}
             </div>
           </div>
@@ -451,7 +462,7 @@ export function ParallaxFloatingDemo() {
           {/* Bottom Right Back Card (Power of China / Mic Guy - 1.5M Views) */}
           <div
             ref={(el) => { cardRefs.current[5] = el; }}
-            className="absolute top-[0px] right-[10px] xs:right-[16px] sm:right-[20px] w-[76px] xs:w-[84px] sm:w-[92px] h-[96px] xs:h-[104px] sm:h-[114px] rounded-xl xs:rounded-2xl border border-white/20 bg-[#090e14]/80 shadow-[0_8px_24px_rgba(0,0,0,0.65)] overflow-hidden rotate-[4deg] z-0 will-change-transform"
+            className="absolute top-[0px] right-[10px] xs:right-[16px] sm:right-[20px] w-[76px] xs:w-[84px] sm:w-[92px] h-[96px] xs:h-[104px] sm:h-[114px] rounded-xl xs:rounded-2xl border border-white/20 bg-surface/50 shadow-2xl backdrop-blur-md overflow-hidden rotate-[4deg] z-0 will-change-transform"
           >
             <img
               src={mobileResultCards[6].url}
@@ -459,7 +470,7 @@ export function ParallaxFloatingDemo() {
               className="w-full h-full object-cover"
               loading="lazy"
             />
-            <div className="absolute bottom-1.5 xs:bottom-2 left-1.5 xs:left-2 px-1.5 py-0.5 rounded-md bg-black/85 backdrop-blur-md border border-white/20 text-[7.5px] xs:text-[8.5px] font-mono text-white font-semibold shadow-md whitespace-nowrap">
+            <div className="absolute bottom-1.5 xs:bottom-2 left-1.5 xs:left-2 px-1.5 xs:px-2 py-0.5 rounded-md bg-black/75 backdrop-blur-md border border-white/20 text-[7.5px] xs:text-[8.5px] font-mono text-frost font-semibold tracking-wide shadow-lg whitespace-nowrap">
               {mobileResultCards[6].tag}
             </div>
           </div>
@@ -467,7 +478,7 @@ export function ParallaxFloatingDemo() {
           {/* Bottom Right Front Card (Power of BCCI / Allowance Guy - 1.9M Views) */}
           <div
             ref={(el) => { cardRefs.current[6] = el; }}
-            className="absolute top-[38px] xs:top-[44px] sm:top-[48px] right-[2px] xs:right-[6px] sm:right-[10px] w-[86px] xs:w-[96px] sm:w-[104px] h-[108px] xs:h-[120px] sm:h-[130px] rounded-xl xs:rounded-2xl border border-white/20 bg-[#090e14]/80 shadow-[0_12px_36px_rgba(0,0,0,0.7)] overflow-hidden rotate-[6deg] z-10 will-change-transform"
+            className="absolute top-[38px] xs:top-[44px] sm:top-[48px] right-[2px] xs:right-[6px] sm:right-[10px] w-[86px] xs:w-[96px] sm:w-[104px] h-[108px] xs:h-[120px] sm:h-[130px] rounded-xl xs:rounded-2xl border border-white/20 bg-surface/50 shadow-2xl backdrop-blur-md overflow-hidden rotate-[6deg] z-10 will-change-transform"
           >
             <img
               src={mobileResultCards[5].url}
@@ -475,7 +486,7 @@ export function ParallaxFloatingDemo() {
               className="w-full h-full object-cover"
               loading="lazy"
             />
-            <div className="absolute bottom-1.5 xs:bottom-2 left-1.5 xs:left-2 px-1.5 py-0.5 rounded-md bg-black/85 backdrop-blur-md border border-white/20 text-[8px] xs:text-[9px] font-mono text-white font-semibold shadow-md whitespace-nowrap">
+            <div className="absolute bottom-1.5 xs:bottom-2 left-1.5 xs:left-2 px-1.5 xs:px-2 py-0.5 rounded-md bg-black/75 backdrop-blur-md border border-white/20 text-[8px] xs:text-[9px] font-mono text-frost font-semibold tracking-wide shadow-lg whitespace-nowrap">
               {mobileResultCards[5].tag}
             </div>
           </div>
@@ -513,9 +524,9 @@ export function ParallaxFloatingDemo() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface/90 border border-border/90 text-[11px] sm:text-xs font-mono uppercase tracking-eyebrow text-frost mb-6 backdrop-blur-xl shadow-xl"
+          className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface/90 border border-border/90 text-[10px] sm:text-[11px] font-mono uppercase tracking-eyebrow text-frost mb-5 backdrop-blur-xl shadow-lg"
         >
-          <span className="w-2 h-2 rounded-full bg-frost animate-pulse" />
+          <span className="w-1.5 h-1.5 rounded-full bg-frost animate-pulse" />
           <span>(02) Verified Results &amp; Distribution Scale</span>
         </motion.div>
 
@@ -536,31 +547,31 @@ export function ParallaxFloatingDemo() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.3 }}
-          className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-4 w-full max-w-xl"
+          className="mt-6 sm:mt-7 grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3 w-full max-w-lg"
         >
-          <GlassCard className="p-3.5 sm:p-4 rounded-xl">
-            <span className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-moonlight to-frost group-hover:scale-105 transition-transform duration-300">
+          <GlassCard className="p-2.5 sm:p-3 rounded-xl">
+            <span className="font-display text-xl sm:text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-moonlight to-frost group-hover:scale-105 transition-transform duration-300">
               <Counter value={1} suffix="B+" />
             </span>
-            <span className="mt-1 text-[11px] sm:text-xs text-muted font-medium uppercase tracking-wider text-center">
+            <span className="mt-0.5 text-[10px] sm:text-[11px] text-muted font-medium uppercase tracking-wider text-center">
               Views Generated
             </span>
           </GlassCard>
 
-          <GlassCard className="p-3.5 sm:p-4 rounded-xl">
-            <span className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-moonlight to-frost group-hover:scale-105 transition-transform duration-300">
+          <GlassCard className="p-2.5 sm:p-3 rounded-xl">
+            <span className="font-display text-xl sm:text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-moonlight to-frost group-hover:scale-105 transition-transform duration-300">
               <Counter value={250} suffix="+" />
             </span>
-            <span className="mt-1 text-[11px] sm:text-xs text-muted font-medium uppercase tracking-wider text-center">
+            <span className="mt-0.5 text-[10px] sm:text-[11px] text-muted font-medium uppercase tracking-wider text-center">
               Active Pages
             </span>
           </GlassCard>
 
-          <GlassCard className="p-3.5 sm:p-4 rounded-xl">
-            <span className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-moonlight to-frost group-hover:scale-105 transition-transform duration-300">
+          <GlassCard className="p-2.5 sm:p-3 rounded-xl">
+            <span className="font-display text-xl sm:text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-moonlight to-frost group-hover:scale-105 transition-transform duration-300">
               <Counter value={200} suffix="+" />
             </span>
-            <span className="mt-1 text-[11px] sm:text-xs text-muted font-medium uppercase tracking-wider text-center">
+            <span className="mt-0.5 text-[10px] sm:text-[11px] text-muted font-medium uppercase tracking-wider text-center">
               Editors Trained
             </span>
           </GlassCard>

@@ -709,7 +709,7 @@ export default function Hero() {
           <div className="relative inline-flex items-baseline justify-center group cursor-default">
             <h1
               aria-label="GetVeevz — Short-Form Video Distribution &amp; Clipping Engine"
-              className="font-display font-medium text-[clamp(58px,17vw,82px)] md:text-[clamp(3.8rem,16.8vw,14.2rem)] leading-[0.92] tracking-[-0.04em] text-[#111111] select-none transition-all duration-300 flex whitespace-nowrap"
+              className="font-display font-medium text-[clamp(70px,20.4vw,98px)] md:text-[clamp(3.8rem,16.8vw,14.2rem)] leading-[0.92] tracking-[-0.04em] text-[#111111] select-none transition-all duration-300 flex whitespace-nowrap"
               style={{
                 fontFeatureSettings: '"cv02", "cv03", "cv04", "cv11"',
                 textShadow: "0 2px 24px rgba(0, 0, 0, 0.08)",
