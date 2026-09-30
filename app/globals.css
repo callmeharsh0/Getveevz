@@ -73,8 +73,8 @@
 
 /* ─── Mobile Global Fixes ──────────────────────────────────────── */
 @media (max-width: 767px) {
-  /* Prevent any element from breaking outside viewport width */
-  * {
+  /* Prevent any element from breaking outside viewport width (exclude scaled canvas/fixed elements) */
+  *:not(#distribution, #distribution *, .max-w-none, .max-w-none *) {
     max-width: 100%;
     word-break: break-word;
   }

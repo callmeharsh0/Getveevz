@@ -4,7 +4,7 @@
 // 3. Short-Term: CPM Campaign (Mass fan-page clipping & Agency-owned theme pages)
 // 4. Short-Term: Seeding ($12K-$100K+ 24-hr blast, fixed cost per post on 1M-10M+ pages)
 
-import { Globe, Rocket, type LucideIcon } from "lucide-react";
+import { Globe, Rocket, Layers, type LucideIcon } from "lucide-react";
 
 export type Service = {
   slug: string;
@@ -298,4 +298,130 @@ export const services: Service[] = [
     ],
     ctaHref: "mailto:contact@getveevz.com?subject=Short-Term%20Campaign%20Model%20Inquiry",
   },
+  {
+    slug: "end-to-end-marketing",
+    title: "End-to-End Marketing",
+    tagline: "Full-stack content production and omnichannel distribution",
+    shortDesc: "Complete hands-off execution: we script, shoot, edit, and distribute high-converting content across all social platforms.",
+    longDesc:
+      "Built for executive personal brands, product launches, and high-growth companies that need omnipresent reach without internal overhead. We handle the entire pipeline from ideation, studio production, and micro-editing to multi-platform distribution across LinkedIn, X, Instagram, YouTube, and TikTok.",
+    icon: Layers,
+    color: "text-[#0038E2]",
+    models: [
+      {
+        name: "Full-Stack Production & Distribution",
+        subtitle: "In-house creative studio paired with algorithmic distribution network",
+        overview: "Everything handled for you end-to-end with zero operational overhead on your team.",
+        highlights: [
+          "Scripting, recording direction, and cinema-grade editing in-house",
+          "Omnichannel syndication across LinkedIn, X, IG Reels, YouTube, and TikTok",
+          "Custom hooks, b-roll graphics, sound design, and caption systems",
+          "Ideal for venture-backed founders, enterprise leaders, and major launches",
+          "Dedicated creative director, editor pod, and distribution manager",
+        ],
+        details: [
+          {
+            phase: "Phase 1",
+            heading: "Creative Strategy & High-Leverage Scripting",
+            text: "We distill your core insights, product thesis, and narrative into high-converting video concepts. Minimal filming time required from you or your team.",
+          },
+          {
+            phase: "Phase 2",
+            heading: "Studio Post-Production & Vertical Refinement",
+            text: "Our editing bay transforms raw recordings into arresting vertical short-form assets complete with sound engineering, kinetic typography, and motion graphics.",
+          },
+          {
+            phase: "Phase 3",
+            heading: "Omnichannel Algorithmic Syndication",
+            text: "Content is scheduled and distributed across your owned channels and our extended network, driving compounded reach, authority, and inbound opportunities.",
+          },
+        ],
+      },
+    ],
+    features: [
+      {
+        title: "Hands-Off Content Pipeline",
+        desc: "We research, script, edit, and publish your content so you focus entirely on your core business.",
+      },
+      {
+        title: "Omnichannel Distribution",
+        desc: "Simultaneous distribution across LinkedIn, X, Instagram, YouTube, and Facebook for cross-platform authority.",
+      },
+      {
+        title: "Executive Personal Branding",
+        desc: "Designed specifically to establish founders and executives as industry category leaders.",
+      },
+      {
+        title: "Performance Analytics & Iteration",
+        desc: "Continuous monthly optimization based on view retention, inbound deal flow, and audience growth.",
+      },
+    ],
+    benefits: [
+      "Zero internal production or distribution overhead",
+      "Studio-grade sound, color, pacing, and motion graphics",
+      "Omnipresence across all Tier-1 social platforms",
+      "Rapid turnaround time from recording to live publication",
+      "Dedicated account strategist and video production pod",
+      "Direct inbound pipeline generation from executive visibility",
+    ],
+    processSteps: [
+      {
+        step: "01",
+        title: "Brand Voice & Strategy Blueprint",
+        desc: "We analyze your audience, category positioning, and narrative goals to define your bespoke content pillars.",
+      },
+      {
+        step: "02",
+        title: "Low-Friction Filming Session",
+        desc: "A streamlined 60-90 minute monthly recording session produces a month's worth of core assets.",
+      },
+      {
+        step: "03",
+        title: "Production & Polish",
+        desc: "Our editing team cuts, color grades, and animates assets optimized for platform-specific retention.",
+      },
+      {
+        step: "04",
+        title: "Omnichannel Distribution",
+        desc: "Content is scheduled, tagged, and distributed across all major networks with active comment and community monitoring.",
+      },
+      {
+        step: "05",
+        title: "Insights & Strategy Refinement",
+        desc: "Monthly performance reviews identify top-converting formats to systematically double down on ROI.",
+      },
+    ],
+    faq: [
+      {
+        question: "How much time is required from the founder or executive?",
+        answer:
+          "Just 60 to 90 minutes per month. Our team prepares all prompts, research, and questions in advance, making the recording session effortless and ultra-efficient.",
+      },
+      {
+        question: "Which platforms are covered under End-to-End Marketing?",
+        answer:
+          "We distribute natively to LinkedIn, X (Twitter), Instagram Reels, YouTube Shorts & Long-Form, TikTok, and Facebook.",
+      },
+      {
+        question: "Can this service support product launches?",
+        answer:
+          "Yes. We specialize in coordinated narrative surges where video teasers, founder breakdowns, and demo clips drop synchronously across all channels for maximum launch day impact.",
+      },
+      {
+        question: "Who owns the created video assets?",
+        answer:
+          "You own 100% of all scripts, raw footage, edited videos, and thumbnail assets created during our engagement.",
+      },
+    ],
+    ctaHref: "mailto:contact@getveevz.com?subject=End-to-End%20Marketing%20Inquiry",
+  },
 ];
+
+/**
+ * Normalizes slug lookups with alias support (e.g. short-term-campaigns -> short-term-campaign)
+ */
+export function getServiceBySlug(slug: string): Service | undefined {
+  if (slug === "short-term-campaigns") return services.find((s) => s.slug === "short-term-campaign");
+  return services.find((s) => s.slug === slug);
+}
+

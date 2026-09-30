@@ -16,6 +16,7 @@ import {
 import { services } from "@/lib/services";
 import { cn } from "@/lib/utils";
 import { useScrollReveal } from "@/lib/useScrollReveal";
+import HeadSEO from "@/components/seo/HeadSEO";
 
 export default function ServicesPage() {
   const headerRef = useScrollReveal<HTMLDivElement>();
@@ -23,8 +24,52 @@ export default function ServicesPage() {
   const comparisonRef = useScrollReveal<HTMLDivElement>();
   const ctaRef = useScrollReveal<HTMLDivElement>();
 
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://getveevz.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Services",
+          "item": "https://getveevz.com/services"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "Distribution Architecture & Services — GetVeevz",
+      "url": "https://getveevz.com/services",
+      "description":
+        "Explore GetVeevz distribution models: 3-month test-to-scale clipping retainers, straight monthly retainers, and high-impact short-term surge seeding campaigns.",
+      "mainEntity": {
+        "@type": "ItemList",
+        "itemListElement": services.map((s, idx) => ({
+          "@type": "ListItem",
+          "position": idx + 1,
+          "name": s.title,
+          "url": `https://getveevz.com/services/${s.slug}`
+        }))
+      }
+    }
+  ];
+
   return (
     <main className="relative w-full min-h-[100dvh] bg-[#F3EFEA] text-[#111111] font-sans overflow-hidden selection:bg-[#0038E2]/20 selection:text-[#0038E2]">
+      <HeadSEO
+        title="Distribution Architecture & Services — GetVeevz"
+        description="Explore GetVeevz distribution models: 3-month test-to-scale clipping retainers, straight monthly retainers, and high-impact short-term surge seeding campaigns."
+        canonical="https://getveevz.com/services"
+        jsonLd={jsonLd}
+      />
       {/* ── Soft Ambient Radial Depth Mesh (Hero section light aesthetic) ── */}
       <div
         aria-hidden="true"

@@ -26,8 +26,8 @@ const SCATTERED_PLATFORM_LOGOS = [
     id: "tiktok",
     name: "TikTok",
     src: "/assets/logos/tiktok.png",
-    pos: "top-[23%] left-[16%] sm:top-[25%] sm:left-[7%] lg:left-[8%]",
-    size: "w-[48px] h-[48px] sm:w-[62px] sm:h-[62px] lg:w-[74px] lg:h-[74px]",
+    pos: "top-[18%] left-[7%] sm:top-[22%] sm:left-[6%] lg:left-[7%]",
+    size: "w-[48px] h-[48px] sm:w-[56px] sm:h-[56px] lg:w-[68px] lg:h-[68px]",
     anim: "hero-float-a",
     rotate: "-rotate-6 sm:-rotate-3",
     platformId: "tiktok",
@@ -37,8 +37,8 @@ const SCATTERED_PLATFORM_LOGOS = [
     id: "youtube",
     name: "YouTube",
     src: "/assets/logos/youtube.png",
-    pos: "top-[24%] right-[14%] sm:top-[40%] sm:right-[5%] lg:right-[6%]",
-    size: "w-[48px] h-[48px] sm:w-[62px] sm:h-[62px] lg:w-[74px] lg:h-[74px]",
+    pos: "top-[23%] right-2 sm:top-[34%] sm:right-[5%] lg:right-[6%]",
+    size: "w-[36px] h-[36px] sm:w-[56px] sm:h-[56px] lg:w-[68px] lg:h-[68px]",
     anim: "hero-float-b",
     rotate: "rotate-6 sm:rotate-3",
     glow: "shadow-[0_0_24px_rgba(0,56,226,0.3)] ring-2 ring-[#0038E2]/30",
@@ -49,8 +49,8 @@ const SCATTERED_PLATFORM_LOGOS = [
     id: "instagram",
     name: "Instagram",
     src: "/assets/logos/instagram.png",
-    pos: "top-[44%] left-2.5 sm:top-[60%] sm:left-[5%] lg:left-[6%]",
-    size: "w-[48px] h-[48px] sm:w-[62px] sm:h-[62px] lg:w-[68px] lg:h-[68px]",
+    pos: "top-[35%] left-1.5 sm:top-[46%] sm:left-[4%] lg:left-[5%]",
+    size: "w-[46px] h-[46px] sm:w-[56px] sm:h-[56px] lg:w-[66px] lg:h-[66px]",
     anim: "hero-float-b",
     rotate: "-rotate-12 sm:-rotate-4",
     platformId: "reels",
@@ -60,8 +60,8 @@ const SCATTERED_PLATFORM_LOGOS = [
     id: "shorts",
     name: "YouTube Shorts",
     src: "/assets/logos/youtubeshorts.png",
-    pos: "top-[45%] right-2.5 sm:top-[26%] sm:right-[26%] lg:right-[28%]",
-    size: "w-[48px] h-[48px] sm:w-[62px] sm:h-[62px] lg:w-[74px] lg:h-[74px]",
+    pos: "top-[43%] right-[6%] sm:top-[20%] sm:right-[15%] lg:right-[17%]",
+    size: "w-[38px] h-[38px] sm:w-[56px] sm:h-[56px] lg:w-[68px] lg:h-[68px]",
     anim: "hero-float-c",
     rotate: "rotate-12 sm:rotate-4",
     platformId: "shorts",
@@ -71,13 +71,35 @@ const SCATTERED_PLATFORM_LOGOS = [
     id: "facebook",
     name: "Facebook",
     src: "/assets/logos/facebook.png",
-    pos: "top-[64%] left-3 sm:bottom-[22%] sm:left-[12%] lg:left-[14%]",
-    size: "w-[46px] h-[46px] sm:w-[58px] sm:h-[58px] lg:w-[68px] lg:h-[68px]",
+    pos: "top-[55%] left-[5%] sm:top-[68%] sm:left-[7%] lg:left-[15%]",
+    size: "w-[34px] h-[34px] sm:w-[52px] sm:h-[52px] lg:w-[64px] lg:h-[64px]",
     anim: "hero-float-a",
-    rotate: "-rotate-2 sm:rotate-0",
+    rotate: "-rotate-6 sm:rotate-0",
     glow: "shadow-[0_0_28px_rgba(0,56,226,0.45)] ring-2 ring-[#0038E2]/40",
     platformId: "all",
     depth: 16,
+  },
+  {
+    id: "linkedin",
+    name: "LinkedIn",
+    src: "/assets/logos/linked in.png",
+    pos: "top-[63%] right-2 sm:top-[57%] sm:right-[6%] lg:right-[20%]",
+    size: "w-[44px] h-[44px] sm:w-[52px] sm:h-[52px] lg:w-[64px] lg:h-[64px]",
+    anim: "hero-float-b",
+    rotate: "rotate-6 sm:rotate-1",
+    platformId: "all",
+    depth: 14,
+  },
+  {
+    id: "x",
+    name: "X",
+    src: "/assets/logos/x.png",
+    pos: "top-[76%] left-3 sm:top-[84%] sm:left-[14%] lg:left-[40%]",
+    size: "w-[36px] h-[36px] sm:w-[48px] sm:h-[48px] lg:w-[58px] lg:h-[58px]",
+    anim: "hero-float-c",
+    rotate: "-rotate-6 sm:rotate-2",
+    platformId: "all",
+    depth: 18,
   },
 ];
 
@@ -477,7 +499,7 @@ export default function Hero() {
             }}
             aria-label={logo.name}
             className={cn(
-              "floating-scatter-logo absolute z-20 flex items-center justify-center rounded-2xl bg-white/95 border border-[#111111]/10 backdrop-blur-xl shadow-[0_12px_32px_rgba(0,0,0,0.1),0_2px_8px_rgba(0,0,0,0.06)] hover:shadow-2xl hover:border-[#0038E2]/50 hover:scale-120 active:scale-95 transition-all duration-300 cursor-pointer pointer-events-auto p-2 sm:p-2.5",
+              "floating-scatter-logo absolute z-20 flex items-center justify-center rounded-xl sm:rounded-2xl bg-white/95 border border-[#111111]/10 backdrop-blur-xl shadow-[0_8px_24px_rgba(0,0,0,0.08),0_2px_6px_rgba(0,0,0,0.04)] sm:shadow-[0_12px_32px_rgba(0,0,0,0.1),0_2px_8px_rgba(0,0,0,0.06)] hover:shadow-2xl hover:border-[#0038E2]/50 hover:scale-115 active:scale-95 transition-all duration-300 cursor-pointer pointer-events-auto p-1.5 sm:p-2.5",
               logo.pos,
               logo.size,
               logo.anim,
@@ -488,7 +510,7 @@ export default function Hero() {
           >
             <img
               src={logo.src}
-              alt=""
+              alt={`${logo.name} short-form distribution network`}
               className="w-full h-full object-contain pointer-events-none drop-shadow-xs"
               loading="eager"
             />
@@ -553,55 +575,79 @@ export default function Hero() {
       {mobileMenuOpen && (
         <>
           <div
-            className="lg:hidden fixed inset-0 bg-background/80 backdrop-blur-sm z-40 animate-in fade-in duration-200"
+            className="lg:hidden fixed inset-0 bg-black/70 backdrop-blur-md z-40 animate-in fade-in duration-200"
             onClick={() => setMobileMenuOpen(false)}
           />
-          <div className="lg:hidden fixed inset-x-4 top-20 z-50 p-6 rounded-2xl bg-moonlight text-oxford border border-moonlight/60 shadow-2xl flex flex-col gap-4 animate-in fade-in slide-in-from-top-4 duration-300">
-            <div className="flex items-center justify-between pb-3 border-b border-oxford/10">
-              <span className="text-xs font-mono uppercase tracking-eyebrow text-oxford/60">
-                Navigation
+          <div className="lg:hidden fixed inset-x-4 top-20 z-50 p-5 sm:p-6 rounded-3xl bg-[#090A0D]/95 text-white border border-white/[0.12] shadow-[0_24px_64px_rgba(0,0,0,0.8),inset_0_1px_1px_rgba(255,255,255,0.1)] backdrop-blur-2xl flex flex-col gap-4 animate-in fade-in slide-in-from-top-4 duration-300">
+            {/* Top Bar inside Menu */}
+            <div className="flex items-center justify-between pb-3.5 border-b border-white/[0.08]">
+              <span className="text-[11px] font-mono uppercase tracking-[0.22em] text-[#8BA3C5] font-semibold">
+                Directory
               </span>
-              <div className="flex items-center gap-2 text-xs text-oxford font-medium">
-                <span className="w-2 h-2 rounded-full bg-frost inline-block animate-ping" />
+              <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-white/[0.05] border border-white/[0.08] text-[11px] font-mono text-white/80">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#0038E2] inline-block animate-ping" />
                 <span>Engine Active</span>
               </div>
             </div>
+
+            {/* Navigation Links */}
             <nav className="flex flex-col gap-1.5">
               {[
                 { id: "distribution", label: "Distribution" },
+                { id: "services", label: "Services" },
                 { id: "results", label: "Results" },
                 { id: "pricing", label: "Pricing" },
-                { id: "services", label: "Services" },
                 { id: "about", label: "About" },
-              ].map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => {
-                    handleNavClick(item.id);
-                    setMobileMenuOpen(false);
-                  }}
-                  className={cn(
-                    "text-left px-3 py-2.5 rounded-lg text-sm transition-colors cursor-pointer",
-                    activeNav === item.id
-                      ? "bg-oxford text-moonlight font-medium"
-                      : "text-oxford hover:bg-oxford/10"
-                  )}
-                >
-                  {item.label}
-                </button>
-              ))}
+              ].map((item) => {
+                const isActive = activeNav === item.id;
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => {
+                      handleNavClick(item.id);
+                      setMobileMenuOpen(false);
+                    }}
+                    className={cn(
+                      "group flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 cursor-pointer active:scale-[0.98]",
+                      isActive
+                        ? "bg-white text-[#111111] font-semibold shadow-sm"
+                        : "text-white/75 hover:text-white hover:bg-white/[0.06]"
+                    )}
+                  >
+                    <span>{item.label}</span>
+                    <ArrowRight
+                      className={cn(
+                        "w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5",
+                        isActive ? "text-[#0038E2]" : "text-white/30 group-hover:text-white/70"
+                      )}
+                    />
+                  </button>
+                );
+              })}
             </nav>
-            <GlassButton
-              size="default"
-              className="w-full mt-2 glass-button-dark"
+
+            {/* CTA Button */}
+            <button
+              type="button"
               onClick={() => {
                 setMobileMenuOpen(false);
                 const cta = document.getElementById("cta") || document.querySelector("footer");
                 if (cta) cta.scrollIntoView({ behavior: "smooth" });
               }}
+              className="w-full mt-1 inline-flex items-center justify-center gap-2 py-3 px-5 rounded-2xl bg-[#0038E2] hover:bg-[#002ec7] active:scale-[0.98] text-white font-medium text-sm shadow-[0_8px_24px_rgba(0,56,226,0.35)] transition-all cursor-pointer"
             >
-              Book a Strategy Call
-            </GlassButton>
+              <Sparkles className="w-4 h-4 text-white/90" />
+              <span>Book a Strategy Call</span>
+            </button>
+
+            {/* Micro Meta Footer */}
+            <div className="flex items-center justify-between pt-1 px-1 text-[10.5px] font-mono text-white/40">
+              <span className="flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block" />
+                contact@getveevz.com
+              </span>
+              <span>© GetVeevz 2026</span>
+            </div>
           </div>
         </>
       )}
@@ -658,29 +704,33 @@ export default function Hero() {
         <div className="flex flex-col items-center justify-center text-center translate-y-[35%] sm:translate-y-0 transition-transform">
           <div className="relative inline-flex items-baseline justify-center group cursor-default">
             <h1
+              aria-label="GetVeevz — Short-Form Video Distribution &amp; Clipping Engine"
               className="font-display font-medium text-[clamp(58px,17vw,82px)] md:text-[clamp(3.8rem,16.8vw,14.2rem)] leading-[0.92] tracking-[-0.04em] text-[#111111] select-none transition-all duration-300 flex whitespace-nowrap"
               style={{
                 fontFeatureSettings: '"cv02", "cv03", "cv04", "cv11"',
                 textShadow: "0 2px 24px rgba(0, 0, 0, 0.08)",
               }}
             >
-              {letters.map((char, index) => (
-                <span
-                  key={index}
-                  onMouseEnter={() => setHoveredLetter(index)}
-                  onMouseLeave={() => setHoveredLetter(null)}
-                  className={cn(
-                    "inline-block transition-transform duration-300 ease-out will-change-transform",
-                    hoveredLetter === index
-                      ? "scale-110 -translate-y-2 text-[#0038E2] drop-shadow-[0_0_24px_rgba(0,56,226,0.3)]"
-                      : hoveredLetter === index - 1 || hoveredLetter === index + 1
-                        ? "scale-105 -translate-y-1 text-[#495B7D]"
-                        : ""
-                  )}
-                >
-                  {char}
-                </span>
-              ))}
+              <span className="sr-only">GetVeevz — Short-Form Video Distribution &amp; Clipping Engine</span>
+              <span aria-hidden="true" className="flex">
+                {letters.map((char, index) => (
+                  <span
+                    key={index}
+                    onMouseEnter={() => setHoveredLetter(index)}
+                    onMouseLeave={() => setHoveredLetter(null)}
+                    className={cn(
+                      "inline-block transition-transform duration-300 ease-out will-change-transform",
+                      hoveredLetter === index
+                        ? "scale-110 -translate-y-2 text-[#0038E2] drop-shadow-[0_0_24px_rgba(0,56,226,0.3)]"
+                        : hoveredLetter === index - 1 || hoveredLetter === index + 1
+                          ? "scale-105 -translate-y-1 text-[#495B7D]"
+                          : ""
+                    )}
+                  >
+                    {char}
+                  </span>
+                ))}
+              </span>
             </h1>
 
             {/* Trademark/Engine Glyph on desktop */}

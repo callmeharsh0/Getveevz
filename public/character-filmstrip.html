@@ -58,6 +58,16 @@
         #000000;
     }
 
+    @media (max-width: 768px), (pointer: coarse) {
+      .stage {
+        cursor: default;
+        touch-action: pan-y;
+      }
+      .card {
+        cursor: default;
+      }
+    }
+
     .stage::before {
       content: "";
       position: absolute;
@@ -342,12 +352,19 @@
         state.lastInput = performance.now();
       }
 
+      function isMobileScreen() {
+        return window.innerWidth < 768 || window.matchMedia("(pointer: coarse)").matches;
+      }
+
       cards.forEach((card, index) => {
         card.addEventListener("click", () => moveTo(index));
         card.addEventListener("focus", () => moveTo(index));
       });
 
       stage.addEventListener("pointermove", (event) => {
+        // Disable drag on mobile: only arrow buttons scroll on mobile devices
+        if (isMobileScreen() || event.pointerType === "touch") return;
+
         const rect = stage.getBoundingClientRect();
         const nx = Math.max(-1, Math.min(1, ((event.clientX - rect.left) / rect.width - 0.5) * 2));
         const ny = Math.max(-1, Math.min(1, ((event.clientY - rect.top) / rect.height - 0.5) * 2));
@@ -357,6 +374,10 @@
         state.target = state.base + (innerWidth < 650 ? ny * 2.2 : nx * 3.1);
         state.lastInput = performance.now();
         stage.style.setProperty("--pointer-x", `${(nx + 1) * 50}%`);
+      });
+
+      stage.addEventListener("pointerdown", (event) => {
+        if (isMobileScreen() || event.pointerType === "touch") return;
       });
 
       stage.addEventListener("pointerleave", () => {

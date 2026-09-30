@@ -1,0 +1,10 @@
+# robots.txt for https://getveevz.com
+User-agent: *
+Allow: /
+Disallow: /character-filmstrip.html
+
+# Host
+Host: https://getveevz.com
+
+# XML Sitemaps
+Sitemap: https://getveevz.com/sitemap.xml

@@ -2,15 +2,12 @@
 
 import React from "react";
 import { Link, useParams } from "react-router-dom";
-import { ArrowLeft, ArrowRight, CheckCircle2, Sparkles, Check, ChevronDown } from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckCircle2, Sparkles, Check, ChevronDown, ChevronRight, Home } from "lucide-react";
 import { GlassButton } from "@/components/ui/glass-button";
-import { services, Service } from "@/lib/services";
+import { services, Service, getServiceBySlug } from "@/lib/services";
 import { cn } from "@/lib/utils";
 import { useScrollReveal } from "@/lib/useScrollReveal";
-
-function getServiceBySlug(slug: string): Service | undefined {
-  return services.find((s) => s.slug === slug);
-}
+import HeadSEO from "@/components/seo/HeadSEO";
 
 export default function ServiceDetailPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -25,6 +22,11 @@ export default function ServiceDetailPage() {
   if (!service) {
     return (
       <main className="relative w-full min-h-[100dvh] bg-[#F3EFEA] text-[#111111] flex items-center justify-center overflow-hidden">
+        <HeadSEO
+          title="Service Not Found — GetVeevz"
+          description="The requested video distribution service specification could not be located."
+          canonical="https://getveevz.com/services"
+        />
         <div className="pointer-events-none fixed inset-0 z-0" style={{
           background: "radial-gradient(ellipse at 20% 30%, rgba(139,163,197,0.15) 0%, transparent 45%), radial-gradient(ellipse at 80% 70%, rgba(0,56,226,0.08) 0%, transparent 45%)",
         }} />
@@ -46,9 +48,78 @@ export default function ServiceDetailPage() {
   }
 
   const Icon = service.icon;
+  const canonicalUrl = `https://getveevz.com/services/${service.slug}`;
+
+  // Structured Data: BreadcrumbList + Service + FAQPage
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://getveevz.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Services",
+          "item": "https://getveevz.com/services"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": service.title,
+          "item": canonicalUrl
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": service.title,
+      "serviceType": "Short-Form Video Distribution & Clipping",
+      "provider": {
+        "@type": "Organization",
+        "name": "GetVeevz",
+        "url": "https://getveevz.com"
+      },
+      "description": service.shortDesc,
+      "url": canonicalUrl,
+      "offers": service.models.map((m) => ({
+        "@type": "Offer",
+        "name": m.name,
+        "description": m.overview
+      }))
+    },
+    ...(service.faq && service.faq.length > 0
+      ? [
+          {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": service.faq.map((item) => ({
+              "@type": "Question",
+              "name": item.question,
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": item.answer
+              }
+            }))
+          }
+        ]
+      : [])
+  ];
 
   return (
     <main className="relative w-full min-h-[100dvh] bg-[#F3EFEA] text-[#111111] font-sans overflow-hidden selection:bg-[#0038E2]/20 selection:text-[#0038E2]">
+      <HeadSEO
+        title={`${service.title} — GetVeevz`}
+        description={service.shortDesc}
+        canonical={canonicalUrl}
+        jsonLd={jsonLd}
+      />
       {/* ── Soft Ambient Radial Depth Mesh (Hero section light aesthetic) ── */}
       <div
         aria-hidden="true"
@@ -68,6 +139,32 @@ export default function ServiceDetailPage() {
       {/* ── Main Content Container ── */}
       <div className="relative mx-auto max-w-7xl px-4 sm:px-8 lg:px-12 pt-36 sm:pt-44 lg:pt-48 pb-28 sm:pb-36 lg:pb-40">
         
+        {/* ── Semantic Breadcrumbs for Navigation & SEO ── */}
+        <nav aria-label="Breadcrumb" className="mb-6 sm:mb-8">
+          <ol className="flex items-center flex-wrap gap-1.5 text-xs font-mono text-[#555555]">
+            <li className="flex items-center gap-1.5">
+              <Link to="/" className="flex items-center gap-1 hover:text-[#0038E2] transition-colors">
+                <Home className="w-3.5 h-3.5" />
+                <span>Home</span>
+              </Link>
+            </li>
+            <li className="flex items-center">
+              <ChevronRight className="w-3 h-3 text-[#999999]" />
+            </li>
+            <li className="flex items-center gap-1.5">
+              <Link to="/services" className="hover:text-[#0038E2] transition-colors">
+                Services
+              </Link>
+            </li>
+            <li className="flex items-center">
+              <ChevronRight className="w-3 h-3 text-[#999999]" />
+            </li>
+            <li className="font-semibold text-[#111111] truncate max-w-[200px] sm:max-w-none" aria-current="page">
+              {service.title}
+            </li>
+          </ol>
+        </nav>
+
         {/* ── Hero Section (Light Canvas with Dark Obsidian Typography) ── */}
         <div ref={heroRef} className="max-w-4xl mb-20 sm:mb-24">
           <div

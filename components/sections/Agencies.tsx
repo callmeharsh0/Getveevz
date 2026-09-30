@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import gsap from "gsap";
 import { ArrowUpRight, Check, RotateCcw, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -90,7 +90,7 @@ const agencies: Agency[] = [
     id: "end-to-end-marketing",
     name: "End-to-End Marketing",
     tagline: "Full-Stack Marketing",
-    duration: "Turnkey Solution",
+    duration: "Production",
     deliverables: "Production • Distribution • Growth",
     description:
       "We make content and distribute it.\nEverything handled for you end to end.",
@@ -100,11 +100,11 @@ const agencies: Agency[] = [
     servicesList: [
       {
         title: "Content Production",
-        detail: "We create high-converting content for your brand — scripted, shot, and edited in-house.",
+        detail: "We create high-converting content for your brand scripted, shot, and edited in-house.",
       },
       {
         title: "Omnichannel Distribution",
-        detail: "Distributed across LinkedIn, X, Instagram, YouTube, and Facebook for omnipresent reach.",
+        detail: "Distributed across LinkedIn, X, Instagram, YouTube, and Facebook for reach.",
       },
       {
         title: "Who It's Built For",
@@ -112,7 +112,7 @@ const agencies: Agency[] = [
       },
       {
         title: "Hands-Off Execution",
-        detail: "Everything handled for you end-to-end — zero operational overhead on your team.",
+        detail: "Everything handled for you end-to-end zero operational overhead on your team.",
       },
     ],
   },
@@ -372,7 +372,7 @@ export default function Agencies() {
         {/* ========================================================================= */}
         <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-20">
           <h2 className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-[4.25rem] font-bold tracking-tight text-[#111111] leading-[1.08]">
-            The services we provide
+            Services we provide
           </h2>
         </div>
 
@@ -625,22 +625,20 @@ export default function Agencies() {
 
                     {/* Back Footer Actions */}
                     <div className="flex items-center justify-between gap-2 pt-3 border-t border-white/10">
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          const routes: Record<string, string> = {
-                            "long-term": "/services/long-term-distribution",
-                            "short-term": "/services/short-term-campaign",
-                            "end-to-end-marketing": "/services/end-to-end-marketing",
-                          };
-                          navigate(routes[agency.id] || "#cta");
-                        }}
+                      <Link
+                        to={
+                          agency.id === "long-term"
+                            ? "/services/long-term-distribution"
+                            : agency.id === "short-term"
+                              ? "/services/short-term-campaign"
+                              : "/services/end-to-end-marketing"
+                        }
+                        onClick={(e) => e.stopPropagation()}
                         className="inline-flex items-center gap-1 px-3.5 py-2 rounded-full bg-white/10 hover:bg-white/25 border border-white/20 text-xs font-semibold text-white transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer shadow-sm"
                       >
                         <span>More Info</span>
                         <ArrowUpRight className="w-3.5 h-3.5 text-frost" />
-                      </button>
+                      </Link>
                       <GlassButton
                         size="sm"
                         onClick={(e) => {

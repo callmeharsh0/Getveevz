@@ -4,6 +4,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import { useEffect, lazy, Suspense } from "react";
 import Home from "@/app/page";
 import UnifiedNav from "@/components/layout/UnifiedNav";
+import Footer from "@/components/layout/Footer";
 
 const ServicesPage = lazy(() => import("@/app/services/page"));
 const ServiceDetailPage = lazy(() => import("@/app/services/[slug]/page"));
@@ -44,6 +45,7 @@ export default function AppRoutes() {
           <Route path="*" element={<Home />} />
         </Routes>
       </Suspense>
+      <Footer />
     </>
   );
 }

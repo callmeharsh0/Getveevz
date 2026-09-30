@@ -187,23 +187,21 @@ export default function UnifiedNav() {
                 </span>
               </Link>
 
-              {/* Services Button (Active) */}
-              <button
-                type="button"
-                onClick={() => navigate("/services")}
-                className="relative px-3.5 py-1 sm:py-1.5 text-xs font-semibold rounded-full cursor-pointer text-[#111111] bg-white shadow-sm"
+              {/* Services Link (Active) */}
+              <Link
+                to="/services"
+                className="relative px-3.5 py-1 sm:py-1.5 text-xs font-semibold rounded-full cursor-pointer text-[#111111] bg-white shadow-sm inline-block"
               >
                 <span className="relative z-10">Services</span>
-              </button>
+              </Link>
 
               {/* Home Link */}
-              <button
-                type="button"
-                onClick={() => navigate("/")}
-                className="relative px-3.5 py-1 sm:py-1.5 text-xs font-medium rounded-full cursor-pointer text-[#F3EFEA]/80 hover:text-white hover:bg-white/10 transition-colors duration-200"
+              <Link
+                to="/"
+                className="relative px-3.5 py-1 sm:py-1.5 text-xs font-medium rounded-full cursor-pointer text-[#F3EFEA]/80 hover:text-white hover:bg-white/10 transition-colors duration-200 inline-block"
               >
                 <span className="relative z-10">Home</span>
-              </button>
+              </Link>
             </motion.div>
           ) : (
             /* ── HOME STATE: Full Multi-Section Directory Pill ── */
@@ -217,13 +215,19 @@ export default function UnifiedNav() {
             >
               {HOME_NAV_ITEMS.map((item) => {
                 const isActive = activeSection === item.id;
+                const href = item.id === "services" ? "/services" : `/#${item.id === "about" ? "testimonials" : item.id}`;
                 return (
-                  <button
+                  <a
                     key={item.id}
-                    type="button"
+                    href={href}
                     onClick={(e) => {
-                      e.preventDefault();
-                      handleHomeNavClick(item.id);
+                      if (item.id === "services") {
+                        e.preventDefault();
+                        navigate("/services");
+                      } else {
+                        e.preventDefault();
+                        handleHomeNavClick(item.id);
+                      }
                     }}
                     className={cn(
                       "relative px-3.5 py-1.5 text-xs font-medium rounded-full transition-colors duration-200 cursor-pointer flex items-center select-none",
@@ -240,7 +244,7 @@ export default function UnifiedNav() {
                       />
                     )}
                     <span className="relative z-10">{item.label}</span>
-                  </button>
+                  </a>
                 );
               })}
             </motion.div>

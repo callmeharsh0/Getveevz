@@ -56,6 +56,7 @@ export function CharacterCarousel({
         ref={iframeRef}
         title="Interactive character filmstrip"
         src="/character-filmstrip.html"
+        className="pointer-events-none sm:pointer-events-auto"
         style={{
           position: "absolute",
           top: 0,
@@ -176,7 +177,7 @@ export default function ReelsFilmstrip() {
           type="button"
           onClick={handlePrev}
           aria-label="Previous reel"
-          className="group absolute left-4 sm:left-8 md:left-12 lg:left-14 top-1/2 -translate-y-1/2 z-30 flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#080b14]/75 hover:bg-white text-frost hover:text-black border border-white/15 hover:border-white backdrop-blur-xl shadow-2xl transition-all duration-300 hover:scale-110 active:scale-95 hover:shadow-[0_0_35px_rgba(255,255,255,0.4)] cursor-pointer"
+          className="group absolute left-3 sm:left-8 md:left-12 lg:left-14 top-1/2 -translate-y-1/2 z-30 flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#080b14]/75 hover:bg-white text-frost hover:text-black border border-white/15 hover:border-white backdrop-blur-xl shadow-2xl transition-all duration-300 hover:scale-110 active:scale-95 hover:shadow-[0_0_35px_rgba(255,255,255,0.4)] cursor-pointer touch-manipulation"
         >
           <ArrowLeft className="w-5 h-5 sm:w-6 sm:h-6 transition-transform duration-300 group-hover:-translate-x-0.5" />
           <span className="sr-only">Previous reel</span>
@@ -187,7 +188,7 @@ export default function ReelsFilmstrip() {
           type="button"
           onClick={handleNext}
           aria-label="Next reel"
-          className="group absolute right-4 sm:right-8 md:right-12 lg:right-14 top-1/2 -translate-y-1/2 z-30 flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#080b14]/75 hover:bg-white text-frost hover:text-black border border-white/15 hover:border-white backdrop-blur-xl shadow-2xl transition-all duration-300 hover:scale-110 active:scale-95 hover:shadow-[0_0_35px_rgba(255,255,255,0.4)] cursor-pointer"
+          className="group absolute right-3 sm:right-8 md:right-12 lg:right-14 top-1/2 -translate-y-1/2 z-30 flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#080b14]/75 hover:bg-white text-frost hover:text-black border border-white/15 hover:border-white backdrop-blur-xl shadow-2xl transition-all duration-300 hover:scale-110 active:scale-95 hover:shadow-[0_0_35px_rgba(255,255,255,0.4)] cursor-pointer touch-manipulation"
         >
           <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 transition-transform duration-300 group-hover:translate-x-0.5" />
           <span className="sr-only">Next reel</span>
@@ -196,7 +197,8 @@ export default function ReelsFilmstrip() {
         {/* Bottom subtle interaction hint pill */}
         <div className="pointer-events-none absolute bottom-6 sm:bottom-8 inset-x-0 z-20 flex items-center justify-center">
           <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#080b14]/60 border border-white/10 backdrop-blur-md text-[10px] sm:text-xs font-mono text-muted/80 tracking-wider">
-            <span>Use arrows or drag to explore reels</span>
+            <span className="hidden sm:inline">Use arrows or drag to explore reels</span>
+            <span className="inline sm:hidden">Use arrows to explore reels</span>
           </div>
         </div>
       </div>

@@ -292,6 +292,10 @@ export default function DistributionFlow({
         gsap.set(linesGroupRef.current, { opacity: 0 });
       }
 
+      if (contentGroupRef.current) {
+        gsap.set(contentGroupRef.current, { x: 0, y: 0 });
+      }
+
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: wrapperRef.current,
@@ -357,12 +361,18 @@ export default function DistributionFlow({
         );
       });
 
-      // 4. Shift content group slightly right and up to frame comfortably inside all viewport heights
+      // 4. Shift content group on desktop to make room for punchline on left; center optically on mobile
       if (contentGroupRef.current) {
+        const isClient = typeof window !== "undefined";
+        const winWidth = isClient ? window.innerWidth : 390;
+        // Dynamically compute mobile scale: ~23% larger than before, perfectly bounded with 12px+ safety margins
+        const mobileScale = Math.min(0.37, Math.max(0.34, (winWidth - 24) / 950));
+        const mobileX = -Math.round(113.2 * mobileScale);
+
         tl.to(
           contentGroupRef.current,
           isMobile
-            ? { x: 0, y: 24, scale: 0.30, duration: 0.10, ease: "power2.out" }
+            ? { x: mobileX, y: 18, scale: mobileScale, duration: 0.10, ease: "power2.out" }
             : { x: 70, y: -20, scale: 0.85, duration: 0.10, ease: "power2.out" },
           0.20
         );
@@ -439,12 +449,12 @@ export default function DistributionFlow({
       {/* Pinned Scroll Sequence (GSAP Controlled) */}
       <div
         ref={wrapperRef}
-        className="relative w-full h-screen bg-[#090e14] overflow-hidden select-none"
+        className="relative w-full h-screen min-h-[100dvh] bg-[#090e14] overflow-hidden select-none"
       >
         {/* Ambient Depth Glow */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute left-1/2 top-1/2 h-[750px] w-[750px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(139,163,198,0.12),transparent_70%)] blur-2xl z-[1]"
+          className="pointer-events-none absolute left-1/2 top-1/2 h-[750px] w-[750px] max-w-none -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(139,163,198,0.12),transparent_70%)] blur-2xl z-[1]"
         />
 
         {/* Integrated Intro Statement (Act 1: Centered Above Video on Entry) */}
@@ -512,13 +522,13 @@ export default function DistributionFlow({
         {/* Scaled Center Cluster */}
         <div
           ref={contentGroupRef}
-          className="absolute top-1/2 left-1/2 w-[1000px] h-[800px] -ml-[500px] -mt-[400px] scale-[0.32] xs:scale-[0.40] sm:scale-70 md:scale-90 lg:scale-100 origin-center"
+          className="absolute top-1/2 left-1/2 w-[1000px] h-[800px] -ml-[500px] -mt-[400px] max-w-none scale-[0.38] xs:scale-[0.44] sm:scale-70 md:scale-90 lg:scale-100 origin-center"
         >
           {/* Animated Dotted Connection Lines with Moving Dots Originating from Main Video */}
           <svg
             ref={linesGroupRef}
             viewBox="0 0 1000 800"
-            className="pointer-events-none absolute inset-0 w-full h-full z-[2] overflow-visible"
+            className="pointer-events-none absolute inset-0 w-full h-full max-w-none z-[2] overflow-visible"
             fill="none"
           >
             <style>{`
@@ -597,7 +607,7 @@ export default function DistributionFlow({
           {/* Central Long-Form Video Source Card (Glides to left upon scroll) */}
           <div
             ref={sourceRef}
-            className="absolute top-1/2 left-1/2 w-[360px] h-[203px] -ml-[180px] -mt-[101px] rounded-2xl overflow-hidden bg-[#0a0a0a] border border-white/10 shadow-[0_24px_60px_rgba(0,0,0,0.8)] z-[5]"
+            className="absolute top-1/2 left-1/2 w-[360px] h-[203px] -ml-[180px] -mt-[101px] max-w-none rounded-2xl overflow-hidden bg-[#0a0a0a] border border-white/10 shadow-[0_24px_60px_rgba(0,0,0,0.8)] z-[5]"
           >
             <div
               ref={tiltRef}

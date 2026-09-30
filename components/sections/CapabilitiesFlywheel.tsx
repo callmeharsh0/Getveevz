@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Scissors,
@@ -73,7 +73,19 @@ const NODES: FlywheelNode[] = [
 export default function CapabilitiesFlywheel() {
   const [activeNode, setActiveNode] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const showcaseRef = useRef<HTMLDivElement>(null);
   const current = NODES[activeNode];
+
+  // Select a node and smoothly scroll the showcase card into view so the
+  // details for that step are visible (especially useful on mobile where the
+  // card sits below the flywheel).
+  const handleSelectNode = (index: number) => {
+    setActiveNode(index);
+    showcaseRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
+  };
 
   // Auto-advance every 6 seconds unless user is hovering/interacting
   useEffect(() => {
@@ -155,7 +167,7 @@ export default function CapabilitiesFlywheel() {
                   <button
                     key={node.id}
                     type="button"
-                    onClick={() => setActiveNode(i)}
+                    onClick={() => handleSelectNode(i)}
                     className={`absolute ${positions[i]} z-20 group transition-all duration-300 flex flex-col items-center focus:outline-none cursor-pointer`}
                     aria-label={`Select ${node.title}`}
                   >
@@ -185,7 +197,7 @@ export default function CapabilitiesFlywheel() {
               {NODES.map((n, idx) => (
                 <button
                   key={n.id}
-                  onClick={() => setActiveNode(idx)}
+                  onClick={() => handleSelectNode(idx)}
                   className={`h-1.5 rounded-full transition-all duration-300 relative overflow-hidden ${activeNode === idx
                     ? "w-9 bg-[#0038E2] shadow-[0_0_10px_rgba(0,56,226,0.4)]"
                     : "w-2 bg-[#111111]/15 hover:bg-[#111111]/30"
@@ -203,7 +215,10 @@ export default function CapabilitiesFlywheel() {
           {/* RIGHT: STANDARDIZED FIXED-SIZE FLYWHEEL SHOWCASE CARD                     */}
           {/* ========================================================================= */}
           <div className="lg:col-span-7">
-            <div className="relative w-full min-h-[480px] sm:min-h-[520px] rounded-3xl bg-white border border-[#111111]/12 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.06),0_1px_3px_rgba(0,0,0,0.03)] p-5 sm:p-9 flex flex-col justify-between overflow-hidden">
+            <div
+              ref={showcaseRef}
+              className="relative w-full min-h-[480px] sm:min-h-[520px] rounded-3xl bg-white border border-[#111111]/12 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.06),0_1px_3px_rgba(0,0,0,0.03)] p-5 sm:p-9 flex flex-col justify-between overflow-hidden"
+            >
               {/* Corner Ambient Glow */}
               <div className="absolute -top-12 -right-12 w-64 h-64 bg-[#0038E2]/[0.06] blur-[90px] rounded-full pointer-events-none" />
 

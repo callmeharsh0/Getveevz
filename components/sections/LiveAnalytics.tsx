@@ -59,7 +59,7 @@ export default function LiveAnalytics() {
                 <span className="italic text-frost">analytics dashboard.</span>
               </h2>
               <p className="mt-4 text-base text-muted leading-relaxed">
-                Track views, engagement, follower growth, and per-page performance in real time — across every platform, every page, every day.
+                Track views, engagement, follower growth, and per-page performance in real time across every platform, every page, every day.
               </p>
             </div>
 
