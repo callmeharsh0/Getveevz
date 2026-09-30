@@ -29,10 +29,10 @@ const NODES: FlywheelNode[] = [
     step: "01",
     stage: "Step 01 · Cut & Edit",
     title: "Clipping",
-    summary: "Turn  long video into viral short clips.",
+    summary: "Turn long-form video into viral short clips.",
     description:
       "We find your best moments, cut out dead silence, add bold captions, and format every clip to hook viewers in the first 3 seconds.",
-    outputStandard: " Ready-to-Post Clips Per Video",
+    outputStandard: "Ready-to-Post Clips Per Video",
     icon: Scissors,
   },
   {
@@ -329,15 +329,15 @@ export default function CapabilitiesFlywheel() {
                       <div className="grid grid-cols-3 gap-2 py-1">
                         <div className="p-2 rounded-xl bg-white border border-[#111111]/10 text-center shadow-sm">
                           <p className="text-[11px] font-bold text-[#111111]">Instagram</p>
-                          <span className="text-[9px] font-mono text-[#0038E2] font-semibold">90 Pages Active</span>
+                          <span className="text-[9px] font-mono text-[#0038E2] font-semibold">120 Pages Active</span>
                         </div>
                         <div className="p-2 rounded-xl bg-white border border-[#111111]/10 text-center shadow-sm">
                           <p className="text-[11px] font-bold text-[#111111]">TikTok</p>
-                          <span className="text-[9px] font-mono text-[#0038E2] font-semibold">70 Pages Active</span>
+                          <span className="text-[9px] font-mono text-[#0038E2] font-semibold">80 Pages Active</span>
                         </div>
                         <div className="p-2 rounded-xl bg-white border border-[#111111]/10 text-center shadow-sm">
                           <p className="text-[11px] font-bold text-[#111111]">YT Shorts</p>
-                          <span className="text-[9px] font-mono text-[#0038E2] font-semibold">40 Pages Active</span>
+                          <span className="text-[9px] font-mono text-[#0038E2] font-semibold">50 Pages Active</span>
                         </div>
                       </div>
 
