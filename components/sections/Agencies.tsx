@@ -31,16 +31,16 @@ const agencies: Agency[] = [
     name: "Long term",
     tagline: "Continuous Growth Engine",
     duration: "Ongoing / Retainer",
-    deliverables: "Normal Clipping (36L/72L) • CPM Transition",
+    deliverables: "Normal Clipping • CPM Transition",
     description:
-      "This includes the CPM-based growth campaign ($3/1K views, min 10M views with retainer transition) and normal clipping (36L & 72L tiers).",
+      "This includes the CPM-based growth campaign (min 10M views with retainer transition) and normal clipping.",
     link: "#cta",
     videoSrc: "/assets/agency-video-1.mp4",
     maskType: "custom-a",
     servicesList: [
       {
         title: "Test & Discover",
-        detail: "Launch with 500–1,000+ clippers to test pages, hooks, and formats at $3/1K CPM with your target volume (min. 10M views).",
+        detail: "Launch with 500–1,000+ clippers to test pages, hooks, and formats with your target volume (min. 10M views).",
       },
       {
         title: "Identify Winners",
@@ -48,7 +48,7 @@ const agencies: Agency[] = [
       },
       {
         title: "Retainer Transition",
-        detail: "Move top 10–30 winning pages into a fixed monthly retainer, or opt directly into straight normal clipping (36L & 72L tiers).",
+        detail: "Move top 10–30 winning pages into a fixed monthly retainer, or opt directly into straight normal clipping.",
       },
       {
         title: "Scale Continuously",
@@ -61,7 +61,7 @@ const agencies: Agency[] = [
     name: "Short term",
     tagline: "High-Impact Sprint",
     duration: "25–30 Days",
-    deliverables: "CPM Surge ($3/1K) • Seeding (Starts ₹6L)",
+    deliverables: "CPM Surge • Seeding",
     description:
       "This will include the PR campaign and mass clipping.\nShort term will be 25-30 days.",
     link: "#cta",
@@ -74,15 +74,15 @@ const agencies: Agency[] = [
       },
       {
         title: "CPM View Surge",
-        detail: "Deploy through mass fan-page clipping and niche theme pages at $3 / 1K views based on your target view count (min. 10M views).",
+        detail: "Deploy through mass fan-page clipping and niche theme pages based on your target view count (min. 10M views).",
       },
       {
         title: "24-Hour Seeding",
-        detail: "Distribute across established niche accounts to 1M–10M+ follower pages, starting at ₹6L ($7.2K USD • 26.5K AED) with 24-hr execution.",
+        detail: "Distribute across established niche accounts to 1M–10M+ follower pages with 24-hr execution.",
       },
       {
         title: "Push & Scale",
-        detail: "Run high-intensity blitzes scaling from ₹6L up to ₹85L+ ($7.2K to $100K+), depending on reach, tier inventory, and timeline.",
+        detail: "Run high-intensity blitzes scaling up based on reach, tier inventory, and timeline.",
       },
     ],
   },

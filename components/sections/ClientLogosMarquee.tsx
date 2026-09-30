@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { cn } from "@/lib/utils";
 
 export interface ClientItem {
   id: string;
@@ -73,14 +74,26 @@ export const CLIENT_LOGOS: ClientItem[] = [
  * Nested Doppelrand (Double-Bezel) Logo Vessel
  * Machined concentric radii with micro-inset specular illumination.
  */
-function LogoVessel({ src, alt }: { src: string; alt: string }) {
+function LogoVessel({ src, alt, id }: { src: string; alt: string; id?: string }) {
+  const isTraders = id === "traders-paradise" || src.includes("traderspardise");
+
   return (
     <div className="relative shrink-0 w-11 h-11 rounded-[0.875rem] p-[1px] bg-gradient-to-b from-white/30 via-white/10 to-transparent shadow-[inset_0_1px_1px_rgba(255,255,255,0.4),0_2px_8px_rgba(0,0,0,0.4)]">
-      <div className="w-full h-full rounded-[calc(0.875rem-1px)] bg-white/95 p-1.5 flex items-center justify-center overflow-hidden">
+      <div
+        className={cn(
+          "w-full h-full rounded-[calc(0.875rem-1px)] flex items-center justify-center overflow-hidden",
+          isTraders ? "bg-black p-0" : "bg-white/95 p-1.5"
+        )}
+      >
         <img
           src={src}
           alt={alt}
-          className="w-full h-full object-contain filter drop-shadow-[0_1px_2px_rgba(0,0,0,0.15)] select-none"
+          className={cn(
+            "w-full h-full select-none",
+            isTraders
+              ? "object-cover scale-[1.18] filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]"
+              : "object-contain filter drop-shadow-[0_1px_2px_rgba(0,0,0,0.15)]"
+          )}
           loading="lazy"
           onError={(e) => {
             const target = e.currentTarget;
@@ -149,7 +162,7 @@ export default function ClientLogosMarquee() {
               >
                 {/* Inner Bezel Core */}
                 <div className="rounded-[calc(1.25rem-1.5px)] bg-gradient-to-b from-[#131b28]/95 via-[#0b1019]/95 to-[#070b12] px-4 py-3 flex items-center gap-3.5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.12)]">
-                  <LogoVessel src={client.logo} alt={client.name} />
+                  <LogoVessel src={client.logo} alt={client.name} id={client.id} />
                   <h3 className="font-display text-[13px] sm:text-sm font-semibold tracking-[-0.01em] text-[#F0ECDD] group-hover:text-frost transition-colors duration-300 pr-1">
                     {client.name}
                   </h3>
@@ -169,7 +182,7 @@ export default function ClientLogosMarquee() {
               >
                 {/* Inner Bezel Core */}
                 <div className="rounded-[calc(1.25rem-1.5px)] bg-gradient-to-b from-[#101724]/90 via-[#090d16]/95 to-[#060910] px-4 py-3 flex items-center gap-3.5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.08)]">
-                  <LogoVessel src={client.logo} alt={client.name} />
+                  <LogoVessel src={client.logo} alt={client.name} id={client.id} />
                   <div>
                     <h3 className="font-display text-[13px] sm:text-sm font-semibold tracking-[-0.01em] text-[#F0ECDD] group-hover:text-frost transition-colors duration-300">
                       {client.name}

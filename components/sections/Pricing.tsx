@@ -22,7 +22,7 @@ export interface PlanSpec {
 export interface PricingPlan {
   id: string;
   name: string;
-  badge: string;
+  badge: string | { USD: string; INR: string; AED?: string };
   popular?: boolean;
   subtitle: string;
   rateDisplay: {
@@ -30,11 +30,14 @@ export interface PricingPlan {
     INR: string;
     AED: string;
   };
-  ratePeriod: string;
-  highlightNote: string;
+  ratePeriod: string | { USD: string; INR: string; AED?: string };
+  highlightNote: string | { USD: string; INR: string; AED?: string };
   icon: typeof Rocket;
   specs: PlanSpec[];
-  subFormats?: { title: string; desc: string | { USD: string; INR: string; AED?: string } }[];
+  subFormats?: {
+    title: string | { USD: string; INR: string; AED?: string };
+    desc: string | { USD: string; INR: string; AED?: string };
+  }[];
 }
 
 const longTermPlans: PricingPlan[] = [
@@ -50,15 +53,19 @@ const longTermPlans: PricingPlan[] = [
       AED: "11 AED / 1K CPM ➔ Fixed Retainer",
     },
     ratePeriod: "Custom Views • Minimum 10M Views Requirement",
-    highlightNote: "We ask you how many views you want (min. 10M views). Month 1 tests clippers at $3/1K CPM, then shortlists the top 10–30 winning pages into a predictable monthly retainer.",
+    highlightNote: {
+      USD: "We ask you how many views you want (min. 10M views). Month 1 tests clippers at $3/1K CPM, then shortlists the top 10–30 winning pages into a predictable monthly retainer.",
+      INR: "We ask you how many views you want (min. 10M views). Month 1 tests clippers at ₹250/1K CPM, then shortlists the top 10–30 winning pages into a predictable monthly retainer.",
+      AED: "We ask you how many views you want (min. 10M views). Month 1 tests clippers at 11 AED/1K CPM, then shortlists the top 10–30 winning pages into a predictable monthly retainer.",
+    },
     icon: Rocket,
     specs: [
       {
         label: "Pricing Basis",
         value: {
-          USD: "$3 / 1K CPM (₹250 / 1K CPM • 11 AED / 1K CPM)",
-          INR: "₹250 / 1K CPM ($3 / 1K CPM • 11 AED / 1K CPM)",
-          AED: "11 AED / 1K CPM ($3 / 1K CPM • ₹250 / 1K CPM)",
+          USD: "$3 per 1K views (CPM)",
+          INR: "₹250 per 1K views (CPM)",
+          AED: "11 AED per 1K views (CPM)",
         },
       },
       { label: "View Requirement", value: "Minimum 10 Million views target (we ask your target view volume)" },
@@ -76,7 +83,11 @@ const longTermPlans: PricingPlan[] = [
     ],
     subFormats: [
       {
-        title: "Phase 1: CPM Testing ($3/1K)",
+        title: {
+          USD: "Phase 1: CPM Testing ($3/1K)",
+          INR: "Phase 1: CPM Testing (₹250/1K)",
+          AED: "Phase 1: CPM Testing (11 AED/1K)",
+        },
         desc: {
           USD: "Deploy clippers at $3/1K views to hit your target view count (min 10M views) and identify viral hooks.",
           INR: "Deploy clippers at ₹250/1K views to hit your target view count (min 10M views) and identify viral hooks.",
@@ -92,31 +103,39 @@ const longTermPlans: PricingPlan[] = [
   {
     id: "long-term-straight-retainer",
     name: "Normal Clipping (Straight Retainer)",
-    badge: "36L & 72L Retainers",
+    badge: {
+      USD: "$36K & $72K Retainers",
+      INR: "36L & 72L Retainers",
+      AED: "132K & 264K AED Retainers",
+    },
     subtitle: "For brands already getting consistent views without needing a testing phase",
     rateDisplay: {
       USD: "$36K & $72K / mo",
       INR: "₹36L & ₹72L / mo",
       AED: "132K & 264K AED / mo",
     },
-    ratePeriod: "Monthly Fixed Retainer (36L & 72L Tiers)",
+    ratePeriod: {
+      USD: "Monthly Fixed Retainer ($36K & $72K Tiers)",
+      INR: "Monthly Fixed Retainer (36L & 72L Tiers)",
+      AED: "Monthly Fixed Retainer (132K & 264K AED Tiers)",
+    },
     highlightNote: "Normal clipping on a fixed monthly retainer with defined deliverables: dedicated clipping pods, fixed monthly quotas, and zero view volatility.",
     icon: ShieldCheck,
     specs: [
       {
         label: "Tier 1 Pricing",
         value: {
-          USD: "$36,000 / month (₹36L INR • 132,000 AED / month)",
-          INR: "₹36 Lakhs / month ($36,000 USD • 132,000 AED / month)",
-          AED: "132,000 AED / month ($36,000 USD • ₹36L INR / month)",
+          USD: "$36,000 / month (Tier 1)",
+          INR: "₹36 Lakhs / month (36L Tier 1)",
+          AED: "132,000 AED / month (Tier 1)",
         },
       },
       {
         label: "Tier 2 Pricing",
         value: {
-          USD: "$72,000 / month (₹72L INR • 264,000 AED / month)",
-          INR: "₹72 Lakhs / month ($72,000 USD • 264,000 AED / month)",
-          AED: "264,000 AED / month ($72,000 USD • ₹72L INR / month)",
+          USD: "$72,000 / month (Tier 2)",
+          INR: "₹72 Lakhs / month (72L Tier 2)",
+          AED: "264,000 AED / month (Tier 2)",
         },
       },
       { label: "Ideal For", value: "Brands with steady traction wanting normal clipping without testing" },
@@ -126,19 +145,27 @@ const longTermPlans: PricingPlan[] = [
     ],
     subFormats: [
       {
-        title: "Tier 1: 36L / mo ($36K / 132K AED)",
+        title: {
+          USD: "Tier 1: $36K / month",
+          INR: "Tier 1: 36L / month",
+          AED: "Tier 1: 132K AED / month",
+        },
         desc: {
-          USD: "$36K USD (₹36L / 132K AED) / mo: Dedicated clipping pod, 60+ vertical cuts, multi-channel distribution.",
-          INR: "₹36L INR ($36K / 132K AED) / mo: Dedicated clipping pod, 60+ vertical cuts, multi-channel distribution.",
-          AED: "132K AED ($36K / ₹36L) / mo: Dedicated clipping pod, 60+ vertical cuts, multi-channel distribution.",
+          USD: "$36,000 / month: Dedicated clipping pod, 60+ vertical cuts, multi-channel distribution.",
+          INR: "₹36 Lakhs / month: Dedicated clipping pod, 60+ vertical cuts, multi-channel distribution.",
+          AED: "132,000 AED / month: Dedicated clipping pod, 60+ vertical cuts, multi-channel distribution.",
         },
       },
       {
-        title: "Tier 2: 72L / mo ($72K / 264K AED)",
+        title: {
+          USD: "Tier 2: $72K / month",
+          INR: "Tier 2: 72L / month",
+          AED: "Tier 2: 264K AED / month",
+        },
         desc: {
-          USD: "$72K USD (₹72L / 264K AED) / mo: Omnipresent reach surge, 120+ vertical cuts, dedicated clippers army across all platforms.",
-          INR: "₹72L INR ($72K / 264K AED) / mo: Omnipresent reach surge, 120+ vertical cuts, dedicated clippers army across all platforms.",
-          AED: "264K AED ($72K / ₹72L) / mo: Omnipresent reach surge, 120+ vertical cuts, dedicated clippers army across all platforms.",
+          USD: "$72,000 / month: Omnipresent reach surge, 120+ vertical cuts, dedicated clippers army across all platforms.",
+          INR: "₹72 Lakhs / month: Omnipresent reach surge, 120+ vertical cuts, dedicated clippers army across all platforms.",
+          AED: "264,000 AED / month: Omnipresent reach surge, 120+ vertical cuts, dedicated clippers army across all platforms.",
         },
       },
     ],
@@ -149,7 +176,11 @@ const shortTermPlans: PricingPlan[] = [
   {
     id: "short-term-cpm",
     name: "CPM-Based Campaign",
-    badge: "Min. 10M Views • $3 / 1K",
+    badge: {
+      USD: "Min. 10M Views • $3 / 1K",
+      INR: "Min. 10M Views • ₹250 / 1K",
+      AED: "Min. 10M Views • 11 AED / 1K",
+    },
     popular: true,
     subtitle: "We ask you how many views you want — minimum 10 million views requirement",
     rateDisplay: {
@@ -158,15 +189,19 @@ const shortTermPlans: PricingPlan[] = [
       AED: "11 AED / 1K Views",
     },
     ratePeriod: "Custom Views • Minimum 10M Views Requirement",
-    highlightNote: "Tell us how many views you need (minimum 10M views). We deploy fan pages & theme pages at $3/1K views to deliver your target attention within an agreed timeframe.",
+    highlightNote: {
+      USD: "Tell us how many views you need (minimum 10M views). We deploy fan pages & theme pages at $3/1K views to deliver your target attention within an agreed timeframe.",
+      INR: "Tell us how many views you need (minimum 10M views). We deploy fan pages & theme pages at ₹250/1K views to deliver your target attention within an agreed timeframe.",
+      AED: "Tell us how many views you need (minimum 10M views). We deploy fan pages & theme pages at 11 AED/1K views to deliver your target attention within an agreed timeframe.",
+    },
     icon: Zap,
     specs: [
       {
         label: "Pricing Basis",
         value: {
-          USD: "$3 per 1K views (₹250 / 1K views • 11 AED / 1K views)",
-          INR: "₹250 per 1K views ($3 / 1K views • 11 AED / 1K views)",
-          AED: "11 AED per 1K views ($3 / 1K views • ₹250 / 1K views)",
+          USD: "$3 per 1,000 views",
+          INR: "₹250 per 1,000 views",
+          AED: "11 AED per 1,000 views",
         },
       },
       { label: "View Requirement", value: "Minimum 10 Million views (we ask you how many views you want)" },
@@ -179,9 +214,9 @@ const shortTermPlans: PricingPlan[] = [
       {
         title: "A. Mass Fan-Page Clipping",
         desc: {
-          USD: "Large pool of clippers posting across fan pages at $3/1K views to hit your target volume (min. 10M views).",
-          INR: "Large pool of clippers posting across fan pages at ₹250/1K views to hit your target volume (min. 10M views).",
-          AED: "Large pool of clippers posting across fan pages at 11 AED/1K views to hit your target volume (min. 10M views).",
+          USD: "Large pool of clippers posting across fan pages at $3/1K views to hit your target volume (min 10M views).",
+          INR: "Large pool of clippers posting across fan pages at ₹250/1K views to hit your target volume (min 10M views).",
+          AED: "Large pool of clippers posting across fan pages at 11 AED/1K views to hit your target volume (min 10M views).",
         },
       },
       {
@@ -193,23 +228,35 @@ const shortTermPlans: PricingPlan[] = [
   {
     id: "short-term-seeding",
     name: "Seeding Campaign",
-    badge: "Starts at ₹6L / $7.2K",
+    badge: {
+      USD: "Starts at $7,200 USD",
+      INR: "Starts at ₹6 Lakhs (6L)",
+      AED: "Starts at 26,500 AED",
+    },
     subtitle: "Immediate, high-volume distribution through established theme pages completed in 24 hours",
     rateDisplay: {
       USD: "Starts at $7,200 ($7.2K — $100K+)",
       INR: "Starts at ₹6 Lakhs (₹6L — ₹85L+)",
       AED: "Starts at 26,500 AED (26.5K — 365K+ AED)",
     },
-    ratePeriod: "Starting at ₹6L ($7.2K USD • ~26.5K AED)",
-    highlightNote: "Starting at ₹6 Lakhs. You provide brief & narrative; we handle inventory, high-authority placements & rapid 24-hr execution.",
+    ratePeriod: {
+      USD: "Starting at $7,200 USD",
+      INR: "Starting at ₹6 Lakhs INR (₹6L)",
+      AED: "Starting at 26,500 AED",
+    },
+    highlightNote: {
+      USD: "Starting at $7,200 USD. You provide brief & narrative; we handle inventory, high-authority placements & rapid 24-hr execution.",
+      INR: "Starting at ₹6 Lakhs INR. You provide brief & narrative; we handle inventory, high-authority placements & rapid 24-hr execution.",
+      AED: "Starting at 26,500 AED. You provide brief & narrative; we handle inventory, high-authority placements & rapid 24-hr execution.",
+    },
     icon: Clock,
     specs: [
       {
         label: "Starting Pricing",
         value: {
-          USD: "Starts at $7,200 USD (₹6 Lakhs INR • ~26,500 AED)",
-          INR: "Starts at ₹6 Lakhs INR ($7,200 USD • ~26,500 AED)",
-          AED: "Starts at 26,500 AED ($7,200 USD • ₹6 Lakhs INR)",
+          USD: "Starts at $7,200 USD",
+          INR: "Starts at ₹6 Lakhs INR (₹6L)",
+          AED: "Starts at 26,500 AED",
         },
       },
       { label: "Execution Speed", value: "Distribution fully completed within 24 hours of brief approval" },
@@ -219,10 +266,28 @@ const shortTermPlans: PricingPlan[] = [
       {
         label: "Budget Range",
         value: {
-          USD: "Starts at $7,200 up to $100,000+ for single-day high-volume surges",
-          INR: "Starts at ₹6 Lakhs up to ₹85 Lakh+ for single-day high-volume surges",
-          AED: "Starts at 26,500 AED up to 365,000+ AED for single-day high-volume surges",
+          USD: "$7,200 minimum up to $100,000+ for single-day high-volume surges",
+          INR: "₹6 Lakhs minimum up to ₹85 Lakh+ for single-day high-volume surges",
+          AED: "26,500 AED minimum up to 365,000+ AED for single-day high-volume surges",
         },
+      },
+    ],
+    subFormats: [
+      {
+        title: {
+          USD: "Starting at $7,200 USD",
+          INR: "Starting at ₹6 Lakhs (6L)",
+          AED: "Starting at 26,500 AED",
+        },
+        desc: {
+          USD: "Transparent tier pricing starting from $7,200 USD for single-day blitz surges.",
+          INR: "Transparent tier pricing starting from ₹6 Lakhs INR (6L) for single-day blitz surges.",
+          AED: "Transparent tier pricing starting from 26,500 AED for single-day blitz surges.",
+        },
+      },
+      {
+        title: "Mega-Account Placements",
+        desc: "Placements on established creator and theme pages with up to 1M, 5M, or 10M+ followers.",
       },
     ],
   },
@@ -246,9 +311,10 @@ export default function Pricing() {
     setSelectedPlanId(type === "long-term" ? "long-term-3mo" : "short-term-cpm");
   };
 
-  const getLocalized = (val: string | { USD: string; INR: string; AED?: string }) => {
+  const getLocalized = (val: string | { USD: string; INR: string; AED?: string } | undefined): string => {
+    if (!val) return "";
     if (typeof val === "string") return val;
-    return val[currency] || val["USD"];
+    return val[currency] || val["USD"] || "";
   };
 
   // Dynamic spotlight cursor interaction with subtle luminous accent
@@ -331,8 +397,8 @@ export default function Pricing() {
       `• Campaign Model: ${termType === "long-term" ? "Long-Term Retainer Engagement" : "Short-Term Blitz Push"}`,
       `• Chosen Currency: ${currency}`,
       `• Rate / Investment Structure: ${selectedPlan.rateDisplay[currency]}`,
-      `• Deliverables / Period: ${selectedPlan.ratePeriod}`,
-      `• Framework Highlights: "${selectedPlan.highlightNote}"`,
+      `• Deliverables / Period: ${getLocalized(selectedPlan.ratePeriod)}`,
+      `• Framework Highlights: "${getLocalized(selectedPlan.highlightNote)}"`,
       ``,
       `Please contact us with custom reach projections, account inventory, and onboarding timeline.`,
       ``,
@@ -586,7 +652,7 @@ export default function Pricing() {
                             <div className="min-w-0">
                               <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
                                 <span className="inline-flex items-center px-2 sm:px-2.5 py-0.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-[9px] sm:text-[10px] font-mono uppercase tracking-wider text-[#8BA3C6] font-semibold">
-                                  {plan.badge}
+                                  {getLocalized(plan.badge)}
                                 </span>
                               </div>
                               <h3 className="font-display font-medium text-lg sm:text-2xl lg:text-[26px] text-white leading-tight tracking-tight [text-wrap:balance]">
@@ -615,20 +681,20 @@ export default function Pricing() {
                             {plan.rateDisplay[currency]}
                           </div>
                           <div className="text-[11px] sm:text-xs text-white/50 font-mono mt-0.5 sm:mt-1">
-                            {plan.ratePeriod}
+                            {getLocalized(plan.ratePeriod)}
                           </div>
                         </div>
 
                         {/* Sub-Formats (If Applicable) */}
                         {plan.subFormats && (
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 mb-4 sm:mb-5">
-                            {plan.subFormats.map((fmt) => (
+                            {plan.subFormats.map((fmt, fIdx) => (
                               <div
-                                key={fmt.title}
+                                key={typeof fmt.title === "string" ? fmt.title : fmt.title.USD || fIdx}
                                 className="rounded-lg sm:rounded-xl p-2.5 sm:p-3.5 bg-[#090A0D] border border-white/[0.06]"
                               >
                                 <h4 className="text-[11px] sm:text-xs font-medium text-white font-display mb-0.5 sm:mb-1">
-                                  {fmt.title}
+                                  {getLocalized(fmt.title)}
                                 </h4>
                                 <p className="text-[10px] sm:text-[11px] text-white/65 leading-relaxed font-light">
                                   {getLocalized(fmt.desc)}
@@ -640,7 +706,7 @@ export default function Pricing() {
 
                         {/* Editorial Highlight Note with Cobalt Accent Bar */}
                         <div className="p-3 sm:p-4 rounded-lg sm:rounded-xl bg-white/[0.03] border-l-2 border-l-[#0038E2] border border-white/[0.06] text-white/85 text-[11px] sm:text-xs lg:text-[13px] leading-relaxed mb-4 sm:mb-5 italic font-light">
-                          &ldquo;{plan.highlightNote}&rdquo;
+                          &ldquo;{getLocalized(plan.highlightNote)}&rdquo;
                         </div>
 
                         {/* Detailed Specifications List */}
