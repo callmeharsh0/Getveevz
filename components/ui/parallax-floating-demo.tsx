@@ -393,7 +393,7 @@ export function ParallaxFloatingDemo() {
           {/* Stat 3 */}
           <div className="rounded-xl bg-[#08101d]/90 border border-[#0044cc]/40 p-2 xs:p-2.5 flex flex-col items-center justify-center backdrop-blur-md shadow-[0_4px_16px_rgba(0,0,0,0.4)]">
             <span className="font-display text-[18px] xs:text-[21px] sm:text-[23px] font-bold text-white leading-none tracking-tight">
-              <Counter value={80} suffix="+" />
+              <Counter value={200} suffix="+" />
             </span>
             <span className="font-mono text-[7px] xs:text-[7.5px] sm:text-[8px] text-[#7892b5] font-semibold uppercase tracking-wider text-center mt-1.5 leading-tight">
               Editors Trained
@@ -558,7 +558,7 @@ export function ParallaxFloatingDemo() {
 
           <GlassCard className="p-3.5 sm:p-4 rounded-xl">
             <span className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-moonlight to-frost group-hover:scale-105 transition-transform duration-300">
-              <Counter value={80} suffix="+" />
+              <Counter value={200} suffix="+" />
             </span>
             <span className="mt-1 text-[11px] sm:text-xs text-muted font-medium uppercase tracking-wider text-center">
               Editors Trained
