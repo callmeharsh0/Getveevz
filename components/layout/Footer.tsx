@@ -209,7 +209,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-white/80 hover:text-white font-medium underline underline-offset-4 decoration-white/25 hover:decoration-white transition-colors cursor-pointer"
-                  title="Developer Enquiry — WhatsApp Harsh Paigude (+91 8898884828)"
+                  title="Developer Enquiry — WhatsApp Harsh Paigude"
                 >
                   Harsh Paigude
                 </a>
@@ -239,10 +239,9 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group inline-flex items-center gap-1.5 text-white/50 hover:text-white transition-colors cursor-pointer"
-                title="WhatsApp developer enquiry — 8898884828"
+                title="WhatsApp developer enquiry"
               >
                 <span>Developer Enquiry</span>
-                <span className="text-white/30 hidden sm:inline">(8898884828)</span>
                 <ArrowUpRight className="w-3 h-3 stroke-[2] transition-transform duration-300 ease-gentle group-hover:translate-x-0.5 group-hover:-translate-y-0.5 text-[#0038E2]" />
               </a>
               <span className="text-white/20">·</span>
