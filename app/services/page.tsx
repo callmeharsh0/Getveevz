@@ -108,7 +108,7 @@ export default function ServicesPage() {
             data-reveal
             className="font-display font-medium text-4xl sm:text-5xl md:text-6xl lg:text-[76px] tracking-tight text-[#111111] leading-[1.06] mb-6"
           >
-            Two Specialized Engines.
+            Three Specialized Engines.
             <br />
             <span className="text-[#0038E2]">
               Zero Vanity Friction.
@@ -120,7 +120,7 @@ export default function ServicesPage() {
             data-reveal
             className="text-base sm:text-lg md:text-xl text-[#555555] leading-relaxed max-w-2xl mx-auto font-light"
           >
-            Whether you require an ongoing compounding distribution flywheel or an immediate high-volume surge, our network turns raw content into sovereign market share.
+            Whether you require an ongoing compounding distribution flywheel, an immediate high-volume surge, or complete turnkey end-to-end production and distribution, our network turns raw content into sovereign market share.
           </p>
         </div>
 
@@ -132,8 +132,9 @@ export default function ServicesPage() {
           {services.map((service, idx) => {
             const Icon = service.icon;
             const isRetainer = service.slug === "long-term-distribution";
+            const isEndToEnd = service.slug === "end-to-end-marketing";
             
-            // Tailored metrics for each service
+            // Tailored metrics for each service matching main page
             const specs = isRetainer
               ? [
                   { label: "Model 01", value: "3-Month Test-to-Scale" },
@@ -141,18 +142,25 @@ export default function ServicesPage() {
                   { label: "Month 1 CPM", value: "$1 / 1K (no view guarantee)" },
                   { label: "Months 2–3", value: "Top 10–30 Pages on Retainer" },
                 ]
-              : [
-                  { label: "Model 03", value: "CPM Campaign (Fan + Theme)" },
-                  { label: "Model 04", value: "24-Hour High-Volume Seeding" },
-                  { label: "Seeding Budget", value: "$12K min to $100K+ / Day" },
-                  { label: "Account Reach", value: "1M–10M+ Follower Properties" },
-                ];
+              : isEndToEnd
+                ? [
+                    { label: "Model 05", value: "In-House Studio Production" },
+                    { label: "Model 06", value: "Omnichannel Syndication" },
+                    { label: "Platforms", value: "LinkedIn, X, IG, YT, TikTok" },
+                    { label: "Execution", value: "100% Done-For-You Turnkey" },
+                  ]
+                : [
+                    { label: "Model 03", value: "CPM Campaign (Fan + Theme)" },
+                    { label: "Model 04", value: "24-Hour High-Volume Seeding" },
+                    { label: "Seeding Budget", value: "$7.2K min (₹6L) to $100K+" },
+                    { label: "Account Reach", value: "1M–10M+ Follower Properties" },
+                  ];
 
             return (
               <div
                 key={service.slug}
                 data-reveal
-                className="group h-full"
+                className={cn("group h-full", isEndToEnd && "lg:col-span-2")}
               >
                 <Link 
                   to={`/services/${service.slug}`} 
@@ -171,86 +179,190 @@ export default function ServicesPage() {
                           "pointer-events-none absolute -top-24 -right-24 w-72 h-72 rounded-full blur-[70px] opacity-15 transition-opacity duration-700 group-hover:opacity-25",
                           isRetainer 
                             ? "bg-[radial-gradient(circle,#0038E2_0%,transparent_70%)]" 
-                            : "bg-[radial-gradient(circle,#495B7D_0%,transparent_70%)]"
+                            : isEndToEnd
+                              ? "bg-[radial-gradient(circle,#0038E2_0%,transparent_70%)]"
+                              : "bg-[radial-gradient(circle,#495B7D_0%,transparent_70%)]"
                         )}
                       />
 
-                      {/* Card Content Top: Badge, Icon & Title */}
-                      <div>
-                        <div className="flex items-center justify-between mb-8">
-                          {/* Hardware-Enclosed Icon Badge in Warm Bone */}
-                          <div className="flex items-center justify-center w-14 h-14 rounded-2xl bg-[#F8F6F2] border border-[#111111]/10 shadow-sm transition-transform duration-500 ease-gentle group-hover:scale-105 group-hover:border-[#0038E2]/30">
-                            <Icon className="w-7 h-7 stroke-[1.5] text-[#0038E2]" />
-                          </div>
-
-                          {/* Index Pill Tag */}
-                          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0038E2]/5 border border-[#0038E2]/15 text-[10px] font-mono uppercase tracking-widest text-[#0038E2] font-semibold">
-                            <span className="w-1.5 h-1.5 rounded-full bg-[#0038E2]" />
-                            <span>{isRetainer ? "01 / RETAINER" : "02 / SURGE"}</span>
-                          </div>
-                        </div>
-
-                        {/* Title & Short Tagline */}
-                        <h2 className="font-display font-medium text-2xl sm:text-3xl lg:text-[34px] text-[#111111] tracking-tight leading-[1.15] mb-3 group-hover:text-[#0038E2] transition-colors duration-300">
-                          {service.title}
-                        </h2>
-                        
-                        <p className="text-sm sm:text-base text-[#555555] leading-relaxed mb-8 font-light">
-                          {service.shortDesc}
-                        </p>
-
-                        {/* Live Architectural Spec Sheet (Nested Mini-Bento in Light Bone) */}
-                        <div className="grid grid-cols-2 gap-3 mb-8">
-                          {specs.map((spec) => (
-                            <div
-                              key={spec.label}
-                              className="rounded-xl p-3 sm:p-3.5 bg-[#F8F6F2] border border-[#111111]/8 transition-colors duration-500 group-hover:border-[#111111]/15 group-hover:bg-[#F3EFEA]"
-                            >
-                              <div className="text-[10px] sm:text-[11px] font-mono text-[#777777] uppercase tracking-wider mb-1">
-                                {spec.label}
+                      {isEndToEnd ? (
+                        /* WIDESCREEN HORIZONTAL END-TO-END BAR */
+                        <div className="flex flex-col lg:flex-row lg:items-stretch justify-between gap-8 lg:gap-12 h-full">
+                          {/* Left Column: Brand & Core Overview (approx 38-40% on lg) */}
+                          <div className="flex flex-col justify-between lg:w-[40%] shrink-0">
+                            <div>
+                              <div className="flex items-center justify-between mb-6 sm:mb-8">
+                                <div className="flex items-center justify-center w-14 h-14 rounded-2xl bg-[#F8F6F2] border border-[#111111]/10 shadow-sm transition-transform duration-500 ease-gentle group-hover:scale-105 group-hover:border-[#0038E2]/30">
+                                  <Icon className="w-7 h-7 stroke-[1.5] text-[#0038E2]" />
+                                </div>
+                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0038E2]/5 border border-[#0038E2]/15 text-[10px] font-mono uppercase tracking-widest text-[#0038E2] font-semibold">
+                                  <span className="w-1.5 h-1.5 rounded-full bg-[#0038E2]" />
+                                  <span>03 / TURNKEY FULL-STACK</span>
+                                </div>
                               </div>
-                              <div className="text-xs sm:text-sm font-medium text-[#111111] tracking-tight font-display">
-                                {spec.value}
-                              </div>
+
+                              <h2 className="font-display font-medium text-2xl sm:text-3xl lg:text-[34px] text-[#111111] tracking-tight leading-[1.15] mb-3 group-hover:text-[#0038E2] transition-colors duration-300">
+                                {service.title}
+                              </h2>
+                              
+                              <p className="text-sm sm:text-base text-[#555555] leading-relaxed mb-6 font-light">
+                                {service.shortDesc}
+                              </p>
                             </div>
-                          ))}
-                        </div>
 
-                        {/* Key Pillars Checklist */}
-                        <div className="space-y-2.5 mb-10">
-                          {service.features.slice(0, 3).map((feature) => (
-                            <div
-                              key={feature.title}
-                              className="flex items-start gap-3 text-xs sm:text-sm text-[#444444]"
-                            >
-                              <div className="mt-0.5 flex items-center justify-center w-4 h-4 rounded-full bg-[#0038E2]/10 text-[#0038E2] shrink-0">
-                                <Check className="w-2.5 h-2.5 stroke-[2.5]" />
+                            {/* Button-in-Button CTA */}
+                            <div className="pt-6 border-t border-[#111111]/10 flex items-center justify-between mt-auto">
+                              <div className="inline-flex items-center gap-3 pl-5 pr-1.5 py-1.5 rounded-full bg-[#111111] text-white border border-[#111111] shadow-sm transition-all duration-500 ease-gentle group-hover:bg-[#0038E2] group-hover:border-[#0038E2]">
+                                <span className="text-xs sm:text-sm font-medium tracking-tight">
+                                  Explore Architecture
+                                </span>
+                                <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white/15 text-white transition-all duration-500 ease-gentle group-hover:translate-x-1 group-hover:-translate-y-[1px] group-hover:scale-105">
+                                  <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
+                                </div>
                               </div>
-                              <span className="leading-relaxed">
-                                <strong className="font-medium text-[#111111]">{feature.title}:</strong>{" "}
-                                <span className="text-[#666666]">{feature.desc}</span>
+
+                              <span className="text-[11px] font-mono text-[#777777] uppercase tracking-widest hidden sm:inline-block font-medium group-hover:text-[#0038E2] transition-colors">
+                                View Breakdown →
                               </span>
                             </div>
-                          ))}
-                        </div>
-                      </div>
+                          </div>
 
-                      {/* Card Footer: Button-in-Button CTA */}
-                      <div className="pt-6 border-t border-[#111111]/10 flex items-center justify-between">
-                        <div className="inline-flex items-center gap-3 pl-5 pr-1.5 py-1.5 rounded-full bg-[#111111] text-white border border-[#111111] shadow-sm transition-all duration-500 ease-gentle group-hover:bg-[#0038E2] group-hover:border-[#0038E2]">
-                          <span className="text-xs sm:text-sm font-medium tracking-tight">
-                            Explore Architecture
-                          </span>
-                          {/* Nested trailing icon disc */}
-                          <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white/15 text-white transition-all duration-500 ease-gentle group-hover:translate-x-1 group-hover:-translate-y-[1px] group-hover:scale-105">
-                            <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
+                          {/* Right Column: Extended Specs & 4-Pillar Grid (Spans the right side) */}
+                          <div className="flex flex-col justify-between flex-1 lg:pl-6 lg:border-l lg:border-[#111111]/10">
+                            <div>
+                              <div className="text-[11px] font-mono uppercase tracking-[0.16em] text-[#0038E2] font-semibold mb-3">
+                                Architecture &amp; Scope Specs
+                              </div>
+
+                              {/* 4-item Horizontal Specs Grid */}
+                              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+                                {specs.map((spec) => (
+                                  <div
+                                    key={spec.label}
+                                    className="rounded-xl p-3 sm:p-3.5 bg-[#F8F6F2] border border-[#111111]/8 transition-colors duration-500 group-hover:border-[#111111]/15 group-hover:bg-[#F3EFEA]"
+                                  >
+                                    <div className="text-[10px] sm:text-[11px] font-mono text-[#777777] uppercase tracking-wider mb-1">
+                                      {spec.label}
+                                    </div>
+                                    <div className="text-xs sm:text-sm font-medium text-[#111111] tracking-tight font-display">
+                                      {spec.value}
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+
+                              {/* 4 Key Pillars in a clean 2x2 grid */}
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 mb-6">
+                                {service.features.slice(0, 4).map((feature) => (
+                                  <div
+                                    key={feature.title}
+                                    className="flex items-start gap-3 text-xs sm:text-sm text-[#444444]"
+                                  >
+                                    <div className="mt-0.5 flex items-center justify-center w-4 h-4 rounded-full bg-[#0038E2]/10 text-[#0038E2] shrink-0">
+                                      <Check className="w-2.5 h-2.5 stroke-[2.5]" />
+                                    </div>
+                                    <span className="leading-relaxed">
+                                      <strong className="font-medium text-[#111111]">{feature.title}:</strong>{" "}
+                                      <span className="text-[#666666]">{feature.desc}</span>
+                                    </span>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+
+                            {/* Bottom Guarantee Banner */}
+                            <div className="pt-4 border-t border-[#111111]/10 flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-[#666666]">
+                              <div className="flex items-center gap-2">
+                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block" />
+                                <span>Dedicated in-house creative pod &amp; clippers network</span>
+                              </div>
+                              <div className="text-[#0038E2] font-semibold">
+                                100% Client IP Ownership
+                              </div>
+                            </div>
                           </div>
                         </div>
+                      ) : (
+                        /* Standard 1-col Card for Long-Term & Short-Term */
+                        <>
+                          {/* Card Content Top: Badge, Icon & Title */}
+                          <div>
+                            <div className="flex items-center justify-between mb-8">
+                              {/* Hardware-Enclosed Icon Badge in Warm Bone */}
+                              <div className="flex items-center justify-center w-14 h-14 rounded-2xl bg-[#F8F6F2] border border-[#111111]/10 shadow-sm transition-transform duration-500 ease-gentle group-hover:scale-105 group-hover:border-[#0038E2]/30">
+                                <Icon className="w-7 h-7 stroke-[1.5] text-[#0038E2]" />
+                              </div>
 
-                        <span className="text-[11px] font-mono text-[#777777] uppercase tracking-widest hidden sm:inline-block font-medium group-hover:text-[#0038E2] transition-colors">
-                          View Breakdown →
-                        </span>
-                      </div>
+                              {/* Index Pill Tag */}
+                              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0038E2]/5 border border-[#0038E2]/15 text-[10px] font-mono uppercase tracking-widest text-[#0038E2] font-semibold">
+                                <span className="w-1.5 h-1.5 rounded-full bg-[#0038E2]" />
+                                <span>{isRetainer ? "01 / RETAINER" : "02 / SURGE"}</span>
+                              </div>
+                            </div>
+
+                            {/* Title & Short Tagline */}
+                            <h2 className="font-display font-medium text-2xl sm:text-3xl lg:text-[34px] text-[#111111] tracking-tight leading-[1.15] mb-3 group-hover:text-[#0038E2] transition-colors duration-300">
+                              {service.title}
+                            </h2>
+                            
+                            <p className="text-sm sm:text-base text-[#555555] leading-relaxed mb-8 font-light">
+                              {service.shortDesc}
+                            </p>
+
+                            {/* Live Architectural Spec Sheet (Nested Mini-Bento in Light Bone) */}
+                            <div className="grid grid-cols-2 gap-3 mb-8">
+                              {specs.map((spec) => (
+                                <div
+                                  key={spec.label}
+                                  className="rounded-xl p-3 sm:p-3.5 bg-[#F8F6F2] border border-[#111111]/8 transition-colors duration-500 group-hover:border-[#111111]/15 group-hover:bg-[#F3EFEA]"
+                                >
+                                  <div className="text-[10px] sm:text-[11px] font-mono text-[#777777] uppercase tracking-wider mb-1">
+                                    {spec.label}
+                                  </div>
+                                  <div className="text-xs sm:text-sm font-medium text-[#111111] tracking-tight font-display">
+                                    {spec.value}
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+
+                            {/* Key Pillars Checklist */}
+                            <div className="space-y-2.5 mb-10">
+                              {service.features.slice(0, 3).map((feature) => (
+                                <div
+                                  key={feature.title}
+                                  className="flex items-start gap-3 text-xs sm:text-sm text-[#444444]"
+                                >
+                                  <div className="mt-0.5 flex items-center justify-center w-4 h-4 rounded-full bg-[#0038E2]/10 text-[#0038E2] shrink-0">
+                                    <Check className="w-2.5 h-2.5 stroke-[2.5]" />
+                                  </div>
+                                  <span className="leading-relaxed">
+                                    <strong className="font-medium text-[#111111]">{feature.title}:</strong>{" "}
+                                    <span className="text-[#666666]">{feature.desc}</span>
+                                  </span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* Card Footer: Button-in-Button CTA */}
+                          <div className="pt-6 border-t border-[#111111]/10 flex items-center justify-between">
+                            <div className="inline-flex items-center gap-3 pl-5 pr-1.5 py-1.5 rounded-full bg-[#111111] text-white border border-[#111111] shadow-sm transition-all duration-500 ease-gentle group-hover:bg-[#0038E2] group-hover:border-[#0038E2]">
+                              <span className="text-xs sm:text-sm font-medium tracking-tight">
+                                Explore Architecture
+                              </span>
+                              {/* Nested trailing icon disc */}
+                              <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white/15 text-white transition-all duration-500 ease-gentle group-hover:translate-x-1 group-hover:-translate-y-[1px] group-hover:scale-105">
+                                <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
+                              </div>
+                            </div>
+
+                            <span className="text-[11px] font-mono text-[#777777] uppercase tracking-widest hidden sm:inline-block font-medium group-hover:text-[#0038E2] transition-colors">
+                              View Breakdown →
+                            </span>
+                          </div>
+                        </>
+                      )}
 
                     </div>
                   </div>
@@ -283,7 +395,7 @@ export default function ServicesPage() {
               data-reveal
               className="mt-3 text-sm sm:text-base text-[#555555] font-light"
             >
-              Direct comparison between compounding retainer deployment and rapid surge amplification.
+              Direct comparison across compounding retainer engines, high-velocity surges, and full-stack turnkey production.
             </p>
           </div>
 
@@ -294,7 +406,7 @@ export default function ServicesPage() {
           >
             <div className="rounded-[calc(2.25rem-0.5rem)] bg-white border border-[#111111]/5 overflow-hidden">
               <div className="overflow-x-auto">
-                <table className="w-full text-left border-collapse min-w-[620px]">
+                <table className="w-full text-left border-collapse min-w-[760px]">
                   <thead>
                     <tr className="border-b border-[#111111]/10 bg-[#F8F6F2]">
                       <th className="py-5 px-6 sm:px-8 text-xs font-mono uppercase tracking-wider text-[#777777] font-semibold">
@@ -305,6 +417,9 @@ export default function ServicesPage() {
                       </th>
                       <th className="py-5 px-6 sm:px-8 text-xs font-mono uppercase tracking-wider text-[#111111] font-semibold">
                         Short-Term Campaign
+                      </th>
+                      <th className="py-5 px-6 sm:px-8 text-xs font-mono uppercase tracking-wider text-[#0038E2] font-semibold">
+                        End-to-End Marketing
                       </th>
                     </tr>
                   </thead>
@@ -319,6 +434,9 @@ export default function ServicesPage() {
                       <td className="py-5 px-6 sm:px-8 text-[#222222] font-medium">
                         Concentrated blast for launches, rounds, or announcements
                       </td>
+                      <td className="py-5 px-6 sm:px-8 text-[#222222] font-medium">
+                        Full-stack production, studio editing &amp; multi-channel reach
+                      </td>
                     </tr>
                     <tr className="hover:bg-[#FAF8F5] transition-colors">
                       <td className="py-5 px-6 sm:px-8 font-mono text-[#0038E2] font-semibold">
@@ -328,7 +446,10 @@ export default function ServicesPage() {
                         3-month minimum commitment / monthly retainer
                       </td>
                       <td className="py-5 px-6 sm:px-8 text-[#444444]">
-                        Execution within 24 hours / 1 to 7 day surge
+                        Execution within 24 hours / 25–30 day surge
+                      </td>
+                      <td className="py-5 px-6 sm:px-8 text-[#444444]">
+                        Dedicated monthly production pod &amp; ongoing syndication sprints
                       </td>
                     </tr>
                     <tr className="hover:bg-[#FAF8F5] transition-colors">
@@ -341,16 +462,22 @@ export default function ServicesPage() {
                       <td className="py-5 px-6 sm:px-8 text-[#444444]">
                         Targeted seeding across agency-owned theme pages
                       </td>
+                      <td className="py-5 px-6 sm:px-8 text-[#444444]">
+                        In-house scriptwriting, recording guidance &amp; dynamic vertical editing
+                      </td>
                     </tr>
                     <tr className="hover:bg-[#FAF8F5] transition-colors">
                       <td className="py-5 px-6 sm:px-8 font-mono text-[#0038E2] font-semibold">
                         Scale Ceiling
                       </td>
                       <td className="py-5 px-6 sm:px-8 text-[#444444]">
-                        Top 10–30 winning pages to retainers / 36L & 72L tiers
+                        Top 10–30 winning pages to retainers / 36L &amp; 72L tiers
                       </td>
                       <td className="py-5 px-6 sm:px-8 text-[#444444]">
                         Starting at ₹6L ($7.2K) up to ₹85L+ ($100K+)
+                      </td>
+                      <td className="py-5 px-6 sm:px-8 text-[#444444]">
+                        Omnipresence across LinkedIn, X, Instagram, YouTube &amp; TikTok
                       </td>
                     </tr>
                     <tr className="hover:bg-[#FAF8F5] transition-colors">
@@ -361,7 +488,10 @@ export default function ServicesPage() {
                         $1/1K CPM (no view guarantee) ➔ Retainer or 36L/72L straight retainers
                       </td>
                       <td className="py-5 px-6 sm:px-8 text-[#444444]">
-                        $3/1K CPM (min 10M views) or Seeding starting at ₹6L
+                        $3/1K CPM (min 10M views) or Seeding starting at ₹6L ($7.2K)
+                      </td>
+                      <td className="py-5 px-6 sm:px-8 text-[#444444]">
+                        Bespoke turnkey pricing tailored to brand scale &amp; release volume
                       </td>
                     </tr>
                   </tbody>

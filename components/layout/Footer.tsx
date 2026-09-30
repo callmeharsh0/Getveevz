@@ -10,6 +10,7 @@ const NAV_LINKS = [
   { label: "Services", href: "/services" },
   { label: "Long-Term Retainer", href: "/services/long-term-distribution" },
   { label: "Short-Term Blitz", href: "/services/short-term-campaign" },
+  { label: "End-to-End", href: "/services/end-to-end-marketing" },
   { label: "Pricing", href: "/#pricing" },
   { label: "Results", href: "/#results" },
 ];

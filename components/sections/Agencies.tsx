@@ -33,7 +33,7 @@ const agencies: Agency[] = [
     duration: "Ongoing / Retainer",
     deliverables: "Normal Clipping • CPM Transition",
     description:
-      "This includes the CPM-based growth campaign ( Views testing with no views guarantee, transitioning to retainer) and normal clipping.",
+      "This includes the CPM-based growth campaign (testing with no views guarantee, transitioning to retainer) and normal clipping.",
     link: "#cta",
     videoSrc: "/assets/agency-video-1.mp4",
     maskType: "custom-a",
