@@ -120,7 +120,7 @@ export default function ServicesPage() {
             data-reveal
             className="text-base sm:text-lg md:text-xl text-[#555555] leading-relaxed max-w-2xl mx-auto font-light"
           >
-            Whether you require an ongoing compounding distribution flywheel, an immediate high-volume surge, or complete turnkey end-to-end production and distribution, our network turns raw content into sovereign market share.
+            Whether you need ongoing monthly video distribution, an immediate high-impact campaign, or complete end-to-end video creation and posting, we help you get your brand in front of millions of viewers.
           </p>
         </div>
 
@@ -144,10 +144,10 @@ export default function ServicesPage() {
                 ]
               : isEndToEnd
                 ? [
-                    { label: "Model 05", value: "In-House Studio Production" },
-                    { label: "Model 06", value: "Omnichannel Syndication" },
-                    { label: "Platforms", value: "LinkedIn, X, IG, YT, TikTok" },
-                    { label: "Execution", value: "100% Done-For-You Turnkey" },
+                    { label: "Model 05", value: "Video Scripting & Editing" },
+                    { label: "Model 06", value: "Multi-Platform Posting" },
+                    { label: "Platforms", value: "LinkedIn, X, IG, YouTube, TikTok" },
+                    { label: "Execution", value: "100% Done-For-You" },
                   ]
                 : [
                     { label: "Model 03", value: "CPM Campaign (Fan + Theme)" },
@@ -197,7 +197,7 @@ export default function ServicesPage() {
                                 </div>
                                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0038E2]/5 border border-[#0038E2]/15 text-[10px] font-mono uppercase tracking-widest text-[#0038E2] font-semibold">
                                   <span className="w-1.5 h-1.5 rounded-full bg-[#0038E2]" />
-                                  <span>03 / TURNKEY FULL-STACK</span>
+                                  <span>03 / END-TO-END</span>
                                 </div>
                               </div>
 
@@ -206,7 +206,7 @@ export default function ServicesPage() {
                               </h2>
                               
                               <p className="text-sm sm:text-base text-[#555555] leading-relaxed mb-6 font-light">
-                                {service.shortDesc}
+                                We make your videos and post them across all platforms. Everything is completely handled for you from start to finish.
                               </p>
                             </div>
 
@@ -214,7 +214,7 @@ export default function ServicesPage() {
                             <div className="pt-6 border-t border-[#111111]/10 flex items-center justify-between mt-auto">
                               <div className="inline-flex items-center gap-3 pl-5 pr-1.5 py-1.5 rounded-full bg-[#111111] text-white border border-[#111111] shadow-sm transition-all duration-500 ease-gentle group-hover:bg-[#0038E2] group-hover:border-[#0038E2]">
                                 <span className="text-xs sm:text-sm font-medium tracking-tight">
-                                  Explore Architecture
+                                  Explore Service
                                 </span>
                                 <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white/15 text-white transition-all duration-500 ease-gentle group-hover:translate-x-1 group-hover:-translate-y-[1px] group-hover:scale-105">
                                   <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
@@ -231,7 +231,7 @@ export default function ServicesPage() {
                           <div className="flex flex-col justify-between flex-1 lg:pl-6 lg:border-l lg:border-[#111111]/10">
                             <div>
                               <div className="text-[11px] font-mono uppercase tracking-[0.16em] text-[#0038E2] font-semibold mb-3">
-                                Architecture &amp; Scope Specs
+                                What We Do For You
                               </div>
 
                               {/* 4-item Horizontal Specs Grid */}
@@ -274,10 +274,10 @@ export default function ServicesPage() {
                             <div className="pt-4 border-t border-[#111111]/10 flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-[#666666]">
                               <div className="flex items-center gap-2">
                                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block" />
-                                <span>Dedicated in-house creative pod &amp; clippers network</span>
+                                <span>We handle scripting, filming guidance, editing, and posting</span>
                               </div>
                               <div className="text-[#0038E2] font-semibold">
-                                100% Client IP Ownership
+                                100% Yours · Full Rights to All Videos
                               </div>
                             </div>
                           </div>
@@ -435,7 +435,7 @@ export default function ServicesPage() {
                         Concentrated blast for launches, rounds, or announcements
                       </td>
                       <td className="py-5 px-6 sm:px-8 text-[#222222] font-medium">
-                        Full-stack production, studio editing &amp; multi-channel reach
+                        We create your videos and post them across all platforms
                       </td>
                     </tr>
                     <tr className="hover:bg-[#FAF8F5] transition-colors">
@@ -449,7 +449,7 @@ export default function ServicesPage() {
                         Execution within 24 hours / 25–30 day surge
                       </td>
                       <td className="py-5 px-6 sm:px-8 text-[#444444]">
-                        Dedicated monthly production pod &amp; ongoing syndication sprints
+                        Monthly video production and regular posting schedule
                       </td>
                     </tr>
                     <tr className="hover:bg-[#FAF8F5] transition-colors">
@@ -463,7 +463,7 @@ export default function ServicesPage() {
                         Targeted seeding across agency-owned theme pages
                       </td>
                       <td className="py-5 px-6 sm:px-8 text-[#444444]">
-                        In-house scriptwriting, recording guidance &amp; dynamic vertical editing
+                        Scriptwriting, filming guidance, and fast video editing
                       </td>
                     </tr>
                     <tr className="hover:bg-[#FAF8F5] transition-colors">
@@ -477,7 +477,7 @@ export default function ServicesPage() {
                         Starting at ₹6L ($7.2K) up to ₹85L+ ($100K+)
                       </td>
                       <td className="py-5 px-6 sm:px-8 text-[#444444]">
-                        Omnipresence across LinkedIn, X, Instagram, YouTube &amp; TikTok
+                        Grow your presence on LinkedIn, X, Instagram, YouTube &amp; TikTok
                       </td>
                     </tr>
                     <tr className="hover:bg-[#FAF8F5] transition-colors">
@@ -491,7 +491,7 @@ export default function ServicesPage() {
                         $3/1K CPM (min 10M views) or Seeding starting at ₹6L ($7.2K)
                       </td>
                       <td className="py-5 px-6 sm:px-8 text-[#444444]">
-                        Bespoke turnkey pricing tailored to brand scale &amp; release volume
+                        Custom scope discussed and agreed on a quick call
                       </td>
                     </tr>
                   </tbody>

@@ -103,8 +103,8 @@ const agencies: Agency[] = [
         detail: "We create high-converting content for your brand scripted, shot, and edited in-house.",
       },
       {
-        title: "Omnichannel Distribution",
-        detail: "Distributed across LinkedIn, X, Instagram, YouTube, and Facebook for reach.",
+        title: "Multi-Platform Posting",
+        detail: "We post your videos across LinkedIn, X, Instagram, YouTube, and Facebook to maximize reach.",
       },
       {
         title: "Who It's Built For",
