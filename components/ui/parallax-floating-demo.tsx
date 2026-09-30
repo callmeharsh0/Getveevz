@@ -71,88 +71,88 @@ function Counter({
 
 const exampleImages = [
   {
-    url: "/assets/WhatsApp Image 2026-09-12 at 8.17.31 PM.jpeg",
+    url: "/assets/cover1.png",
     title: "Maggi Masala Origin Story",
     tag: "24M Views",
   },
   {
-    url: "/assets/WhatsApp Image 2026-09-12 at 8..jpeg",
+    url: "/assets/cover2.png",
     title: "Jio Vs Airtel",
     tag: "4.8M Views",
   },
   {
-    url: "/assets/WhatsApp Image 2026-09-12 at 8.47.35 PM.jpeg",
+    url: "/assets/cover3.png",
     title: "He Saved The Whole Company",
-    tag: "2.5M Views",
+    tag: "3.5M Views",
   },
   {
-    url: "/assets/WhatsApp Image 2026-09-12 at 8.50.10 PM.jpeg",
+    url: "/assets/cover4.png",
     title: "World War 3",
     tag: "2.6M Views",
   },
   {
-    url: "/assets/WhatsApp Image 2026-09-12 at 8.47.36 PM.jpeg",
+    url: "/assets/cover5.png",
     title: "The Comeback",
     tag: "2.4M Views",
   },
   {
-    url: "/assets/WhatsApp Image 2026-09-12 at 8.18.16 PM.jpeg",
+    url: "/assets/cover6.png",
     title: "Nikhil Kamath Podcast",
-    tag: "1.0M Views",
-  },
-  {
-    url: "/assets/WhatsApp Image 2026-09-12 at 8.17.29M.jpeg",
-    title: "Power of BCCI",
     tag: "1.9M Views",
   },
   {
-    url: "/assets/WhatsApp Image 2026-09-12 at 8.47.35 PM (1).jpeg",
-    title: "Power of China",
+    url: "/assets/cover7.png",
+    title: "Power of BCCI",
     tag: "1.5M Views",
+  },
+  {
+    url: "/assets/cover8.png",
+    title: "Power of China",
+    tag: "1.2M Views",
   },
 ];
 
 const mobileResultCards = [
-  // 0: Top Left (Maggi Masala Origin Story - 24M Views)
+  // 0: Top Left (Cover 1 - 24M Views)
   {
-    url: "/assets/WhatsApp Image 2026-09-12 at 8.17.31 PM.jpeg",
+    url: "/assets/cover1.png",
     title: "Maggi Masala Origin Story",
     tag: "24M Views",
   },
-  // 1: Top Center (Jio Vs Airtel - 4.8M Views)
+  // 1: Top Center (Cover 2 - 4.8M Views)
   {
-    url: "/assets/WhatsApp Image 2026-09-12 at 8..jpeg",
+    url: "/assets/cover2.png",
     title: "Jio Vs Airtel",
     tag: "4.8M Views",
   },
-  // 2: Top Right (He Saved The Whole Company / Rupay Ka - 3.5M Views)
+  // 2: Top Right (Cover 3 - 3.5M Views)
   {
-    url: "/assets/WhatsApp Image 2026-09-12 at 8.47.35 PM.jpeg",
+    url: "/assets/cover3.png",
     title: "He Saved The Whole Company",
     tag: "3.5M Views",
   },
-  // 3: Bottom Left (Nikhil Kamath Podcast - 1.0M Views)
+  // 3: Bottom Left (Cover 4 - 2.6M Views)
   {
-    url: "/assets/WhatsApp Image 2026-09-12 at 8.18.16 PM.jpeg",
-    title: "Nikhil Kamath Podcast",
-    tag: "1.0M Views",
+    url: "/assets/cover4.png",
+    title: "World War 3",
+    tag: "2.6M Views",
   },
-  // 4: Bottom Center (The Comeback - 2.4M Views)
+  // 4: Bottom Center (Cover 5 - 2.4M Views)
   {
-    url: "/assets/WhatsApp Image 2026-09-12 at 8.47.36 PM.jpeg",
+    url: "/assets/cover5.png",
     title: "The Comeback",
     tag: "2.4M Views",
   },
-  // 5: Bottom Right Front (Power of BCCI - 1.9M Views)
+  // 5: Bottom Right Front (Cover 6 - 1.9M Views)
   {
-    url: "/assets/WhatsApp Image 2026-09-12 at 8.17.29M.jpeg",
-    title: "Power of BCCI",
+    url: "/assets/cover6.png",
+    title: "Nikhil Kamath Podcast",
     tag: "1.9M Views",
   },
-  // 6: Bottom Right Back (Power of China - 1.5M Views)
+  // 6: Bottom Right Back (Cover 7 - 1.5M Views)
   {
-    url: "/assets/WhatsApp Image 2026-09-12 at 8.47.35 PM (1).jpeg",
-    title: "Power of China",
+    url: "/assets/cover7.png",
+    title: "Power of BCCI",
     tag: "1.5M Views",
   },
 ];
