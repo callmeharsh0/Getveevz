@@ -10,7 +10,7 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-export type PricingTerm = "long-term" | "short-term";
+export type PricingTerm = "long-term" | "short-term" | "end-to-end";
 export type PricingModelType = PricingTerm; // Backwards-compatibility alias
 export type Currency = "USD" | "INR" | "AED";
 
@@ -293,6 +293,95 @@ const shortTermPlans: PricingPlan[] = [
   },
 ];
 
+const endToEndPlans: PricingPlan[] = [
+  {
+    id: "end-to-end-turnkey",
+    name: "End-to-End Distribution Suite",
+    badge: {
+      USD: "Full Turnkey Engine",
+      INR: "Full Turnkey Engine",
+      AED: "Full Turnkey Engine",
+    },
+    popular: true,
+    subtitle: "Complete video production, algorithmic hook editing, mass network distribution & real-time telemetry",
+    rateDisplay: {
+      USD: "Custom Enterprise",
+      INR: "Custom Enterprise",
+      AED: "Custom Enterprise",
+    },
+    ratePeriod: {
+      USD: "Tailored Retainer or View Scale",
+      INR: "Tailored Retainer or View Scale",
+      AED: "Tailored Retainer or View Scale",
+    },
+    highlightNote: {
+      USD: "Comprehensive done-for-you execution: we handle narrative direction, clipping pods, account placements, and weekly reach optimization.",
+      INR: "Comprehensive done-for-you execution: we handle narrative direction, clipping pods, account placements, and weekly reach optimization.",
+      AED: "Comprehensive done-for-you execution: we handle narrative direction, clipping pods, account placements, and weekly reach optimization.",
+    },
+    icon: Rocket,
+    specs: [
+      { label: "Content Ingestion & Cut", value: "Long-form to high-hook vertical cuts (TikTok, IG Reels, Shorts)" },
+      { label: "Network Activation", value: "Simultaneous posting across 250+ active theme & creator pages" },
+      { label: "100% Done-For-You", value: "Dedicated project manager, zero freelancer chasing, brand-safe QA" },
+      { label: "Live Telemetry", value: "Real-time client dashboard tracking views, watch time, and click spikes" },
+      { label: "Pricing Structure", value: "Flexible framework configured to your target scale and monthly cadence" },
+    ],
+    subFormats: [
+      {
+        title: "A. Production & Editing Pod",
+        desc: "Scripting, hooks, auto-framing, dynamic captions, and narrative testing across multiple angles.",
+      },
+      {
+        title: "B. Multi-Platform Distribution",
+        desc: "Coordinated distribution engine posting at peak algorithmic windows across all 3 major platforms.",
+      },
+    ],
+  },
+  {
+    id: "end-to-end-dedicated",
+    name: "Dedicated Growth Pod",
+    badge: {
+      USD: "Dedicated Account Pod",
+      INR: "Dedicated Account Pod",
+      AED: "Dedicated Account Pod",
+    },
+    subtitle: "An embedded clipping and distribution unit exclusively assigned to your media properties",
+    rateDisplay: {
+      USD: "Custom Pod Retainer",
+      INR: "Custom Pod Retainer",
+      AED: "Custom Pod Retainer",
+    },
+    ratePeriod: {
+      USD: "Monthly Dedicated Retainer",
+      INR: "Monthly Dedicated Retainer",
+      AED: "Monthly Dedicated Retainer",
+    },
+    highlightNote: {
+      USD: "Exclusive clippers pool and creative leads building long-term organic distribution moat with rapid 24-hr turnaround.",
+      INR: "Exclusive clippers pool and creative leads building long-term organic distribution moat with rapid 24-hr turnaround.",
+      AED: "Exclusive clippers pool and creative leads building long-term organic distribution moat with rapid 24-hr turnaround.",
+    },
+    icon: ShieldCheck,
+    specs: [
+      { label: "Dedicated Pod", value: "Exclusive team of clippers, editors, and platform managers assigned to you" },
+      { label: "Fast Turnaround", value: "Raw video ingested and vertical cuts produced ready to publish within 24 hours" },
+      { label: "Creative Iteration", value: "Weekly narrative review cycles to double down on winning hooks and formats" },
+      { label: "Full Ownership", value: "You retain 100% intellectual property of all edited cuts and creative assets" },
+    ],
+    subFormats: [
+      {
+        title: "1. Dedicated Pod Pipeline",
+        desc: "Dedicated editing pods producing consistent, high-volume vertical drops every single day.",
+      },
+      {
+        title: "2. Algorithmic Compounding",
+        desc: "Compounding follower reach across owned and partner network accounts month over month.",
+      },
+    ],
+  },
+];
+
 export default function Pricing() {
   const sectionRef = useRef<HTMLElement>(null);
   const shellRef = useRef<HTMLDivElement>(null);
@@ -302,13 +391,24 @@ export default function Pricing() {
   const [currency, setCurrency] = useState<Currency>("USD");
   const [selectedPlanId, setSelectedPlanId] = useState<string>("long-term-3mo");
 
-  const plans = termType === "long-term" ? longTermPlans : shortTermPlans;
+  const plans =
+    termType === "long-term"
+      ? longTermPlans
+      : termType === "short-term"
+      ? shortTermPlans
+      : endToEndPlans;
   const selectedPlan = plans.find((p) => p.id === selectedPlanId) || plans[0];
 
   const handleTermChange = (type: PricingTerm) => {
     if (type === termType) return;
     setTermType(type);
-    setSelectedPlanId(type === "long-term" ? "long-term-3mo" : "short-term-cpm");
+    if (type === "long-term") {
+      setSelectedPlanId("long-term-3mo");
+    } else if (type === "short-term") {
+      setSelectedPlanId("short-term-cpm");
+    } else {
+      setSelectedPlanId("end-to-end-turnkey");
+    }
   };
 
   const getLocalized = (val: string | { USD: string; INR: string; AED?: string } | undefined): string => {
@@ -361,6 +461,9 @@ export default function Pricing() {
       } else if (term === "long-term") {
         setTermType("long-term");
         setSelectedPlanId("long-term-3mo");
+      } else if (term === "end-to-end") {
+        setTermType("end-to-end");
+        setSelectedPlanId("end-to-end-turnkey");
       }
     };
 
@@ -375,6 +478,9 @@ export default function Pricing() {
       } else if (term === "long-term") {
         setTermType("long-term");
         setSelectedPlanId("long-term-3mo");
+      } else if (term === "end-to-end" || term === "endtoend" || term === "e2e") {
+        setTermType("end-to-end");
+        setSelectedPlanId("end-to-end-turnkey");
       }
     }
 
@@ -394,7 +500,13 @@ export default function Pricing() {
       `I would like to submit a campaign brief for the following pricing framework:`,
       ``,
       `• Framework Selected: ${selectedPlan.name}`,
-      `• Campaign Model: ${termType === "long-term" ? "Long-Term Retainer Engagement" : "Short-Term Blitz Push"}`,
+      `• Campaign Model: ${
+        termType === "long-term"
+          ? "Long-Term Retainer Engagement"
+          : termType === "short-term"
+          ? "Short-Term Blitz Push"
+          : "End-to-End Turnkey Solution"
+      }`,
       `• Chosen Currency: ${currency}`,
       `• Rate / Investment Structure: ${selectedPlan.rateDisplay[currency]}`,
       `• Deliverables / Period: ${getLocalized(selectedPlan.ratePeriod)}`,
@@ -488,17 +600,17 @@ export default function Pricing() {
                   </span>
                 </h2>
                 <p className="mt-2.5 sm:mt-3.5 text-xs sm:text-base text-white/70 font-light leading-relaxed max-w-xl [text-wrap:pretty]">
-                  Choose between long-term compounding retainers or high-impact short-term surge pushes.
+                  Choose between long-term retainers, short-term surge pushes, or full end-to-end solutions.
                 </p>
               </div>
 
               {/* ── White-Shade Controls: Term Switcher & Currency Switcher ── */}
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3 w-full lg:w-auto mt-2 lg:mt-0">
-                {/* Term Switcher: Long-Term vs Short-Term (White Shade Active) */}
+                {/* Term Switcher: Long-Term vs Short-Term vs End-to-End (White Shade Active) */}
                 <div
                   role="tablist"
                   aria-label="Campaign duration selection"
-                  className="grid grid-cols-2 sm:inline-flex items-center p-1 sm:p-1.5 rounded-xl sm:rounded-2xl bg-white/[0.04] border border-white/[0.1] shadow-inner backdrop-blur-md"
+                  className="grid grid-cols-3 sm:inline-flex items-center p-1 sm:p-1.5 rounded-xl sm:rounded-2xl bg-white/[0.04] border border-white/[0.1] shadow-inner backdrop-blur-md"
                 >
                   <button
                     type="button"
@@ -506,7 +618,7 @@ export default function Pricing() {
                     aria-selected={termType === "long-term"}
                     onClick={() => handleTermChange("long-term")}
                     className={cn(
-                      "px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-lg sm:rounded-xl text-xs sm:text-sm font-display tracking-wide text-center cursor-pointer transition-all duration-300 ease-gentle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] active:scale-[0.98]",
+                      "px-2.5 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl text-xs sm:text-sm font-display tracking-wide text-center cursor-pointer transition-all duration-300 ease-gentle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] active:scale-[0.98]",
                       termType === "long-term"
                         ? "bg-[#F8F6F2] text-[#111111] font-semibold shadow-[0_2px_14px_rgba(248,246,242,0.25)] scale-[1.02]"
                         : "text-white/70 hover:text-white"
@@ -520,13 +632,27 @@ export default function Pricing() {
                     aria-selected={termType === "short-term"}
                     onClick={() => handleTermChange("short-term")}
                     className={cn(
-                      "px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-lg sm:rounded-xl text-xs sm:text-sm font-display tracking-wide text-center cursor-pointer transition-all duration-300 ease-gentle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] active:scale-[0.98]",
+                      "px-2.5 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl text-xs sm:text-sm font-display tracking-wide text-center cursor-pointer transition-all duration-300 ease-gentle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] active:scale-[0.98]",
                       termType === "short-term"
                         ? "bg-[#F8F6F2] text-[#111111] font-semibold shadow-[0_2px_14px_rgba(248,246,242,0.25)] scale-[1.02]"
                         : "text-white/70 hover:text-white"
                     )}
                   >
                     Short-Term
+                  </button>
+                  <button
+                    type="button"
+                    role="tab"
+                    aria-selected={termType === "end-to-end"}
+                    onClick={() => handleTermChange("end-to-end")}
+                    className={cn(
+                      "px-2.5 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl text-xs sm:text-sm font-display tracking-wide text-center cursor-pointer transition-all duration-300 ease-gentle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] active:scale-[0.98]",
+                      termType === "end-to-end"
+                        ? "bg-[#F8F6F2] text-[#111111] font-semibold shadow-[0_2px_14px_rgba(248,246,242,0.25)] scale-[1.02]"
+                        : "text-white/70 hover:text-white"
+                    )}
+                  >
+                    End-to-End
                   </button>
                 </div>
 
