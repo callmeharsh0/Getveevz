@@ -584,10 +584,14 @@ export default function Hero() {
               <span className="text-[11px] font-mono uppercase tracking-[0.22em] text-[#8BA3C5] font-semibold">
                 Directory
               </span>
-              <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-white/[0.05] border border-white/[0.08] text-[11px] font-mono text-white/80">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#0038E2] inline-block animate-ping" />
-                <span>Engine Active</span>
-              </div>
+              <button
+                type="button"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center justify-center w-7 h-7 rounded-full bg-white/[0.06] hover:bg-white/[0.15] text-white/60 hover:text-white transition-colors cursor-pointer"
+                aria-label="Close menu"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
             </div>
 
             {/* Navigation Links */}

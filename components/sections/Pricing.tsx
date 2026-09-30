@@ -12,11 +12,11 @@ if (typeof window !== "undefined") {
 
 export type PricingTerm = "long-term" | "short-term";
 export type PricingModelType = PricingTerm; // Backwards-compatibility alias
-export type Currency = "USD" | "INR";
+export type Currency = "USD" | "INR" | "AED";
 
 export interface PlanSpec {
   label: string;
-  value: string | { USD: string; INR: string };
+  value: string | { USD: string; INR: string; AED?: string };
 }
 
 export interface PricingPlan {
@@ -28,58 +28,119 @@ export interface PricingPlan {
   rateDisplay: {
     USD: string;
     INR: string;
+    AED: string;
   };
   ratePeriod: string;
   highlightNote: string;
   icon: typeof Rocket;
   specs: PlanSpec[];
-  subFormats?: { title: string; desc: string | { USD: string; INR: string } }[];
+  subFormats?: { title: string; desc: string | { USD: string; INR: string; AED?: string } }[];
 }
 
 const longTermPlans: PricingPlan[] = [
   {
     id: "long-term-3mo",
-    name: "3-Month Campaign",
-    badge: "Test ➔ Identify ➔ Scale",
+    name: "CPM to Retainer Transition",
+    badge: "Test ➔ Identify ➔ Retain",
     popular: true,
-    subtitle: "Identify what works first, then scale only the strongest pages",
+    subtitle: "Custom view target (minimum 10M views) to filter winning pages, transitioning into a fixed retainer",
     rateDisplay: {
-      USD: "$1–$3 CPM ➔ Fixed Retainer",
-      INR: "₹85–₹250 CPM ➔ Fixed Retainer",
+      USD: "$3 / 1K CPM ➔ Fixed Retainer",
+      INR: "₹250 / 1K CPM ➔ Fixed Retainer",
+      AED: "11 AED / 1K CPM ➔ Fixed Retainer",
     },
-    ratePeriod: "3-Month Hybrid Lifecycle",
-    highlightNote: "Best when we want to identify what works first, then scale only the strongest pages.",
+    ratePeriod: "Custom Views • Minimum 10M Views Requirement",
+    highlightNote: "We ask you how many views you want (min. 10M views). Month 1 tests clippers at $3/1K CPM, then shortlists the top 10–30 winning pages into a predictable monthly retainer.",
     icon: Rocket,
     specs: [
       {
-        label: "Month 1 (Testing)",
+        label: "Pricing Basis",
         value: {
-          USD: "500–1,000 clippers at $1–$3 / 1K views to filter top hooks, formats & pages",
-          INR: "500–1,000 clippers at ₹85–₹250 / 1K views to filter top hooks, formats & pages",
+          USD: "$3 / 1K CPM (₹250 / 1K CPM • 11 AED / 1K CPM)",
+          INR: "₹250 / 1K CPM ($3 / 1K CPM • 11 AED / 1K CPM)",
+          AED: "11 AED / 1K CPM ($3 / 1K CPM • ₹250 / 1K CPM)",
         },
       },
-      { label: "Months 2–3 (Scale)", value: "Shortlist top 10–30 winning pages into a fixed monthly retainer" },
+      { label: "View Requirement", value: "Minimum 10 Million views target (we ask your target view volume)" },
+      {
+        label: "Month 1 (Testing)",
+        value: {
+          USD: "500–1,000 clippers at $3 / 1K views to filter top hooks, formats & winning pages",
+          INR: "500–1,000 clippers at ₹250 / 1K views to filter top hooks, formats & winning pages",
+          AED: "500–1,000 clippers at 11 AED / 1K views to filter top hooks, formats & winning pages",
+        },
+      },
+      { label: "Months 2–3 (Retainer)", value: "Shortlist top 10–30 winning pages into a fixed monthly retainer" },
       { label: "Predictable Output", value: "Pay for guaranteed distribution from proven pages vs betting on views" },
       { label: "Scale & Renew", value: "Renew, optimize, and expand the proven system month after month" },
+    ],
+    subFormats: [
+      {
+        title: "Phase 1: CPM Testing ($3/1K)",
+        desc: {
+          USD: "Deploy clippers at $3/1K views to hit your target view count (min 10M views) and identify viral hooks.",
+          INR: "Deploy clippers at ₹250/1K views to hit your target view count (min 10M views) and identify viral hooks.",
+          AED: "Deploy clippers at 11 AED/1K views to hit your target view count (min 10M views) and identify viral hooks.",
+        },
+      },
+      {
+        title: "Phase 2: Winning Retainer",
+        desc: "Lock the top 10–30 proven creator pages into fixed monthly retainers for consistent, compounding reach.",
+      },
     ],
   },
   {
     id: "long-term-straight-retainer",
-    name: "Straight Retainer",
-    badge: "Predictable Scale",
-    subtitle: "For brands already getting consistent views without needing testing",
+    name: "Normal Clipping (Straight Retainer)",
+    badge: "36L & 72L Retainers",
+    subtitle: "For brands already getting consistent views without needing a testing phase",
     rateDisplay: {
-      USD: "Fixed Retainer",
-      INR: "Fixed Retainer",
+      USD: "$36K & $72K / mo",
+      INR: "₹36L & ₹72L / mo",
+      AED: "132K & 264K AED / mo",
     },
-    ratePeriod: "Monthly Engagement",
-    highlightNote: "Instead of pricing around views, we work on a fixed monthly retainer with defined deliverables.",
+    ratePeriod: "Monthly Fixed Retainer (36L & 72L Tiers)",
+    highlightNote: "Normal clipping on a fixed monthly retainer with defined deliverables: dedicated clipping pods, fixed monthly quotas, and zero view volatility.",
     icon: ShieldCheck,
     specs: [
-      { label: "Ideal For", value: "Brands with steady traction who don't need a testing phase" },
+      {
+        label: "Tier 1 Pricing",
+        value: {
+          USD: "$36,000 / month (₹36L INR • 132,000 AED / month)",
+          INR: "₹36 Lakhs / month ($36,000 USD • 132,000 AED / month)",
+          AED: "132,000 AED / month ($36,000 USD • ₹36L INR / month)",
+        },
+      },
+      {
+        label: "Tier 2 Pricing",
+        value: {
+          USD: "$72,000 / month (₹72L INR • 264,000 AED / month)",
+          INR: "₹72 Lakhs / month ($72,000 USD • 264,000 AED / month)",
+          AED: "264,000 AED / month ($72,000 USD • ₹72L INR / month)",
+        },
+      },
+      { label: "Ideal For", value: "Brands with steady traction wanting normal clipping without testing" },
       { label: "Deliverables", value: "Defined monthly clip volume, designated pages & posting frequency" },
-      { label: "Quality Control", value: "Hand-crafted editing, sound design & strict brand standards" },
+      { label: "Quality Control", value: "Hand-crafted editing, custom hooks, sound design & strict brand standards" },
       { label: "Sustainable Scale", value: "Predictable monthly distribution engine without view volatility" },
+    ],
+    subFormats: [
+      {
+        title: "Tier 1: 36L / mo ($36K / 132K AED)",
+        desc: {
+          USD: "$36K USD (₹36L / 132K AED) / mo: Dedicated clipping pod, 60+ vertical cuts, multi-channel distribution.",
+          INR: "₹36L INR ($36K / 132K AED) / mo: Dedicated clipping pod, 60+ vertical cuts, multi-channel distribution.",
+          AED: "132K AED ($36K / ₹36L) / mo: Dedicated clipping pod, 60+ vertical cuts, multi-channel distribution.",
+        },
+      },
+      {
+        title: "Tier 2: 72L / mo ($72K / 264K AED)",
+        desc: {
+          USD: "$72K USD (₹72L / 264K AED) / mo: Omnipresent reach surge, 120+ vertical cuts, dedicated clippers army across all platforms.",
+          INR: "₹72L INR ($72K / 264K AED) / mo: Omnipresent reach surge, 120+ vertical cuts, dedicated clippers army across all platforms.",
+          AED: "264K AED ($72K / ₹72L) / mo: Omnipresent reach surge, 120+ vertical cuts, dedicated clippers army across all platforms.",
+        },
+      },
     ],
   },
 ];
@@ -88,25 +149,28 @@ const shortTermPlans: PricingPlan[] = [
   {
     id: "short-term-cpm",
     name: "CPM-Based Campaign",
-    badge: "Defined View Target",
+    badge: "Min. 10M Views • $3 / 1K",
     popular: true,
-    subtitle: "Built to hit an agreed view target over a concentrated timeframe",
+    subtitle: "We ask you how many views you want — minimum 10 million views requirement",
     rateDisplay: {
-      USD: "$1–$3 / 1K Views",
-      INR: "₹85–₹250 / 1K Views",
+      USD: "$3 / 1K Views",
+      INR: "₹250 / 1K Views",
+      AED: "11 AED / 1K Views",
     },
-    ratePeriod: "Agreed Budget Cap",
-    highlightNote: "Ideal for product launches, events, announcements, or concentrated attention.",
+    ratePeriod: "Custom Views • Minimum 10M Views Requirement",
+    highlightNote: "Tell us how many views you need (minimum 10M views). We deploy fan pages & theme pages at $3/1K views to deliver your target attention within an agreed timeframe.",
     icon: Zap,
     specs: [
       {
         label: "Pricing Basis",
         value: {
-          USD: "$1–$3 per 1K views based on audience and niche targeting",
-          INR: "₹85–₹250 per 1K views based on audience and niche targeting",
+          USD: "$3 per 1K views (₹250 / 1K views • 11 AED / 1K views)",
+          INR: "₹250 per 1K views ($3 / 1K views • 11 AED / 1K views)",
+          AED: "11 AED per 1K views ($3 / 1K views • ₹250 / 1K views)",
         },
       },
-      { label: "Format A (Fan Pages)", value: "Large clippers pool driving broad distribution toward view target" },
+      { label: "View Requirement", value: "Minimum 10 Million views (we ask you how many views you want)" },
+      { label: "Format A (Fan Pages)", value: "Large clippers pool driving broad distribution toward agreed view target" },
       { label: "Format B (Theme Pages)", value: "Agency-owned niche pages (70% native niche content + brand integration)" },
       { label: "Niches & Delivery", value: "Tech, AI, Business, Education, News — pay only for views delivered" },
       { label: "Re-Activatable", value: "Pages stay in agency network for repeatable future pushes" },
@@ -115,8 +179,9 @@ const shortTermPlans: PricingPlan[] = [
       {
         title: "A. Mass Fan-Page Clipping",
         desc: {
-          USD: "Large pool of clippers posting across fan pages at $1–$3/1K views to test and scale fast.",
-          INR: "Large pool of clippers posting across fan pages at ₹85–₹250/1K views to test and scale fast.",
+          USD: "Large pool of clippers posting across fan pages at $3/1K views to hit your target volume (min. 10M views).",
+          INR: "Large pool of clippers posting across fan pages at ₹250/1K views to hit your target volume (min. 10M views).",
+          AED: "Large pool of clippers posting across fan pages at 11 AED/1K views to hit your target volume (min. 10M views).",
         },
       },
       {
@@ -128,25 +193,35 @@ const shortTermPlans: PricingPlan[] = [
   {
     id: "short-term-seeding",
     name: "Seeding Campaign",
-    badge: "Immediate 24-Hr Blitz",
-    subtitle: "Immediate, high-volume distribution through established theme pages",
+    badge: "Starts at ₹6L / $7.2K",
+    subtitle: "Immediate, high-volume distribution through established theme pages completed in 24 hours",
     rateDisplay: {
-      USD: "$12,000 — $100,000+",
-      INR: "₹10 Lakh — ₹85 Lakh+",
+      USD: "Starts at $7,200 ($7.2K — $100K+)",
+      INR: "Starts at ₹6 Lakhs (₹6L — ₹85L+)",
+      AED: "Starts at 26,500 AED (26.5K — 365K+ AED)",
     },
-    ratePeriod: "Single-Day to Multi-Day Blitz",
-    highlightNote: "You provide brief & narrative; we handle inventory, placements & 24-hr execution.",
+    ratePeriod: "Starting at ₹6L ($7.2K USD • ~26.5K AED)",
+    highlightNote: "Starting at ₹6 Lakhs. You provide brief & narrative; we handle inventory, high-authority placements & rapid 24-hr execution.",
     icon: Clock,
     specs: [
-      { label: "Speed", value: "Distribution fully completed within 24 hours of brief approval" },
+      {
+        label: "Starting Pricing",
+        value: {
+          USD: "Starts at $7,200 USD (₹6 Lakhs INR • ~26,500 AED)",
+          INR: "Starts at ₹6 Lakhs INR ($7,200 USD • ~26,500 AED)",
+          AED: "Starts at 26,500 AED ($7,200 USD • ₹6 Lakhs INR)",
+        },
+      },
+      { label: "Execution Speed", value: "Distribution fully completed within 24 hours of brief approval" },
       { label: "Account Reach", value: "Targeted niche pages to massive 1M, 5M, or 10M+ follower accounts" },
       { label: "Niche Coverage", value: "Established pages in AI, Tech, Business, Finance, News & Updates" },
       { label: "Fixed Cost / Post", value: "Every page has its fixed cost per post — zero hidden fees" },
       {
-        label: "Budget Scale",
+        label: "Budget Range",
         value: {
-          USD: "$12,000 minimum up to $100,000+ for single-day high-volume surges",
-          INR: "₹10 Lakh minimum up to ₹85 Lakh+ for single-day high-volume surges",
+          USD: "Starts at $7,200 up to $100,000+ for single-day high-volume surges",
+          INR: "Starts at ₹6 Lakhs up to ₹85 Lakh+ for single-day high-volume surges",
+          AED: "Starts at 26,500 AED up to 365,000+ AED for single-day high-volume surges",
         },
       },
     ],
@@ -171,9 +246,9 @@ export default function Pricing() {
     setSelectedPlanId(type === "long-term" ? "long-term-3mo" : "short-term-cpm");
   };
 
-  const getLocalized = (val: string | { USD: string; INR: string }) => {
+  const getLocalized = (val: string | { USD: string; INR: string; AED?: string }) => {
     if (typeof val === "string") return val;
-    return val[currency];
+    return val[currency] || val["USD"];
   };
 
   // Dynamic spotlight cursor interaction with subtle luminous accent
@@ -357,11 +432,11 @@ export default function Pricing() {
                   </button>
                 </div>
 
-                {/* Currency Switcher: USD ($) vs INR (₹) (White Shade Active) */}
+                {/* Currency Switcher: USD ($) vs INR (₹) vs AED (White Shade Active) */}
                 <div
                   role="group"
                   aria-label="Currency selection"
-                  className="grid grid-cols-2 sm:inline-flex items-center p-1 sm:p-1.5 rounded-xl sm:rounded-2xl bg-white/[0.04] border border-white/[0.1] shadow-inner backdrop-blur-md"
+                  className="grid grid-cols-3 sm:inline-flex items-center p-1 sm:p-1.5 rounded-xl sm:rounded-2xl bg-white/[0.04] border border-white/[0.1] shadow-inner backdrop-blur-md"
                 >
                   <button
                     type="button"
@@ -369,7 +444,7 @@ export default function Pricing() {
                     aria-pressed={currency === "USD"}
                     onClick={() => setCurrency("USD")}
                     className={cn(
-                      "px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl text-xs sm:text-sm font-display tracking-wide text-center cursor-pointer transition-all duration-300 ease-gentle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] active:scale-[0.98]",
+                      "px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-lg sm:rounded-xl text-xs sm:text-sm font-display tracking-wide text-center cursor-pointer transition-all duration-300 ease-gentle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] active:scale-[0.98]",
                       currency === "USD"
                         ? "bg-[#F8F6F2] text-[#111111] font-semibold shadow-[0_2px_14px_rgba(248,246,242,0.25)] scale-[1.02]"
                         : "text-white/70 hover:text-white"
@@ -383,13 +458,27 @@ export default function Pricing() {
                     aria-pressed={currency === "INR"}
                     onClick={() => setCurrency("INR")}
                     className={cn(
-                      "px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl text-xs sm:text-sm font-display tracking-wide text-center cursor-pointer transition-all duration-300 ease-gentle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] active:scale-[0.98]",
+                      "px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-lg sm:rounded-xl text-xs sm:text-sm font-display tracking-wide text-center cursor-pointer transition-all duration-300 ease-gentle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] active:scale-[0.98]",
                       currency === "INR"
                         ? "bg-[#F8F6F2] text-[#111111] font-semibold shadow-[0_2px_14px_rgba(248,246,242,0.25)] scale-[1.02]"
                         : "text-white/70 hover:text-white"
                     )}
                   >
                     INR (₹)
+                  </button>
+                  <button
+                    type="button"
+                    aria-label="Display prices in UAE Dirhams"
+                    aria-pressed={currency === "AED"}
+                    onClick={() => setCurrency("AED")}
+                    className={cn(
+                      "px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-lg sm:rounded-xl text-xs sm:text-sm font-display tracking-wide text-center cursor-pointer transition-all duration-300 ease-gentle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] active:scale-[0.98]",
+                      currency === "AED"
+                        ? "bg-[#F8F6F2] text-[#111111] font-semibold shadow-[0_2px_14px_rgba(248,246,242,0.25)] scale-[1.02]"
+                        : "text-white/70 hover:text-white"
+                    )}
+                  >
+                    AED
                   </button>
                 </div>
               </div>
