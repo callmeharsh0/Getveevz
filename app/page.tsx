@@ -24,7 +24,7 @@ const ROOT_JSON_LD = [
     "logo": "https://getveevz.com/assets/Logo.png",
     "description":
       "GetVeevz turns long-form podcasts, interviews, and keynotes into coordinated short-form distribution across TikTok, Instagram Reels, and YouTube Shorts.",
-    "email": "contact@getveevz.com",
+    "email": "team@getveevz.com",
     "sameAs": [
       "https://x.com",
       "https://linkedin.com",
@@ -34,7 +34,7 @@ const ROOT_JSON_LD = [
     "contactPoint": {
       "@type": "ContactPoint",
       "contactType": "sales",
-      "email": "contact@getveevz.com"
+      "email": "team@getveevz.com"
     }
   },
   {

@@ -648,7 +648,7 @@ export default function Hero() {
             <div className="flex items-center justify-between pt-1 px-1 text-[10.5px] font-mono text-white/40">
               <span className="flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block" />
-                contact@getveevz.com
+                team@getveevz.com
               </span>
               <span>© GetVeevz 2026</span>
             </div>

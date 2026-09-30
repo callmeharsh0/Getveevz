@@ -24,7 +24,7 @@ export default function FinalCTA() {
         <div data-reveal className="mt-10 flex justify-center">
           <GlassButton
             size="lg"
-            href="mailto:contact@getveevz.com?subject=GetVeevz%20Strategy%20Call%20Booking"
+            href="mailto:team@getveevz.com?subject=GetVeevz%20Strategy%20Call%20Booking"
             className="hover:scale-105"
             contentClassName="flex items-center gap-2.5 text-base sm:text-lg"
           >

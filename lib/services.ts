@@ -162,7 +162,7 @@ export const services: Service[] = [
           "If the system performs well and delivers strong ROI, we renew the retainer contracts for your proven pages and can scale the system with additional posting channels.",
       },
     ],
-    ctaHref: "mailto:contact@getveevz.com?subject=Long-Term%20Distribution%20Model%20Inquiry",
+    ctaHref: "mailto:team@getveevz.com?subject=Long-Term%20Distribution%20Model%20Inquiry",
   },
   {
     slug: "short-term-campaign",
@@ -301,7 +301,7 @@ export const services: Service[] = [
           "Once your agreed CPM budget or seeding placements are delivered, the push concludes. Because the theme pages remain part of our agency network, you can run another push anytime under a new budget.",
       },
     ],
-    ctaHref: "mailto:contact@getveevz.com?subject=Short-Term%20Campaign%20Model%20Inquiry",
+    ctaHref: "mailto:team@getveevz.com?subject=Short-Term%20Campaign%20Model%20Inquiry",
   },
   {
     slug: "end-to-end-marketing",
@@ -418,7 +418,7 @@ export const services: Service[] = [
           "You own 100% of all scripts, raw footage, edited videos, and thumbnail assets created during our engagement.",
       },
     ],
-    ctaHref: "mailto:contact@getveevz.com?subject=End-to-End%20Marketing%20Inquiry",
+    ctaHref: "mailto:team@getveevz.com?subject=End-to-End%20Marketing%20Inquiry",
   },
 ];
 

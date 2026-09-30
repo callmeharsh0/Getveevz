@@ -213,7 +213,7 @@ export default function Questionnaire() {
       `${formData.fullName}`,
     ].join("\n");
 
-    return `mailto:contact@getveevz.com?subject=${subject}&body=${encodeURIComponent(bodyText)}`;
+    return `mailto:team@getveevz.com?subject=${subject}&body=${encodeURIComponent(bodyText)}`;
   };
 
   const handleSubmit = (e: React.FormEvent) => {

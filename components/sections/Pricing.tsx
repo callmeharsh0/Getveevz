@@ -339,7 +339,7 @@ export default function Pricing() {
       `Best regards,`,
     ].join("\n");
 
-    return `mailto:contact@getveevz.com?subject=${subject}&body=${encodeURIComponent(bodyText)}`;
+    return `mailto:team@getveevz.com?subject=${subject}&body=${encodeURIComponent(bodyText)}`;
   };
 
   const handleOrder = (e?: React.MouseEvent) => {

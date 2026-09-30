@@ -406,7 +406,7 @@ export default function ServicesPage() {
                 {/* Primary Button-in-Button Action */}
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                   <a
-                    href="mailto:contact@getveevz.com?subject=Custom%20Distribution%20Inquiry"
+                    href="mailto:team@getveevz.com?subject=Custom%20Distribution%20Inquiry"
                     className="group relative inline-flex items-center gap-3 pl-7 pr-2 py-2 rounded-full bg-[#111111] text-white font-medium text-sm sm:text-base transition-all duration-500 ease-gentle hover:bg-[#0038E2] hover:scale-105 active:scale-[0.98] shadow-[0_4px_24px_rgba(0,0,0,0.18)]"
                   >
                     <span>Book Strategy Call</span>

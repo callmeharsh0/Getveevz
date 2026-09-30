@@ -80,7 +80,7 @@ export default function Footer() {
   };
 
   const copyEmail = () => {
-    navigator.clipboard.writeText("contact@getveevz.com");
+    navigator.clipboard.writeText("team@getveevz.com");
     setCopied(true);
     setTimeout(() => setCopied(false), 2200);
   };
@@ -146,7 +146,7 @@ export default function Footer() {
                   title="Click to copy contact email"
                 >
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                  <span>contact@getveevz.com</span>
+                  <span>team@getveevz.com</span>
                   {copied ? (
                     <Check className="w-3 h-3 text-emerald-400" />
                   ) : (
@@ -182,7 +182,7 @@ export default function Footer() {
 
               {/* Button-in-Button CTA (Apple/Linear hardware style) */}
               <a
-                href="mailto:contact@getveevz.com?subject=GetVeevz%20Strategy%20Call%20Booking"
+                href="mailto:team@getveevz.com?subject=GetVeevz%20Strategy%20Call%20Booking"
                 className="group relative inline-flex items-center gap-3 rounded-full bg-[#F8F6F2] hover:bg-white text-[#111111] pl-5 pr-2 py-2 font-display font-semibold text-xs sm:text-sm transition-all duration-300 ease-gentle hover:scale-[1.02] active:scale-[0.98] shadow-[0_4px_20px_rgba(248,246,242,0.15)] cursor-pointer shrink-0"
               >
                 <span>Book Strategy Call</span>
