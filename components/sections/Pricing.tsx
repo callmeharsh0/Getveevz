@@ -44,37 +44,41 @@ const longTermPlans: PricingPlan[] = [
   {
     id: "long-term-3mo",
     name: "CPM to Retainer Transition",
-    badge: "Test ➔ Identify ➔ Retain",
-    popular: true,
-    subtitle: "Custom view target (minimum 10M views) to filter winning pages, transitioning into a fixed retainer",
-    rateDisplay: {
-      USD: "$3 / 1K CPM ➔ Fixed Retainer",
-      INR: "₹250 / 1K CPM ➔ Fixed Retainer",
-      AED: "11 AED / 1K CPM ➔ Fixed Retainer",
+    badge: {
+      USD: "$1 / 1K CPM • No Views Guarantee",
+      INR: "₹85 / 1K CPM • No Views Guarantee",
+      AED: "3.7 AED / 1K CPM • No Views Guarantee",
     },
-    ratePeriod: "Custom Views • Minimum 10M Views Requirement",
+    popular: true,
+    subtitle: "Test creators at $1/1K CPM with no views guarantee to filter winning pages, transitioning into a fixed retainer",
+    rateDisplay: {
+      USD: "$1 / 1K CPM ➔ Fixed Retainer",
+      INR: "₹85 / 1K CPM ➔ Fixed Retainer",
+      AED: "3.7 AED / 1K CPM ➔ Fixed Retainer",
+    },
+    ratePeriod: "Testing Phase ($1/1K CPM) • No Views Guarantee ➔ Retainer",
     highlightNote: {
-      USD: "We ask you how many views you want (min. 10M views). Month 1 tests clippers at $3/1K CPM, then shortlists the top 10–30 winning pages into a predictable monthly retainer.",
-      INR: "We ask you how many views you want (min. 10M views). Month 1 tests clippers at ₹250/1K CPM, then shortlists the top 10–30 winning pages into a predictable monthly retainer.",
-      AED: "We ask you how many views you want (min. 10M views). Month 1 tests clippers at 11 AED/1K CPM, then shortlists the top 10–30 winning pages into a predictable monthly retainer.",
+      USD: "Month 1 tests 500–1,000 clippers at $1/1K views with no view guarantee to find viral hooks and angles, then shortlists the top 10–30 winning pages into a predictable monthly retainer.",
+      INR: "Month 1 tests 500–1,000 clippers at ₹85/1K views with no view guarantee to find viral hooks and angles, then shortlists the top 10–30 winning pages into a predictable monthly retainer.",
+      AED: "Month 1 tests 500–1,000 clippers at 3.7 AED/1K views with no view guarantee to find viral hooks and angles, then shortlists the top 10–30 winning pages into a predictable monthly retainer.",
     },
     icon: Rocket,
     specs: [
       {
         label: "Pricing Basis",
         value: {
-          USD: "$3 per 1K views (CPM)",
-          INR: "₹250 per 1K views (CPM)",
-          AED: "11 AED per 1K views (CPM)",
+          USD: "$1 per 1K views (CPM)",
+          INR: "₹85 per 1K views (CPM)",
+          AED: "3.7 AED per 1K views (CPM)",
         },
       },
-      { label: "View Requirement", value: "Minimum 10 Million views target (we ask your target view volume)" },
+      { label: "View Guarantee", value: "No views guarantee (pure performance testing & filtration)" },
       {
         label: "Month 1 (Testing)",
         value: {
-          USD: "500–1,000 clippers at $3 / 1K views to filter top hooks, formats & winning pages",
-          INR: "500–1,000 clippers at ₹250 / 1K views to filter top hooks, formats & winning pages",
-          AED: "500–1,000 clippers at 11 AED / 1K views to filter top hooks, formats & winning pages",
+          USD: "500–1,000 clippers at $1 / 1K views to filter top hooks, formats & winning pages",
+          INR: "500–1,000 clippers at ₹85 / 1K views to filter top hooks, formats & winning pages",
+          AED: "500–1,000 clippers at 3.7 AED / 1K views to filter top hooks, formats & winning pages",
         },
       },
       { label: "Months 2–3 (Retainer)", value: "Shortlist top 10–30 winning pages into a fixed monthly retainer" },
@@ -84,14 +88,14 @@ const longTermPlans: PricingPlan[] = [
     subFormats: [
       {
         title: {
-          USD: "Phase 1: CPM Testing ($3/1K)",
-          INR: "Phase 1: CPM Testing (₹250/1K)",
-          AED: "Phase 1: CPM Testing (11 AED/1K)",
+          USD: "Phase 1: CPM Testing ($1/1K)",
+          INR: "Phase 1: CPM Testing (₹85/1K)",
+          AED: "Phase 1: CPM Testing (3.7 AED/1K)",
         },
         desc: {
-          USD: "Deploy clippers at $3/1K views to hit your target view count (min 10M views) and identify viral hooks.",
-          INR: "Deploy clippers at ₹250/1K views to hit your target view count (min 10M views) and identify viral hooks.",
-          AED: "Deploy clippers at 11 AED/1K views to hit your target view count (min 10M views) and identify viral hooks.",
+          USD: "Deploy clippers at $1/1K views with no view guarantee to test viral angles and filter high-retention pages.",
+          INR: "Deploy clippers at ₹85/1K views with no view guarantee to test viral angles and filter high-retention pages.",
+          AED: "Deploy clippers at 3.7 AED/1K views with no view guarantee to test viral angles and filter high-retention pages.",
         },
       },
       {
@@ -182,13 +186,13 @@ const shortTermPlans: PricingPlan[] = [
       AED: "Min. 10M Views • 11 AED / 1K",
     },
     popular: true,
-    subtitle: "We ask you how many views you want — minimum 10 million views requirement",
+    subtitle: "We ask you how many views you want — minimum 10 million views requirement ($3 / 1K views)",
     rateDisplay: {
       USD: "$3 / 1K Views",
       INR: "₹250 / 1K Views",
       AED: "11 AED / 1K Views",
     },
-    ratePeriod: "Custom Views • Minimum 10M Views Requirement",
+    ratePeriod: "Custom Views • Minimum 10M Views Requirement ($3/1K)",
     highlightNote: {
       USD: "Tell us how many views you need (minimum 10M views). We deploy fan pages & theme pages at $3/1K views to deliver your target attention within an agreed timeframe.",
       INR: "Tell us how many views you need (minimum 10M views). We deploy fan pages & theme pages at ₹250/1K views to deliver your target attention within an agreed timeframe.",

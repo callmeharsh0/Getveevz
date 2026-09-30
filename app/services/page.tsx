@@ -138,7 +138,7 @@ export default function ServicesPage() {
               ? [
                   { label: "Model 01", value: "3-Month Test-to-Scale" },
                   { label: "Model 02", value: "Straight Fixed Retainer" },
-                  { label: "Month 1 CPM", value: "$1–$3 / 1K (500–1K clippers)" },
+                  { label: "Month 1 CPM", value: "$1 / 1K (no view guarantee)" },
                   { label: "Months 2–3", value: "Top 10–30 Pages on Retainer" },
                 ]
               : [
@@ -358,7 +358,7 @@ export default function ServicesPage() {
                         Economics
                       </td>
                       <td className="py-5 px-6 sm:px-8 text-[#444444]">
-                        $3/1K CPM (min 10M views) ➔ Retainer or 36L/72L straight retainers
+                        $1/1K CPM (no view guarantee) ➔ Retainer or 36L/72L straight retainers
                       </td>
                       <td className="py-5 px-6 sm:px-8 text-[#444444]">
                         $3/1K CPM (min 10M views) or Seeding starting at ₹6L

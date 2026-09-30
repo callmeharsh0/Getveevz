@@ -33,14 +33,14 @@ const agencies: Agency[] = [
     duration: "Ongoing / Retainer",
     deliverables: "Normal Clipping • CPM Transition",
     description:
-      "This includes the CPM-based growth campaign (min 10M views with retainer transition) and normal clipping.",
+      "This includes the CPM-based growth campaign ($1/1K views testing with no views guarantee, transitioning to retainer) and normal clipping.",
     link: "#cta",
     videoSrc: "/assets/agency-video-1.mp4",
     maskType: "custom-a",
     servicesList: [
       {
         title: "Test & Discover",
-        detail: "Launch with 500–1,000+ clippers to test pages, hooks, and formats with your target volume (min. 10M views).",
+        detail: "Launch with 500–1,000+ clippers at $1/1K views to test pages, hooks, and formats (no view guarantee) to find winners.",
       },
       {
         title: "Identify Winners",
