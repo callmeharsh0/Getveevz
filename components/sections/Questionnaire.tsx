@@ -100,24 +100,24 @@ const BUDGET_OPTIONS: {
 }[] = [
   {
     id: "36k",
-    primary: "$36k / month",
-    inr: "₹36L INR",
-    aed: "132k AED",
+    primary: "$36k / mo · 3-Month Plan",
+    inr: "₹36L / mo (3-Mo Plan)",
+    aed: "132k AED / mo (3-Mo Plan)",
     views: "25M – 40M+ Views",
   },
   {
     id: "72k",
-    primary: "$72k / month",
-    inr: "₹72L INR",
-    aed: "264k AED",
+    primary: "$72k / mo · 3-Month Plan",
+    inr: "₹72L / mo (3-Mo Plan)",
+    aed: "264k AED / mo (3-Mo Plan)",
     views: "55M – 85M+ Views",
   },
   {
     id: "custom",
     primary: "Custom Enterprise Plan",
-    sublabel: "From $100k+ / month",
-    inr: "₹85L+ INR",
-    aed: "365k+ AED",
+    sublabel: "3-Month Scope (From $100k+ / mo)",
+    inr: "₹85L+ INR / mo",
+    aed: "365k+ AED / mo",
     views: "120M+ Multi-Platform Reach",
   },
 ];

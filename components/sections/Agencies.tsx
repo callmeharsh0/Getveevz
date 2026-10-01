@@ -30,10 +30,10 @@ const agencies: Agency[] = [
     id: "long-term",
     name: "Long term",
     tagline: "Continuous Growth Engine",
-    duration: "Ongoing / Retainer",
-    deliverables: "Normal Clipping • CPM Transition",
+    duration: "3-Month Plan / Retainer",
+    deliverables: "3-Month Retainer • CPM Transition",
     description:
-      "This includes the CPM-based growth campaign (performance testing transitioning to retainer) and normal clipping.",
+      "This includes the CPM-based growth campaign (performance testing transitioning to retainer) and normal clipping, both structured as 3-month plans.",
     link: "#cta",
     videoSrc: "/assets/agency-video-1.mp4",
     maskType: "custom-a",

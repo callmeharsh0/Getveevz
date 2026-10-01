@@ -40,8 +40,8 @@ export const services: Service[] = [
     color: "text-[#0038E2]",
     models: [
       {
-        name: "CPM to Retainer Transition",
-        subtitle: "Month 1 testing at $1/1K views to filter winning pages, transitioning into a fixed retainer",
+        name: "CPM to Retainer Transition (3-Month Plan)",
+        subtitle: "3-month structured roadmap: Month 1 testing at $1/1K views to filter winning pages, transitioning into a fixed retainer for Months 2 & 3",
         overview: "Best when we want to identify what works first, then scale only the strongest pages.",
         highlights: [
           "Month 1: 500–1,000 clippers deployed on CPM basis ($1 / 1K views)",
@@ -65,14 +65,14 @@ export const services: Service[] = [
         ],
       },
       {
-        name: "Normal Clipping (Straight Retainer)",
-        subtitle: "For clients who already get consistent views — 36L & 72L monthly tiers",
-        overview: "This is for clients who are already getting consistent views and do not need a large testing phase.",
+        name: "Normal Clipping (3-Month Retainer Plan)",
+        subtitle: "For clients who already get consistent views — 3-month commitment on 36L & 72L tiers",
+        overview: "This is for clients who are already getting consistent views and want a dependable 3-month retainer without needing a testing phase.",
         highlights: [
-          "Fixed monthly retainer: 36L (Tier 1) & 72L (Tier 2)",
-          "Tier 1: ₹36L / month ($36,000 USD • 132,000 AED / month)",
-          "Tier 2: ₹72L / month ($72,000 USD • 264,000 AED / month)",
-          "Set number of clips and designated posting frequency",
+          "3-Month fixed retainer commitment: 36L (Tier 1) & 72L (Tier 2)",
+          "Tier 1: ₹36L / month ($36,000 USD • 132,000 AED / month) — 3-Month Plan",
+          "Tier 2: ₹72L / month ($72,000 USD • 264,000 AED / month) — 3-Month Plan",
+          "Set number of clips and designated posting frequency over 90 days",
           "Dedicated page network with strict quality standards",
           "Zero reliance on view volatility — pure dependable execution",
         ],
@@ -94,8 +94,8 @@ export const services: Service[] = [
         desc: "Shortlist the top 10–30 performing pages and lock them into a fixed monthly retainer for months 2 and 3.",
       },
       {
-        title: "Straight Retainer (36L & 72L)",
-        desc: "Skip testing if you already have consistent views: work on a fixed retainer (₹36L & ₹72L • $36K/$72K • 132K/264K AED) with set clips, pages, and frequency.",
+        title: "3-Month Straight Retainer (36L & 72L)",
+        desc: "Skip testing if you already have consistent views: work on a 3-month fixed retainer (₹36L & ₹72L • $36K/$72K • 132K/264K AED per month) with set clips, pages, and frequency.",
       },
       {
         title: "Sustainable System",
@@ -109,7 +109,7 @@ export const services: Service[] = [
       "Systematic filtering of top hooks, formats, and angles",
       "Shortlist top 10–30 performing pages for monthly retainers",
       "Predictable, guaranteed output and distribution for Months 2–3",
-      "Straight normal clipping retainer (36L & 72L tiers • USD & AED supported)",
+      "3-Month normal clipping retainer plan (36L & 72L tiers • USD & AED supported)",
       "Defined clip count, posting schedule, and strict quality control",
       "Renew, optimize, and scale month after month",
     ],
@@ -117,7 +117,7 @@ export const services: Service[] = [
       {
         step: "01",
         title: "Strategy & Audience Alignment",
-        desc: "Determine whether your brand requires a 3-month test-and-scale campaign ($1/1K CPM) or an immediate straight retainer (36L/72L).",
+        desc: "Determine whether your brand requires a 3-month test-and-scale campaign ($1/1K CPM) or an immediate 3-month straight retainer (36L/72L).",
       },
       {
         step: "02",
@@ -152,9 +152,9 @@ export const services: Service[] = [
           "Month 1 testing is structured at $1 per 1,000 views (₹85 / 1K views). For brands that require a defined view volume, our Short-Term CPM campaign is available at $3 per 1,000 views with a 10 Million views minimum.",
       },
       {
-        question: "Who should choose the Normal Clipping Straight Retainer?",
+        question: "Who should choose the Normal Clipping 3-Month Retainer?",
         answer:
-          "The straight retainer is built for clients who already get consistent views and do not need a testing phase. We offer 36L (Tier 1: ₹36L / $36K USD / 132K AED) and 72L (Tier 2: ₹72L / $72K USD / 264K AED) monthly tiers with defined clip volume, posting frequency, and strict quality standards.",
+          "The 3-month straight retainer is built for clients who already get consistent views and do not need a testing phase. We offer 36L (Tier 1: ₹36L / $36K USD / 132K AED per month) and 72L (Tier 2: ₹72L / $72K USD / 264K AED per month) 3-month commitment tiers with defined clip volume, posting frequency, and strict quality standards.",
       },
       {
         question: "What happens after Month 3?",

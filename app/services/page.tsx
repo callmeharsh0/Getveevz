@@ -138,7 +138,7 @@ export default function ServicesPage() {
             const specs = isRetainer
               ? [
                   { label: "Model 01", value: "3-Month Test-to-Scale" },
-                  { label: "Model 02", value: "Straight Fixed Retainer" },
+                  { label: "Model 02", value: "3-Month Straight Retainer" },
                   { label: "Month 1 CPM", value: "$1 / 1K Performance Testing" },
                   { label: "Months 2–3", value: "Top 10–30 Pages on Retainer" },
                 ]
@@ -443,7 +443,7 @@ export default function ServicesPage() {
                         Deployment Timeframe
                       </td>
                       <td className="py-5 px-6 sm:px-8 text-[#444444]">
-                        3-month minimum commitment / monthly retainer
+                        3-month plan commitment across all retainer tiers
                       </td>
                       <td className="py-5 px-6 sm:px-8 text-[#444444]">
                         Execution within 24 hours / 25–30 day surge
@@ -471,7 +471,7 @@ export default function ServicesPage() {
                         Scale Ceiling
                       </td>
                       <td className="py-5 px-6 sm:px-8 text-[#444444]">
-                        Top 10–30 winning pages to retainers / 36L &amp; 72L tiers
+                        Top 10–30 winning pages to retainers / 3-Month 36L &amp; 72L tiers
                       </td>
                       <td className="py-5 px-6 sm:px-8 text-[#444444]">
                         Starting at ₹6L ($7.2K) up to ₹85L+ ($100K+)
@@ -485,7 +485,7 @@ export default function ServicesPage() {
                         Economics
                       </td>
                       <td className="py-5 px-6 sm:px-8 text-[#444444]">
-                        $1/1K CPM Testing ➔ Retainer or 36L/72L straight retainers
+                        $1/1K CPM Testing ➔ Retainer or 3-Month 36L/72L straight retainers
                       </td>
                       <td className="py-5 px-6 sm:px-8 text-[#444444]">
                         $3/1K CPM (min 10M views) or Seeding starting at ₹6L ($7.2K)

@@ -43,54 +43,54 @@ export interface PricingPlan {
 const longTermPlans: PricingPlan[] = [
   {
     id: "long-term-3mo",
-    name: "CPM to Retainer Transition",
+    name: "CPM to Retainer Transition (3-Month Plan)",
     badge: {
-      USD: "$1 / 1K CPM • Performance Testing",
-      INR: "₹85 / 1K CPM • Performance Testing",
-      AED: "3.7 AED / 1K CPM • Performance Testing",
+      USD: "3-Month Plan • $1/1K ➔ Retainer",
+      INR: "3-Month Plan • ₹85/1K ➔ Retainer",
+      AED: "3-Month Plan • 3.7 AED/1K ➔ Retainer",
     },
     popular: true,
-    subtitle: "Test creators at $1/1K CPM to filter winning pages, transitioning into a fixed retainer",
+    subtitle: "3-month structured roadmap: Month 1 testing at $1/1K CPM, transitioning into a fixed retainer for Months 2 & 3",
     rateDisplay: {
-      USD: "$1 / 1K CPM ➔ Fixed Retainer",
-      INR: "₹85 / 1K CPM ➔ Fixed Retainer",
-      AED: "3.7 AED / 1K CPM ➔ Fixed Retainer",
+      USD: "3-Month Plan ($1/1K ➔ Retainer)",
+      INR: "3-Month Plan (₹85/1K ➔ Retainer)",
+      AED: "3-Month Plan (3.7 AED/1K ➔ Retainer)",
     },
-    ratePeriod: "Testing Phase ($1/1K CPM) ➔ Retainer",
+    ratePeriod: "3-Month Roadmap (Month 1 Testing ➔ Months 2–3 Retainer)",
     highlightNote: {
-      USD: "Month 1 tests 500–1,000 clippers at $1/1K views to find viral hooks and angles, then shortlists the top 10–30 winning pages into a predictable monthly retainer.",
-      INR: "Month 1 tests 500–1,000 clippers at ₹85/1K views to find viral hooks and angles, then shortlists the top 10–30 winning pages into a predictable monthly retainer.",
-      AED: "Month 1 tests 500–1,000 clippers at 3.7 AED/1K views to find viral hooks and angles, then shortlists the top 10–30 winning pages into a predictable monthly retainer.",
+      USD: "3-Month Roadmap: Month 1 tests 500–1,000 clippers at $1/1K views to find viral hooks and angles, then shortlists the top 10–30 winning pages into a predictable monthly retainer for Months 2 & 3.",
+      INR: "3-Month Roadmap: Month 1 tests 500–1,000 clippers at ₹85/1K views to find viral hooks and angles, then shortlists the top 10–30 winning pages into a predictable monthly retainer for Months 2 & 3.",
+      AED: "3-Month Roadmap: Month 1 tests 500–1,000 clippers at 3.7 AED/1K views to find viral hooks and angles, then shortlists the top 10–30 winning pages into a predictable monthly retainer for Months 2 & 3.",
     },
     icon: Rocket,
     specs: [
+      { label: "Plan Duration", value: "3 Months Structured Roadmap" },
       {
         label: "Pricing Basis",
         value: {
-          USD: "$1 per 1K views (CPM)",
-          INR: "₹85 per 1K views (CPM)",
-          AED: "3.7 AED per 1K views (CPM)",
+          USD: "$1 per 1K views (CPM) Month 1 ➔ Fixed Retainer Months 2–3",
+          INR: "₹85 per 1K views (CPM) Month 1 ➔ Fixed Retainer Months 2–3",
+          AED: "3.7 AED per 1K views (CPM) Month 1 ➔ Fixed Retainer Months 2–3",
         },
       },
-      { label: "Testing Phase", value: "Pure performance testing & filtration to identify viral winners" },
+      { label: "Testing Phase", value: "Month 1: Pure performance testing & filtration to identify viral winners" },
       {
-        label: "Month 1 (Testing)",
+        label: "Month 1 Deployment",
         value: {
           USD: "500–1,000 clippers at $1 / 1K views to filter top hooks, formats & winning pages",
           INR: "500–1,000 clippers at ₹85 / 1K views to filter top hooks, formats & winning pages",
           AED: "500–1,000 clippers at 3.7 AED / 1K views to filter top hooks, formats & winning pages",
         },
       },
-      { label: "Months 2–3 (Retainer)", value: "Shortlist top 10–30 winning pages into a fixed monthly retainer" },
-      { label: "Predictable Output", value: "Pay for consistent distribution from proven pages vs betting on views" },
-      { label: "Scale & Renew", value: "Renew, optimize, and expand the proven system month after month" },
+      { label: "Months 2–3 Retainer", value: "Lock top 10–30 winning pages into a predictable monthly retainer" },
+      { label: "Scale & Renew", value: "Renew, optimize, and expand the proven system after Month 3" },
     ],
     subFormats: [
       {
         title: {
-          USD: "Phase 1: CPM Testing ($1/1K)",
-          INR: "Phase 1: CPM Testing (₹85/1K)",
-          AED: "Phase 1: CPM Testing (3.7 AED/1K)",
+          USD: "Month 1: CPM Testing ($1/1K)",
+          INR: "Month 1: CPM Testing (₹85/1K)",
+          AED: "Month 1: CPM Testing (3.7 AED/1K)",
         },
         desc: {
           USD: "Deploy clippers at $1/1K views to test viral angles and filter high-retention pages.",
@@ -99,77 +99,78 @@ const longTermPlans: PricingPlan[] = [
         },
       },
       {
-        title: "Phase 2: Winning Retainer",
+        title: "Months 2–3: Winning Retainer",
         desc: "Lock the top 10–30 proven creator pages into fixed monthly retainers for consistent, compounding reach.",
       },
     ],
   },
   {
     id: "long-term-straight-retainer",
-    name: "Normal Clipping (Straight Retainer)",
+    name: "Normal Clipping (3-Month Retainer Plan)",
     badge: {
-      USD: "$36K & $72K Retainers",
-      INR: "36L & 72L Retainers",
-      AED: "132K & 264K AED Retainers",
+      USD: "3-Month Plan • $36K & $72K / mo",
+      INR: "3-Month Plan • 36L & 72L / mo",
+      AED: "3-Month Plan • 132K & 264K AED / mo",
     },
-    subtitle: "For brands already getting consistent views without needing a testing phase",
+    subtitle: "3-month straight retainer for brands already getting consistent views without needing a testing phase",
     rateDisplay: {
-      USD: "$36K & $72K / mo",
-      INR: "₹36L & ₹72L / mo",
-      AED: "132K & 264K AED / mo",
+      USD: "3-Month Plan ($36K & $72K / mo)",
+      INR: "3-Month Plan (₹36L & ₹72L / mo)",
+      AED: "3-Month Plan (132K & 264K AED / mo)",
     },
     ratePeriod: {
-      USD: "Monthly Fixed Retainer ($36K & $72K Tiers)",
-      INR: "Monthly Fixed Retainer (36L & 72L Tiers)",
-      AED: "Monthly Fixed Retainer (132K & 264K AED Tiers)",
+      USD: "3-Month Fixed Retainer Plan ($36K & $72K / mo Tiers)",
+      INR: "3-Month Fixed Retainer Plan (36L & 72L / mo Tiers)",
+      AED: "3-Month Fixed Retainer Plan (132K & 264K AED / mo Tiers)",
     },
-    highlightNote: "Normal clipping on a fixed monthly retainer with defined deliverables: dedicated clipping pods, fixed monthly quotas, and zero view volatility.",
+    highlightNote: "Normal clipping on a 3-month fixed retainer plan with defined deliverables: dedicated clipping pods, fixed monthly quotas, and zero view volatility over a 90-day compounding sprint.",
     icon: ShieldCheck,
     specs: [
+      { label: "Plan Duration", value: "3 Months Fixed Commitment (Billed Monthly)" },
       {
         label: "Tier 1 Pricing",
         value: {
-          USD: "$36,000 / month (Tier 1)",
-          INR: "₹36 Lakhs / month (36L Tier 1)",
-          AED: "132,000 AED / month (Tier 1)",
+          USD: "$36,000 / month (3-Month Plan)",
+          INR: "₹36 Lakhs / month (3-Month Plan)",
+          AED: "132,000 AED / month (3-Month Plan)",
         },
       },
       {
         label: "Tier 2 Pricing",
         value: {
-          USD: "$72,000 / month (Tier 2)",
-          INR: "₹72 Lakhs / month (72L Tier 2)",
-          AED: "264,000 AED / month (Tier 2)",
+          USD: "$72,000 / month (3-Month Plan)",
+          INR: "₹72 Lakhs / month (3-Month Plan)",
+          AED: "264,000 AED / month (3-Month Plan)",
         },
       },
-      { label: "Ideal For", value: "Brands with steady traction wanting normal clipping without testing" },
+      { label: "Ideal For", value: "Brands with steady traction wanting normal clipping on a 90-day system" },
       { label: "Deliverables", value: "Defined monthly clip volume, designated pages & posting frequency" },
       { label: "Quality Control", value: "Hand-crafted editing, custom hooks, sound design & strict brand standards" },
-      { label: "Sustainable Scale", value: "Predictable monthly distribution engine without view volatility" },
+      { label: "Sustainable Scale", value: "Predictable 3-month distribution engine without view volatility" },
     ],
     subFormats: [
       {
         title: {
-          USD: "Tier 1: $36K / month",
-          INR: "Tier 1: 36L / month",
-          AED: "Tier 1: 132K AED / month",
+          USD: "Tier 1: $36K / mo (3-Month Plan)",
+          INR: "Tier 1: 36L / mo (3-Month Plan)",
+          AED: "Tier 1: 132K AED / mo (3-Month Plan)",
         },
         desc: {
-          USD: "$36,000 / month: Dedicated clipping pod, 60+ vertical cuts, multi-channel distribution.",
-          INR: "₹36 Lakhs / month: Dedicated clipping pod, 60+ vertical cuts, multi-channel distribution.",
-          AED: "132,000 AED / month: Dedicated clipping pod, 60+ vertical cuts, multi-channel distribution.",
+          USD: "$36,000 / month (3-month plan): Dedicated clipping pod, 60+ vertical cuts/mo, multi-channel distribution.",
+          INR: "₹36 Lakhs / month (3-month plan): Dedicated clipping pod, 60+ vertical cuts/mo, multi-channel distribution.",
+          AED: "132,000 AED / month (3-month plan): Dedicated clipping pod, 60+ vertical cuts/mo, multi-channel distribution.",
         },
       },
       {
         title: {
-          USD: "Tier 2: $72K / month",
-          INR: "Tier 2: 72L / month",
-          AED: "Tier 2: 264K AED / month",
+          USD: "Tier 2: $72K / mo (3-Month Plan)",
+          INR: "Tier 2: 72L / mo (3-Month Plan)",
+          AED: "Tier 2: 264K AED / mo (3-Month Plan)",
         },
         desc: {
-          USD: "$72,000 / month: Omnipresent reach surge, 120+ vertical cuts, dedicated clippers army across all platforms.",
-          INR: "₹72 Lakhs / month: Omnipresent reach surge, 120+ vertical cuts, dedicated clippers army across all platforms.",
-          AED: "264,000 AED / month: Omnipresent reach surge, 120+ vertical cuts, dedicated clippers army across all platforms.",
+          USD: "$72,000 / month (3-month plan): Omnipresent reach surge, 120+ vertical cuts/mo, dedicated clippers army across all platforms.",
+          INR: "₹72 Lakhs / month (3-month plan): Omnipresent reach surge, 120+ vertical cuts/mo, dedicated clippers army across all platforms.",
+          AED: "264,000 AED / month (3-month plan): Omnipresent reach surge, 120+ vertical cuts/mo, dedicated clippers army across all platforms.",
         },
       },
     ],
@@ -420,7 +421,7 @@ export default function Pricing() {
       ``,
       `• Framework Selected: ${selectedPlan.name}`,
       `• Campaign Model: ${termType === "long-term"
-        ? "Long-Term Retainer Engagement"
+        ? "Long-Term (3-Month Plan)"
         : termType === "short-term"
           ? "Short-Term Blitz Push"
           : "End-to-End Turnkey Solution"
