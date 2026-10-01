@@ -463,7 +463,7 @@ export default function Agencies() {
                   toggleFlip(index);
                 }}
                 className={cn(
-                  "group relative z-20 min-h-[580px] sm:min-h-[550px] md:min-h-[540px] cursor-pointer rounded-3xl",
+                  "group relative z-20 min-h-[610px] sm:min-h-[590px] md:min-h-[580px] lg:min-h-[590px] cursor-pointer rounded-3xl",
                   index === 2 ? "md:col-span-2 md:max-w-md md:mx-auto md:w-full lg:col-span-1 lg:max-w-none" : ""
                 )}
                 style={{
@@ -473,7 +473,7 @@ export default function Agencies() {
               >
                 {/* 3D FLIPPER CONTAINER */}
                 <div
-                  className="relative w-full h-full min-h-[580px] sm:min-h-[550px] md:min-h-[540px] rounded-3xl transition-transform duration-700 ease-spring preserve-3d"
+                  className="relative w-full h-full min-h-[610px] sm:min-h-[590px] md:min-h-[580px] lg:min-h-[590px] rounded-3xl transition-transform duration-700 ease-spring preserve-3d"
                   style={{
                     transformStyle: "preserve-3d",
                     WebkitTransformStyle: "preserve-3d",
@@ -497,7 +497,7 @@ export default function Agencies() {
                       WebkitTransform: "rotateY(0deg)",
                     }}
                   >
-                    <div className="flex flex-col items-center justify-center text-center w-full max-w-xs transition-transform duration-300 group-hover:scale-[1.01] -translate-y-4 sm:-translate-y-6">
+                    <div className="flex flex-col items-center justify-center text-center w-full max-w-xs transition-transform duration-300 group-hover:scale-[1.01] -translate-y-2">
                       {/* Eyebrow Tag */}
                       <div
                         className={cn(
@@ -562,7 +562,7 @@ export default function Agencies() {
                   {/* ========================================================= */}
                   <div
                     className={cn(
-                      "absolute inset-0 w-full h-full backface-hidden flex flex-col justify-between p-4 xs:p-5 sm:p-7 md:p-8 rounded-3xl",
+                      "absolute inset-0 w-full h-full backface-hidden flex flex-col justify-between p-4 xs:p-5 sm:p-6 lg:p-6 rounded-3xl overflow-hidden",
                       "bg-[#02122F]/95 border border-white/25 text-white shadow-2xl transition-opacity duration-300",
                       isFlipped ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
                     )}
@@ -576,12 +576,12 @@ export default function Agencies() {
                     {/* Back Header */}
                     <div>
                       <div className="flex items-center justify-between gap-2">
-                        <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-mono uppercase tracking-wider text-frost">
-                          <Sparkles className="w-3 h-3 text-frost" />
-                          <span>{agency.tagline}</span>
+                        <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-mono uppercase tracking-wider text-frost min-w-0">
+                          <Sparkles className="w-3 h-3 text-frost shrink-0" />
+                          <span className="truncate">{agency.tagline}</span>
                         </span>
-                        <div className="flex items-center gap-2">
-                          <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-white/10 text-moonlight/90 border border-white/10">
+                        <div className="flex items-center gap-2 shrink-0">
+                          <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-white/10 text-moonlight/90 border border-white/10 whitespace-nowrap">
                             {agency.duration}
                           </span>
                           <button
@@ -590,33 +590,33 @@ export default function Agencies() {
                               e.stopPropagation();
                               setFlippedIndex(null);
                             }}
-                            className="w-6 h-6 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 flex items-center justify-center text-frost hover:text-white transition-all cursor-pointer"
+                            className="w-6 h-6 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 flex items-center justify-center text-frost hover:text-white transition-all cursor-pointer shrink-0"
                             title="Flip back"
                           >
                             <RotateCcw className="w-3 h-3" />
                           </button>
                         </div>
                       </div>
-                      <h4 className="font-display font-bold text-base sm:text-xl text-white mt-2 leading-tight">
+                      <h4 className="font-display font-bold text-base sm:text-lg lg:text-xl text-white mt-1.5 leading-tight">
                         {agency.name}: Specs
                       </h4>
                     </div>
 
                     {/* Services List */}
-                    <div className="my-1 sm:my-2 space-y-1.5 sm:space-y-2 text-left flex-1 flex flex-col justify-center">
+                    <div className="my-1.5 sm:my-2 space-y-1.5 sm:space-y-2 text-left flex-1 flex flex-col justify-center">
                       {agency.servicesList.map((srv, sIdx) => (
                         <div
                           key={sIdx}
-                          className="flex items-start gap-2 sm:gap-2.5 p-1.5 xs:p-2 sm:p-2.5 rounded-xl bg-white/[0.06] border border-white/[0.1]"
+                          className="flex items-start gap-2 sm:gap-2.5 px-2.5 py-1.5 sm:py-2 rounded-xl bg-white/[0.06] border border-white/[0.1]"
                         >
                           <div className="mt-0.5 flex items-center justify-center w-4 h-4 rounded-full bg-frost/25 text-frost shrink-0">
                             <Check className="w-2.5 h-2.5 stroke-[3]" />
                           </div>
-                          <div>
-                            <span className="block text-xs sm:text-sm font-semibold text-white leading-tight">
+                          <div className="min-w-0 flex-1">
+                            <span className="block text-xs sm:text-[13px] font-semibold text-white leading-tight">
                               {srv.title}
                             </span>
-                            <span className="block text-[10.5px] sm:text-xs text-white/75 leading-tight sm:leading-relaxed mt-0.5">
+                            <span className="block text-[11px] sm:text-xs text-white/75 leading-tight sm:leading-snug mt-0.5">
                               {srv.detail}
                             </span>
                           </div>
@@ -635,7 +635,7 @@ export default function Agencies() {
                               : "/services/end-to-end-marketing"
                         }
                         onClick={(e) => e.stopPropagation()}
-                        className="inline-flex items-center gap-1 px-3.5 py-2 rounded-full bg-white/10 hover:bg-white/25 border border-white/20 text-xs font-semibold text-white transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer shadow-sm"
+                        className="inline-flex items-center gap-1 px-3.5 py-1.5 sm:py-2 rounded-full bg-white/10 hover:bg-white/25 border border-white/20 text-xs font-semibold text-white transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer shadow-sm"
                       >
                         <span>More Info</span>
                         <ArrowUpRight className="w-3.5 h-3.5 text-frost" />
