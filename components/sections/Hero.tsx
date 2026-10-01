@@ -403,6 +403,10 @@ export default function Hero() {
       navigate("/services");
       return;
     }
+    if (id === "home") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
     const targetId = id === "about" ? "agencies" : id;
     const target = document.getElementById(targetId);
     if (target) {
@@ -602,11 +606,12 @@ export default function Hero() {
             {/* Navigation Links */}
             <nav className="flex flex-col gap-1.5">
               {[
+                { id: "home", label: "Home" },
+                { id: "results", label: "Results" },
                 { id: "distribution", label: "Distribution" },
                 { id: "services", label: "Services" },
-                { id: "results", label: "Results" },
-                { id: "pricing", label: "Pricing" },
                 { id: "about", label: "About" },
+                { id: "pricing", label: "Pricing" },
               ].map((item) => {
                 const isActive = activeNav === item.id;
                 return (

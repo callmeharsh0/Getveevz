@@ -2,7 +2,7 @@
 // 1. Long-Term: 3-Month Campaign (Month 1 CPM testing -> Months 2-3 Retainer)
 // 2. Long-Term: Straight Retainer (Fixed deliverables for consistent-view brands)
 // 3. Short-Term: CPM Campaign (Mass fan-page clipping & Agency-owned theme pages)
-// 4. Short-Term: Seeding ($12K-$100K+ 24-hr blast, fixed cost per post on 1M-10M+ pages)
+// 4. Short-Term: Seeding ($7.2K-$100K+ 24-hr blast, fixed cost per post on 1M-10M+ pages)
 
 import { Globe, Rocket, Layers, type LucideIcon } from "lucide-react";
 

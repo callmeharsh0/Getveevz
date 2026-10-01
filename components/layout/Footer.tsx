@@ -6,6 +6,7 @@ import { ArrowUpRight, ArrowUp, Copy, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const NAV_LINKS = [
+  { label: "Home", href: "/#hero" },
   { label: "Distribution", href: "/#distribution" },
   { label: "Services", href: "/services" },
   { label: "Long-Term Retainer", href: "/services/long-term-distribution" },
