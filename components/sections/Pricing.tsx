@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cn } from "@/lib/utils";
 import { Check, ArrowUpRight, Clock, Rocket, Zap, ShieldCheck, Video, Share2, TrendingUp } from "lucide-react";
+import { openSmartEmail, getSmartEmailLinkProps } from "@/lib/email";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -406,10 +407,8 @@ export default function Pricing() {
     };
   }, []);
 
-  const getPricingMailtoUrl = () => {
-    const subject = encodeURIComponent(
-      `Campaign Brief: ${selectedPlan.name} [${selectedPlan.rateDisplay[currency]}]`
-    );
+  const getPricingEmailData = () => {
+    const subject = `Campaign Brief: ${selectedPlan.name} [${selectedPlan.rateDisplay[currency]}]`;
 
     const bodyText = [
       `Hi GetVeevz Distribution Team,`,
@@ -433,15 +432,13 @@ export default function Pricing() {
       `Best regards,`,
     ].join("\n");
 
-    return `mailto:team@getveevz.com?subject=${subject}&body=${encodeURIComponent(bodyText)}`;
+    return { subject, body: bodyText };
   };
 
   const handleOrder = (e?: React.MouseEvent) => {
-    const mailto = getPricingMailtoUrl();
-    try {
-      window.location.href = mailto;
-    } catch {
-    }
+    e?.preventDefault();
+    const emailData = getPricingEmailData();
+    openSmartEmail(emailData);
 
     const cta = document.getElementById("questionnaire") || document.getElementById("cta") || document.querySelector("footer");
     cta?.scrollIntoView({ behavior: "smooth" });
@@ -897,7 +894,7 @@ export default function Pricing() {
                 </div>
 
                 <a
-                  href={getPricingMailtoUrl()}
+                  {...getSmartEmailLinkProps(getPricingEmailData())}
                   onClick={handleOrder}
                   className="group relative w-full sm:w-auto inline-flex items-center justify-between sm:justify-start gap-3 sm:gap-4 rounded-full bg-[#F8F6F2] hover:bg-white text-[#111111] pl-5 sm:pl-7 pr-2 py-2 sm:py-2.5 cursor-pointer font-display font-semibold transition-all duration-300 ease-gentle shadow-[0_4px_24px_rgba(248,246,242,0.18)] hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2]"
                 >

@@ -13,6 +13,7 @@ import {
   Video,
   Check,
 } from "lucide-react";
+import { openSmartEmail, getSmartEmailLinkProps, isMobileDevice } from "@/lib/email";
 import { cn } from "@/lib/utils";
 
 export type BudgetTier = "36k" | "72k" | "custom";
@@ -163,7 +164,7 @@ export default function Questionnaire() {
     return Object.keys(errs).length === 0;
   };
 
-  const generateMailtoUrl = () => {
+  const getQuestionnaireEmailData = () => {
     const selectedContentType = CONTENT_TYPES.find((c) => c.id === formData.contentType);
     const contentTypeLabel = selectedContentType
       ? `${selectedContentType.label} (${selectedContentType.subtitle})`
@@ -178,9 +179,7 @@ export default function Questionnaire() {
       ? budgetDetails.primary
       : formData.budget || "Not Specified";
 
-    const subject = encodeURIComponent(
-      `Campaign Questionnaire Brief - ${formData.companyName || formData.fullName}`
-    );
+    const subject = `Campaign Questionnaire Brief - ${formData.companyName || formData.fullName}`;
 
     const bodyText = [
       `Hi GetVeevz Distribution Team,`,
@@ -202,7 +201,7 @@ export default function Questionnaire() {
       `${formData.fullName}`,
     ].join("\n");
 
-    return `mailto:team@getveevz.com?subject=${subject}&body=${encodeURIComponent(bodyText)}`;
+    return { subject, body: bodyText };
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -210,12 +209,8 @@ export default function Questionnaire() {
     if (!validateStep3()) return;
 
     setIsSubmitting(true);
-    const mailto = generateMailtoUrl();
-
-    try {
-      window.location.href = mailto;
-    } catch {
-    }
+    const emailData = getQuestionnaireEmailData();
+    openSmartEmail(emailData);
 
     setTimeout(() => {
       setIsSubmitting(false);
@@ -272,10 +267,14 @@ export default function Questionnaire() {
             </p>
             <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
               <a
-                href={generateMailtoUrl()}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#111111] hover:bg-[#0038E2] text-white text-xs sm:text-sm font-medium transition-colors shadow-xs"
+                {...getSmartEmailLinkProps(getQuestionnaireEmailData())}
+                onClick={(e) => {
+                  e.preventDefault();
+                  openSmartEmail(getQuestionnaireEmailData());
+                }}
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#111111] hover:bg-[#0038E2] text-white text-xs sm:text-sm font-medium transition-colors shadow-xs cursor-pointer"
               >
-                <span>Open in Email Client</span>
+                <span>{isMobileDevice() ? "Open in Mail App" : "Open in Gmail"}</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </a>
             </div>

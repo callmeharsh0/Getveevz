@@ -44,10 +44,12 @@ export interface GlassButtonProps
   VariantProps<typeof glassButtonVariants> {
   contentClassName?: string;
   href?: string;
+  target?: string;
+  rel?: string;
 }
 
 const GlassButton = React.forwardRef<HTMLButtonElement, GlassButtonProps>(
-  ({ className, children, size, contentClassName, href, onClick, ...props }, ref) => {
+  ({ className, children, size, contentClassName, href, target, rel, onClick, ...props }, ref) => {
     const content = (
       <span
         className={cn(
@@ -69,6 +71,8 @@ const GlassButton = React.forwardRef<HTMLButtonElement, GlassButtonProps>(
         >
           <a
             href={href}
+            target={target}
+            rel={rel}
             onClick={onClick as unknown as React.MouseEventHandler<HTMLAnchorElement>}
             className={cn("glass-button", glassButtonVariants({ size }))}
           >

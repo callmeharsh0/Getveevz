@@ -1,5 +1,6 @@
 
 import { Globe, Rocket, Layers, type LucideIcon } from "lucide-react";
+import { getGmailComposeUrl } from "./email";
 
 export type Service = {
   slug: string;
@@ -157,7 +158,7 @@ export const services: Service[] = [
           "If the system performs well and delivers strong ROI, we renew the retainer contracts for your proven pages and can scale the system with additional posting channels.",
       },
     ],
-    ctaHref: "mailto:team@getveevz.com?subject=Long-Term%20Distribution%20Model%20Inquiry",
+    ctaHref: getGmailComposeUrl({ subject: "Long-Term Distribution Model Inquiry" }),
   },
   {
     slug: "short-term-campaign",
@@ -296,7 +297,7 @@ export const services: Service[] = [
           "Once your agreed CPM budget or seeding placements are delivered, the push concludes. Because the theme pages remain part of our agency network, you can run another push anytime under a new budget.",
       },
     ],
-    ctaHref: "mailto:team@getveevz.com?subject=Short-Term%20Campaign%20Model%20Inquiry",
+    ctaHref: getGmailComposeUrl({ subject: "Short-Term Campaign Model Inquiry" }),
   },
   {
     slug: "end-to-end-marketing",
@@ -413,7 +414,7 @@ export const services: Service[] = [
           "You own 100% of all scripts, raw footage, and finished videos created during our work together.",
       },
     ],
-    ctaHref: "mailto:team@getveevz.com?subject=End-to-End%20Marketing%20Inquiry",
+    ctaHref: getGmailComposeUrl({ subject: "End-to-End Marketing Inquiry" }),
   },
 ];
 

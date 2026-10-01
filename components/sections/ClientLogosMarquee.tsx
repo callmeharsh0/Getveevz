@@ -50,7 +50,7 @@ export const CLIENT_LOGOS: ClientItem[] = [
   {
     id: "tai-lopez",
     name: "Tai Lopez",
-    logo: "/assets/icons/tailopez.webp",
+    logo: "/assets/icons/tailopez.jpg",
     category: "Entrepreneurs",
     metric: "50M+ Campaign Views",
   },
@@ -61,29 +61,106 @@ export const CLIENT_LOGOS: ClientItem[] = [
     category: "Finance & Trading",
     metric: "14M+ Total Impressions",
   },
+  {
+    id: "anthropic",
+    name: "Anthropic",
+    logo: "/assets/icons/anthropic.jpg",
+    category: "AI & Frontier Labs",
+    metric: "Global AI Narrative",
+  },
+  {
+    id: "emergent",
+    name: "Emergent",
+    logo: "/assets/icons/emergent.jpg",
+    category: "Media & Networks",
+    metric: "28M+ Campaign Views",
+  },
+  {
+    id: "tim-draper",
+    name: "Tim Draper",
+    logo: "/assets/icons/tim%20draper.jpg",
+    category: "Venture Capital",
+    metric: "15M+ Global Views",
+  },
+  {
+    id: "ambani",
+    name: "Ambani",
+    logo: "/assets/icons/ambani.jpg",
+    category: "Businessman",
+    metric: "100M+ Campaign Reach",
+  },
 ];
 
+interface LogoStyleConfig {
+  bg: string;
+  imgClass: string;
+}
+
+const LOGO_CONFIGS: Record<string, LogoStyleConfig> = {
+  "traders-paradise": {
+    bg: "bg-black",
+    imgClass: "object-cover scale-[1.18] filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]",
+  },
+  "slay-point": {
+    bg: "bg-[#F9FC65]",
+    imgClass: "object-cover scale-[1.04]",
+  },
+  "think-school": {
+    bg: "bg-[#060606]",
+    imgClass: "object-cover scale-[1.18] filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]",
+  },
+  be10x: {
+    bg: "bg-white",
+    imgClass: "object-contain scale-[1.08] p-1",
+  },
+  nxtwave: {
+    bg: "bg-white",
+    imgClass: "object-cover scale-[1.22]",
+  },
+  nillons: {
+    bg: "bg-white",
+    imgClass: "object-contain scale-[1.18] p-0.5",
+  },
+  "tai-lopez": {
+    bg: "bg-[#151922]",
+    imgClass: "object-cover object-[center_15%] scale-[1.15]",
+  },
+  anthropic: {
+    bg: "bg-[#D7785C]",
+    imgClass: "object-contain scale-[1.1] p-0.5",
+  },
+  emergent: {
+    bg: "bg-black",
+    imgClass: "object-cover scale-[1.06]",
+  },
+  "tim-draper": {
+    bg: "bg-[#1c2230]",
+    imgClass: "object-cover object-[center_16%] scale-[1.3]",
+  },
+  ambani: {
+    bg: "bg-black",
+    imgClass: "object-cover object-[center_12%] scale-100",
+  },
+};
+
 function LogoVessel({ src, alt, id }: { src: string; alt: string; id?: string }) {
-  const isTraders = id === "traders-paradise" || src.includes("traderspardise");
-  const isTaiLopez = id === "tai-lopez" || src.includes("tailopez");
+  const config = (id && LOGO_CONFIGS[id]) || {
+    bg: "bg-black",
+    imgClass: "object-cover",
+  };
 
   return (
     <div className="relative shrink-0 w-11 h-11 rounded-[0.875rem] p-[1px] bg-gradient-to-b from-white/30 via-white/10 to-transparent shadow-[inset_0_1px_1px_rgba(255,255,255,0.4),0_2px_8px_rgba(0,0,0,0.4)]">
       <div
         className={cn(
-          "w-full h-full rounded-[calc(0.875rem-1px)] flex items-center justify-center overflow-hidden",
-          isTraders ? "bg-black p-0" : isTaiLopez ? "bg-black p-1.5" : "bg-white/95 p-1.5"
+          "w-full h-full rounded-[calc(0.875rem-1px)] flex items-center justify-center overflow-hidden p-0",
+          config.bg
         )}
       >
         <img
           src={src}
           alt={alt}
-          className={cn(
-            "w-full h-full select-none",
-            isTraders
-              ? "object-cover scale-[1.18] filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]"
-              : "object-contain filter drop-shadow-[0_1px_2px_rgba(0,0,0,0.15)]"
-          )}
+          className={cn("w-full h-full select-none", config.imgClass)}
           loading="lazy"
           onError={(e) => {
             const target = e.currentTarget;
@@ -98,11 +175,10 @@ function LogoVessel({ src, alt, id }: { src: string; alt: string; id?: string })
 }
 
 export default function ClientLogosMarquee() {
-  const row1 = [...CLIENT_LOGOS, ...CLIENT_LOGOS, ...CLIENT_LOGOS, ...CLIENT_LOGOS];
+  const row1 = [...CLIENT_LOGOS, ...CLIENT_LOGOS, ...CLIENT_LOGOS];
   const row2 = [
-    ...CLIENT_LOGOS.slice(3),
-    ...CLIENT_LOGOS.slice(0, 3),
-    ...CLIENT_LOGOS,
+    ...CLIENT_LOGOS.slice(6),
+    ...CLIENT_LOGOS.slice(0, 6),
     ...CLIENT_LOGOS,
     ...CLIENT_LOGOS,
   ];

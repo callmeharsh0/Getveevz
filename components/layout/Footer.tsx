@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { ArrowUpRight, ArrowUp, Copy, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { openSmartEmail, getSmartEmailLinkProps } from "@/lib/email";
 
 const NAV_LINKS = [
   { label: "Home", href: "/#hero" },
@@ -175,7 +176,11 @@ export default function Footer() {
               </nav>
 
               <a
-                href="mailto:team@getveevz.com?subject=GetVeevz%20Strategy%20Call%20Booking"
+                {...getSmartEmailLinkProps({ subject: "GetVeevz Strategy Call Booking" })}
+                onClick={(e) => {
+                  e.preventDefault();
+                  openSmartEmail({ subject: "GetVeevz Strategy Call Booking" });
+                }}
                 className="group relative inline-flex items-center gap-3 rounded-full bg-[#F8F6F2] hover:bg-white text-[#111111] pl-5 pr-2 py-2 font-display font-semibold text-xs sm:text-sm transition-all duration-300 ease-gentle hover:scale-[1.02] active:scale-[0.98] shadow-[0_4px_20px_rgba(248,246,242,0.15)] cursor-pointer shrink-0"
               >
                 <span>Book Strategy Call</span>
