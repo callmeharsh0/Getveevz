@@ -41,11 +41,11 @@ export const services: Service[] = [
     models: [
       {
         name: "CPM to Retainer Transition",
-        subtitle: "Month 1 testing at $1/1K views with no view guarantee to filter winning pages, transitioning into a fixed retainer",
+        subtitle: "Month 1 testing at $1/1K views to filter winning pages, transitioning into a fixed retainer",
         overview: "Best when we want to identify what works first, then scale only the strongest pages.",
         highlights: [
           "Month 1: 500–1,000 clippers deployed on CPM basis ($1 / 1K views)",
-          "Performance testing phase with no view guarantee (pure discovery & filtering)",
+          "Performance testing phase for rapid hook discovery & page filtering",
           "Data-driven filtering for winning pages, hooks, formats, and angles",
           "Months 2–3: Top 10–30 pages moved to fixed monthly retainer",
           "Guaranteed consistent output and distribution from proven pages",
@@ -55,7 +55,7 @@ export const services: Service[] = [
           {
             phase: "Month 1",
             heading: "CPM-Based Mass Clipping & Filtering ($1 / 1K Views)",
-            text: "We run a large-scale clipping campaign with roughly 500–1,000 clippers posting across platforms. This is run on a CPM basis at $1 per 1,000 views (₹85 / 1K views) with no view guarantee. The objective is not only volume, but filtering: identifying the pages, formats, hooks, and content angles that consistently perform best.",
+            text: "We run a large-scale clipping campaign with roughly 500–1,000 clippers posting across platforms. This is run on a CPM basis at $1 per 1,000 views (₹85 / 1K views). The objective is not only volume, but filtering: identifying the pages, formats, hooks, and content angles that consistently perform best.",
           },
           {
             phase: "Months 2–3",
@@ -87,7 +87,7 @@ export const services: Service[] = [
     features: [
       {
         title: "Month 1 CPM Testing ($1/1K)",
-        desc: "500–1,000 clippers deployed across platforms at $1 per 1,000 views (no view guarantee) to test hooks, angles, and pages.",
+        desc: "500–1,000 clippers deployed across platforms at $1 per 1,000 views to test hooks, angles, and pages.",
       },
       {
         title: "Retainer for Winners",
@@ -105,7 +105,7 @@ export const services: Service[] = [
     benefits: [
       "500–1,000 clippers for large-scale Month 1 testing",
       "Performance-linked CPM pricing ($1 per 1K views • ₹85 / 1K)",
-      "Testing phase with no view guarantee to find winning angles",
+      "Testing phase to discover winning angles and high-performing formats",
       "Systematic filtering of top hooks, formats, and angles",
       "Shortlist top 10–30 performing pages for monthly retainers",
       "Predictable, guaranteed output and distribution for Months 2–3",
@@ -117,12 +117,12 @@ export const services: Service[] = [
       {
         step: "01",
         title: "Strategy & Audience Alignment",
-        desc: "Determine whether your brand requires a 3-month test-and-scale campaign ($1/1K CPM with no view guarantee) or an immediate straight retainer (36L/72L).",
+        desc: "Determine whether your brand requires a 3-month test-and-scale campaign ($1/1K CPM) or an immediate straight retainer (36L/72L).",
       },
       {
         step: "02",
         title: "Month 1 Mass CPM Deployment",
-        desc: "If starting with the 3-month model, deploy 500–1,000 clippers at $1 CPM across platforms to discover winning hooks with no view guarantee.",
+        desc: "If starting with the 3-month model, deploy 500–1,000 clippers at $1 CPM across platforms to discover winning hooks.",
       },
       {
         step: "03",
@@ -144,12 +144,12 @@ export const services: Service[] = [
       {
         question: "How does the CPM to retainer transition work?",
         answer:
-          "Month 1 is run on a CPM basis at $1 per 1K views (₹85 / 1K views) with no view guarantee. Roughly 500–1,000 clippers test different hooks, formats, and angles. In Months 2 and 3, we move the top 10–30 performing pages into a fixed monthly retainer for reliable, consistent output.",
+          "Month 1 is run on a CPM basis at $1 per 1K views (₹85 / 1K views). Roughly 500–1,000 clippers test different hooks, formats, and angles. In Months 2 and 3, we move the top 10–30 performing pages into a fixed monthly retainer for reliable, consistent output.",
       },
       {
-        question: "What is the CPM rate and view guarantee for the transition model?",
+        question: "What is the CPM rate for the transition model?",
         answer:
-          "Month 1 testing is structured at $1 per 1,000 views (₹85 / 1K views) with no view guarantee. For brands that require a defined view volume, our Short-Term CPM campaign is available at $3 per 1,000 views with a 10 Million views minimum.",
+          "Month 1 testing is structured at $1 per 1,000 views (₹85 / 1K views). For brands that require a defined view volume, our Short-Term CPM campaign is available at $3 per 1,000 views with a 10 Million views minimum.",
       },
       {
         question: "Who should choose the Normal Clipping Straight Retainer?",

@@ -45,22 +45,22 @@ const longTermPlans: PricingPlan[] = [
     id: "long-term-3mo",
     name: "CPM to Retainer Transition",
     badge: {
-      USD: "$1 / 1K CPM • No Views Guarantee",
-      INR: "₹85 / 1K CPM • No Views Guarantee",
-      AED: "3.7 AED / 1K CPM • No Views Guarantee",
+      USD: "$1 / 1K CPM • Performance Testing",
+      INR: "₹85 / 1K CPM • Performance Testing",
+      AED: "3.7 AED / 1K CPM • Performance Testing",
     },
     popular: true,
-    subtitle: "Test creators at $1/1K CPM with no views guarantee to filter winning pages, transitioning into a fixed retainer",
+    subtitle: "Test creators at $1/1K CPM to filter winning pages, transitioning into a fixed retainer",
     rateDisplay: {
       USD: "$1 / 1K CPM ➔ Fixed Retainer",
       INR: "₹85 / 1K CPM ➔ Fixed Retainer",
       AED: "3.7 AED / 1K CPM ➔ Fixed Retainer",
     },
-    ratePeriod: "Testing Phase ($1/1K CPM) • No Views Guarantee ➔ Retainer",
+    ratePeriod: "Testing Phase ($1/1K CPM) ➔ Retainer",
     highlightNote: {
-      USD: "Month 1 tests 500–1,000 clippers at $1/1K views with no view guarantee to find viral hooks and angles, then shortlists the top 10–30 winning pages into a predictable monthly retainer.",
-      INR: "Month 1 tests 500–1,000 clippers at ₹85/1K views with no view guarantee to find viral hooks and angles, then shortlists the top 10–30 winning pages into a predictable monthly retainer.",
-      AED: "Month 1 tests 500–1,000 clippers at 3.7 AED/1K views with no view guarantee to find viral hooks and angles, then shortlists the top 10–30 winning pages into a predictable monthly retainer.",
+      USD: "Month 1 tests 500–1,000 clippers at $1/1K views to find viral hooks and angles, then shortlists the top 10–30 winning pages into a predictable monthly retainer.",
+      INR: "Month 1 tests 500–1,000 clippers at ₹85/1K views to find viral hooks and angles, then shortlists the top 10–30 winning pages into a predictable monthly retainer.",
+      AED: "Month 1 tests 500–1,000 clippers at 3.7 AED/1K views to find viral hooks and angles, then shortlists the top 10–30 winning pages into a predictable monthly retainer.",
     },
     icon: Rocket,
     specs: [
@@ -72,7 +72,7 @@ const longTermPlans: PricingPlan[] = [
           AED: "3.7 AED per 1K views (CPM)",
         },
       },
-      { label: "View Guarantee", value: "No views guarantee (pure performance testing & filtration)" },
+      { label: "Testing Phase", value: "Pure performance testing & filtration to identify viral winners" },
       {
         label: "Month 1 (Testing)",
         value: {
@@ -82,7 +82,7 @@ const longTermPlans: PricingPlan[] = [
         },
       },
       { label: "Months 2–3 (Retainer)", value: "Shortlist top 10–30 winning pages into a fixed monthly retainer" },
-      { label: "Predictable Output", value: "Pay for guaranteed distribution from proven pages vs betting on views" },
+      { label: "Predictable Output", value: "Pay for consistent distribution from proven pages vs betting on views" },
       { label: "Scale & Renew", value: "Renew, optimize, and expand the proven system month after month" },
     ],
     subFormats: [
@@ -93,9 +93,9 @@ const longTermPlans: PricingPlan[] = [
           AED: "Phase 1: CPM Testing (3.7 AED/1K)",
         },
         desc: {
-          USD: "Deploy clippers at $1/1K views with no view guarantee to test viral angles and filter high-retention pages.",
-          INR: "Deploy clippers at ₹85/1K views with no view guarantee to test viral angles and filter high-retention pages.",
-          AED: "Deploy clippers at 3.7 AED/1K views with no view guarantee to test viral angles and filter high-retention pages.",
+          USD: "Deploy clippers at $1/1K views to test viral angles and filter high-retention pages.",
+          INR: "Deploy clippers at ₹85/1K views to test viral angles and filter high-retention pages.",
+          AED: "Deploy clippers at 3.7 AED/1K views to test viral angles and filter high-retention pages.",
         },
       },
       {
