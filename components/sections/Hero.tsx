@@ -508,7 +508,8 @@ export default function Hero() {
             }}
             aria-label={logo.name}
             className={cn(
-              "floating-scatter-logo absolute z-20 flex items-center justify-center rounded-xl sm:rounded-2xl bg-white/95 border border-[#111111]/10 backdrop-blur-xl shadow-[0_8px_24px_rgba(0,0,0,0.08),0_2px_6px_rgba(0,0,0,0.04)] sm:shadow-[0_12px_32px_rgba(0,0,0,0.1),0_2px_8px_rgba(0,0,0,0.06)] hover:shadow-2xl hover:border-[#0038E2]/50 hover:scale-115 active:scale-95 transition-all duration-300 cursor-pointer pointer-events-auto p-1.5 sm:p-2.5",
+              "floating-scatter-logo absolute flex items-center justify-center rounded-xl sm:rounded-2xl bg-white/95 border border-[#111111]/10 backdrop-blur-xl shadow-[0_8px_24px_rgba(0,0,0,0.08),0_2px_6px_rgba(0,0,0,0.04)] sm:shadow-[0_12px_32px_rgba(0,0,0,0.1),0_2px_8px_rgba(0,0,0,0.06)] hover:shadow-2xl hover:border-[#0038E2]/50 hover:scale-115 active:scale-95 transition-all duration-300 cursor-pointer pointer-events-auto p-1.5 sm:p-2.5",
+              logo.id === "shorts" ? "z-[5]" : "z-20",
               logo.pos,
               logo.size,
               logo.anim,
@@ -711,12 +712,12 @@ export default function Hero() {
       {/* ========================================================================= */}
       <div
         ref={wordmarkRef}
-        className="relative my-auto py-1 sm:py-8 md:py-14 flex flex-col items-center justify-center text-center overflow-visible z-10"
+        className="relative my-auto py-1 sm:py-8 md:py-14 flex flex-col items-center justify-center text-center overflow-visible z-20"
         data-reveal
       >
         {/* Main Central Interactive Wordmark + Supporting Headline (Moved downwards by 20% on mobile) */}
         <div className="flex flex-col items-center justify-center text-center translate-y-[35%] sm:translate-y-0 transition-transform">
-          <div className="relative inline-flex items-baseline justify-center group cursor-default">
+          <div className="relative z-20 inline-flex items-baseline justify-center group cursor-default">
             <h1
               aria-label="GetVeevz — Short-Form Video Distribution &amp; Clipping Engine"
               className="font-display font-medium text-[clamp(70px,20.4vw,98px)] md:text-[clamp(3.8rem,16.8vw,14.2rem)] leading-[0.92] tracking-[-0.04em] text-[#111111] select-none transition-all duration-300 flex whitespace-nowrap"
