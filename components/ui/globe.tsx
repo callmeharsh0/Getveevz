@@ -151,68 +151,17 @@ export const Globe: React.FC<GlobeProps> = ({
         return;
       }
 
-      // Check if globe.gl npm module is importable directly
       try {
         const globeModule = await import("globe.gl");
         const GlobeFactory = globeModule.default || globeModule;
         (window as any).Globe = GlobeFactory;
         if (!isCancelled) setIsLoadingScript(false);
-        return;
       } catch (importErr) {
-        // Fallback to loading via unpkg CDN
-      }
-
-      const scriptUrl = "https://unpkg.com/globe.gl";
-      const existingScript = document.querySelector<HTMLScriptElement>(
-        `script[src="${scriptUrl}"]`
-      );
-
-      if (existingScript) {
-        const checkInterval = setInterval(() => {
-          if ((window as any).Globe) {
-            clearInterval(checkInterval);
-            if (!isCancelled) setIsLoadingScript(false);
-          }
-        }, 80);
-        setTimeout(() => {
-          clearInterval(checkInterval);
-          if ((window as any).Globe) {
-            if (!isCancelled) setIsLoadingScript(false);
-          } else if (!isCancelled) {
-            setErrorMessage("Globe library script timed out");
-            setIsLoadingScript(false);
-          }
-        }, 6000);
-        return;
-      }
-
-      const script = document.createElement("script");
-      script.src = scriptUrl;
-      script.async = true;
-      script.onload = () => {
-        const checkInterval = setInterval(() => {
-          if ((window as any).Globe) {
-            clearInterval(checkInterval);
-            if (!isCancelled) setIsLoadingScript(false);
-          }
-        }, 50);
-        setTimeout(() => {
-          clearInterval(checkInterval);
-          if ((window as any).Globe) {
-            if (!isCancelled) setIsLoadingScript(false);
-          } else if (!isCancelled) {
-            setErrorMessage("Globe initialized failed");
-            setIsLoadingScript(false);
-          }
-        }, 4000);
-      };
-      script.onerror = () => {
         if (!isCancelled) {
-          setErrorMessage("Failed to load 3D Globe scripts");
+          setErrorMessage("Failed to load 3D Globe module");
           setIsLoadingScript(false);
         }
-      };
-      document.head.appendChild(script);
+      }
     }
 
     ensureGlobeScript();

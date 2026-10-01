@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -44,16 +45,14 @@
       isolation: isolate;
       perspective: 1450px;
       cursor: ew-resize;
-      touch-action: none;
+      touch-action: pan-y;
       background:
         linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px) 50% 0 / 25% 100%,
-        repeating-linear-gradient(
-          0deg,
+        repeating-linear-gradient(0deg,
           transparent 0,
           transparent 109px,
           rgba(255, 255, 255, 0.025) 110px,
-          transparent 111px
-        ),
+          transparent 111px),
         radial-gradient(circle at var(--pointer-x) 48%, rgba(255, 255, 255, 0.07), transparent 38%),
         #000000;
     }
@@ -61,29 +60,12 @@
     @media (max-width: 768px), (pointer: coarse) {
       .stage {
         cursor: default;
-        touch-action: pan-y;
-        perspective: 1100px;
       }
       .stage::before {
         display: none !important;
       }
-      .card {
-        cursor: default;
-        will-change: transform;
-        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.7);
-        border: 1px solid rgba(255, 255, 255, 0.16);
-        filter: none !important;
-      }
-      .portrait img,
       .portrait video {
         filter: none !important;
-        transform: scale(1.02) !important;
-      }
-      .views-badge {
-        backdrop-filter: none !important;
-        -webkit-backdrop-filter: none !important;
-        background: rgba(9, 14, 20, 0.94);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
       }
     }
 
@@ -106,13 +88,11 @@
       inset: 0;
       z-index: 4;
       pointer-events: none;
-      background: linear-gradient(
-        90deg,
-        rgba(0, 0, 0, 0.85),
-        transparent 14%,
-        transparent 86%,
-        rgba(0, 0, 0, 0.85)
-      );
+      background: linear-gradient(90deg,
+          rgba(0, 0, 0, 0.85),
+          transparent 14%,
+          transparent 86%,
+          rgba(0, 0, 0, 0.85));
     }
 
     .deck {
@@ -136,13 +116,12 @@
       color: #ffffff;
       background: #08080a;
       box-shadow:
-        0 calc(12px + var(--focus) * 28px) calc(24px + var(--focus) * 44px)
-          rgba(0, 0, 0, calc(0.65 + var(--focus) * 0.3)),
+        0 calc(12px + var(--focus) * 28px) calc(24px + var(--focus) * 44px) rgba(0, 0, 0, calc(0.65 + var(--focus) * 0.3)),
         inset 0 0 0 1px rgba(255, 255, 255, calc(0.06 + var(--focus) * 0.16));
       appearance: none;
       outline: none;
       transform-style: preserve-3d;
-      will-change: transform, opacity, filter;
+      will-change: transform, opacity;
       cursor: pointer;
     }
 
@@ -193,8 +172,7 @@
       object-fit: cover;
       transform: scale(calc(1.02 + (1 - var(--focus)) * 0.05));
       filter:
-        saturate(calc(0.8 + var(--focus) * 0.3))
-        contrast(1.05);
+        saturate(calc(0.8 + var(--focus) * 0.3)) contrast(1.05);
     }
 
     .views-badge {
@@ -257,13 +235,11 @@
         cursor: ns-resize;
         background:
           linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px) 50% 0 / 50% 100%,
-          repeating-linear-gradient(
-            0deg,
+          repeating-linear-gradient(0deg,
             transparent 0,
             transparent 87px,
             rgba(255, 255, 255, 0.025) 88px,
-            transparent 89px
-          ),
+            transparent 89px),
           radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.07), transparent 38%),
           #000000;
       }
@@ -280,6 +256,7 @@
     }
   </style>
 </head>
+
 <body>
   <main class="stage" id="stage" aria-label="Interactive editorial character filmstrip">
     <h1 class="sr-only">Character Filmstrip</h1>
@@ -323,7 +300,7 @@
         card.setAttribute("aria-label", `Reel with ${profile.role}`);
         card.innerHTML = `
           <span class="portrait">
-            <video data-media src="${media[profile.portrait]}" muted loop playsinline preload="none" aria-hidden="true"></video>
+            <video data-media src="${media[profile.portrait]}" muted loop playsinline preload="metadata" aria-hidden="true"></video>
           </span>
           <span class="views-badge">
             <svg class="views-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -349,24 +326,6 @@
         lastInput: performance.now()
       };
 
-      let isVisible = true;
-      let isAnimating = false;
-      let animFrameId = null;
-      let currentPlayingIndex = -1;
-      let previousTime = performance.now();
-
-      function isMobileScreen() {
-        return window.innerWidth < 768 || window.matchMedia("(pointer: coarse)").matches;
-      }
-
-      function wakeUp() {
-        if (!isAnimating && isVisible) {
-          isAnimating = true;
-          previousTime = performance.now();
-          animFrameId = requestAnimationFrame(render);
-        }
-      }
-
       function wrappedDelta(index, phase) {
         let delta = index - phase;
         while (delta > count / 2) delta -= count;
@@ -387,35 +346,22 @@
         state.target = state.base;
         state.active = false;
         state.lastInput = performance.now();
-        wakeUp();
-      }
-
-      function syncVideoPlayback(activeIndex) {
-        if (currentPlayingIndex === activeIndex && !videos[activeIndex]?.paused) return;
-        currentPlayingIndex = activeIndex;
-
-        for (let i = 0; i < videos.length; i++) {
-          const video = videos[i];
-          if (!video) continue;
-          if (i === activeIndex && isVisible && !reducedMotion) {
-            if (video.paused) {
-              video.play().catch(() => {});
-            }
-          } else {
-            if (!video.paused) {
-              video.pause();
-            }
-          }
-        }
       }
 
       cards.forEach((card, index) => {
-        card.addEventListener("click", () => moveTo(index));
-        card.addEventListener("focus", () => moveTo(index));
+        card.addEventListener("click", () => {
+          moveTo(index);
+          wakeUp();
+        });
+        card.addEventListener("focus", () => {
+          moveTo(index);
+          wakeUp();
+        });
       });
 
+      // Desktop pointer tracking
       stage.addEventListener("pointermove", (event) => {
-        if (isMobileScreen() || event.pointerType === "touch") return;
+        if (event.pointerType === "touch") return;
 
         const rect = stage.getBoundingClientRect();
         const nx = Math.max(-1, Math.min(1, ((event.clientX - rect.left) / rect.width - 0.5) * 2));
@@ -423,7 +369,7 @@
         state.pointerX = nx;
         state.pointerY = ny;
         state.active = true;
-        state.target = state.base + (innerWidth < 650 ? ny * 2.2 : nx * 3.1);
+        state.target = state.base + nx * 3.1;
         state.lastInput = performance.now();
         stage.style.setProperty("--pointer-x", `${(nx + 1) * 50}%`);
         wakeUp();
@@ -437,6 +383,54 @@
         stage.style.setProperty("--pointer-x", "50%");
         wakeUp();
       });
+
+      // Mobile touch swipe gestures (allows natural vertical page scroll while swiping reels horizontally)
+      let touchStartX = 0;
+      let touchStartY = 0;
+      let touchBasePhase = 0;
+      let isHorizontalSwipe = false;
+
+      stage.addEventListener("touchstart", (e) => {
+        if (!e.touches || e.touches.length === 0) return;
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        touchBasePhase = state.base;
+        isHorizontalSwipe = false;
+        state.active = true;
+        state.lastInput = performance.now();
+        wakeUp();
+      }, { passive: true });
+
+      stage.addEventListener("touchmove", (e) => {
+        if (!e.touches || e.touches.length === 0) return;
+        const dx = e.touches[0].clientX - touchStartX;
+        const dy = e.touches[0].clientY - touchStartY;
+
+        if (!isHorizontalSwipe && Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 8) {
+          isHorizontalSwipe = true;
+        }
+
+        if (isHorizontalSwipe) {
+          const sensitivity = Math.max(160, innerWidth * 0.42);
+          state.target = touchBasePhase - (dx / sensitivity);
+          state.lastInput = performance.now();
+          wakeUp();
+        }
+      }, { passive: true });
+
+      stage.addEventListener("touchend", () => {
+        if (isHorizontalSwipe) {
+          const nearest = nearestIndex();
+          moveTo(nearest);
+        }
+        state.active = false;
+        isHorizontalSwipe = false;
+        wakeUp();
+      }, { passive: true });
+
+      stage.addEventListener("wheel", () => {
+        // Natural page scroll through filmstrip
+      }, { passive: true });
 
       function nextReel() {
         state.base += 1;
@@ -491,7 +485,39 @@
         wakeUp();
       });
 
-      // Viewport IntersectionObserver to completely halt rendering when scrolled off-screen
+      let isVisible = true;
+      let isAnimating = false;
+      let animFrameId = null;
+      let previousTime = performance.now();
+      let currentPlayingIndex = -1;
+
+      function wakeUp() {
+        if (!isVisible || isAnimating) return;
+        isAnimating = true;
+        previousTime = performance.now();
+        animFrameId = requestAnimationFrame(render);
+      }
+
+      function syncVideoPlayback(activeIndex) {
+        if (currentPlayingIndex === activeIndex && !videos[activeIndex]?.paused) return;
+        currentPlayingIndex = activeIndex;
+
+        for (let i = 0; i < videos.length; i++) {
+          const video = videos[i];
+          if (!video) continue;
+          if (i === activeIndex && isVisible && !reducedMotion) {
+            if (video.paused) {
+              video.play().catch(() => {});
+            }
+          } else {
+            if (!video.paused) {
+              video.pause();
+            }
+          }
+        }
+      }
+
+      // IntersectionObserver: sleep completely when off-screen
       if ("IntersectionObserver" in window) {
         const obs = new IntersectionObserver(([entry]) => {
           isVisible = entry.isIntersecting;
@@ -508,18 +534,31 @@
         obs.observe(stage);
       }
 
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) {
+          isVisible = false;
+          isAnimating = false;
+          if (animFrameId) cancelAnimationFrame(animFrameId);
+          videos.forEach((v) => { if (v && !v.paused) v.pause(); });
+          currentPlayingIndex = -1;
+        } else {
+          isVisible = true;
+          wakeUp();
+          syncVideoPlayback(nearestIndex());
+        }
+      });
+
       function render(time) {
         if (!isVisible) {
           isAnimating = false;
           return;
         }
 
-        const isMobile = isMobileScreen();
+        const isMobile = innerWidth < 768;
         const deltaTime = Math.min(32, time - previousTime);
         previousTime = time;
         const ease = reducedMotion ? 1 : 1 - Math.pow(0.001, deltaTime / 1000);
 
-        // Only drift on desktop when not interacting
         if (!isMobile && !state.active && time - state.lastInput > 3600) {
           const idle = time - state.lastInput - 3600;
           state.target = state.base + Math.sin(idle * 0.00042) * 2.45;
@@ -531,7 +570,6 @@
         const compact = innerWidth < 650;
         const activeIndex = nearestIndex();
 
-        // Sync video playback strictly on index change
         syncVideoPlayback(activeIndex);
 
         const horizontalSpacing = Math.min(168, Math.max(112, innerWidth * 0.116));
@@ -542,8 +580,8 @@
           const delta = wrappedDelta(index, state.phase);
           const distance = Math.abs(delta);
 
-          // On mobile, hide cards outside the active window to minimize composite layers
-          if (isMobile && distance > 3) {
+          // On mobile, hide cards outside the active view to free GPU texture layers
+          if (isMobile && distance > 2.8) {
             if (card.style.display !== "none") card.style.display = "none";
             continue;
           } else if (card.style.display === "none") {
@@ -567,13 +605,18 @@
             : -direction * (distance > 0.2 ? 14 + Math.min(distance, 3) * 5 : 0) + state.pointerX * focus * 3;
           const rotateZ = compact ? delta * -1.4 : delta * 0.7;
 
-          if (!isMobile) {
-            card.style.setProperty("--focus", focus.toFixed(4));
-            card.style.filter = `blur(${Math.max(0, distance - 1.5) * 0.38}px)`;
-          }
-
+          card.style.setProperty("--focus", focus.toFixed(4));
           card.style.zIndex = String(Math.round(1000 - distance * 100));
           card.style.opacity = String(Math.max(0.13, side * 0.76 + focus * 0.24));
+
+          // Hardware acceleration: no dynamic blur filter on mobile; on desktop only blur distant cards
+          if (isMobile) {
+            card.style.filter = "none";
+          } else {
+            const blurAmount = distance > 1.5 ? (distance - 1.5) * 0.38 : 0;
+            card.style.filter = blurAmount > 0.05 ? `blur(${blurAmount.toFixed(2)}px)` : "none";
+          }
+
           card.style.transform = [
             "translate(-50%, -50%)",
             `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, ${z.toFixed(1)}px)`,
@@ -586,10 +629,14 @@
         }
 
         // Sleep when settled on mobile or when resting on desktop
-        if (Math.abs(diff) < 0.0008 && (isMobile || state.active)) {
-          state.phase = state.target;
-          isAnimating = false;
-          return;
+        if (Math.abs(diff) < 0.0006 && (isMobile || !state.active)) {
+          if (!isMobile && time - state.lastInput > 3600) {
+            // Idle drift continues on desktop
+          } else {
+            state.phase = state.target;
+            isAnimating = false;
+            return;
+          }
         }
 
         animFrameId = requestAnimationFrame(render);
@@ -600,4 +647,5 @@
     })();
   </script>
 </body>
+
 </html>

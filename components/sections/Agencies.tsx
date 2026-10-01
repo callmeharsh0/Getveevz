@@ -65,7 +65,7 @@ const agencies: Agency[] = [
     description:
       "This will include the PR campaign and mass clipping.\nShort term will be 25-30 days.",
     link: "#cta",
-    videoSrc: "/assets/agency-video-2.mp4",
+    videoSrc: "/assets/New_video-1.mp4",
     maskType: "rounded-rect",
     servicesList: [
       {
@@ -95,7 +95,7 @@ const agencies: Agency[] = [
     description:
       "We make content and distribute it.\nEverything handled for you end to end.",
     link: "#cta",
-    videoSrc: "/assets/agency-video-3.mp4",
+    videoSrc: "/assets/New_video-2.mp4",
     maskType: "arch-pill",
     servicesList: [
       {

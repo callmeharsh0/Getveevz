@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
 import {
   Scissors,
   Share2,
@@ -333,7 +333,7 @@ export default function CapabilitiesFlywheel() {
                         </div>
                         <div className="p-1.5 sm:p-2 rounded-xl bg-white border border-[#111111]/10 text-center shadow-sm">
                           <p className="text-[10px] sm:text-[11px] font-bold text-[#111111] truncate">TikTok</p>
-                          <span className="text-[8px] sm:text-[9px] font-mono text-[#0038E2] font-semibold block truncate">70 Pages</span>
+                          <span className="text-[8px] sm:text-[9px] font-mono text-[#0038E2] font-semibold block truncate">60 Pages</span>
                         </div>
                         <div className="p-1.5 sm:p-2 rounded-xl bg-white border border-[#111111]/10 text-center shadow-sm">
                           <p className="text-[10px] sm:text-[11px] font-bold text-[#111111] truncate">YT Shorts</p>
@@ -341,7 +341,7 @@ export default function CapabilitiesFlywheel() {
                         </div>
                         <div className="p-1.5 sm:p-2 rounded-xl bg-white border border-[#111111]/10 text-center shadow-sm">
                           <p className="text-[10px] sm:text-[11px] font-bold text-[#111111] truncate">Facebook</p>
-                          <span className="text-[8px] sm:text-[9px] font-mono text-[#0038E2] font-semibold block truncate">30+ Pages</span>
+                          <span className="text-[8px] sm:text-[9px] font-mono text-[#0038E2] font-semibold block truncate">40+ Pages</span>
                         </div>
                       </div>
 

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useScrollReveal } from "@/lib/useScrollReveal";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
 import {
   CheckCircle2,
   ArrowRight,
@@ -58,69 +58,58 @@ const CONTENT_TYPES: {
   subtitle: string;
   icon: React.ElementType;
 }[] = [
-  {
-    id: "podcast",
-    label: "Long Podcasts",
-    subtitle: "Conversational & Deep Dives",
-    icon: Mic,
-  },
-  {
-    id: "founder",
-    label: "Founder & CEO Talks",
-    subtitle: "High-Authority Narratives",
-    icon: User,
-  },
-  {
-    id: "keynote",
-    label: "Keynotes & Events",
-    subtitle: "Stage & Presentation Talks",
-    icon: Sparkles,
-  },
-  {
-    id: "interview",
-    label: "Streams & Interviews",
-    subtitle: "Engaging Unfiltered Cuts",
-    icon: Video,
-  },
-];
+    {
+      id: "podcast",
+      label: "Long Podcasts",
+      subtitle: "Conversational & Deep Dives",
+      icon: Mic,
+    },
+    {
+      id: "founder",
+      label: "Founder & CEO Talks",
+      subtitle: "High-Authority Narratives",
+      icon: User,
+    },
+    {
+      id: "keynote",
+      label: "Keynotes & Events",
+      subtitle: "Stage & Presentation Talks",
+      icon: Sparkles,
+    },
+    {
+      id: "interview",
+      label: "Streams & Interviews",
+      subtitle: "Engaging Unfiltered Cuts",
+      icon: Video,
+    },
+  ];
 
 const PLATFORM_OPTIONS = [
   { id: "tiktok", label: "TikTok", tag: "Algorithm Priority" },
   { id: "reels", label: "IG Reels", tag: "High Retention" },
   { id: "shorts", label: "YT Shorts", tag: "Search Authority" },
+  { id: "facebook", label: "Facebook", tag: "Broad Demographics" },
 ];
 
 const BUDGET_OPTIONS: {
   id: BudgetTier;
   primary: string;
   sublabel?: string;
-  inr: string;
-  aed: string;
-  views: string;
 }[] = [
-  {
-    id: "36k",
-    primary: "$36k for 3 Months",
-    inr: "₹36L for 3 Months",
-    aed: "132k AED for 3 Months",
-    views: "25M – 40M+ Views",
-  },
-  {
-    id: "72k",
-    primary: "$72k for 3 Months",
-    inr: "₹72L for 3 Months",
-    aed: "264k AED for 3 Months",
-    views: "55M – 85M+ Views",
-  },
-  {
-    id: "custom",
-    primary: "Custom Enterprise Plan",
-    sublabel: "3-Month Scope",
-    inr: "₹85L+ INR (3-Month)",
-    aed: "365k+ AED (3-Month)",
-    views: "120M+ Multi-Platform Reach",
-  },
-];
+    {
+      id: "36k",
+      primary: "$36k for 3 Months",
+    },
+    {
+      id: "72k",
+      primary: "$72k for 3 Months",
+    },
+    {
+      id: "custom",
+      primary: "Custom Enterprise Plan",
+      sublabel: "3-Month Scope",
+    },
+  ];
 
 export default function Questionnaire() {
   const ref = useScrollReveal<HTMLDivElement>();
@@ -186,7 +175,7 @@ export default function Questionnaire() {
 
     const budgetDetails = BUDGET_OPTIONS.find((b) => b.id === formData.budget);
     const budgetFull = budgetDetails
-      ? `${budgetDetails.primary} [${budgetDetails.inr} • ${budgetDetails.aed}] — ${budgetDetails.views}`
+      ? budgetDetails.primary
       : formData.budget || "Not Specified";
 
     const subject = encodeURIComponent(
@@ -321,8 +310,8 @@ export default function Questionnaire() {
                   {wizardStep === 1
                     ? "Content Format & Channel"
                     : wizardStep === 2
-                    ? "Target Channels & Scale"
-                    : "Direct Contact Information"}
+                      ? "Target Channels & Scale"
+                      : "Direct Contact Information"}
                 </span>
               </div>
 
@@ -471,7 +460,7 @@ export default function Questionnaire() {
                       <label className="block text-xs font-mono uppercase tracking-wider text-[#111111] font-semibold mb-2">
                         Target Channels (Click to Toggle)
                       </label>
-                      <div className="grid grid-cols-3 gap-2.5 sm:gap-3">
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3">
                         {PLATFORM_OPTIONS.map((p) => {
                           const isSelected = formData.platforms.includes(p.id);
                           return (
@@ -541,19 +530,12 @@ export default function Questionnaire() {
                                   <p className="text-sm font-bold text-[#111111] font-display">
                                     {opt.primary}
                                   </p>
-                                  <span className="text-xs font-mono text-[#0038E2] font-semibold">
-                                    {opt.views}
-                                  </span>
+                                  {opt.sublabel && (
+                                    <span className="text-xs font-mono text-[#0038E2] font-semibold">
+                                      {opt.sublabel}
+                                    </span>
+                                  )}
                                 </div>
-                              </div>
-
-                              <div className="flex items-center gap-2 pl-7 sm:pl-0 text-xs font-mono text-[#495B7D]">
-                                <span className="px-2 py-0.5 rounded bg-white border border-[#111111]/10">
-                                  {opt.inr}
-                                </span>
-                                <span className="px-2 py-0.5 rounded bg-white border border-[#111111]/10">
-                                  {opt.aed}
-                                </span>
                               </div>
                             </div>
                           );

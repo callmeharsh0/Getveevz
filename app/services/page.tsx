@@ -86,8 +86,34 @@ export default function ServicesPage() {
         className="pointer-events-none fixed inset-0 z-0 opacity-[0.035] mix-blend-multiply bg-[radial-gradient(#111111_1px,transparent_1px)] [background-size:16px_16px]"
       />
 
+      {/* ── Mobile In-Flow Top Navigation Bar (Scrolls away naturally, never stays on screen) ── */}
+      <header className="lg:hidden relative z-20 w-full flex items-center justify-between px-5 sm:px-8 pt-5 pb-2">
+        <Link
+          to="/"
+          className="flex items-center gap-2.5 focus:outline-none rounded-full"
+          aria-label="GetVeevz Home"
+        >
+          <div className="flex items-center justify-center w-9 h-9 rounded-full overflow-hidden bg-white border border-[#111111]/10 shadow-sm">
+            <img
+              src="/assets/Logo.png"
+              alt="GetVeevz logo"
+              className="w-full h-full object-cover scale-[1.15]"
+            />
+          </div>
+          <span className="font-display font-medium text-base tracking-tight text-[#111111]">
+            GetVeevz
+          </span>
+        </Link>
+        <Link
+          to="/"
+          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-full bg-[#18181B] text-white hover:bg-black transition-all shadow-sm active:scale-95"
+        >
+          <span>Home</span>
+        </Link>
+      </header>
+
       {/* ── Main Content Container ── */}
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-8 lg:px-12 pt-36 sm:pt-44 lg:pt-48 pb-28 sm:pb-36 lg:pb-40">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-8 lg:px-12 pt-10 sm:pt-20 lg:pt-48 pb-28 sm:pb-36 lg:pb-40">
         
         {/* ── Section Header (Light Theme: Dark obsidian typography on cream) ── */}
         <div
@@ -152,7 +178,7 @@ export default function ServicesPage() {
                 : [
                     { label: "Model 03", value: "CPM Campaign (Fan + Theme)" },
                     { label: "Model 04", value: "24-Hour High-Volume Seeding" },
-                    { label: "Seeding Budget", value: "$7.2K min (₹6L) to $100K+" },
+                    { label: "Seeding Budget", value: "$7.2K min to $100K+" },
                     { label: "Account Reach", value: "1M–10M+ Follower Properties" },
                   ];
 
@@ -471,10 +497,10 @@ export default function ServicesPage() {
                         Scale Ceiling
                       </td>
                       <td className="py-5 px-6 sm:px-8 text-[#444444]">
-                        Top 10–30 winning pages to retainers / 3-Month 36L &amp; 72L tiers ($36K &amp; $72K for 3 months)
+                        Top 10–30 winning pages to retainers / 3-Month $36K &amp; $72K tiers ($36K &amp; $72K for 3 months)
                       </td>
                       <td className="py-5 px-6 sm:px-8 text-[#444444]">
-                        Starting at ₹6L ($7.2K) up to ₹85L+ ($100K+)
+                        Starting at $7.2K up to $100K+
                       </td>
                       <td className="py-5 px-6 sm:px-8 text-[#444444]">
                         Grow your presence on LinkedIn, X, Instagram, YouTube &amp; TikTok
@@ -485,10 +511,10 @@ export default function ServicesPage() {
                         Economics
                       </td>
                       <td className="py-5 px-6 sm:px-8 text-[#444444]">
-                        $1/1K CPM Testing ➔ Retainer or 3-Month straight retainers ($36K &amp; $72K • ₹36L &amp; ₹72L for 3 months)
+                        $1/1K CPM Testing ➔ Retainer or 3-Month straight retainers ($36K &amp; $72K for 3 months)
                       </td>
                       <td className="py-5 px-6 sm:px-8 text-[#444444]">
-                        $3/1K CPM (min 10M views) or Seeding starting at ₹6L ($7.2K)
+                        $3/1K CPM (min 10M views) or Seeding starting at $7.2K
                       </td>
                       <td className="py-5 px-6 sm:px-8 text-[#444444]">
                         Custom scope discussed and agreed on a quick call

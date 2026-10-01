@@ -5,10 +5,12 @@ import { useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight, ArrowDown, Menu, X, Play, Pause, Sparkles, Radio, Activity, Share2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { GlassButton } from "@/components/ui/glass-button";
 import { cn } from "@/lib/utils";
-import { Globe } from "@/components/ui/globe";
+
+const Globe = React.lazy(() =>
+  import("@/components/ui/globe").then((m) => ({ default: m.Globe }))
+);
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -442,24 +444,26 @@ export default function Hero() {
         className="pointer-events-none absolute inset-0 w-full h-full z-0 overflow-hidden opacity-75 flex items-center justify-center"
       >
         <div className="relative w-full h-full min-h-[500px] flex items-center justify-center pointer-events-auto">
-          <Globe
-            primaryColor="#0038E2"
-            neutralColor="#1C3252"
-            atmosphereColor="#0038E2"
-            globeColor="#F3EFEA"
-            globeOpacity={0.35}
-            showAtmosphere={true}
-            autoRotateSpeed={0.7}
-            interactive={true}
-            enableZoom={false}
-            arcCount={12}
-            arcInterval={4800}
-            arcAnimationDuration={2200}
-            cameraAltitude={isMobile ? 3.35 : 2.2}
-            pointSize={isMobile ? 0.32 : 0.28}
-            landMapUrl="/images/globe-map.png"
-            className="w-full h-full bg-transparent"
-          />
+          <React.Suspense fallback={null}>
+            <Globe
+              primaryColor="#0038E2"
+              neutralColor="#1C3252"
+              atmosphereColor="#0038E2"
+              globeColor="#F3EFEA"
+              globeOpacity={0.35}
+              showAtmosphere={true}
+              autoRotateSpeed={0.7}
+              interactive={true}
+              enableZoom={false}
+              arcCount={12}
+              arcInterval={4800}
+              arcAnimationDuration={2200}
+              cameraAltitude={isMobile ? 3.35 : 2.2}
+              pointSize={isMobile ? 0.32 : 0.28}
+              landMapUrl="/images/globe-map.png"
+              className="w-full h-full bg-transparent"
+            />
+          </React.Suspense>
         </div>
         {/* Soft edge vignetting to blend seamlessly into cream background */}
         <div className="absolute inset-0 bg-gradient-to-t from-[#F3EFEA] via-transparent to-[#F3EFEA]/80 pointer-events-none" />
