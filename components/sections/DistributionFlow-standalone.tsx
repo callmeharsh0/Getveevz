@@ -271,42 +271,48 @@ export default function DistributionFlow({
         scrollTrigger: {
           trigger: wrapperRef.current,
           start: "top top",
-          end: "+=380%",
+          end: "+=400%",
           scrub: 0.3,
           pin: true,
           anticipatePin: 1,
         },
       });
 
+      // 1. Establish problem badges with a clean pop-in
       problemLabels.forEach((_, i) => {
         const el = problemLabelRefs.current[i];
-        if (el) tl.to(el, { opacity: 1, y: 0, duration: 0.05 }, 0.01 + i * 0.015);
+        if (el) tl.to(el, { opacity: 1, y: 0, duration: 0.045, ease: "power2.out" }, 0.01 + i * 0.015);
       });
+
+      // 2. Hold badges established so user comfortably reads "Low Reach", "Lost Moments", "Limited Distribution"
+      // Badges fully visible from ~0.045 to ~0.11 before exiting
 
       if (statementRef.current) {
         tl.to(
           statementRef.current,
-          { opacity: 0, y: -20, duration: 0.06, ease: "power2.in" },
-          0.06
+          { opacity: 0, y: -20, duration: 0.05, ease: "power2.in" },
+          0.10
         );
       }
 
       problemLabels.forEach((_, i) => {
         const el = problemLabelRefs.current[i];
-        if (el) tl.to(el, { opacity: 0, y: -10, duration: 0.04 }, 0.07 + i * 0.015);
+        if (el) tl.to(el, { opacity: 0, y: -10, duration: 0.04, ease: "power2.in" }, 0.11 + i * 0.012);
       });
 
+      // 3. Source shrinks & moves left into distribution hub
       tl.to(
         sourceRef.current,
-        { scale: 0.58, x: -240, duration: 0.10, ease: "power2.inOut" },
-        0.08
+        { scale: 0.58, x: -240, duration: 0.09, ease: "power2.inOut" },
+        0.13
       );
 
+      // 4. Distribution lines and output reels fan out
       if (linesGroupRef.current) {
         tl.to(
           linesGroupRef.current,
-          { opacity: 1, duration: 0.12, ease: "power2.out" },
-          0.12
+          { opacity: 1, duration: 0.10, ease: "power2.out" },
+          0.17
         );
       }
 
@@ -321,10 +327,10 @@ export default function DistributionFlow({
             rotation: item.rot || 0,
             scale: item.scale || 1,
             opacity: 1,
-            duration: 0.14,
+            duration: 0.13,
             ease: "back.out(1.2)",
           },
-          0.12 + i * 0.02
+          0.17 + i * 0.018
         );
       });
 
@@ -337,28 +343,28 @@ export default function DistributionFlow({
         tl.to(
           contentGroupRef.current,
           isMobile
-            ? { x: mobileX, y: 18, scale: mobileScale, duration: 0.10, ease: "power2.out" }
-            : { x: 70, y: -20, scale: 0.85, duration: 0.10, ease: "power2.out" },
-          0.20
+            ? { x: mobileX, y: 18, scale: mobileScale, duration: 0.09, ease: "power2.out" }
+            : { x: 70, y: -20, scale: 0.85, duration: 0.09, ease: "power2.out" },
+          0.23
         );
       }
 
       flowSteps.forEach((_, i) => {
         const el = flowStepRefs.current[i];
-        const stepMilestones = [0.22, 0.42, 0.62, 0.82];
-        if (el) tl.to(el, { opacity: 1, y: 0, duration: 0.04 }, stepMilestones[i] ?? (0.22 + i * 0.2));
+        const stepMilestones = [0.25, 0.45, 0.65, 0.85];
+        if (el) tl.to(el, { opacity: 1, y: 0, duration: 0.04 }, stepMilestones[i] ?? (0.25 + i * 0.2));
       });
 
       if (punchline1Ref.current) {
         tl.to(
           punchline1Ref.current,
           { opacity: 1, y: 0, duration: 0.05, ease: "power2.out" },
-          0.22
+          0.25
         );
         tl.to(
           punchline1Ref.current,
           { opacity: 0, y: isMobile ? 12 : -16, duration: 0.04, ease: "power2.in" },
-          0.38
+          0.41
         );
       }
 
@@ -366,12 +372,12 @@ export default function DistributionFlow({
         tl.to(
           punchline2Ref.current,
           { opacity: 1, y: 0, duration: 0.05, ease: "power2.out" },
-          0.42
+          0.45
         );
         tl.to(
           punchline2Ref.current,
           { opacity: 0, y: isMobile ? 12 : -16, duration: 0.04, ease: "power2.in" },
-          0.58
+          0.61
         );
       }
 
@@ -379,12 +385,12 @@ export default function DistributionFlow({
         tl.to(
           punchline3Ref.current,
           { opacity: 1, y: 0, duration: 0.05, ease: "power2.out" },
-          0.62
+          0.65
         );
         tl.to(
           punchline3Ref.current,
           { opacity: 0, y: isMobile ? 12 : -16, duration: 0.04, ease: "power2.in" },
-          0.78
+          0.81
         );
       }
 
@@ -392,7 +398,7 @@ export default function DistributionFlow({
         tl.to(
           punchline4Ref.current,
           { opacity: 1, y: 0, duration: 0.08, ease: "back.out(1.3)" },
-          0.82
+          0.85
         );
       }
 
