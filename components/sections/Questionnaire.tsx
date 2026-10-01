@@ -100,24 +100,24 @@ const BUDGET_OPTIONS: {
 }[] = [
   {
     id: "36k",
-    primary: "$36k / mo · 3-Month Plan",
-    inr: "₹36L / mo (3-Mo Plan)",
-    aed: "132k AED / mo (3-Mo Plan)",
+    primary: "$36k for 3 Months ($12k/mo)",
+    inr: "₹36L for 3 Months (₹12L/mo)",
+    aed: "132k AED for 3 Months (44k/mo)",
     views: "25M – 40M+ Views",
   },
   {
     id: "72k",
-    primary: "$72k / mo · 3-Month Plan",
-    inr: "₹72L / mo (3-Mo Plan)",
-    aed: "264k AED / mo (3-Mo Plan)",
+    primary: "$72k for 3 Months ($24k/mo)",
+    inr: "₹72L for 3 Months (₹24L/mo)",
+    aed: "264k AED for 3 Months (88k/mo)",
     views: "55M – 85M+ Views",
   },
   {
     id: "custom",
     primary: "Custom Enterprise Plan",
-    sublabel: "3-Month Scope (From $100k+ / mo)",
-    inr: "₹85L+ INR / mo",
-    aed: "365k+ AED / mo",
+    sublabel: "3-Month Scope",
+    inr: "₹85L+ INR (3-Month)",
+    aed: "365k+ AED (3-Month)",
     views: "120M+ Multi-Platform Reach",
   },
 ];
@@ -507,7 +507,7 @@ export default function Questionnaire() {
                     {/* Budget Tiers */}
                     <div>
                       <label className="block text-xs font-mono uppercase tracking-wider text-[#111111] font-semibold mb-2">
-                        Target Monthly Investment Tier
+                        Target Investment Tier (3-Month Fixed Retainers)
                       </label>
                       <div className="space-y-2.5">
                         {BUDGET_OPTIONS.map((opt) => {

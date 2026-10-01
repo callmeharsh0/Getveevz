@@ -471,7 +471,7 @@ export default function ServicesPage() {
                         Scale Ceiling
                       </td>
                       <td className="py-5 px-6 sm:px-8 text-[#444444]">
-                        Top 10–30 winning pages to retainers / 3-Month 36L &amp; 72L tiers
+                        Top 10–30 winning pages to retainers / 3-Month 36L &amp; 72L tiers ($36K &amp; $72K for 3 months)
                       </td>
                       <td className="py-5 px-6 sm:px-8 text-[#444444]">
                         Starting at ₹6L ($7.2K) up to ₹85L+ ($100K+)
@@ -485,7 +485,7 @@ export default function ServicesPage() {
                         Economics
                       </td>
                       <td className="py-5 px-6 sm:px-8 text-[#444444]">
-                        $1/1K CPM Testing ➔ Retainer or 3-Month 36L/72L straight retainers
+                        $1/1K CPM Testing ➔ Retainer or 3-Month straight retainers ($36K &amp; $72K • ₹36L &amp; ₹72L for 3 months)
                       </td>
                       <td className="py-5 px-6 sm:px-8 text-[#444444]">
                         $3/1K CPM (min 10M views) or Seeding starting at ₹6L ($7.2K)

@@ -70,8 +70,8 @@ export const services: Service[] = [
         overview: "This is for clients who are already getting consistent views and want a dependable 3-month retainer without needing a testing phase.",
         highlights: [
           "3-Month fixed retainer commitment: 36L (Tier 1) & 72L (Tier 2)",
-          "Tier 1: ₹36L / month ($36,000 USD • 132,000 AED / month) — 3-Month Plan",
-          "Tier 2: ₹72L / month ($72,000 USD • 264,000 AED / month) — 3-Month Plan",
+          "Tier 1: $36,000 USD (₹36L • 132,000 AED) for 3 Months ($12K / mo)",
+          "Tier 2: $72,000 USD (₹72L • 264,000 AED) for 3 Months ($24K / mo)",
           "Set number of clips and designated posting frequency over 90 days",
           "Dedicated page network with strict quality standards",
           "Zero reliance on view volatility — pure dependable execution",
@@ -79,7 +79,7 @@ export const services: Service[] = [
         details: [
           {
             heading: "Defined Monthly Deliverables & Standards (36L & 72L)",
-            text: "Instead of pricing around views, we work on a fixed monthly retainer with defined deliverables: a set number of clips, pages, posting frequency, and quality standards. Tier 1 is priced at ₹36 Lakhs ($36,000 USD / 132,000 AED) and Tier 2 at ₹72 Lakhs ($72,000 USD / 264,000 AED). The focus is on reliable distribution, quality, and building a sustainable clipping system.",
+            text: "Instead of pricing around views, we work on a fixed 3-month retainer with defined deliverables: a set number of clips, pages, posting frequency, and quality standards. Tier 1 is priced at $36,000 USD (₹36 Lakhs / 132,000 AED) total for 3 months ($12,000/mo equivalent) and Tier 2 at $72,000 USD (₹72 Lakhs / 264,000 AED) total for 3 months ($24,000/mo equivalent). The focus is on reliable distribution, quality, and building a sustainable clipping system.",
           },
         ],
       },
@@ -95,7 +95,7 @@ export const services: Service[] = [
       },
       {
         title: "3-Month Straight Retainer (36L & 72L)",
-        desc: "Skip testing if you already have consistent views: work on a 3-month fixed retainer (₹36L & ₹72L • $36K/$72K • 132K/264K AED per month) with set clips, pages, and frequency.",
+        desc: "Skip testing if you already have consistent views: work on a 3-month fixed retainer ($36K & $72K • ₹36L & ₹72L • 132K/264K AED total for 3 months, $12K/$24K per month equivalent) with set clips, pages, and frequency.",
       },
       {
         title: "Sustainable System",
@@ -154,7 +154,7 @@ export const services: Service[] = [
       {
         question: "Who should choose the Normal Clipping 3-Month Retainer?",
         answer:
-          "The 3-month straight retainer is built for clients who already get consistent views and do not need a testing phase. We offer 36L (Tier 1: ₹36L / $36K USD / 132K AED per month) and 72L (Tier 2: ₹72L / $72K USD / 264K AED per month) 3-month commitment tiers with defined clip volume, posting frequency, and strict quality standards.",
+          "The 3-month straight retainer is built for clients who already get consistent views and do not need a testing phase. We offer Tier 1 at $36K USD (₹36L / 132K AED) total for 3 months ($12K / mo equivalent) and Tier 2 at $72K USD (₹72L / 264K AED) total for 3 months ($24K / mo equivalent) with defined clip volume, posting frequency, and strict quality standards.",
       },
       {
         question: "What happens after Month 3?",
