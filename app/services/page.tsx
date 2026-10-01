@@ -2,11 +2,11 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-import { 
-  ArrowRight, 
-  ArrowUpRight, 
-  Sparkles, 
-  Check, 
+import {
+  ArrowRight,
+  ArrowUpRight,
+  Sparkles,
+  Check,
   Layers,
   ShieldCheck,
   Zap,
@@ -81,8 +81,8 @@ export default function ServicesPage() {
       />
 
       {/* Subtle organic paper grain overlay matching hero */}
-      <div 
-        aria-hidden="true" 
+      <div
+        aria-hidden="true"
         className="pointer-events-none fixed inset-0 z-0 opacity-[0.035] mix-blend-multiply bg-[radial-gradient(#111111_1px,transparent_1px)] [background-size:16px_16px]"
       />
 
@@ -114,7 +114,7 @@ export default function ServicesPage() {
 
       {/* ── Main Content Container ── */}
       <div className="relative mx-auto max-w-7xl px-4 sm:px-8 lg:px-12 pt-10 sm:pt-20 lg:pt-48 pb-28 sm:pb-36 lg:pb-40">
-        
+
         {/* ── Section Header (Light Theme: Dark obsidian typography on cream) ── */}
         <div
           ref={headerRef}
@@ -159,28 +159,28 @@ export default function ServicesPage() {
             const Icon = service.icon;
             const isRetainer = service.slug === "long-term-distribution";
             const isEndToEnd = service.slug === "end-to-end-marketing";
-            
+
             // Tailored metrics for each service matching main page
             const specs = isRetainer
               ? [
-                  { label: "Model 01", value: "3-Month Test-to-Scale" },
-                  { label: "Model 02", value: "3-Month Straight Retainer" },
-                  { label: "Month 1 CPM", value: "$1 / 1K Performance Testing" },
-                  { label: "Months 2–3", value: "Top 10–30 Pages on Retainer" },
-                ]
+                { label: "Model 01", value: "3-Month Test-to-Scale" },
+                { label: "Model 02", value: "3-Month Straight Retainer" },
+                { label: "Month 1 CPM", value: "$1 / 1K Performance Testing" },
+                { label: "Months 2–3", value: "Top 10–30 Pages on Retainer" },
+              ]
               : isEndToEnd
                 ? [
-                    { label: "Model 05", value: "Video Scripting & Editing" },
-                    { label: "Model 06", value: "Multi-Platform Posting" },
-                    { label: "Platforms", value: "LinkedIn, X, IG, YouTube, TikTok" },
-                    { label: "Execution", value: "100% Done-For-You" },
-                  ]
+                  { label: "Model 05", value: "Video Scripting & Editing" },
+                  { label: "Model 06", value: "Multi-Platform Posting" },
+                  { label: "Platforms", value: "LinkedIn, X, IG, YouTube, TikTok" },
+                  { label: "Execution", value: "100% Done-For-You" },
+                ]
                 : [
-                    { label: "Model 03", value: "CPM Campaign (Fan + Theme)" },
-                    { label: "Model 04", value: "24-Hour High-Volume Seeding" },
-                    { label: "Seeding Budget", value: "$7.2K min to $100K+" },
-                    { label: "Account Reach", value: "1M–10M+ Follower Properties" },
-                  ];
+                  { label: "Model 03", value: "CPM Campaign (Fan + Theme)" },
+                  { label: "Model 04", value: "24-Hour High-Volume Seeding" },
+                  { label: "Seeding Budget", value: "$7.2K min to $100K+" },
+                  { label: "Account Reach", value: "1M–10M+ Follower Properties" },
+                ];
 
             return (
               <div
@@ -188,23 +188,23 @@ export default function ServicesPage() {
                 data-reveal
                 className={cn("group h-full", isEndToEnd && "lg:col-span-2")}
               >
-                <Link 
-                  to={`/services/${service.slug}`} 
+                <Link
+                  to={`/services/${service.slug}`}
                   className="block h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] rounded-[2.25rem]"
                 >
                   {/* Outer Shell (Light Porcelain Double-Bezel Enclosure with Soft Ambient Drop Shadow) */}
                   <div className="relative h-full rounded-[2.25rem] p-2 sm:p-2.5 bg-white/75 border border-[#111111]/10 shadow-[0_20px_48px_rgba(0,0,0,0.06),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-700 ease-gentle group-hover:shadow-[0_28px_60px_rgba(0,0,0,0.11)] group-hover:-translate-y-2 group-hover:border-[#0038E2]/35 group-hover:bg-white/95">
-                    
+
                     {/* Inner Core (Concentric Machined Cavity in Pure White with Crisp Light-Mode Hierarchy) */}
                     <div className="relative h-full rounded-[calc(2.25rem-0.5rem)] bg-white border border-[#111111]/5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)] p-8 sm:p-10 lg:p-11 flex flex-col justify-between overflow-hidden">
-                      
+
                       {/* Atmospheric Ambient Glow inside card */}
                       <div
                         aria-hidden="true"
                         className={cn(
                           "pointer-events-none absolute -top-24 -right-24 w-72 h-72 rounded-full blur-[70px] opacity-15 transition-opacity duration-700 group-hover:opacity-25",
-                          isRetainer 
-                            ? "bg-[radial-gradient(circle,#0038E2_0%,transparent_70%)]" 
+                          isRetainer
+                            ? "bg-[radial-gradient(circle,#0038E2_0%,transparent_70%)]"
                             : isEndToEnd
                               ? "bg-[radial-gradient(circle,#0038E2_0%,transparent_70%)]"
                               : "bg-[radial-gradient(circle,#495B7D_0%,transparent_70%)]"
@@ -230,7 +230,7 @@ export default function ServicesPage() {
                               <h2 className="font-display font-medium text-2xl sm:text-3xl lg:text-[34px] text-[#111111] tracking-tight leading-[1.15] mb-3 group-hover:text-[#0038E2] transition-colors duration-300">
                                 {service.title}
                               </h2>
-                              
+
                               <p className="text-sm sm:text-base text-[#555555] leading-relaxed mb-6 font-light">
                                 We make your videos and post them across all platforms. Everything is completely handled for you from start to finish.
                               </p>
@@ -330,7 +330,7 @@ export default function ServicesPage() {
                             <h2 className="font-display font-medium text-2xl sm:text-3xl lg:text-[34px] text-[#111111] tracking-tight leading-[1.15] mb-3 group-hover:text-[#0038E2] transition-colors duration-300">
                               {service.title}
                             </h2>
-                            
+
                             <p className="text-sm sm:text-base text-[#555555] leading-relaxed mb-8 font-light">
                               {service.shortDesc}
                             </p>
@@ -538,7 +538,7 @@ export default function ServicesPage() {
             className="rounded-[2.25rem] p-2 sm:p-2.5 bg-white/80 border border-[#111111]/10 shadow-[0_24px_54px_rgba(0,0,0,0.08)]"
           >
             <div className="rounded-[calc(2.25rem-0.5rem)] bg-gradient-to-b from-white via-white to-[#F8F6F2] border border-[#111111]/5 p-10 sm:p-14 lg:p-16 relative overflow-hidden">
-              
+
               {/* Radial center highlight */}
               <div
                 aria-hidden="true"
@@ -554,7 +554,7 @@ export default function ServicesPage() {
                 <h2 className="font-display font-medium text-3xl sm:text-4xl md:text-5xl text-[#111111] tracking-tight leading-[1.12] mb-4">
                   Need a Custom Hybrid Vector?
                 </h2>
-                
+
                 <p className="text-sm sm:text-base text-[#555555] leading-relaxed max-w-xl mx-auto mb-10 font-light">
                   Most tier-1 brands run a hybrid protocol: a continuous long-term clipping engine backed by high-velocity surge bursts around flagship product drops.
                 </p>

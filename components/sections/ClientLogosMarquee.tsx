@@ -48,13 +48,6 @@ export const CLIENT_LOGOS: ClientItem[] = [
     metric: "18M+ Campaign Reach",
   },
   {
-    id: "rachitroo",
-    name: "Rachit Roo",
-    logo: "/assets/icons/rachitro.jpg",
-    category: "Creators & Media",
-    metric: "28M+ Organic Reach",
-  },
-  {
     id: "tai-lopez",
     name: "Tai Lopez",
     logo: "/assets/icons/tailopez.webp",

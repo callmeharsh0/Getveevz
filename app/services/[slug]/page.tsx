@@ -96,19 +96,19 @@ export default function ServiceDetailPage() {
     },
     ...(service.faq && service.faq.length > 0
       ? [
-          {
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "mainEntity": service.faq.map((item) => ({
-              "@type": "Question",
-              "name": item.question,
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": item.answer
-              }
-            }))
-          }
-        ]
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": service.faq.map((item) => ({
+            "@type": "Question",
+            "name": item.question,
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": item.answer
+            }
+          }))
+        }
+      ]
       : [])
   ];
 
@@ -131,8 +131,8 @@ export default function ServiceDetailPage() {
       />
 
       {/* Subtle organic paper grain overlay */}
-      <div 
-        aria-hidden="true" 
+      <div
+        aria-hidden="true"
         className="pointer-events-none fixed inset-0 z-0 opacity-[0.035] mix-blend-multiply bg-[radial-gradient(#111111_1px,transparent_1px)] [background-size:16px_16px]"
       />
 
@@ -172,7 +172,7 @@ export default function ServiceDetailPage() {
 
       {/* ── Main Content Container ── */}
       <div className="relative mx-auto max-w-7xl px-4 sm:px-8 lg:px-12 pt-6 sm:pt-14 lg:pt-48 pb-28 sm:pb-36 lg:pb-40">
-        
+
         {/* ── Semantic Breadcrumbs for Navigation & SEO ── */}
         <nav aria-label="Breadcrumb" className="mb-6 sm:mb-8 overflow-x-auto no-scrollbar">
           <ol className="flex items-center gap-1.5 text-xs font-mono text-[#555555] whitespace-nowrap min-w-max">
@@ -329,7 +329,7 @@ export default function ServiceDetailPage() {
               data-reveal
               className="font-display font-medium text-2xl sm:text-3xl text-[#111111] tracking-tight mt-1"
             >
-              Systemic Feature Breakdown
+              Model Timeline Breakdown
             </h2>
           </div>
 
@@ -489,7 +489,7 @@ export default function ServiceDetailPage() {
                 <h2 className="font-display font-medium text-3xl sm:text-4xl text-[#111111] tracking-tight leading-[1.15] mb-4">
                   Deploy {service.title}
                 </h2>
-                
+
                 <p className="text-sm sm:text-base text-[#555555] leading-relaxed max-w-xl mx-auto mb-10 font-light">
                   Reserve capacity with our specialized distribution team. We handle inventory, creators, and native execution.
                 </p>
