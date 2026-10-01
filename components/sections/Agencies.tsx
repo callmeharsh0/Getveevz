@@ -397,7 +397,7 @@ export default function Agencies() {
               getActiveMaskClass()
             )}
           >
-            {/* Card 1 Graphic Artwork: Pure vibrant cobalt blue with solid warm cream motif */}
+            {/* Card 1 Graphic Artwork: Vibrant cobalt blue with deep cobalt sculptural motif */}
             <div
               className={cn(
                 "absolute inset-0 transition-opacity duration-500 pointer-events-none z-0",
@@ -410,12 +410,13 @@ export default function Agencies() {
                 preserveAspectRatio="xMidYMid slice"
                 className="absolute inset-0 w-full h-full"
               >
-                {/* Swirling cream agency motif with circular center hole */}
+                {/* Swirling deep cobalt agency motif with circular center accent */}
                 <path
                   fillRule="evenodd"
                   clipRule="evenodd"
                   d="M 125 16 C 220 16 265 60 265 145 L 265 265 C 265 355 190 415 95 415 C 35 415 0 365 0 285 L 0 160 C 0 65 52 16 125 16 Z M 138 126 C 92 126 56 162 56 208 C 56 254 92 290 138 290 C 220 290 220 254 220 208 C 220 162 184 126 138 126 Z"
-                  fill="#EDE6DC"
+                  fill="#002288"
+                  opacity="0.85"
                 />
               </svg>
             </div>
@@ -462,7 +463,7 @@ export default function Agencies() {
                   toggleFlip(index);
                 }}
                 className={cn(
-                  "group relative z-20 min-h-[480px] sm:min-h-[520px] md:min-h-[540px] cursor-pointer rounded-3xl",
+                  "group relative z-20 min-h-[580px] sm:min-h-[550px] md:min-h-[540px] cursor-pointer rounded-3xl",
                   index === 2 ? "md:col-span-2 md:max-w-md md:mx-auto md:w-full lg:col-span-1 lg:max-w-none" : ""
                 )}
                 style={{
@@ -472,7 +473,7 @@ export default function Agencies() {
               >
                 {/* 3D FLIPPER CONTAINER */}
                 <div
-                  className="relative w-full h-full min-h-[480px] sm:min-h-[520px] md:min-h-[540px] rounded-3xl transition-transform duration-700 ease-spring preserve-3d"
+                  className="relative w-full h-full min-h-[580px] sm:min-h-[550px] md:min-h-[540px] rounded-3xl transition-transform duration-700 ease-spring preserve-3d"
                   style={{
                     transformStyle: "preserve-3d",
                     WebkitTransformStyle: "preserve-3d",
@@ -561,7 +562,7 @@ export default function Agencies() {
                   {/* ========================================================= */}
                   <div
                     className={cn(
-                      "absolute inset-0 w-full h-full backface-hidden flex flex-col justify-between p-6 sm:p-7 md:p-8 rounded-3xl",
+                      "absolute inset-0 w-full h-full backface-hidden flex flex-col justify-between p-4 xs:p-5 sm:p-7 md:p-8 rounded-3xl",
                       "bg-[#02122F]/95 border border-white/25 text-white shadow-2xl transition-opacity duration-300",
                       isFlipped ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
                     )}
@@ -596,17 +597,17 @@ export default function Agencies() {
                           </button>
                         </div>
                       </div>
-                      <h4 className="font-display font-bold text-lg sm:text-xl text-white mt-2 leading-tight">
+                      <h4 className="font-display font-bold text-base sm:text-xl text-white mt-2 leading-tight">
                         {agency.name}: Specs
                       </h4>
                     </div>
 
                     {/* Services List */}
-                    <div className="my-2 space-y-2 text-left">
+                    <div className="my-1 sm:my-2 space-y-1.5 sm:space-y-2 text-left flex-1 flex flex-col justify-center">
                       {agency.servicesList.map((srv, sIdx) => (
                         <div
                           key={sIdx}
-                          className="flex items-start gap-2.5 p-2 sm:p-2.5 rounded-xl bg-white/[0.06] border border-white/[0.1]"
+                          className="flex items-start gap-2 sm:gap-2.5 p-1.5 xs:p-2 sm:p-2.5 rounded-xl bg-white/[0.06] border border-white/[0.1]"
                         >
                           <div className="mt-0.5 flex items-center justify-center w-4 h-4 rounded-full bg-frost/25 text-frost shrink-0">
                             <Check className="w-2.5 h-2.5 stroke-[3]" />
@@ -615,7 +616,7 @@ export default function Agencies() {
                             <span className="block text-xs sm:text-sm font-semibold text-white leading-tight">
                               {srv.title}
                             </span>
-                            <span className="block text-[11px] sm:text-xs text-white/75 leading-relaxed mt-0.5">
+                            <span className="block text-[10.5px] sm:text-xs text-white/75 leading-tight sm:leading-relaxed mt-0.5">
                               {srv.detail}
                             </span>
                           </div>
@@ -624,7 +625,7 @@ export default function Agencies() {
                     </div>
 
                     {/* Back Footer Actions */}
-                    <div className="flex items-center justify-between gap-2 pt-3 border-t border-white/10">
+                    <div className="flex items-center justify-between gap-2 pt-2.5 sm:pt-3 border-t border-white/10 shrink-0">
                       <Link
                         to={
                           agency.id === "long-term"

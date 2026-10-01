@@ -130,7 +130,7 @@ export default function CapabilitiesFlywheel() {
           {/* ========================================================================= */}
           {/* LEFT: INTERACTIVE ORBITAL FLYWHEEL                                        */}
           {/* ========================================================================= */}
-          <div className="lg:col-span-5 flex flex-col items-center justify-center relative p-4 sm:p-8">
+          <div className="lg:col-span-5 flex flex-col items-center justify-center relative pt-8 pb-4 px-4 sm:p-8">
             {/* Outer Orbit Ring */}
             <div className="relative w-[260px] h-[260px] xs:w-[310px] xs:h-[310px] sm:w-[380px] sm:h-[380px] rounded-full border border-[#111111]/12 bg-[#F8F6F2]/60 flex items-center justify-center shadow-[0_12px_44px_rgba(0,0,0,0.04)]">
               {/* Spinning subtle dashed accent ring */}
@@ -193,7 +193,7 @@ export default function CapabilitiesFlywheel() {
             </div>
 
             {/* Quick Step Indicators with Timer Progress Bar */}
-            <div className="mt-10 flex items-center gap-2">
+            <div className="mt-16 sm:mt-14 flex items-center gap-2">
               {NODES.map((n, idx) => (
                 <button
                   key={n.id}
@@ -217,7 +217,7 @@ export default function CapabilitiesFlywheel() {
           <div className="lg:col-span-7">
             <div
               ref={showcaseRef}
-              className="relative w-full min-h-[480px] sm:min-h-[520px] rounded-3xl bg-white border border-[#111111]/12 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.06),0_1px_3px_rgba(0,0,0,0.03)] p-5 sm:p-9 flex flex-col justify-between overflow-hidden"
+              className="relative w-full min-h-[500px] sm:min-h-[520px] rounded-3xl bg-white border border-[#111111]/12 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.06),0_1px_3px_rgba(0,0,0,0.03)] p-4 xs:p-6 sm:p-9 flex flex-col justify-between gap-3 sm:gap-4 overflow-hidden"
             >
               {/* Corner Ambient Glow */}
               <div className="absolute -top-12 -right-12 w-64 h-64 bg-[#0038E2]/[0.06] blur-[90px] rounded-full pointer-events-none" />
@@ -237,8 +237,8 @@ export default function CapabilitiesFlywheel() {
                 </div>
               </div>
 
-              {/* 2. FIXED COPY BODY */}
-              <div className="py-2 shrink-0">
+              {/* 2. FIXED COPY BODY (Full text display without ellipsis cuts) */}
+              <div className="py-1 sm:py-2 shrink-0">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={`text-${activeNode}`}
@@ -250,18 +250,18 @@ export default function CapabilitiesFlywheel() {
                     <h3 className="font-display font-medium text-2xl sm:text-3xl md:text-4xl text-[#111111] tracking-tight">
                       {current.title}
                     </h3>
-                    <p className="mt-2 text-base sm:text-lg text-[#0038E2] font-medium line-clamp-1">
+                    <p className="mt-1.5 sm:mt-2 text-sm sm:text-base md:text-lg text-[#0038E2] font-medium leading-snug">
                       {current.summary}
                     </p>
-                    <p className="mt-2.5 text-xs sm:text-sm text-[#495B7D] leading-relaxed line-clamp-2 max-w-xl">
+                    <p className="mt-2 text-xs sm:text-sm text-[#495B7D] leading-relaxed max-w-xl">
                       {current.description}
                     </p>
                   </motion.div>
                 </AnimatePresence>
               </div>
 
-              {/* 3. STANDARDIZED FIXED-HEIGHT INTERACTIVE WIDGET (Hero light styling) */}
-              <div className="h-[150px] w-full rounded-2xl bg-[#F8F6F2] border border-[#111111]/10 p-4 sm:p-5 flex flex-col justify-between shrink-0 relative overflow-hidden shadow-inner">
+              {/* 3. STANDARDIZED INTERACTIVE WIDGET (Hero light styling) */}
+              <div className="min-h-[145px] sm:min-h-[150px] w-full rounded-2xl bg-[#F8F6F2] border border-[#111111]/10 p-3.5 sm:p-5 flex flex-col justify-between shrink-0 relative overflow-hidden shadow-inner">
                 <AnimatePresence mode="wait">
                   {/* WIDGET 1: CLIPPING */}
                   {activeNode === 0 && (
@@ -373,17 +373,17 @@ export default function CapabilitiesFlywheel() {
                       </div>
 
                       <div className="space-y-1.5 py-1">
-                        <div className="flex items-center gap-2 text-xs text-[#111111]/90">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-[#0038E2] shrink-0" />
-                          <span>Zero creator chasing — we brief &amp; direct all editors</span>
+                        <div className="flex items-start sm:items-center gap-2 text-[11px] sm:text-xs text-[#111111]/90">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-[#0038E2] shrink-0 mt-0.5 sm:mt-0" />
+                          <span className="leading-tight sm:leading-normal">Zero creator chasing — we brief &amp; direct all editors</span>
                         </div>
-                        <div className="flex items-center gap-2 text-xs text-[#111111]/90">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-[#0038E2] shrink-0" />
-                          <span>Quality check — every clip is approved before posting</span>
+                        <div className="flex items-start sm:items-center gap-2 text-[11px] sm:text-xs text-[#111111]/90">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-[#0038E2] shrink-0 mt-0.5 sm:mt-0" />
+                          <span className="leading-tight sm:leading-normal">Quality check — every clip is approved before posting</span>
                         </div>
                       </div>
 
-                      <div className="flex items-center justify-between text-[10px] font-mono text-[#555555] pt-1 border-t border-[#111111]/8">
+                      <div className="flex items-center justify-between text-[9.5px] sm:text-[10px] font-mono text-[#555555] pt-1.5 border-t border-[#111111]/8">
                         <span>You own 100% of the content</span>
                         <span>Ready within 24 hours</span>
                       </div>

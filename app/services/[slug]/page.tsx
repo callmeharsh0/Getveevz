@@ -136,12 +136,46 @@ export default function ServiceDetailPage() {
         className="pointer-events-none fixed inset-0 z-0 opacity-[0.035] mix-blend-multiply bg-[radial-gradient(#111111_1px,transparent_1px)] [background-size:16px_16px]"
       />
 
+      {/* ── Mobile In-Flow Top Navigation Bar ── */}
+      <header className="lg:hidden relative z-20 w-full flex items-center justify-between px-5 sm:px-8 pt-5 pb-3">
+        <Link
+          to="/"
+          className="flex items-center gap-2.5 focus:outline-none rounded-full"
+          aria-label="GetVeevz Home"
+        >
+          <div className="flex items-center justify-center w-9 h-9 rounded-full overflow-hidden bg-white border border-[#111111]/10 shadow-sm">
+            <img
+              src="/assets/Logo.png"
+              alt="GetVeevz logo"
+              className="w-full h-full object-cover scale-[1.15]"
+            />
+          </div>
+          <span className="font-display font-medium text-base tracking-tight text-[#111111]">
+            GetVeevz
+          </span>
+        </Link>
+        <div className="flex items-center gap-2">
+          <Link
+            to="/services"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-full bg-white border border-[#111111]/10 text-[#111111] hover:bg-[#F8F6F2] transition-all shadow-xs"
+          >
+            <span>Services</span>
+          </Link>
+          <Link
+            to="/"
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-full bg-[#18181B] text-white hover:bg-black transition-all shadow-xs active:scale-95"
+          >
+            <span>Home</span>
+          </Link>
+        </div>
+      </header>
+
       {/* ── Main Content Container ── */}
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-8 lg:px-12 pt-36 sm:pt-44 lg:pt-48 pb-28 sm:pb-36 lg:pb-40">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-8 lg:px-12 pt-6 sm:pt-14 lg:pt-48 pb-28 sm:pb-36 lg:pb-40">
         
         {/* ── Semantic Breadcrumbs for Navigation & SEO ── */}
-        <nav aria-label="Breadcrumb" className="mb-6 sm:mb-8">
-          <ol className="flex items-center flex-wrap gap-1.5 text-xs font-mono text-[#555555]">
+        <nav aria-label="Breadcrumb" className="mb-6 sm:mb-8 overflow-x-auto no-scrollbar">
+          <ol className="flex items-center gap-1.5 text-xs font-mono text-[#555555] whitespace-nowrap min-w-max">
             <li className="flex items-center gap-1.5">
               <Link to="/" className="flex items-center gap-1 hover:text-[#0038E2] transition-colors">
                 <Home className="w-3.5 h-3.5" />
@@ -159,7 +193,7 @@ export default function ServiceDetailPage() {
             <li className="flex items-center">
               <ChevronRight className="w-3 h-3 text-[#999999]" />
             </li>
-            <li className="font-semibold text-[#111111] truncate max-w-[200px] sm:max-w-none" aria-current="page">
+            <li className="font-semibold text-[#111111]" aria-current="page">
               {service.title}
             </li>
           </ol>

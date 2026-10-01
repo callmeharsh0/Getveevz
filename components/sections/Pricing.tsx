@@ -537,7 +537,7 @@ export default function Pricing() {
                     aria-selected={termType === "long-term"}
                     onClick={() => handleTermChange("long-term")}
                     className={cn(
-                      "h-8 sm:h-9 px-3 sm:px-4 rounded-lg text-xs sm:text-[13px] font-display tracking-wide flex items-center justify-center cursor-pointer transition-all duration-300 ease-gentle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] active:scale-[0.98] whitespace-nowrap",
+                      "h-8 sm:h-9 px-2 xs:px-3 sm:px-4 rounded-lg text-[11px] xs:text-xs sm:text-[13px] font-display tracking-wide flex items-center justify-center cursor-pointer transition-all duration-300 ease-gentle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] active:scale-[0.98] whitespace-nowrap",
                       termType === "long-term"
                         ? "bg-[#F8F6F2] text-[#111111] font-semibold shadow-[0_2px_12px_rgba(248,246,242,0.2)]"
                         : "text-white/70 hover:text-white"
@@ -551,7 +551,7 @@ export default function Pricing() {
                     aria-selected={termType === "short-term"}
                     onClick={() => handleTermChange("short-term")}
                     className={cn(
-                      "h-8 sm:h-9 px-3 sm:px-4 rounded-lg text-xs sm:text-[13px] font-display tracking-wide flex items-center justify-center cursor-pointer transition-all duration-300 ease-gentle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] active:scale-[0.98] whitespace-nowrap",
+                      "h-8 sm:h-9 px-2 xs:px-3 sm:px-4 rounded-lg text-[11px] xs:text-xs sm:text-[13px] font-display tracking-wide flex items-center justify-center cursor-pointer transition-all duration-300 ease-gentle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] active:scale-[0.98] whitespace-nowrap",
                       termType === "short-term"
                         ? "bg-[#F8F6F2] text-[#111111] font-semibold shadow-[0_2px_12px_rgba(248,246,242,0.2)]"
                         : "text-white/70 hover:text-white"
@@ -565,7 +565,7 @@ export default function Pricing() {
                     aria-selected={termType === "end-to-end"}
                     onClick={() => handleTermChange("end-to-end")}
                     className={cn(
-                      "h-8 sm:h-9 px-3 sm:px-4 rounded-lg text-xs sm:text-[13px] font-display tracking-wide flex items-center justify-center cursor-pointer transition-all duration-300 ease-gentle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] active:scale-[0.98] whitespace-nowrap",
+                      "h-8 sm:h-9 px-2 xs:px-3 sm:px-4 rounded-lg text-[11px] xs:text-xs sm:text-[13px] font-display tracking-wide flex items-center justify-center cursor-pointer transition-all duration-300 ease-gentle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] active:scale-[0.98] whitespace-nowrap",
                       termType === "end-to-end"
                         ? "bg-[#F8F6F2] text-[#111111] font-semibold shadow-[0_2px_12px_rgba(248,246,242,0.2)]"
                         : "text-white/70 hover:text-white"
@@ -587,7 +587,7 @@ export default function Pricing() {
                     aria-pressed={currency === "USD"}
                     onClick={() => setCurrency("USD")}
                     className={cn(
-                      "h-8 sm:h-9 px-3 sm:px-3.5 rounded-lg text-xs sm:text-[13px] font-display tracking-wide flex items-center justify-center cursor-pointer transition-all duration-300 ease-gentle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] active:scale-[0.98] whitespace-nowrap",
+                      "h-8 sm:h-9 px-1.5 xs:px-3 sm:px-3.5 rounded-lg text-[11px] xs:text-xs sm:text-[13px] font-display tracking-wide flex items-center justify-center cursor-pointer transition-all duration-300 ease-gentle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] active:scale-[0.98] whitespace-nowrap",
                       currency === "USD"
                         ? "bg-[#F8F6F2] text-[#111111] font-semibold shadow-[0_2px_12px_rgba(248,246,242,0.2)]"
                         : "text-white/70 hover:text-white"
@@ -601,7 +601,7 @@ export default function Pricing() {
                     aria-pressed={currency === "INR"}
                     onClick={() => setCurrency("INR")}
                     className={cn(
-                      "h-8 sm:h-9 px-3 sm:px-3.5 rounded-lg text-xs sm:text-[13px] font-display tracking-wide flex items-center justify-center cursor-pointer transition-all duration-300 ease-gentle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] active:scale-[0.98] whitespace-nowrap",
+                      "h-8 sm:h-9 px-1.5 xs:px-3 sm:px-3.5 rounded-lg text-[11px] xs:text-xs sm:text-[13px] font-display tracking-wide flex items-center justify-center cursor-pointer transition-all duration-300 ease-gentle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] active:scale-[0.98] whitespace-nowrap",
                       currency === "INR"
                         ? "bg-[#F8F6F2] text-[#111111] font-semibold shadow-[0_2px_12px_rgba(248,246,242,0.2)]"
                         : "text-white/70 hover:text-white"
@@ -615,7 +615,7 @@ export default function Pricing() {
                     aria-pressed={currency === "AED"}
                     onClick={() => setCurrency("AED")}
                     className={cn(
-                      "h-8 sm:h-9 px-3 sm:px-3.5 rounded-lg text-xs sm:text-[13px] font-display tracking-wide flex items-center justify-center cursor-pointer transition-all duration-300 ease-gentle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] active:scale-[0.98] whitespace-nowrap",
+                      "h-8 sm:h-9 px-1.5 xs:px-3 sm:px-3.5 rounded-lg text-[11px] xs:text-xs sm:text-[13px] font-display tracking-wide flex items-center justify-center cursor-pointer transition-all duration-300 ease-gentle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] active:scale-[0.98] whitespace-nowrap",
                       currency === "AED"
                         ? "bg-[#F8F6F2] text-[#111111] font-semibold shadow-[0_2px_12px_rgba(248,246,242,0.2)]"
                         : "text-white/70 hover:text-white"

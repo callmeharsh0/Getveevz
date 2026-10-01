@@ -136,7 +136,7 @@ export default function Footer() {
               </div>
 
               <p className="text-xs sm:text-sm text-white/55 font-light max-w-md leading-relaxed">
-                Distribute your content, Grow your audience ,Analyse performance
+                Distribute your content, grow your audience, analyse performance
               </p>
 
               {/* Haptic Email Touchpoint */}

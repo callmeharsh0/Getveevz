@@ -256,11 +256,11 @@ export default function WeHandleItAll() {
                   <div className="w-full md:w-[calc(50%-44px)] pl-16 md:pl-0">
                     <TactileCard className="step-card p-6 md:p-8">
                       {/* Phase & Badge Row */}
-                      <div className="flex items-center justify-between gap-3 mb-4">
-                        <span className="font-mono text-[11px] uppercase tracking-widest font-semibold text-[#8BA3C6]">
+                      <div className="flex items-center justify-between gap-2 sm:gap-3 mb-4">
+                        <span className="font-mono text-[10px] xs:text-[11px] uppercase tracking-wider xs:tracking-widest font-semibold text-[#8BA3C6]">
                           {phase}
                         </span>
-                        <span className="step-badge px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase transition-all duration-300 bg-[#8BA3C6]/10 border border-[#8BA3C6]/25 text-[#8BA3C6]">
+                        <span className="step-badge px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase transition-all duration-300 bg-[#8BA3C6]/10 border border-[#8BA3C6]/25 text-[#8BA3C6] whitespace-nowrap shrink-0">
                           {badge}
                         </span>
                       </div>
