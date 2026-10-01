@@ -42,7 +42,7 @@ const NODES: FlywheelNode[] = [
     title: "Distribution",
     summary: "Post your clips across 250+ active social media pages.",
     description:
-      "We publish your content across TikTok, Instagram Reels, and YouTube Shorts using our established network of theme and niche pages.",
+      "We publish your content across Instagram Reels, TikTok, YouTube Shorts, and Facebook using our established network of theme and niche pages.",
     outputStandard: "250+ Active Social Pages",
     icon: Share2,
   },
@@ -326,18 +326,22 @@ export default function CapabilitiesFlywheel() {
                         </span>
                       </div>
 
-                      <div className="grid grid-cols-3 gap-2 py-1">
-                        <div className="p-2 rounded-xl bg-white border border-[#111111]/10 text-center shadow-sm">
-                          <p className="text-[11px] font-bold text-[#111111]">Instagram</p>
-                          <span className="text-[9px] font-mono text-[#0038E2] font-semibold">120 Pages Active</span>
+                      <div className="grid grid-cols-4 gap-1.5 sm:gap-2 py-1">
+                        <div className="p-1.5 sm:p-2 rounded-xl bg-white border border-[#111111]/10 text-center shadow-sm">
+                          <p className="text-[10px] sm:text-[11px] font-bold text-[#111111] truncate">Instagram</p>
+                          <span className="text-[8px] sm:text-[9px] font-mono text-[#0038E2] font-semibold block truncate">100 Pages</span>
                         </div>
-                        <div className="p-2 rounded-xl bg-white border border-[#111111]/10 text-center shadow-sm">
-                          <p className="text-[11px] font-bold text-[#111111]">TikTok</p>
-                          <span className="text-[9px] font-mono text-[#0038E2] font-semibold">80 Pages Active</span>
+                        <div className="p-1.5 sm:p-2 rounded-xl bg-white border border-[#111111]/10 text-center shadow-sm">
+                          <p className="text-[10px] sm:text-[11px] font-bold text-[#111111] truncate">TikTok</p>
+                          <span className="text-[8px] sm:text-[9px] font-mono text-[#0038E2] font-semibold block truncate">70 Pages</span>
                         </div>
-                        <div className="p-2 rounded-xl bg-white border border-[#111111]/10 text-center shadow-sm">
-                          <p className="text-[11px] font-bold text-[#111111]">YT Shorts</p>
-                          <span className="text-[9px] font-mono text-[#0038E2] font-semibold">50 Pages Active</span>
+                        <div className="p-1.5 sm:p-2 rounded-xl bg-white border border-[#111111]/10 text-center shadow-sm">
+                          <p className="text-[10px] sm:text-[11px] font-bold text-[#111111] truncate">YT Shorts</p>
+                          <span className="text-[8px] sm:text-[9px] font-mono text-[#0038E2] font-semibold block truncate">50 Pages</span>
+                        </div>
+                        <div className="p-1.5 sm:p-2 rounded-xl bg-white border border-[#111111]/10 text-center shadow-sm">
+                          <p className="text-[10px] sm:text-[11px] font-bold text-[#111111] truncate">Facebook</p>
+                          <span className="text-[8px] sm:text-[9px] font-mono text-[#0038E2] font-semibold block truncate">30+ Pages</span>
                         </div>
                       </div>
 
