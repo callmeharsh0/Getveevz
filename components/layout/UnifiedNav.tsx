@@ -40,7 +40,7 @@ export default function UnifiedNav() {
       { id: "distribution", target: "distribution" },
       { id: "results", target: "results" },
       { id: "pricing", target: "pricing" },
-      { id: "about", target: "testimonials" },
+      { id: "about", target: "agencies" },
     ];
 
     let ticking = false;
@@ -112,7 +112,7 @@ export default function UnifiedNav() {
       isAutoScrollingRef.current = false;
     }, 850);
 
-    const targetId = id === "about" ? "testimonials" : id;
+    const targetId = id === "about" ? "agencies" : id;
     const element = document.getElementById(targetId);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
@@ -215,7 +215,7 @@ export default function UnifiedNav() {
             >
               {HOME_NAV_ITEMS.map((item) => {
                 const isActive = activeSection === item.id;
-                const href = item.id === "services" ? "/services" : `/#${item.id === "about" ? "testimonials" : item.id}`;
+                const href = item.id === "services" ? "/services" : `/#${item.id === "about" ? "agencies" : item.id}`;
                 return (
                   <a
                     key={item.id}

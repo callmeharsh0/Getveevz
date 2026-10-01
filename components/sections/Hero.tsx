@@ -355,10 +355,10 @@ export default function Hero() {
   // Update active navigation state based on scroll position (RAF throttled)
   useEffect(() => {
     const navSections = [
-      { id: "results", topOffset: 0 },
-      { id: "distribution", topOffset: 0 },
-      { id: "about", topOffset: 0 },
-      { id: "pricing", topOffset: 0 },
+      { id: "results", target: "results" },
+      { id: "distribution", target: "distribution" },
+      { id: "about", target: "agencies" },
+      { id: "pricing", target: "pricing" },
     ];
 
     let ticking = false;
@@ -367,7 +367,7 @@ export default function Hero() {
         requestAnimationFrame(() => {
           const scrollPos = window.scrollY + 250;
           for (let i = navSections.length - 1; i >= 0; i--) {
-            const el = document.getElementById(navSections[i].id);
+            const el = document.getElementById(navSections[i].target);
             if (el && el.offsetTop <= scrollPos) {
               setActiveNav(navSections[i].id);
               break;
@@ -401,7 +401,8 @@ export default function Hero() {
       navigate("/services");
       return;
     }
-    const target = document.getElementById(id);
+    const targetId = id === "about" ? "agencies" : id;
+    const target = document.getElementById(targetId);
     if (target) {
       target.scrollIntoView({ behavior: "smooth" });
     }

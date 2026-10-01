@@ -301,10 +301,9 @@ export default function DistributionFlow({
           trigger: wrapperRef.current,
           start: "top top",
           end: "+=380%",
-          scrub: 0.4,
+          scrub: 0.3,
           pin: true,
           anticipatePin: 1,
-          fastScrollEnd: true,
         },
       });
 

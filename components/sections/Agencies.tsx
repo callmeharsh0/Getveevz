@@ -350,7 +350,7 @@ export default function Agencies() {
   };
 
   return (
-    <section className="relative w-full bg-[#F3EFEA] text-[#111111] py-16 sm:py-28 lg:py-36 px-4 sm:px-8 lg:px-12 overflow-hidden select-none">
+    <section id="agencies" className="relative w-full bg-[#F3EFEA] text-[#111111] py-16 sm:py-28 lg:py-36 px-4 sm:px-8 lg:px-12 overflow-hidden select-none">
       {/* ========================================================================= */}
       {/* SVG CLIP-PATH DEFINITION (FOR CUSTOM CHUNKY CUTOUT IN CARD 1)              */}
       {/* ========================================================================= */}

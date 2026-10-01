@@ -17,7 +17,8 @@ function ScrollToTop() {
     if (hash) {
       setTimeout(() => {
         const id = hash.replace("#", "");
-        const el = document.getElementById(id);
+        const targetId = id === "about" ? "agencies" : id;
+        const el = document.getElementById(targetId);
         if (el) {
           el.scrollIntoView({ behavior: "smooth" });
         }

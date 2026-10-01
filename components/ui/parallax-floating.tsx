@@ -77,10 +77,11 @@ const Floating = ({
       const dy = newTargetY - data.currentPosition.y
 
       // Update position only if we're still moving
-      data.currentPosition.x += dx * easingFactor
-      data.currentPosition.y += dy * easingFactor
-
-      data.element.style.transform = `translate3d(${data.currentPosition.x}px, ${data.currentPosition.y}px, 0)`
+      if (Math.abs(dx) > 0.04 || Math.abs(dy) > 0.04) {
+        data.currentPosition.x += dx * easingFactor
+        data.currentPosition.y += dy * easingFactor
+        data.element.style.transform = `translate3d(${data.currentPosition.x.toFixed(1)}px, ${data.currentPosition.y.toFixed(1)}px, 0)`
+      }
     })
   })
 
