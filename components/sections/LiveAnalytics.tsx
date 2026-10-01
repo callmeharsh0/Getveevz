@@ -21,7 +21,6 @@ const chartPoints = [
   { x: 440, y: 32 },
 ];
 
-// Build SVG path from points
 function buildPath(pts: { x: number; y: number }[]): string {
   return pts
     .map((p, i) => (i === 0 ? `M ${p.x} ${p.y}` : `L ${p.x} ${p.y}`))
@@ -48,7 +47,6 @@ export default function LiveAnalytics() {
       <div className="mx-auto max-w-content">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center">
 
-          {/* ── Left: Copy Column ── */}
           <div>
             <div data-reveal>
               <span className="inline-block font-mono text-xs tracking-eyebrow uppercase text-muted">
@@ -63,7 +61,6 @@ export default function LiveAnalytics() {
               </p>
             </div>
 
-            {/* Feature badges */}
             <div data-reveal className="mt-8 grid grid-cols-2 gap-3">
               {features.map(({ title, icon: Icon }) => (
                 <div
@@ -78,7 +75,6 @@ export default function LiveAnalytics() {
               ))}
             </div>
 
-            {/* CTA */}
             <div data-reveal className="mt-10 pt-8 border-t border-border">
               <p className="text-sm text-muted font-medium">Ready to scale your brand?</p>
               <button
@@ -92,11 +88,9 @@ export default function LiveAnalytics() {
             </div>
           </div>
 
-          {/* ── Right: Dashboard Mockup ── */}
           <div data-reveal>
             <div className="rounded-2xl border border-border bg-surface overflow-hidden">
 
-              {/* Window chrome */}
               <div className="flex items-center justify-between px-5 py-3.5 border-b border-border">
                 <div className="flex items-center gap-2">
                   <div className="flex gap-1.5">
@@ -112,7 +106,6 @@ export default function LiveAnalytics() {
                 </div>
               </div>
 
-              {/* Metric Cards */}
               <div className="grid grid-cols-2 gap-px bg-border m-5 mb-0 rounded-xl overflow-hidden">
                 <div className="bg-surface p-4">
                   <p className="text-xs text-muted">Live Views</p>
@@ -130,7 +123,6 @@ export default function LiveAnalytics() {
                 </div>
               </div>
 
-              {/* Chart */}
               <div className="mx-5 mt-4 p-4 rounded-xl border border-border bg-background">
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-xs font-semibold text-foreground">Views Over Time</span>
@@ -139,7 +131,6 @@ export default function LiveAnalytics() {
                   </span>
                 </div>
 
-                {/* SVG Area Chart */}
                 <svg
                   viewBox="0 0 440 100"
                   className="w-full h-28"
@@ -151,20 +142,15 @@ export default function LiveAnalytics() {
                       <stop offset="100%" stopColor="#8BA3C5" stopOpacity="0.02" />
                     </linearGradient>
                   </defs>
-                  {/* Horizontal grid lines */}
                   {[25, 50, 75].map((y) => (
                     <line key={y} x1="0" y1={y} x2="440" y2={y} stroke="rgba(139,163,197,0.12)" strokeWidth="1" />
                   ))}
-                  {/* Filled area */}
                   <path d={areaPath} fill="url(#areaGrad)" />
-                  {/* Line */}
                   <path d={linePath} fill="none" stroke="#8BA3C5" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  {/* Peak dot */}
                   <circle cx="370" cy="12" r="3" fill="#F0ECDD" />
                   <circle cx="370" cy="12" r="6" fill="none" stroke="#8BA3C5" strokeWidth="1" strokeOpacity="0.5" />
                 </svg>
 
-                {/* X-axis labels */}
                 <div className="mt-2 flex justify-between text-[10px] font-mono text-muted/70">
                   {["May 12", "May 13", "May 14", "May 15", "May 16", "May 17"].map((d) => (
                     <span key={d}>{d}</span>
@@ -172,7 +158,6 @@ export default function LiveAnalytics() {
                 </div>
               </div>
 
-              {/* Platform breakdown */}
               <div className="mx-5 mt-4 mb-5">
                 <div className="flex justify-between text-[10px] font-mono uppercase tracking-eyebrow text-muted mb-2 px-1">
                   <span>Platform</span>

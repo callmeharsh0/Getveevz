@@ -10,7 +10,6 @@ interface NavItem {
   label: string;
 }
 
-// Harmonized with actual page scroll flow: Home -> Results -> Distribution -> Services -> About -> Pricing
 const HOME_NAV_ITEMS: NavItem[] = [
   { id: "home", label: "Home" },
   { id: "results", label: "Results" },
@@ -31,13 +30,11 @@ export default function UnifiedNav() {
   const isAutoScrollingRef = useRef<boolean>(false);
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Reset visibility on route change
   useEffect(() => {
     setIsVisible(true);
     lastScrollYRef.current = window.scrollY;
   }, [location.pathname]);
 
-  // Track scroll direction & active section in natural DOM offset order
   useEffect(() => {
     const navSections = [
       { id: "home", target: "hero" },
@@ -53,7 +50,6 @@ export default function UnifiedNav() {
         requestAnimationFrame(() => {
           const currentScrollY = window.scrollY;
 
-          // ── 1. Smart Hide / Show based on scroll direction ──
           if (!isAutoScrollingRef.current) {
             if (currentScrollY <= 80) {
               setIsVisible(true);
@@ -61,16 +57,13 @@ export default function UnifiedNav() {
               const delta = currentScrollY - lastScrollYRef.current;
 
               if (delta > 8) {
-                // Scrolling DOWN -> Hide
                 setIsVisible(false);
               } else if (delta < -8) {
-                // Scrolling UP -> Show
                 setIsVisible(true);
               }
             }
           }
 
-          // Gentle re-appearance when user pauses scrolling
           if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
           scrollTimeoutRef.current = setTimeout(() => {
             setIsVisible(true);
@@ -78,12 +71,10 @@ export default function UnifiedNav() {
 
           lastScrollYRef.current = currentScrollY;
 
-          // ── 2. Track Active Section on Home ──
           if (!isServices) {
             const scrollPos = currentScrollY + 260;
             let matched = false;
 
-            // Iterate backwards from lowest to highest offsetTop
             for (let i = navSections.length - 1; i >= 0; i--) {
               const el = document.getElementById(navSections[i].target);
               if (el && el.offsetTop <= scrollPos) {
@@ -178,7 +169,6 @@ export default function UnifiedNav() {
         >
           <AnimatePresence mode="wait" initial={false}>
             {isServices ? (
-              /* ── SERVICES STATE: Compact Island with Brandmark & Navigation ── */
               <motion.div
                 key="nav-services"
                 initial={{ opacity: 0, scale: 0.95 }}
@@ -187,7 +177,6 @@ export default function UnifiedNav() {
                 transition={{ duration: 0.18, ease: [0.32, 0.72, 0, 1] }}
                 className="flex items-center gap-1 sm:gap-1.5"
               >
-                {/* Logo / Brandmark Link */}
                 <Link
                   to="/"
                   className="flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] rounded-full mr-2 sm:mr-3 pl-1 group cursor-pointer"
@@ -205,7 +194,6 @@ export default function UnifiedNav() {
                   </span>
                 </Link>
 
-                {/* Services Link (Active) */}
                 <Link
                   to="/services"
                   className="relative px-3.5 py-1 sm:py-1.5 text-xs font-semibold rounded-full cursor-pointer text-[#111111] bg-white shadow-sm inline-block"
@@ -213,7 +201,6 @@ export default function UnifiedNav() {
                   <span className="relative z-10">Services</span>
                 </Link>
 
-                {/* Home Link */}
                 <Link
                   to="/"
                   className="relative px-3.5 py-1 sm:py-1.5 text-xs font-medium rounded-full cursor-pointer text-[#F3EFEA]/80 hover:text-white hover:bg-white/10 transition-colors duration-200 inline-block"
@@ -222,7 +209,6 @@ export default function UnifiedNav() {
                 </Link>
               </motion.div>
             ) : (
-              /* ── HOME STATE ── */
               <motion.div
                 key="nav-home"
                 initial={{ opacity: 0, scale: 0.95 }}
@@ -231,7 +217,6 @@ export default function UnifiedNav() {
                 transition={{ duration: 0.18, ease: [0.32, 0.72, 0, 1] }}
                 className="flex items-center"
               >
-                {/* Desktop Menu (Visible on lg+) */}
                 <div className="hidden lg:flex items-center gap-1">
                   {HOME_NAV_ITEMS.map((item) => {
                     const isActive = activeSection === item.id;

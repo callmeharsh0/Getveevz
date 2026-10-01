@@ -44,7 +44,6 @@ function Counter({
     const animate = (timestamp: number) => {
       if (!startTime) startTime = timestamp;
       const progress = Math.min((timestamp - startTime) / (duration * 1000), 1);
-      // easeOutExpo
       const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
       const current = easeProgress * value;
       setDisplayValue(current);
@@ -113,43 +112,36 @@ const exampleImages = [
 ];
 
 const mobileResultCards = [
-  // 0: Top Left (Cover 1 - 24M Views)
   {
     url: "/assets/cover1.png",
     title: "Maggi Masala Origin Story",
     tag: "24M Views",
   },
-  // 1: Top Center (Cover 2 - 4.8M Views)
   {
     url: "/assets/cover2.png",
     title: "Jio Vs Airtel",
     tag: "4.8M Views",
   },
-  // 2: Top Right (Cover 3 - 3.5M Views)
   {
     url: "/assets/cover3.png",
     title: "He Saved The Whole Company",
     tag: "3.5M Views",
   },
-  // 3: Bottom Left (Cover 4 - 2.6M Views)
   {
     url: "/assets/cover4.png",
     title: "World War 3",
     tag: "2.6M Views",
   },
-  // 4: Bottom Center (Cover 5 - 2.4M Views)
   {
     url: "/assets/cover5.png",
     title: "The Comeback",
     tag: "2.4M Views",
   },
-  // 5: Bottom Right Front (Cover 6 - 1.9M Views)
   {
     url: "/assets/cover6.png",
     title: "Nikhil Kamath Podcast",
     tag: "1.9M Views",
   },
-  // 6: Bottom Right Back (Cover 7 - 1.5M Views)
   {
     url: "/assets/cover7.png",
     title: "Power of BCCI",
@@ -166,7 +158,6 @@ export function ParallaxFloatingDemo() {
     animate("img", { opacity: [0, 1], scale: [0.94, 1] }, { duration: 0.6, delay: stagger(0.12) });
   }, [animate]);
 
-  // Mobile Parallax via GSAP ScrollTrigger (Subtle transform: translate3d movement)
   useEffect(() => {
     if (!mobileStageRef.current || typeof window === "undefined" || window.innerWidth >= 768) return;
 
@@ -174,7 +165,6 @@ export function ParallaxFloatingDemo() {
     if (prefersReducedMotion) return;
 
     const ctx = gsap.context(() => {
-      // Top Left Card (Card 0)
       if (cardRefs.current[0]) {
         gsap.to(cardRefs.current[0], {
           y: -14,
@@ -189,7 +179,6 @@ export function ParallaxFloatingDemo() {
           },
         });
       }
-      // Top Center Card (Card 1)
       if (cardRefs.current[1]) {
         gsap.to(cardRefs.current[1], {
           y: -16,
@@ -204,7 +193,6 @@ export function ParallaxFloatingDemo() {
           },
         });
       }
-      // Top Right Card (Card 2)
       if (cardRefs.current[2]) {
         gsap.to(cardRefs.current[2], {
           y: -12,
@@ -219,7 +207,6 @@ export function ParallaxFloatingDemo() {
           },
         });
       }
-      // Bottom Left Card (Card 3)
       if (cardRefs.current[3]) {
         gsap.to(cardRefs.current[3], {
           y: 14,
@@ -234,7 +221,6 @@ export function ParallaxFloatingDemo() {
           },
         });
       }
-      // Bottom Center Card (Card 4)
       if (cardRefs.current[4]) {
         gsap.to(cardRefs.current[4], {
           y: 16,
@@ -249,7 +235,6 @@ export function ParallaxFloatingDemo() {
           },
         });
       }
-      // Bottom Right Back Card (Card 5)
       if (cardRefs.current[5]) {
         gsap.to(cardRefs.current[5], {
           y: 10,
@@ -264,7 +249,6 @@ export function ParallaxFloatingDemo() {
           },
         });
       }
-      // Bottom Right Front Card (Card 6)
       if (cardRefs.current[6]) {
         gsap.to(cardRefs.current[6], {
           y: 18,
@@ -293,14 +277,10 @@ export function ParallaxFloatingDemo() {
 
   return (
     <>
-      {/* ========================================================================= */}
-      {/* MOBILE-ONLY RESULTS STAGE (EXACTLY MATCHING ATTACHED REFERENCE SPEC)       */}
-      {/* ========================================================================= */}
       <div
         ref={mobileStageRef}
         className="results-mobile-stage flex md:hidden relative w-full max-w-[430px] mx-auto overflow-hidden px-3 xs:px-4 pt-4 xs:pt-5 pb-5 xs:pb-6 flex-col items-center select-none bg-[#090e14] text-moonlight"
       >
-        {/* Ambient background depth & glow matching Desktop */}
         <div
           aria-hidden="true"
           className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] xs:w-[400px] h-[340px] bg-frost/10 blur-[130px] rounded-full"
@@ -314,9 +294,7 @@ export function ParallaxFloatingDemo() {
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_50%,transparent_15%,#090e14_100%)] z-0"
         />
 
-        {/* TOP FLOATING CARDS CLUSTER */}
         <div className="relative w-full h-[128px] xs:h-[142px] sm:h-[150px] shrink-0 pointer-events-auto z-10">
-          {/* Top Left Card (Maggi Masala Origin Story - 24M Views) */}
           <div
             ref={(el) => { cardRefs.current[0] = el; }}
             className="absolute top-[8px] left-[2px] xs:left-[6px] sm:left-[10px] w-[86px] xs:w-[96px] sm:w-[104px] h-[108px] xs:h-[118px] sm:h-[128px] rounded-xl xs:rounded-2xl border border-white/20 bg-surface/50 shadow-2xl backdrop-blur-md overflow-hidden -rotate-[9deg] z-10 will-change-transform"
@@ -332,7 +310,6 @@ export function ParallaxFloatingDemo() {
             </div>
           </div>
 
-          {/* Top Center Card (Jio Vs Airtel - 4.8M Views) */}
           <div
             ref={(el) => { cardRefs.current[1] = el; }}
             className="absolute top-[0px] left-1/2 -translate-x-1/2 w-[82px] xs:w-[92px] sm:w-[102px] h-[104px] xs:h-[116px] sm:h-[126px] rounded-xl xs:rounded-2xl border border-white/20 bg-surface/50 shadow-2xl backdrop-blur-md overflow-hidden -rotate-[1deg] z-10 will-change-transform"
@@ -348,7 +325,6 @@ export function ParallaxFloatingDemo() {
             </div>
           </div>
 
-          {/* Top Right Card (Teal Suit / Rupay Ka - 3.5M Views) */}
           <div
             ref={(el) => { cardRefs.current[2] = el; }}
             className="absolute top-[6px] right-[2px] xs:right-[6px] sm:right-[10px] w-[86px] xs:w-[96px] sm:w-[104px] h-[108px] xs:h-[120px] sm:h-[130px] rounded-xl xs:rounded-2xl border border-white/20 bg-surface/50 shadow-2xl backdrop-blur-md overflow-hidden rotate-[8deg] z-10 will-change-transform"
@@ -365,7 +341,6 @@ export function ParallaxFloatingDemo() {
           </div>
         </div>
 
-        {/* SECTION LABEL BADGE MATCHING DESKTOP */}
         <div className="relative z-10 mt-2.5 xs:mt-3 flex items-center justify-center w-full px-1">
           <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface/90 border border-border/90 text-[7.5px] xs:text-[8.5px] font-mono uppercase tracking-[0.14em] text-frost backdrop-blur-xl shadow-lg">
             <span className="w-1.5 h-1.5 rounded-full bg-frost animate-pulse shrink-0" />
@@ -373,15 +348,12 @@ export function ParallaxFloatingDemo() {
           </div>
         </div>
 
-        {/* MAIN DISPLAY HEADING MATCHING DESKTOP TYPOGRAPHY */}
         <h2 className="relative z-10 font-display font-medium text-[clamp(32px,10vw,48px)] leading-[1.08] tracking-tight text-moonlight text-center mt-3.5 xs:mt-4">
           <span className="block">1.5M+</span>
           <span className="block">Followers Gained</span>
         </h2>
 
-        {/* STATISTIC METRIC CARDS MATCHING DESKTOP BLOCK STYLE */}
         <div className="relative z-10 mt-3 xs:mt-3.5 grid grid-cols-3 gap-1 xs:gap-1.5 w-full max-w-[270px] xs:max-w-[290px] px-0.5">
-          {/* Stat 1 */}
           <GlassCard className="py-1.5 px-1 xs:py-2 xs:px-1.5 rounded-lg">
             <span className="font-display text-[14px] xs:text-[16px] font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-moonlight to-frost group-hover:scale-105 transition-transform duration-300">
               <Counter value={1} suffix="B+" />
@@ -391,7 +363,6 @@ export function ParallaxFloatingDemo() {
             </span>
           </GlassCard>
 
-          {/* Stat 2 */}
           <GlassCard className="py-1.5 px-1 xs:py-2 xs:px-1.5 rounded-lg">
             <span className="font-display text-[14px] xs:text-[16px] font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-moonlight to-frost group-hover:scale-105 transition-transform duration-300">
               <Counter value={250} suffix="+" />
@@ -401,7 +372,6 @@ export function ParallaxFloatingDemo() {
             </span>
           </GlassCard>
 
-          {/* Stat 3 */}
           <GlassCard className="py-1.5 px-1 xs:py-2 xs:px-1.5 rounded-lg">
             <span className="font-display text-[14px] xs:text-[16px] font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-moonlight to-frost group-hover:scale-105 transition-transform duration-300">
               <Counter value={200} suffix="+" />
@@ -412,7 +382,6 @@ export function ParallaxFloatingDemo() {
           </GlassCard>
         </div>
 
-        {/* CTA BUTTON */}
         <div className="relative z-20 mt-5 xs:mt-6 sm:mt-7 flex items-center justify-center w-full px-1">
           <GlassButton
             size="default"
@@ -425,9 +394,7 @@ export function ParallaxFloatingDemo() {
           </GlassButton>
         </div>
 
-        {/* BOTTOM FLOATING CARDS CLUSTER */}
         <div className="relative w-full h-[150px] xs:h-[162px] sm:h-[172px] shrink-0 mt-4 xs:mt-5 sm:mt-6 pointer-events-auto z-10">
-          {/* Bottom Left Card (Nikhil Kamath Podcast - 1.0M Views) */}
           <div
             ref={(el) => { cardRefs.current[3] = el; }}
             className="absolute top-[10px] left-[2px] xs:left-[6px] sm:left-[10px] w-[86px] xs:w-[96px] sm:w-[104px] h-[108px] xs:h-[120px] sm:h-[130px] rounded-xl xs:rounded-2xl border border-white/20 bg-surface/50 shadow-2xl backdrop-blur-md overflow-hidden -rotate-[8deg] z-10 will-change-transform"
@@ -443,7 +410,6 @@ export function ParallaxFloatingDemo() {
             </div>
           </div>
 
-          {/* Bottom Center Card (The Comeback / Laughing Guy - 2.4M Views) */}
           <div
             ref={(el) => { cardRefs.current[4] = el; }}
             className="absolute top-[22px] xs:top-[26px] left-[39%] -translate-x-[20%] w-[82px] xs:w-[92px] sm:w-[100px] h-[104px] xs:h-[116px] sm:h-[126px] rounded-xl xs:rounded-2xl border border-white/20 bg-surface/50 shadow-2xl backdrop-blur-md overflow-hidden -rotate-[3deg] z-10 will-change-transform"
@@ -459,7 +425,6 @@ export function ParallaxFloatingDemo() {
             </div>
           </div>
 
-          {/* Bottom Right Back Card (Power of China / Mic Guy - 1.5M Views) */}
           <div
             ref={(el) => { cardRefs.current[5] = el; }}
             className="absolute top-[0px] right-[10px] xs:right-[16px] sm:right-[20px] w-[76px] xs:w-[84px] sm:w-[92px] h-[96px] xs:h-[104px] sm:h-[114px] rounded-xl xs:rounded-2xl border border-white/20 bg-surface/50 shadow-2xl backdrop-blur-md overflow-hidden rotate-[4deg] z-0 will-change-transform"
@@ -475,7 +440,6 @@ export function ParallaxFloatingDemo() {
             </div>
           </div>
 
-          {/* Bottom Right Front Card (Power of BCCI / Allowance Guy - 1.9M Views) */}
           <div
             ref={(el) => { cardRefs.current[6] = el; }}
             className="absolute top-[38px] xs:top-[44px] sm:top-[48px] right-[2px] xs:right-[6px] sm:right-[10px] w-[86px] xs:w-[96px] sm:w-[104px] h-[108px] xs:h-[120px] sm:h-[130px] rounded-xl xs:rounded-2xl border border-white/20 bg-surface/50 shadow-2xl backdrop-blur-md overflow-hidden rotate-[6deg] z-10 will-change-transform"
@@ -493,14 +457,10 @@ export function ParallaxFloatingDemo() {
         </div>
       </div>
 
-      {/* ========================================================================= */}
-      {/* DESKTOP RESULTS SECTION (UNTOUCHED AND IDENTICAL TO ORIGINAL)             */}
-      {/* ========================================================================= */}
       <div
         ref={scope}
         className="hidden md:flex relative w-full min-h-[560px] sm:min-h-[680px] md:min-h-[760px] lg:min-h-[800px] pt-14 sm:pt-16 pb-4 sm:pb-6 justify-center items-center overflow-hidden bg-[#090e14] text-moonlight select-none"
       >
-      {/* Ambient background depth & glow matching Hero and site theme */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] sm:w-[950px] h-[600px] bg-frost/10 blur-[160px] rounded-full"
@@ -514,11 +474,7 @@ export function ParallaxFloatingDemo() {
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_50%,transparent_15%,#090e14_100%)] z-10"
       />
 
-      {/* ========================================================================= */}
-      {/* CENTER FOREGROUND CONTENT: RESULTS HEADLINE, METRICS & CTA                 */}
-      {/* ========================================================================= */}
       <div className="relative z-40 max-w-3xl mx-auto px-6 text-center flex flex-col items-center pointer-events-auto">
-        {/* Eyebrow badge */}
         <motion.div
           initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -530,7 +486,6 @@ export function ParallaxFloatingDemo() {
           <span>(02) Verified Results &amp; Distribution Scale</span>
         </motion.div>
 
-        {/* Big Display Headline */}
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -541,7 +496,6 @@ export function ParallaxFloatingDemo() {
           1.5M+ Followers Gained
         </motion.h2>
 
-        {/* Metric Cards with Increasing Counter Effect */}
         <motion.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -577,7 +531,6 @@ export function ParallaxFloatingDemo() {
           </GlassCard>
         </motion.div>
 
-        {/* Action Button */}
         <motion.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -597,11 +550,7 @@ export function ParallaxFloatingDemo() {
         </motion.div>
       </div>
 
-      {/* ========================================================================= */}
-      {/* 3D PARALLAX FLOATING BACKGROUND IMAGES WITH PERFORMANCE TAGS               */}
-      {/* ========================================================================= */}
       <Floating sensitivity={-0.8} easingFactor={0.04} className="overflow-hidden pointer-events-none z-20">
-        {/* Floating Image 1 (Depth 0.5) - Top Left */}
         <FloatingElement depth={0.5} className="top-[6%] left-[2%] md:left-[8%] hidden md:block">
           <div className="relative group overflow-hidden rounded-2xl border border-white/20 bg-surface/50 shadow-2xl backdrop-blur-md pointer-events-auto transition-all duration-500 hover:scale-105 hover:border-frost/70 hover:shadow-[0_0_40px_rgba(139,163,197,0.35)]">
             <motion.img
@@ -616,7 +565,6 @@ export function ParallaxFloatingDemo() {
           </div>
         </FloatingElement>
 
-        {/* Floating Image 2 (Depth 1.0) - Top Left-Center */}
         <FloatingElement depth={1.0} className="top-[5%] left-[26%] md:left-[29%] hidden md:block">
           <div className="relative group overflow-hidden rounded-2xl border border-white/20 bg-surface/50 shadow-2xl backdrop-blur-md pointer-events-auto transition-all duration-500 hover:scale-105 hover:border-frost/70 hover:shadow-[0_0_40px_rgba(139,163,197,0.35)]">
             <motion.img
@@ -631,7 +579,6 @@ export function ParallaxFloatingDemo() {
           </div>
         </FloatingElement>
 
-        {/* Floating Image 3 (Depth 2.0) — Tall Vertical Reel Frame Top-Right */}
         <FloatingElement depth={2.0} className="top-[3%] right-[22%] md:right-[25%] hidden md:block">
           <div className="relative group overflow-hidden rounded-2xl border border-white/20 bg-surface/50 shadow-2xl backdrop-blur-md pointer-events-auto transition-all duration-500 hover:scale-105 hover:border-frost/70 hover:shadow-[0_0_40px_rgba(139,163,197,0.35)]">
             <motion.img
@@ -646,7 +593,6 @@ export function ParallaxFloatingDemo() {
           </div>
         </FloatingElement>
 
-        {/* Floating Image 4 (Depth 1.0) - Far Top Right */}
         <FloatingElement depth={1.0} className="top-[6%] right-[2%] md:right-[6%] hidden md:block">
           <div className="relative group overflow-hidden rounded-2xl border border-white/20 bg-surface/50 shadow-2xl backdrop-blur-md pointer-events-auto transition-all duration-500 hover:scale-105 hover:border-frost/70 hover:shadow-[0_0_40px_rgba(139,163,197,0.35)]">
             <motion.img
@@ -661,7 +607,6 @@ export function ParallaxFloatingDemo() {
           </div>
         </FloatingElement>
 
-        {/* Floating Image 5 (Depth 1.0) - Middle Left */}
         <FloatingElement depth={1.0} className="top-[38%] left-[1%] md:left-[4%] hidden md:block">
           <div className="relative group overflow-hidden rounded-2xl border border-white/20 bg-surface/50 shadow-2xl backdrop-blur-md pointer-events-auto transition-all duration-500 hover:scale-105 hover:border-frost/70 hover:shadow-[0_0_40px_rgba(139,163,197,0.35)]">
             <motion.img
@@ -676,7 +621,6 @@ export function ParallaxFloatingDemo() {
           </div>
         </FloatingElement>
 
-        {/* Floating Image 6 (Depth 2.0) - Middle/Bottom Right */}
         <FloatingElement depth={2.0} className="top-[54%] right-[1%] md:right-[5%] hidden md:block">
           <div className="relative group overflow-hidden rounded-2xl border border-white/20 bg-surface/50 shadow-2xl backdrop-blur-md pointer-events-auto transition-all duration-500 hover:scale-105 hover:border-frost/70 hover:shadow-[0_0_40px_rgba(139,163,197,0.35)]">
             <motion.img
@@ -691,7 +635,6 @@ export function ParallaxFloatingDemo() {
           </div>
         </FloatingElement>
 
-        {/* Floating Image 7 (Depth 3.5) - Bottom Left Feature Portrait */}
         <FloatingElement depth={3.5} className="top-[68%] left-[4%] md:left-[11%] hidden md:block">
           <div className="relative group overflow-hidden rounded-2xl border border-white/20 bg-surface/50 shadow-2xl backdrop-blur-md pointer-events-auto transition-all duration-500 hover:scale-105 hover:border-frost/70 hover:shadow-[0_0_40px_rgba(139,163,197,0.35)]">
             <motion.img
@@ -706,7 +649,6 @@ export function ParallaxFloatingDemo() {
           </div>
         </FloatingElement>
 
-        {/* Floating Image 8 (Depth 1.0) - Bottom Center/Right */}
         <FloatingElement depth={1.0} className="top-[76%] right-[20%] md:right-[26%] hidden md:block">
           <div className="relative group overflow-hidden rounded-2xl border border-white/20 bg-surface/50 shadow-2xl backdrop-blur-md pointer-events-auto transition-all duration-500 hover:scale-105 hover:border-frost/70 hover:shadow-[0_0_40px_rgba(139,163,197,0.35)]">
             <motion.img

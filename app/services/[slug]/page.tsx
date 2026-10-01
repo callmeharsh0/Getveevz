@@ -50,7 +50,6 @@ export default function ServiceDetailPage() {
   const Icon = service.icon;
   const canonicalUrl = `https://getveevz.com/services/${service.slug}`;
 
-  // Structured Data: BreadcrumbList + Service + FAQPage
   const jsonLd = [
     {
       "@context": "https://schema.org",
@@ -120,7 +119,6 @@ export default function ServiceDetailPage() {
         canonical={canonicalUrl}
         jsonLd={jsonLd}
       />
-      {/* ── Soft Ambient Radial Depth Mesh (Hero section light aesthetic) ── */}
       <div
         aria-hidden="true"
         className="pointer-events-none fixed inset-0 z-0"
@@ -130,13 +128,11 @@ export default function ServiceDetailPage() {
         }}
       />
 
-      {/* Subtle organic paper grain overlay */}
       <div
         aria-hidden="true"
         className="pointer-events-none fixed inset-0 z-0 opacity-[0.035] mix-blend-multiply bg-[radial-gradient(#111111_1px,transparent_1px)] [background-size:16px_16px]"
       />
 
-      {/* ── Mobile In-Flow Top Navigation Bar ── */}
       <header className="lg:hidden relative z-20 w-full flex items-center justify-between px-5 sm:px-8 pt-5 pb-3">
         <Link
           to="/"
@@ -170,10 +166,8 @@ export default function ServiceDetailPage() {
         </div>
       </header>
 
-      {/* ── Main Content Container ── */}
       <div className="relative mx-auto max-w-7xl px-4 sm:px-8 lg:px-12 pt-6 sm:pt-14 lg:pt-48 pb-28 sm:pb-36 lg:pb-40">
 
-        {/* ── Semantic Breadcrumbs for Navigation & SEO ── */}
         <nav aria-label="Breadcrumb" className="mb-6 sm:mb-8 overflow-x-auto no-scrollbar">
           <ol className="flex items-center gap-1.5 text-xs font-mono text-[#555555] whitespace-nowrap min-w-max">
             <li className="flex items-center gap-1.5">
@@ -199,7 +193,6 @@ export default function ServiceDetailPage() {
           </ol>
         </nav>
 
-        {/* ── Hero Section (Light Canvas with Dark Obsidian Typography) ── */}
         <div ref={heroRef} className="max-w-4xl mb-20 sm:mb-24">
           <div
             data-reveal
@@ -222,7 +215,6 @@ export default function ServiceDetailPage() {
             {service.longDesc}
           </p>
 
-          {/* Icon Badge */}
           <div data-reveal className="mt-8 flex items-center gap-4">
             <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-white border border-[#111111]/10 shadow-[0_4px_14px_rgba(0,0,0,0.06)] text-[#0038E2]">
               <Icon className="w-7 h-7 stroke-[1.5]" />
@@ -237,7 +229,6 @@ export default function ServiceDetailPage() {
           </div>
         </div>
 
-        {/* ── Engagement Models Breakdown (Strict Client Specifications) ── */}
         {service.models && service.models.length > 0 && (
           <div className="mb-24 sm:mb-28">
             <div className="mb-10">
@@ -274,7 +265,6 @@ export default function ServiceDetailPage() {
                         {model.overview}
                       </p>
 
-                      {/* Detail Phases / Breakdown */}
                       <div className="space-y-4 mb-6">
                         {model.details.map((detail, dIdx) => (
                           <div key={dIdx} className="p-4 rounded-xl bg-[#F8F6F2] border border-[#111111]/8">
@@ -296,7 +286,6 @@ export default function ServiceDetailPage() {
                       </div>
                     </div>
 
-                    {/* Highlights */}
                     <div className="pt-5 border-t border-[#111111]/10">
                       <div className="text-[10px] font-mono text-[#777777] uppercase tracking-wider mb-2.5">
                         Key Parameters
@@ -319,7 +308,6 @@ export default function ServiceDetailPage() {
           </div>
         )}
 
-        {/* ── Features Grid (Asymmetrical Bento: LIGHT DOUBLE-BEZEL CARDS) ── */}
         <div ref={featuresRef} className="mb-24 sm:mb-28">
           <div className="mb-10">
             <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#0038E2] font-semibold">
@@ -362,7 +350,6 @@ export default function ServiceDetailPage() {
           </div>
         </div>
 
-        {/* ── Benefits Section: LIGHT PORCELAIN CARDS ── */}
         <div ref={benefitsRef} className="mb-24 sm:mb-28">
           <div className="mb-10">
             <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#0038E2] font-semibold">
@@ -396,7 +383,6 @@ export default function ServiceDetailPage() {
           </div>
         </div>
 
-        {/* ── Process Steps (Light Chronological Spine with White Cards) ── */}
         <div ref={processRef} className="mb-24 sm:mb-28">
           <div className="mb-14">
             <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#0038E2] font-semibold">
@@ -411,7 +397,6 @@ export default function ServiceDetailPage() {
           </div>
 
           <div className="relative">
-            {/* Vertical spine */}
             <div className="absolute left-6 md:left-1/2 md:-translate-x-1/2 top-4 bottom-4 w-[2px] bg-gradient-to-b from-[#0038E2]/40 via-[#495B7D]/20 to-transparent" />
 
             {service.processSteps.map((step, i) => {
@@ -424,7 +409,6 @@ export default function ServiceDetailPage() {
                     isEven ? "md:flex-row" : "md:flex-row-reverse"
                   )}
                 >
-                  {/* Step Node */}
                   <div
                     data-reveal
                     className="absolute left-6 md:left-1/2 md:-translate-x-1/2 flex items-center justify-center z-10"
@@ -434,7 +418,6 @@ export default function ServiceDetailPage() {
                     </div>
                   </div>
 
-                  {/* Content Light Card */}
                   <div
                     className={cn(
                       "ml-20 md:ml-0",
@@ -465,7 +448,6 @@ export default function ServiceDetailPage() {
           </div>
         </div>
 
-        {/* ── Bottom CTA (Light Double-Bezel Card) ── */}
         <div
           ref={ctaRef}
           className="relative text-center max-w-3xl mx-auto"
@@ -522,9 +504,6 @@ export default function ServiceDetailPage() {
   );
 }
 
-/**
- * Double-Bezel Card — outer porcelain shell + inner white core
- */
 function DoubleBezelCard({
   children,
   className,

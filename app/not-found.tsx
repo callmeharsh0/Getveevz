@@ -15,7 +15,6 @@ export default function NotFound() {
         canonical="https://getveevz.com/404"
       />
 
-      {/* Atmospheric Ambient Glows */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-gradient-to-br from-[#0038E2]/15 via-transparent to-transparent blur-[140px] -z-10"
@@ -26,11 +25,9 @@ export default function NotFound() {
       />
 
       <div className="relative z-10 max-w-xl mx-auto text-center">
-        {/* Doppelrand Hardware Tray */}
         <div className="rounded-[2.25rem] p-1.5 sm:p-2 bg-white/[0.04] border border-white/[0.08] shadow-[0_24px_64px_rgba(0,0,0,0.6)] backdrop-blur-2xl">
           <div className="rounded-[calc(2.25rem-0.375rem)] bg-[#0C0D10]/95 border border-white/[0.05] p-8 sm:p-12 shadow-[inset_0_1px_1px_rgba(255,255,255,0.08)]">
             
-            {/* Eyebrow Status Badge */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0038E2]/15 border border-[#0038E2]/30 text-[11px] font-mono uppercase tracking-[0.2em] text-[#8BA3C6] font-semibold mb-6">
               <span className="w-1.5 h-1.5 rounded-full bg-[#0038E2] animate-pulse" />
               <span>Error 404 · Route Not Found</span>
@@ -67,7 +64,6 @@ export default function NotFound() {
               </Link>
             </div>
 
-            {/* Quick Directory Anchor Shortcuts */}
             <div className="mt-8 pt-6 border-t border-white/[0.08] flex items-center justify-center gap-4 text-xs font-mono text-white/50">
               <Link to="/#results" className="hover:text-white transition-colors">Results</Link>
               <span>·</span>

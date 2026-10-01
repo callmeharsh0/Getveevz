@@ -6,9 +6,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Attach to a section wrapper; fades/slides up direct children with
-// [data-reveal] as they enter the viewport. Keeps animation logic out
-// of individual section components.
 export function useScrollReveal<T extends HTMLElement>() {
   const ref = useRef<T>(null);
 

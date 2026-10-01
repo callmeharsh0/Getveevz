@@ -11,7 +11,7 @@ if (typeof window !== "undefined") {
 }
 
 export type PricingTerm = "long-term" | "short-term" | "end-to-end";
-export type PricingModelType = PricingTerm; // Backwards-compatibility alias
+export type PricingModelType = PricingTerm;
 export type Currency = "USD" | "INR" | "AED";
 
 export interface PlanSpec {
@@ -337,7 +337,6 @@ export default function Pricing() {
     return val[currency] || val["USD"] || "";
   };
 
-  // Dynamic spotlight cursor interaction with subtle luminous accent
   const handleCardMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -346,7 +345,6 @@ export default function Pricing() {
     e.currentTarget.style.setProperty("--mouse-y", `${y}px`);
   };
 
-  // GSAP Entrance ScrollTrigger Animation
   useEffect(() => {
     if (typeof window === "undefined" || !shellRef.current) return;
 
@@ -371,7 +369,6 @@ export default function Pricing() {
     return () => ctx.revert();
   }, []);
 
-  // Listen for navigation / events from Agencies section or URL parameters
   useEffect(() => {
     const handleSelectTerm = (e: CustomEvent<string>) => {
       const term = e.detail;
@@ -444,7 +441,6 @@ export default function Pricing() {
     try {
       window.location.href = mailto;
     } catch {
-      // fallback
     }
 
     const cta = document.getElementById("questionnaire") || document.getElementById("cta") || document.querySelector("footer");
@@ -458,7 +454,6 @@ export default function Pricing() {
       aria-label="Pricing and campaign frameworks"
       className="relative w-full py-16 sm:py-28 lg:py-36 bg-[#090A0D] text-[#F8F6F2] overflow-hidden"
     >
-      {/* ── Top Section Border: Subtle Gradient Fade & Feathered Hairline ── */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute top-0 inset-x-0 h-28 sm:h-48 bg-gradient-to-b from-[#090E14] via-[#090A0D]/75 to-transparent z-10"
@@ -468,7 +463,6 @@ export default function Pricing() {
         className="pointer-events-none absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent z-20"
       />
 
-      {/* ── Bottom Section Border: Subtle Gradient Fade & Feathered Hairline ── */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute bottom-0 inset-x-0 h-28 sm:h-48 bg-gradient-to-t from-[#090E14] via-[#090A0D]/75 to-transparent z-10"
@@ -478,7 +472,6 @@ export default function Pricing() {
         className="pointer-events-none absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent z-20"
       />
 
-      {/* ── Spatial Depth Ambient Background Mesh (Obsidian Base + Subtle Accents) ── */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 z-0 opacity-60"
@@ -488,28 +481,23 @@ export default function Pricing() {
         }}
       />
 
-      {/* Atmospheric micro-grain overlay for physical tactile depth */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 z-0 opacity-[0.025] mix-blend-screen bg-[radial-gradient(#F8F6F2_1px,transparent_1px)] [background-size:24px_24px]"
       />
 
       <div className="relative z-10 max-w-[1340px] mx-auto px-3.5 sm:px-6 lg:px-8">
-        {/* ── Main Doppelrand (Double-Bezel) Outer Hardware Shell in Deep Black ── */}
         <div
           ref={shellRef}
           className="relative rounded-2xl sm:rounded-[2.25rem] lg:rounded-[2.5rem] p-1.5 sm:p-2.5 lg:p-3.5 bg-[#121316] border border-white/[0.08] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.9)] sm:shadow-[0_32px_100px_-20px_rgba(0,0,0,0.95)] before:pointer-events-none before:absolute before:inset-x-10 before:top-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent"
         >
-          {/* Inner Concentric Core Enclosure in Solid Carbon Black */}
           <div className="relative rounded-[calc(1rem+0.25rem)] sm:rounded-[calc(2.25rem-0.5rem)] lg:rounded-[calc(2.5rem-0.75rem)] bg-[#0C0D0F] border border-white/[0.05] p-4 sm:p-8 lg:p-12 shadow-[inset_0_1px_1px_rgba(255,255,255,0.06)] overflow-hidden">
 
-            {/* Ambient Radial Accent inside core */}
             <div
               aria-hidden="true"
               className="pointer-events-none absolute -top-40 right-0 w-[520px] h-[520px] rounded-full bg-[#0038E2]/[0.05] blur-[140px]"
             />
 
-            {/* ── Section Header Row: Eyebrow + Display Title + White-Shade Controls ── */}
             <header className="relative z-10 flex flex-col lg:flex-row lg:items-end justify-between gap-6 sm:gap-8 pb-6 sm:pb-8 lg:pb-10 after:pointer-events-none after:absolute after:bottom-0 after:inset-x-0 after:h-px after:bg-gradient-to-r after:from-transparent after:via-white/[0.12] after:to-transparent">
               <div className="max-w-2xl">
                 <h2 className="font-display font-medium text-2xl sm:text-4xl lg:text-5xl text-white tracking-tight leading-[1.12] [text-wrap:balance]">
@@ -523,9 +511,7 @@ export default function Pricing() {
                 </p>
               </div>
 
-              {/* ── Precision Control Pills: Model Switcher & Currency Switcher ── */}
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3 w-full lg:w-auto">
-                {/* Model Switcher: Long-Term vs Short-Term vs End-to-End */}
                 <div
                   role="tablist"
                   aria-label="Campaign model selection"
@@ -575,7 +561,6 @@ export default function Pricing() {
                   </button>
                 </div>
 
-                {/* Currency Switcher: USD ($) vs INR (₹) vs AED */}
                 <div
                   role="group"
                   aria-label="Currency selection"
@@ -627,29 +612,23 @@ export default function Pricing() {
               </div>
             </header>
 
-            {/* ═════════════════════════════════════════════════════════
-                DOUBLE-BEZEL ASYMMETRICAL CARDS: Machined Obsidian Hardware
-            ═════════════════════════════════════════════════════════ */}
             {termType === "end-to-end" ? (
               <div
                 ref={cardsContainerRef}
                 className="mt-6 sm:mt-10 lg:mt-12 w-full rounded-2xl sm:rounded-[2rem] lg:rounded-[2.25rem] p-1.5 sm:p-2 bg-[#131418] border border-white/[0.08] shadow-[0_12px_32px_-10px_rgba(0,0,0,0.7)]"
               >
                 <div className="relative w-full rounded-[calc(1rem+0.25rem)] sm:rounded-[calc(2rem-0.375rem)] lg:rounded-[calc(2.25rem-0.5rem)] bg-[#0E0F12] border border-white/[0.04] p-6 sm:p-10 lg:p-12 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] overflow-hidden">
-                  {/* Subtle ambient depth accent */}
                   <div
                     aria-hidden="true"
                     className="pointer-events-none absolute -top-32 right-1/4 w-[500px] h-[500px] rounded-full bg-[#0038E2]/[0.08] blur-[140px]"
                   />
 
-                  {/* Top Badges & Workflow Eyebrow */}
                   <div className="relative z-10 flex flex-wrap items-center justify-between gap-3 mb-6 sm:mb-8">
                     <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] sm:text-xs font-mono font-semibold tracking-wider uppercase bg-white/[0.05] text-[#8BA3C6] border border-white/[0.08]">
                       Custom Scope · Discussed on Call
                     </div>
                   </div>
 
-                  {/* Main Display Title: Production -> Distribution -> Results */}
                   <div className="relative z-10 max-w-3xl mb-8 sm:mb-12">
                     <h3 className="font-display font-medium text-2xl sm:text-4xl lg:text-[42px] text-white tracking-tight leading-[1.14] [text-wrap:balance]">
                       We will handle everything from{" "}
@@ -662,9 +641,7 @@ export default function Pricing() {
                     </p>
                   </div>
 
-                  {/* 3-Pillar Architectural Flow: Production · Distribution · Results */}
                   <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 lg:gap-6 mb-8 sm:mb-12">
-                    {/* Stage 1: Production */}
                     <div className="relative p-5 sm:p-6 rounded-xl sm:rounded-2xl bg-[#131418] border border-white/[0.06] shadow-sm flex flex-col justify-between group hover:border-white/[0.16] hover:bg-[#15171D] transition-all duration-300">
                       <div>
                         <div className="flex items-center justify-between gap-2 mb-4">
@@ -688,7 +665,6 @@ export default function Pricing() {
                       </div>
                     </div>
 
-                    {/* Stage 2: Distribution */}
                     <div className="relative p-5 sm:p-6 rounded-xl sm:rounded-2xl bg-[#131418] border border-white/[0.06] shadow-sm flex flex-col justify-between group hover:border-white/[0.16] hover:bg-[#15171D] transition-all duration-300">
                       <div>
                         <div className="flex items-center justify-between gap-2 mb-4">
@@ -712,7 +688,6 @@ export default function Pricing() {
                       </div>
                     </div>
 
-                    {/* Stage 3: Results */}
                     <div className="relative p-5 sm:p-6 rounded-xl sm:rounded-2xl bg-[#131418] border border-white/[0.06] shadow-sm flex flex-col justify-between group hover:border-white/[0.16] hover:bg-[#15171D] transition-all duration-300">
                       <div>
                         <div className="flex items-center justify-between gap-2 mb-4">
@@ -737,7 +712,6 @@ export default function Pricing() {
                     </div>
                   </div>
 
-                  {/* Consultation / Call Alignment Bar (Strictly Custom Scope, No Pricing) */}
                   <div className="relative z-10 pt-6 sm:pt-8 border-t border-white/[0.08] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 sm:gap-6">
                     <div className="flex items-center gap-3">
                       <div className="w-2 h-2 rounded-full bg-[#0038E2] shrink-0" />
@@ -794,7 +768,6 @@ export default function Pricing() {
                           : "bg-[#131418] border border-white/[0.08] hover:border-white/[0.18] hover:-translate-y-1 hover:bg-[#16171C] shadow-[0_12px_32px_-10px_rgba(0,0,0,0.7)]"
                       )}
                     >
-                      {/* Dynamic Spotlight Glow Layer (Cobalt/White Tint) */}
                       <div
                         aria-hidden="true"
                         className="pointer-events-none absolute -inset-px rounded-2xl sm:rounded-[2rem] lg:rounded-[2.25rem] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
@@ -804,13 +777,10 @@ export default function Pricing() {
                         }}
                       />
 
-                      {/* Inner Core Card in Deep Obsidian */}
                       <div className="relative h-full rounded-[calc(1rem+0.25rem)] sm:rounded-[calc(2rem-0.375rem)] lg:rounded-[calc(2.25rem-0.5rem)] bg-[#0E0F12] border border-white/[0.04] p-4 sm:p-7 lg:p-9 flex flex-col justify-between shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]">
                         <div>
-                          {/* Header: Radio Selector + Title + Hardware Icon */}
                           <div className="flex items-start justify-between gap-3 mb-4 sm:mb-5">
                             <div className="flex items-start gap-2.5 sm:gap-3.5 min-w-0">
-                              {/* Machined Radio Button */}
                               <div
                                 className={cn(
                                   "w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center shrink-0 mt-0.5 sm:mt-1 ring-1 transition-all duration-500 ease-gentle",
@@ -841,18 +811,15 @@ export default function Pricing() {
                               </div>
                             </div>
 
-                            {/* Hardware-Enclosed Icon Vessel */}
                             <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-[#8BA3C6] shrink-0 shadow-xs transition-transform duration-500 ease-gentle group-hover:scale-105 group-hover:text-white">
                               <Icon className="w-4 h-4 sm:w-5 sm:h-5 stroke-[1.5]" />
                             </div>
                           </div>
 
-                          {/* Subtitle */}
                           <p className="text-xs sm:text-sm text-white/70 font-light leading-relaxed mb-4 sm:mb-5 [text-wrap:pretty]">
                             {plan.subtitle}
                           </p>
 
-                          {/* ── Economics Enclosure (Deep Black Container) ── */}
                           <div className="rounded-xl sm:rounded-2xl p-3 sm:p-4 lg:p-5 bg-[#090A0D] border border-white/[0.06] mb-4 sm:mb-5 shadow-xs">
                             <div className="text-[9px] sm:text-[11px] font-mono text-[#8BA3C6] uppercase tracking-widest mb-1 font-medium">
                               Economic Structure
@@ -865,7 +832,6 @@ export default function Pricing() {
                             </div>
                           </div>
 
-                          {/* Sub-Formats (If Applicable) */}
                           {plan.subFormats && (
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 mb-4 sm:mb-5">
                               {plan.subFormats.map((fmt, fIdx) => (
@@ -884,12 +850,10 @@ export default function Pricing() {
                             </div>
                           )}
 
-                          {/* Editorial Highlight Note with Cobalt Accent Bar */}
                           <div className="p-3 sm:p-4 rounded-lg sm:rounded-xl bg-white/[0.03] border-l-2 border-l-[#0038E2] border border-white/[0.06] text-white/85 text-[11px] sm:text-xs lg:text-[13px] leading-relaxed mb-4 sm:mb-5 italic font-light">
                             &ldquo;{getLocalized(plan.highlightNote)}&rdquo;
                           </div>
 
-                          {/* Detailed Specifications List */}
                           <div className="pt-4 sm:pt-5 border-t border-white/[0.06]">
                             <div className="text-[9px] sm:text-[10px] font-mono text-[#8BA3C6] uppercase tracking-widest mb-2.5 sm:mb-3 font-medium">
                               Operational Specifications
@@ -921,12 +885,8 @@ export default function Pricing() {
               </div>
             )}
 
-            {/* ═════════════════════════════════════════════════════════
-              BOTTOM HARDWARE BAR: Selection Pill & Button-in-Button CTA
-          ═════════════════════════════════════════════════════════ */}
             {termType !== "end-to-end" && (
               <footer className="relative flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 sm:gap-5 mt-6 sm:mt-10 lg:mt-12 pt-6 sm:pt-8 before:pointer-events-none before:absolute before:top-0 before:inset-x-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-white/[0.12] before:to-transparent">
-                {/* Left: Active Selection Pill */}
                 <div className="flex items-center justify-between sm:justify-start gap-2 sm:gap-3">
                   <span className="text-[9px] sm:text-[10px] font-mono text-[#8BA3C6] uppercase tracking-[0.2em] font-medium shrink-0">
                     Selected:
@@ -936,7 +896,6 @@ export default function Pricing() {
                   </span>
                 </div>
 
-                {/* Right: Button-in-Button Trailing Icon CTA (Porcelain White Pill with Dark Inner Disc) */}
                 <a
                   href={getPricingMailtoUrl()}
                   onClick={handleOrder}
@@ -945,7 +904,6 @@ export default function Pricing() {
                   <span className="text-xs sm:text-sm tracking-tight font-medium">
                     Submit Campaign Brief
                   </span>
-                  {/* Trailing Icon Disc in Deep Obsidian */}
                   <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#111111] text-[#F8F6F2] group-hover:bg-[#0038E2] group-hover:text-white flex items-center justify-center transition-all duration-300 ease-gentle group-hover:translate-x-1 group-hover:-translate-y-[1px] group-hover:scale-105 shadow-sm shrink-0">
                     <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
                   </div>
@@ -953,7 +911,6 @@ export default function Pricing() {
               </footer>
             )}
 
-            {/* Bottom Trust Guarantees */}
             <div className="mt-6 pt-5 border-t border-white/[0.04] flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[10px] sm:text-xs text-white/50 font-mono">
             </div>
 

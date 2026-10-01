@@ -43,7 +43,6 @@ export function CharacterCarousel({
         ...style,
       }}
     >
-      {/* Subtle edge vignette */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 z-[2]"
@@ -106,7 +105,6 @@ export default function ReelsFilmstrip() {
     }
   };
 
-  // Keyboard navigation when filmstrip is in viewport
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       const activeTag = document.activeElement?.tagName || "";
@@ -136,7 +134,6 @@ export default function ReelsFilmstrip() {
       className="relative w-full overflow-hidden bg-[#000000] border-b border-border"
     >
       <div className="w-full h-[640px] sm:h-[720px] md:h-[820px] lg:h-[880px] relative">
-        {/* Carousel fills the entire section */}
         <CharacterFilmstrip
           speed={1.0}
           scale={1.0}
@@ -147,7 +144,6 @@ export default function ReelsFilmstrip() {
           iframeRef={iframeRef}
         />
 
-        {/* Soft top gradient fade — seamlessly dissolves from CapabilitiesFlywheel (#090e14) */}
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-x-0 top-0 h-32 sm:h-44 md:h-52 z-10"
@@ -157,7 +153,6 @@ export default function ReelsFilmstrip() {
           }}
         />
 
-        {/* Text overlay — positioned at the top, blends into the carousel */}
         <div
           className="pointer-events-none absolute inset-x-0 top-0 z-20 flex flex-col items-center justify-start pt-10 sm:pt-14 md:pt-16 px-6"
         >
@@ -169,11 +164,6 @@ export default function ReelsFilmstrip() {
           </h2>
         </div>
 
-        {/* ========================================================================= */}
-        {/* AESTHETIC ARROW NAVIGATION BUTTONS                                        */}
-        {/* ========================================================================= */}
-
-        {/* Left Arrow Button */}
         <button
           type="button"
           onClick={handlePrev}
@@ -184,7 +174,6 @@ export default function ReelsFilmstrip() {
           <span className="sr-only">Previous reel</span>
         </button>
 
-        {/* Right Arrow Button */}
         <button
           type="button"
           onClick={handleNext}
@@ -195,7 +184,6 @@ export default function ReelsFilmstrip() {
           <span className="sr-only">Next reel</span>
         </button>
 
-        {/* Bottom subtle interaction hint pill */}
         <div className="pointer-events-none absolute bottom-6 sm:bottom-8 inset-x-0 z-20 flex items-center justify-center">
           <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#080b14]/60 border border-white/10 backdrop-blur-md text-[10px] sm:text-xs font-mono text-muted/80 tracking-wider">
             <span>Use arrows or drag to explore reels</span>

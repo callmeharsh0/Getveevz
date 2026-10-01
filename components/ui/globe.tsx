@@ -10,54 +10,31 @@ import React, {
 import { cn } from "@/lib/utils";
 
 export interface GlobeProps {
-  /** Width of the globe container in pixels, or "auto" to match parent width */
   width?: number | "auto";
-  /** Height of the globe container in pixels, or "auto" to match width */
   height?: number | "auto";
-  /** Color for animated arcs and markers (any valid CSS color) */
   primaryColor?: string;
-  /** Color for land dots and subtle elements (any valid CSS color) */
   neutralColor?: string;
-  /** Color for atmosphere (defaults to neutralColor or primaryColor) */
   atmosphereColor?: string;
-  /** Base globe sphere color */
   globeColor?: string;
-  /** Show atmosphere glow around the globe */
   showAtmosphere?: boolean;
-  /** Auto-rotation speed (0 = no rotation, higher = faster) */
   autoRotateSpeed?: number;
-  /** Allow mouse-wheel or pinch zoom */
   enableZoom?: boolean;
-  /** Enable mouse drag / touch rotation */
   interactive?: boolean;
-  /** Number of simultaneous animated arcs */
   arcCount?: number;
-  /** Interval in ms between new arc animations */
   arcInterval?: number;
-  /** Duration of each arc flight in ms */
   arcAnimationDuration?: number;
-  /** Distance of camera from center (lower = closer) */
   cameraAltitude?: number;
-  /** Density of land dots grid */
   landDotRows?: number;
-  /** Size of land dots */
   pointSize?: number;
-  /** Altitude/thickness of atmosphere glow */
   atmosphereAltitude?: number;
-  /** URL for the equirectangular land alpha map */
   landMapUrl?: string;
-  /** Additional CSS class names */
   className?: string;
-  /** Callback fired when globe is fully initialized and mounted */
   onReady?: () => void;
-  /** Click handler returning latitude and longitude */
   onGlobeClick?: (
     coords: { lat: number; lng: number },
     event: MouseEvent
   ) => void;
-  /** Polygon resolution for point dots */
   pointResolution?: number;
-  /** Opacity of base globe sphere (0 to 1) */
   globeOpacity?: number;
 }
 
@@ -66,10 +43,8 @@ interface LandPoint {
   lng: number;
 }
 
-// In-memory cache for sampled land map points
 const pointsCache = new Map<string, LandPoint[]>();
 
-// Helper to convert hex / rgb string to rgb components for rgba rings
 function parseRgb(colorStr: string): string {
   if (!colorStr) return "0, 56, 226";
   const hexMatch = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(colorStr);
@@ -83,10 +58,6 @@ function parseRgb(colorStr: string): string {
   return "0, 56, 226";
 }
 
-/**
- * React Bits Pro Globe Component
- * Interactive 3D globe with animated arcs and location markers.
- */
 export const Globe: React.FC<GlobeProps> = ({
   width = "auto",
   height = "auto",
@@ -139,7 +110,6 @@ export const Globe: React.FC<GlobeProps> = ({
 
   const DEG2RAD = Math.PI / 180;
 
-  // Load globe.gl dynamically if not already available on window
   useEffect(() => {
     let isCancelled = false;
 
@@ -171,7 +141,6 @@ export const Globe: React.FC<GlobeProps> = ({
     };
   }, []);
 
-  // Land map rasterizer to sample spherical coordinates from alpha
   const sampleLandPoints = useCallback(
     (img: HTMLImageElement): LandPoint[] => {
       const cacheKey = `${landMapUrl}_${landDotRows}`;
@@ -217,7 +186,6 @@ export const Globe: React.FC<GlobeProps> = ({
     [landDotRows, landMapUrl, DEG2RAD]
   );
 
-  // Clean up Three.js scenes and timers
   const destroyGlobe = useCallback(() => {
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
@@ -250,7 +218,6 @@ export const Globe: React.FC<GlobeProps> = ({
           globeInstanceRef.current.renderer().dispose();
         }
       } catch (err) {
-        // Silently catch dispose errors
       }
       globeInstanceRef.current = null;
     }
@@ -263,7 +230,6 @@ export const Globe: React.FC<GlobeProps> = ({
     isMountedRef.current = false;
   }, []);
 
-  // Main init effect
   useEffect(() => {
     if (
       isLoadingScript ||
@@ -297,7 +263,6 @@ export const Globe: React.FC<GlobeProps> = ({
       const calcWidth = width === "auto" ? parentWidth : width;
       const calcHeight = height === "auto" ? parentHeight : height;
 
-      // Load land map image
       const img = new Image();
       img.crossOrigin = "anonymous";
       img.src = landMapUrl;
@@ -308,7 +273,6 @@ export const Globe: React.FC<GlobeProps> = ({
 
         if (!(window as any).Globe || !containerRef.current) return;
 
-        // Generate base sphere material color canvas
         const colorCanvas = document.createElement("canvas");
         colorCanvas.width = 1;
         colorCanvas.height = 1;
@@ -318,7 +282,6 @@ export const Globe: React.FC<GlobeProps> = ({
           ctx.fillRect(0, 0, 1, 1);
         }
 
-        // Initialize Globe
         const globe = (window as any).Globe()(container)
           .globeImageUrl(colorCanvas.toDataURL())
           .backgroundColor("rgba(0, 0, 0, 0)")
@@ -333,26 +296,22 @@ export const Globe: React.FC<GlobeProps> = ({
           .pointResolution(pointResolution)
           .pointAltitude(0)
           .pointsMerge(true)
-          // Animated Arcs
           .arcColor(() => defPrimaryColor)
           .arcStroke(0.32)
           .arcDashInitialGap(1)
           .arcDashLength(2.2)
           .arcDashGap(2.5)
           .arcDashAnimateTime(arcAnimationDuration)
-          // Markers
           .labelText(() => "")
           .labelColor(() => defPrimaryColor)
           .labelDotRadius(0.38)
           .labelAltitude(0.003)
           .labelsTransitionDuration(300)
-          // Arrival destination ripple rings
           .ringColor(() => (t: number) => `rgba(${parseRgb(defPrimaryColor)}, ${Math.max(0, 1 - t)})`)
           .ringMaxRadius(2.6)
           .ringPropagationSpeed(2.2)
           .ringRepeatPeriod(0);
 
-        // Configure sphere transparency & lighting
         const globeMat = globe.globeMaterial();
         if (globeMat) {
           globeMat.transparent = true;
@@ -360,7 +319,6 @@ export const Globe: React.FC<GlobeProps> = ({
           globeMat.shininess = 0.8;
         }
 
-        // Clamp pixel ratio to prevent multi-megapixel Retina overdraw on 4K screens
         const renderer = globe.renderer?.();
         if (renderer) {
           const clampedPixelRatio = Math.min(
@@ -392,7 +350,6 @@ export const Globe: React.FC<GlobeProps> = ({
           });
         });
 
-        // Arc animator
         const animateArcs = () => {
           if (
             !globeInstanceRef.current ||
@@ -470,7 +427,6 @@ export const Globe: React.FC<GlobeProps> = ({
         timeoutsRef.current.push(initialTimer);
         intervalRef.current = setInterval(animateArcs, arcInterval);
 
-        // Handle window & parent resizing
         let resizeDebounce: ReturnType<typeof setTimeout>;
         const handleResize = () => {
           clearTimeout(resizeDebounce);
@@ -498,7 +454,6 @@ export const Globe: React.FC<GlobeProps> = ({
           resizeObserver.observe(container.parentElement);
         }
 
-        // Viewport intersection observer to completely halt WebGL rendering when hidden
         let intersectionObserver: IntersectionObserver | null = null;
         if ("IntersectionObserver" in window) {
           intersectionObserver = new IntersectionObserver(
@@ -536,7 +491,6 @@ export const Globe: React.FC<GlobeProps> = ({
       };
 
       img.onerror = () => {
-        // Fallback to online CDN map if local image fails
         if (landMapUrl !== "https://assets.ot.digital/img/map.png") {
           img.src = "https://assets.ot.digital/img/map.png";
         } else {
@@ -584,7 +538,6 @@ export const Globe: React.FC<GlobeProps> = ({
     globeOpacity,
   ]);
 
-  // Dynamically update camera altitude when prop changes (e.g. mobile vs desktop)
   useEffect(() => {
     if (globeInstanceRef.current && cameraAltitude !== undefined) {
       globeInstanceRef.current.pointOfView({ altitude: cameraAltitude });

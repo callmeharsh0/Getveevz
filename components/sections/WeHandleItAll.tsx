@@ -74,10 +74,6 @@ const services = [
   },
 ];
 
-
-/**
- * Tactical Deep Black Card with #8BA3C6 frost accent and GPU-accelerated spotlight.
- */
 function TactileCard({
   children,
   className = "",
@@ -107,7 +103,6 @@ function TactileCard({
       onMouseLeave={handleMouseLeave}
       className={`relative overflow-hidden rounded-2xl bg-[#090E14] text-white transition-all duration-300 border border-[#8BA3C6]/20 shadow-[0_18px_45px_-10px_rgba(0,0,0,0.8)] hover:-translate-y-1 hover:border-[#8BA3C6]/50 ${className}`}
     >
-      {/* Zero-rerender cursor spotlight in brand frost blue #8BA3C6 */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -inset-px opacity-0 transition-opacity duration-300"
@@ -129,7 +124,6 @@ export default function WeHandleItAll() {
   const sparkRef = useRef<HTMLDivElement>(null);
   const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  // ── Lenis & GSAP ScrollTrigger Scrub (Zero-rerender architecture) ──
   useEffect(() => {
     if (!timelineRef.current || !laserBeamRef.current) return;
 
@@ -192,7 +186,6 @@ export default function WeHandleItAll() {
       ref={sectionRef}
       className="relative border-t border-white/10 bg-[#090E14] text-white px-4 sm:px-6 py-28 sm:py-36 overflow-hidden"
     >
-      {/* Subtle ambient frost blue aura matching #8BA3C6 */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 w-[750px] h-[450px] bg-gradient-to-b from-[#8BA3C6]/12 via-transparent to-transparent blur-[140px] z-0"
@@ -202,14 +195,12 @@ export default function WeHandleItAll() {
         className="pointer-events-none absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full bg-gradient-to-tl from-[#8BA3C6]/10 via-transparent to-transparent blur-[140px] z-0"
       />
 
-      {/* Seamless smooth gradient fade into Pricing section */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute bottom-0 inset-x-0 h-48 sm:h-64 bg-gradient-to-b from-transparent via-[#090E14]/70 to-[#090E14] z-10"
       />
 
       <div className="mx-auto max-w-content relative z-10">
-        {/* ── Headline in Crisp White + Frost Italic (#8BA3C6) ── */}
         <div className="max-w-3xl">
           <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-6xl tracking-tight text-white leading-[1.15] pb-1">
             From Strategizing to Creating Content,
@@ -218,17 +209,13 @@ export default function WeHandleItAll() {
           </h2>
         </div>
 
-        {/* ── Scroll-Driven Laser Spine Timeline with #8BA3C6 Glow ── */}
         <div ref={timelineRef} className="mt-20 sm:mt-24 relative">
-          {/* Background Dim Guide Track */}
           <div className="absolute left-6 md:left-1/2 top-6 bottom-6 -translate-x-1/2 w-[2px] bg-[#8BA3C6]/20 pointer-events-none" />
 
-          {/* Active Scrubbed Glowing Laser Beam */}
           <div
             ref={laserBeamRef}
             className="absolute left-6 md:left-1/2 top-6 bottom-6 -translate-x-1/2 w-[2.5px] bg-gradient-to-b from-[#8BA3C6] via-[#8BA3C6] to-white shadow-[0_0_20px_rgba(139,163,198,1),0_0_8px_#ffffff] origin-top pointer-events-none z-10"
           >
-            {/* Leading Laser Spark Particle in #8BA3C6 with White Core */}
             <div
               ref={sparkRef}
               className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-[#8BA3C6] shadow-[0_0_25px_rgba(139,163,198,1),0_0_10px_#ffffff] opacity-0 transition-opacity duration-200 pointer-events-none z-20"
@@ -252,10 +239,8 @@ export default function WeHandleItAll() {
                     isEven ? "md:flex-row-reverse" : ""
                   } group`}
                 >
-                  {/* Content Card Side: Matching #090E14 Card with #8BA3C6 Accents */}
                   <div className="w-full md:w-[calc(50%-44px)] pl-16 md:pl-0">
                     <TactileCard className="step-card p-6 md:p-8">
-                      {/* Phase & Badge Row */}
                       <div className="flex items-center justify-between gap-2 sm:gap-3 mb-4">
                         <span className="font-mono text-[10px] xs:text-[11px] uppercase tracking-wider xs:tracking-widest font-semibold text-[#8BA3C6]">
                           {phase}
@@ -265,7 +250,6 @@ export default function WeHandleItAll() {
                         </span>
                       </div>
 
-                      {/* Title with Icon */}
                       <div className="flex items-center gap-3 mb-3">
                         <div className="step-icon-box w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 bg-[#8BA3C6]/10 border border-[#8BA3C6]/20 text-[#8BA3C6]">
                           <Icon className="w-5 h-5 text-current" />
@@ -279,7 +263,6 @@ export default function WeHandleItAll() {
                         {desc}
                       </p>
 
-                      {/* Bottom Highlight Tag */}
                       <div className="mt-5 pt-4 border-t border-white/10 flex items-center gap-2 text-xs font-mono text-[#8BA3C6]/80">
                         <CheckCircle2 className="step-check w-3.5 h-3.5 text-[#8BA3C6] transition-colors duration-300" />
                         <span>
@@ -290,14 +273,12 @@ export default function WeHandleItAll() {
                     </TactileCard>
                   </div>
 
-                  {/* Central Node on the Spine */}
                   <div className="absolute left-6 md:left-1/2 -translate-x-1/2 flex items-center justify-center z-10">
                     <div className="step-node w-11 h-11 rounded-full flex items-center justify-center font-mono text-xs font-bold transition-all duration-500 shadow-xl bg-[#090E14] border-2 border-[#8BA3C6]/30 text-[#8BA3C6] group-hover:border-[#8BA3C6] group-hover:scale-105">
                       {n}
                     </div>
                   </div>
 
-                  {/* Empty Opposite Half on Desktop */}
                   <div className="hidden md:block md:w-[calc(50%-44px)]" />
                 </div>
               );

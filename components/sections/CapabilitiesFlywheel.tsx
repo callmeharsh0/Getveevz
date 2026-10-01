@@ -76,9 +76,6 @@ export default function CapabilitiesFlywheel() {
   const showcaseRef = useRef<HTMLDivElement>(null);
   const current = NODES[activeNode];
 
-  // Select a node and smoothly scroll the showcase card into view so the
-  // details for that step are visible (especially useful on mobile where the
-  // card sits below the flywheel).
   const handleSelectNode = (index: number) => {
     setActiveNode(index);
     showcaseRef.current?.scrollIntoView({
@@ -87,7 +84,6 @@ export default function CapabilitiesFlywheel() {
     });
   };
 
-  // Auto-advance every 6 seconds unless user is hovering/interacting
   useEffect(() => {
     if (isPaused) return;
     const timer = setInterval(() => {
@@ -103,7 +99,6 @@ export default function CapabilitiesFlywheel() {
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      {/* Subtle Hero-Matching Ambient Glows */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute top-1/2 left-1/4 -translate-y-1/2 w-[600px] h-[600px] bg-[#0038E2]/[0.035] blur-[150px] rounded-full"
@@ -118,28 +113,19 @@ export default function CapabilitiesFlywheel() {
       />
 
       <div className="mx-auto max-w-content relative z-10">
-        {/* Section Header with User-Friendly Language */}
         <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
           <h2 className="font-display font-medium text-2xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight text-[#111111] leading-tight">
             Everything You Need to Turn Content Into Real Reach
           </h2>
         </div>
 
-        {/* 2-Column Flywheel Layout with Fixed, Balanced Proportions */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-          {/* ========================================================================= */}
-          {/* LEFT: INTERACTIVE ORBITAL FLYWHEEL                                        */}
-          {/* ========================================================================= */}
           <div className="lg:col-span-5 flex flex-col items-center justify-center relative pt-8 pb-4 px-4 sm:p-8">
-            {/* Outer Orbit Ring */}
             <div className="relative w-[260px] h-[260px] xs:w-[310px] xs:h-[310px] sm:w-[380px] sm:h-[380px] rounded-full border border-[#111111]/12 bg-[#F8F6F2]/60 flex items-center justify-center shadow-[0_12px_44px_rgba(0,0,0,0.04)]">
-              {/* Spinning subtle dashed accent ring */}
               <div className="absolute inset-4 rounded-full border border-dashed border-[#0038E2]/25 animate-[spin_60s_linear_infinite]" />
 
-              {/* Pulsing circular ambient glow */}
               <div className="absolute inset-0 rounded-full border border-[#0038E2]/10 pointer-events-none" />
 
-              {/* Center Core Hub */}
               <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-[#111111] border border-black/10 flex flex-col items-center justify-center text-center p-3 shadow-[0_16px_40px_rgba(0,0,0,0.18)] z-10 transition-transform duration-500 hover:scale-105 cursor-default">
                 <RotateCw className="w-5 h-5 sm:w-6 sm:h-6 text-[#8BA3C5] animate-[spin_12s_linear_infinite] mb-1.5" />
                 <span className="text-xs sm:text-sm font-bold font-display text-white tracking-wide">
@@ -150,17 +136,15 @@ export default function CapabilitiesFlywheel() {
                 </span>
               </div>
 
-              {/* 4 Cardinal Orbital Nodes: Top, Right, Bottom, Left */}
               {NODES.map((node, i) => {
                 const isActive = activeNode === i;
                 const Icon = node.icon;
 
-                // 4 Cardinal positions: Top, Right, Bottom, Left
                 const positions = [
-                  "top-0 left-1/2 -translate-x-1/2 -translate-y-1/2",    // 01 Clipping (Top)
-                  "right-0 top-1/2 translate-x-1/2 -translate-y-1/2",     // 02 Distribution (Right)
-                  "bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2",  // 03 Campaign Management (Bottom)
-                  "left-0 top-1/2 -translate-x-1/2 -translate-y-1/2",    // 04 Tracking (Left)
+                  "top-0 left-1/2 -translate-x-1/2 -translate-y-1/2",
+                  "right-0 top-1/2 translate-x-1/2 -translate-y-1/2",
+                  "bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2",
+                  "left-0 top-1/2 -translate-x-1/2 -translate-y-1/2",
                 ];
 
                 return (
@@ -192,7 +176,6 @@ export default function CapabilitiesFlywheel() {
               })}
             </div>
 
-            {/* Quick Step Indicators with Timer Progress Bar */}
             <div className="mt-16 sm:mt-14 flex items-center gap-2">
               {NODES.map((n, idx) => (
                 <button
@@ -211,18 +194,13 @@ export default function CapabilitiesFlywheel() {
             </span>
           </div>
 
-          {/* ========================================================================= */}
-          {/* RIGHT: STANDARDIZED FIXED-SIZE FLYWHEEL SHOWCASE CARD                     */}
-          {/* ========================================================================= */}
           <div className="lg:col-span-7">
             <div
               ref={showcaseRef}
               className="relative w-full min-h-[500px] sm:min-h-[520px] rounded-3xl bg-white border border-[#111111]/12 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.06),0_1px_3px_rgba(0,0,0,0.03)] p-4 xs:p-6 sm:p-9 flex flex-col justify-between gap-3 sm:gap-4 overflow-hidden"
             >
-              {/* Corner Ambient Glow */}
               <div className="absolute -top-12 -right-12 w-64 h-64 bg-[#0038E2]/[0.06] blur-[90px] rounded-full pointer-events-none" />
 
-              {/* 1. FIXED TOP HEADER */}
               <div className="flex items-center justify-between border-b border-[#111111]/10 pb-4 shrink-0">
                 <div className="flex items-center gap-2.5">
                   <span className="px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-mono tracking-wider text-[#0038E2] bg-[#0038E2]/10 border border-[#0038E2]/20 uppercase font-semibold">
@@ -237,7 +215,6 @@ export default function CapabilitiesFlywheel() {
                 </div>
               </div>
 
-              {/* 2. FIXED COPY BODY (Full text display without ellipsis cuts) */}
               <div className="py-1 sm:py-2 shrink-0">
                 <AnimatePresence mode="wait">
                   <motion.div
@@ -260,10 +237,8 @@ export default function CapabilitiesFlywheel() {
                 </AnimatePresence>
               </div>
 
-              {/* 3. STANDARDIZED INTERACTIVE WIDGET (Hero light styling) */}
               <div className="min-h-[145px] sm:min-h-[150px] w-full rounded-2xl bg-[#F8F6F2] border border-[#111111]/10 p-3.5 sm:p-5 flex flex-col justify-between shrink-0 relative overflow-hidden shadow-inner">
                 <AnimatePresence mode="wait">
-                  {/* WIDGET 1: CLIPPING */}
                   {activeNode === 0 && (
                     <motion.div
                       key="widget-clipping"
@@ -283,7 +258,6 @@ export default function CapabilitiesFlywheel() {
                         </span>
                       </div>
 
-                      {/* Equalizer Waveform with Hero palette */}
                       <div className="h-12 flex items-end gap-1.5 py-1">
                         {[40, 65, 30, 90, 100, 75, 45, 85, 95, 60, 40, 92, 100, 80, 50, 88, 96, 70, 45, 85, 98, 65, 35].map(
                           (val, i) => (
@@ -306,7 +280,6 @@ export default function CapabilitiesFlywheel() {
                     </motion.div>
                   )}
 
-                  {/* WIDGET 2: DISTRIBUTION */}
                   {activeNode === 1 && (
                     <motion.div
                       key="widget-distribution"
@@ -352,7 +325,6 @@ export default function CapabilitiesFlywheel() {
                     </motion.div>
                   )}
 
-                  {/* WIDGET 3: CAMPAIGN MANAGEMENT */}
                   {activeNode === 2 && (
                     <motion.div
                       key="widget-management"
@@ -390,7 +362,6 @@ export default function CapabilitiesFlywheel() {
                     </motion.div>
                   )}
 
-                  {/* WIDGET 4: TRACKING */}
                   {activeNode === 3 && (
                     <motion.div
                       key="widget-tracking"
@@ -437,7 +408,6 @@ export default function CapabilitiesFlywheel() {
                 </AnimatePresence>
               </div>
 
-              {/* 4. FIXED FOOTER */}
               <div className="pt-4 border-t border-[#111111]/10 flex items-center justify-between shrink-0">
                 <div>
                   <span className="text-[10px] font-mono text-[#666666] uppercase tracking-wider block">

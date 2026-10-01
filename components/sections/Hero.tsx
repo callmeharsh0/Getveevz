@@ -130,7 +130,6 @@ function HeroStatCounter({
     const startVal = isAll ? 800 : prevTargetRef.current;
     const diff = target - startVal;
 
-    // Small delay on load so user visually catches the counter starting at 800M
     const startDelay = 120;
 
     const timerId = setTimeout(() => {
@@ -139,7 +138,6 @@ function HeroStatCounter({
         const elapsed = timestamp - startTime;
         const progress = Math.min(elapsed / (duration * 1000), 1);
 
-        // Smooth easeOutExpo curve
         const ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
         const current = startVal + diff * ease;
 
@@ -201,7 +199,6 @@ export default function Hero() {
   const arrowRef = useRef<HTMLButtonElement>(null);
   const ctaButtonRef = useRef<HTMLDivElement>(null);
 
-  // Depth & Interactive Layer Refs
   const spotlightRef = useRef<HTMLDivElement>(null);
   const cardLeftRef = useRef<HTMLDivElement>(null);
   const cardRightRef = useRef<HTMLDivElement>(null);
@@ -223,7 +220,6 @@ export default function Hero() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Interactive particle coordinates
   const particles = useMemo(
     () =>
       Array.from({ length: 24 }, (_, i) => ({
@@ -237,7 +233,6 @@ export default function Hero() {
     []
   );
 
-  // GSAP Entrance, Interactive Spotlight & Mouse Parallax
   useEffect(() => {
     if (!containerRef.current) return;
     const container = containerRef.current;
@@ -260,7 +255,6 @@ export default function Hero() {
       return;
     }
 
-    // Hardware-accelerated quickTo mouse spotlight & parallax
     let spotlightX = gsap.quickTo(spotlightRef.current, "x", { duration: 0.6, ease: "power2.out" });
     let spotlightY = gsap.quickTo(spotlightRef.current, "y", { duration: 0.6, ease: "power2.out" });
 
@@ -269,15 +263,12 @@ export default function Hero() {
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
 
-      // Update cursor glow beam
       spotlightX(x);
       spotlightY(y);
 
-      // Normalised coordinates (-1 to 1) for 3D tilt
       const normX = (x / rect.width - 0.5) * 2;
       const normY = (y / rect.height - 0.5) * 2;
 
-      // 3D Parallax on scattered floating platform logos
       const logoNodes = container.querySelectorAll<HTMLElement>(".floating-scatter-logo");
       logoNodes.forEach((node) => {
         const depth = parseFloat(node.dataset.depth || "16");
@@ -300,7 +291,6 @@ export default function Hero() {
         });
       }
 
-      // Magnetic pull on CTA button
       if (ctaButtonRef.current) {
         const ctaRect = ctaButtonRef.current.getBoundingClientRect();
         const dist = Math.hypot(e.clientX - (ctaRect.left + ctaRect.width / 2), e.clientY - (ctaRect.top + ctaRect.height / 2));
@@ -317,7 +307,6 @@ export default function Hero() {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-      // Initial state
       gsap.set(navRef.current, { opacity: 0, y: -20 });
       if (eyebrowsRef.current) {
         gsap.set(eyebrowsRef.current.querySelectorAll(".eyebrow-item"), { opacity: 0, y: 16 });
@@ -327,7 +316,6 @@ export default function Hero() {
       gsap.set(cardRightRef.current, { opacity: 0, scale: 0.8, y: 30 });
       gsap.set([bottomLeftRef.current, bottomRightRef.current], { opacity: 0, y: 24 });
 
-      // Coordinated Staggered Entrance
       tl.to(navRef.current, { opacity: 1, y: 0, duration: 0.6 })
         .to(eyebrowsRef.current?.querySelectorAll(".eyebrow-item") || [], { opacity: 1, y: 0, duration: 0.5, stagger: 0.06 }, "-=0.35")
         .to(wordmarkRef.current, { opacity: 1, scale: 1, y: 0, duration: 0.7, ease: "power2.out" }, "-=0.3")
@@ -335,7 +323,6 @@ export default function Hero() {
         .to([bottomLeftRef.current, bottomRightRef.current], { opacity: 1, y: 0, duration: 0.6, stagger: 0.08 }, "-=0.5")
         .to(cardRightRef.current, { opacity: 1, scale: 1, y: 0, duration: 0.7 }, "-=0.4");
 
-      // Scroll trigger for nav elevation
       if (navRef.current) {
         ScrollTrigger.create({
           trigger: containerRef.current,
@@ -354,7 +341,6 @@ export default function Hero() {
     };
   }, []);
 
-  // Update active navigation state based on scroll position (RAF throttled)
   useEffect(() => {
     const navSections = [
       { id: "results", target: "results" },
@@ -433,16 +419,12 @@ export default function Hero() {
       id="hero"
       className="relative flex min-h-[100svh] min-h-[100dvh] flex-col justify-between px-5 sm:px-8 md:px-12 lg:px-16 pt-3 sm:pt-5 pb-5 sm:pb-8 md:pb-14 bg-[#F3EFEA] text-[#111111] overflow-hidden select-none"
     >
-      {/* ========================================================================= */}
-      {/* 0. INTERACTIVE MOUSE-FOLLOWING LIGHT BEAM & DEPTH MESH                    */}
-      {/* ========================================================================= */}
       <div
         ref={spotlightRef}
         aria-hidden="true"
         className="pointer-events-none absolute -top-48 -left-48 w-96 h-96 rounded-full bg-gradient-to-br from-frost/30 via-blue-200/25 to-transparent blur-[120px] will-change-transform z-0"
       />
 
-      {/* 3D Interactive Globe Background Layer (React Bits Pro with animated arcs & markers) */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 w-full h-full z-0 overflow-hidden opacity-75 flex items-center justify-center"
@@ -469,12 +451,10 @@ export default function Hero() {
             />
           </React.Suspense>
         </div>
-        {/* Soft edge vignetting to blend seamlessly into cream background */}
         <div className="absolute inset-0 bg-gradient-to-t from-[#F3EFEA] via-transparent to-[#F3EFEA]/80 pointer-events-none" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_35%,#F3EFEA_85%)] pointer-events-none" />
       </div>
 
-      {/* Floating particles */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0">
         {particles.map((p) => (
           <div
@@ -492,9 +472,6 @@ export default function Hero() {
         ))}
       </div>
 
-      {/* ========================================================================= */}
-      {/* SCATTERED FLOATING PLATFORM LOGOS (SCATTERED ACROSS ENTIRE HERO SECTION)  */}
-      {/* ========================================================================= */}
       {SCATTERED_PLATFORM_LOGOS.map((logo) => {
         const isCurrent = activePlatform.id === logo.platformId;
         return (
@@ -528,15 +505,11 @@ export default function Hero() {
         );
       })}
 
-      {/* ========================================================================= */}
-      {/* 1. TOP NAVIGATION BAR                                                     */}
-      {/* ========================================================================= */}
       <header
         ref={navRef}
         className="relative z-30 w-full flex items-center justify-between pointer-events-none transition-all duration-500 pt-1 sm:pt-2"
         data-reveal
       >
-        {/* Logo Mark (Left) */}
         <a
           href="/"
           className="pointer-events-auto group flex items-center gap-2.5 sm:gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] rounded-full"
@@ -554,7 +527,6 @@ export default function Hero() {
           </span>
         </a>
 
-        {/* CTA (Right) */}
         <div ref={ctaButtonRef} className="pointer-events-auto flex items-center gap-2 sm:gap-3">
           <button
             type="button"
@@ -568,7 +540,6 @@ export default function Hero() {
             <span className="whitespace-nowrap">Book a Strategy Call</span>
           </button>
 
-          {/* Mobile Menu Toggle Button (44-48px white circle) */}
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -581,7 +552,6 @@ export default function Hero() {
         </div>
       </header>
 
-      {/* Mobile Drawer Backdrop & Menu */}
       {mobileMenuOpen && (
         <>
           <div
@@ -589,7 +559,6 @@ export default function Hero() {
             onClick={() => setMobileMenuOpen(false)}
           />
           <div className="lg:hidden fixed inset-x-4 top-20 z-50 p-5 sm:p-6 rounded-3xl bg-[#090A0D]/95 text-white border border-white/[0.12] shadow-[0_24px_64px_rgba(0,0,0,0.8),inset_0_1px_1px_rgba(255,255,255,0.1)] backdrop-blur-2xl flex flex-col gap-4 animate-in fade-in slide-in-from-top-4 duration-300">
-            {/* Top Bar inside Menu */}
             <div className="flex items-center justify-between pb-3.5 border-b border-white/[0.08]">
               <span className="text-[11px] font-mono uppercase tracking-[0.22em] text-[#8BA3C5] font-semibold">
                 Directory
@@ -604,7 +573,6 @@ export default function Hero() {
               </button>
             </div>
 
-            {/* Navigation Links */}
             <nav className="flex flex-col gap-1.5">
               {[
                 { id: "home", label: "Home" },
@@ -641,7 +609,6 @@ export default function Hero() {
               })}
             </nav>
 
-            {/* CTA Button */}
             <button
               type="button"
               onClick={() => {
@@ -655,7 +622,6 @@ export default function Hero() {
               <span>Book a Strategy Call</span>
             </button>
 
-            {/* Micro Meta Footer */}
             <div className="flex items-center justify-between pt-1 px-1 text-[10.5px] font-mono text-white/40">
               <span className="flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block" />
@@ -667,15 +633,11 @@ export default function Hero() {
         </>
       )}
 
-      {/* ========================================================================= */}
-      {/* 2. EYEBROW LABELS (BASELINE ALIGNED WITH INTERACTIVE PLATFORM SWITCHER)   */}
-      {/* ========================================================================= */}
       <div
         ref={eyebrowsRef}
         className="w-full mt-2.5 sm:mt-8 md:mt-14 pt-0.5 sm:pt-2 flex flex-col items-center md:flex-row md:items-baseline md:justify-between gap-1.5 sm:gap-3 pb-1 z-10"
         data-reveal
       >
-        {/* Left/Center Eyebrow: Section Tag */}
         <div className="flex items-center justify-center gap-2">
           <span className="eyebrow-item text-[10.5px] sm:text-xs tracking-[0.2em] uppercase font-medium text-[#495B7D] flex items-center gap-1.5 sm:gap-2">
             <span className="text-[#0038E2] font-mono text-[10.5px] sm:text-xs font-semibold">( 01 )</span>
@@ -683,7 +645,6 @@ export default function Hero() {
           </span>
         </div>
 
-        {/* Right Eyebrow: Interactive Platform Selector (20% smaller on mobile, unconstrained width on desktop) */}
         <div className="eyebrow-item flex items-center justify-center md:justify-end w-full md:w-auto">
           <div className="inline-flex items-center justify-between md:justify-start w-auto sm:max-w-none md:max-w-none scale-[0.80] origin-center sm:scale-100 h-[32px] sm:h-[38px] p-0.5 sm:p-1 rounded-full bg-white/95 border border-[#111111]/10 backdrop-blur-md shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
             {PLATFORMS.map((p) => {
@@ -707,15 +668,11 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* ========================================================================= */}
-      {/* 3. CENTER DISPLAY WORDMARK + FLOATING INTERACTIVE 3D VIDEO CARDS          */}
-      {/* ========================================================================= */}
       <div
         ref={wordmarkRef}
         className="relative my-auto py-1 sm:py-8 md:py-14 flex flex-col items-center justify-center text-center overflow-visible z-20"
         data-reveal
       >
-        {/* Main Central Interactive Wordmark + Supporting Headline (Moved downwards by 20% on mobile) */}
         <div className="flex flex-col items-center justify-center text-center translate-y-[35%] sm:translate-y-0 transition-transform">
           <div className="relative z-20 inline-flex items-baseline justify-center group cursor-default">
             <h1
@@ -748,7 +705,6 @@ export default function Hero() {
               </span>
             </h1>
 
-            {/* Trademark/Engine Glyph on desktop */}
             <div
               onClick={() => {
                 const currentIdx = PLATFORMS.findIndex((p) => p.id === activePlatform.id);
@@ -761,14 +717,12 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Supporting Headline directly below GetVeevz (Refined smaller typography on mobile) */}
           <h2 className="font-display font-normal text-[12.5px] sm:text-base md:text-2xl text-[#333333] sm:text-[#111111] leading-[1.45] max-w-[270px] sm:max-w-xl mx-auto mt-2 sm:mt-5 tracking-tight text-center">
             <span className="block sm:inline">We cut short form clips from long form </span>
             <span className="block sm:inline">content and post across social media </span>
             <span className="block sm:inline">platforms</span>
           </h2>
 
-          {/* Trademark/Engine Glyph on mobile - centered below subtitle */}
           <div
             onClick={() => {
               const currentIdx = PLATFORMS.findIndex((p) => p.id === activePlatform.id);
@@ -781,14 +735,12 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Video Card (Floating Analytics): Moved downwards by 40% on mobile */}
         <div className="w-full flex justify-center translate-y-[75%] sm:translate-y-0 xl:contents pointer-events-auto">
           <div
             ref={cardRightRef}
             onClick={toggleVideoPlayback}
             className="mt-4 sm:mt-10 xl:mt-0 xl:absolute xl:-right-2 xl:-bottom-8 flex items-center xl:flex-col gap-3 p-3 sm:p-3 rounded-[22px] sm:rounded-3xl bg-white border border-[#111111]/10 shadow-[0_12px_36px_rgba(0,0,0,0.08),0_2px_8px_rgba(0,0,0,0.04)] transition-all duration-300 hover:scale-[1.02] xl:hover:scale-105 hover:border-[#111111]/25 w-[calc(100%-32px)] max-w-[350px] sm:max-w-[380px] xl:w-56 text-left cursor-pointer group pointer-events-auto mx-auto"
           >
-            {/* Micro Video Card Screen */}
             <div className="relative w-[138px] sm:w-[170px] xl:w-full h-[84px] sm:h-28 rounded-xl overflow-hidden bg-black border border-black/10 shrink-0">
               <video
                 ref={videoPreviewRef}
@@ -802,13 +754,11 @@ export default function Hero() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
 
-              {/* Play/Pause Overlay Indicator */}
               <div className="absolute top-1.5 right-1.5 sm:top-2 sm:right-2 px-1.5 py-0.5 rounded-md bg-black/70 backdrop-blur-md text-[8px] sm:text-[9px] font-mono text-white flex items-center gap-1 border border-white/20">
                 {isVideoPlaying ? <Activity className="w-2 sm:w-2.5 h-2 sm:h-2.5 animate-spin" /> : <Pause className="w-2 sm:w-2.5 h-2 sm:h-2.5" />}
                 <span>LIVE</span>
               </div>
 
-              {/* Metric pill on video */}
               <div className="absolute bottom-1.5 sm:bottom-2 left-1.5 sm:left-2 right-1.5 sm:right-2 flex items-center justify-between">
                 <span className="text-[9px] sm:text-[10px] font-bold text-white font-display drop-shadow-md">
                   {activePlatform.metric}
@@ -819,7 +769,6 @@ export default function Hero() {
               </div>
             </div>
 
-            {/* Micro Card Label */}
             <div className="flex items-center justify-between gap-2 px-1 w-full min-w-0">
               <div className="flex items-center gap-1.5 text-[#111111] font-medium leading-tight shrink-0">
                 <Share2 className="w-3.5 h-3.5 text-[#0038E2] shrink-0" />
@@ -837,17 +786,12 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* ========================================================================= */}
-      {/* 4. BOTTOM CONTROLS (DOWN ARROW & TELEMETRY STATS)                         */}
-      {/* ========================================================================= */}
       <div className="w-full mt-2 sm:mt-6 md:mt-auto pt-2 sm:pt-4 flex items-end justify-between relative z-10">
-        {/* BOTTOM CENTER on mobile, LEFT on desktop: Circular Downward Arrow Cue */}
         <div
           ref={bottomLeftRef}
           className="absolute left-1/2 -translate-x-1/2 sm:static sm:translate-x-0 flex flex-col items-center gap-1.5"
           data-reveal
         >
-          {/* Subtle vertical guide line */}
           <div className="w-px h-8 sm:h-6 bg-[#111111]/15" />
           <button
             ref={arrowRef}
@@ -860,7 +804,6 @@ export default function Hero() {
           </button>
         </div>
 
-        {/* BOTTOM RIGHT: Big Stat Number */}
         <div
           ref={bottomRightRef}
           className="ml-auto flex flex-col items-end justify-end"

@@ -5,12 +5,10 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 
-// Safe client-side plugin registration
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-// Simple internal classnames merger (zero dependencies)
 function classNames(...classes: (string | undefined | null | false)[]): string {
   return classes.filter(Boolean).join(" ");
 }
@@ -34,27 +32,16 @@ export interface ProblemBadge {
 }
 
 export interface DistributionFlowProps {
-  /** Video source url for center long-form video */
   videoSrc?: string;
-  /** Poster image before video loads */
   videoPoster?: string;
-  /** Whether to show the intro statement above the pinned canvas */
   showIntroHeader?: boolean;
-  /** Top line of the intro statement */
   headlinePrefix?: string;
-  /** Highlighted accent word in intro statement */
   headlineAccent?: string;
-  /** Primary line of the pinned punchline */
   punchlinePrimary?: string;
-  /** Highlighted accent word of pinned punchline */
   punchlineAccent?: string;
-  /** Custom output clip cards */
   outputs?: OutputNode[];
-  /** Custom problem badges around the video */
   problemLabels?: ProblemBadge[];
-  /** Custom bottom pipeline steps */
   flowSteps?: string[];
-  /** Additional container className */
   className?: string;
 }
 
@@ -128,17 +115,11 @@ const DEFAULT_OUTPUTS: OutputNode[] = [
 ];
 
 const CONNECTION_SEGMENTS = [
-  // Clip 1: Inner mid-high
   { id: "line-1", path: "M 368 360 C 425 360, 470 260, 537 260", startX: 368, startY: 360, endX: 537, endY: 260, delay: 0 },
-  // Clip 2: Upper middle, elevated
   { id: "line-2", path: "M 360 339 C 480 230, 590 140, 717 140", startX: 360, startY: 339, endX: 717, endY: 140, delay: 0.2 },
-  // Clip 3: Far top-right
   { id: "line-3", path: "M 368 380 C 560 380, 760 250, 957 250", startX: 368, startY: 380, endX: 957, endY: 250, delay: 0.35 },
-  // Clip 4: Center-right anchor
   { id: "line-4", path: "M 368 405 C 510 405, 650 415, 797 415", startX: 368, startY: 405, endX: 797, endY: 415, delay: 0.5 },
-  // Clip 5: Inner mid-low
   { id: "line-5", path: "M 368 435 C 440 435, 490 590, 567 590", startX: 368, startY: 435, endX: 567, endY: 590, delay: 0.65 },
-  // Clip 6: Far bottom-right
   { id: "line-6", path: "M 360 461 C 550 540, 740 630, 927 630", startX: 360, startY: 461, endX: 927, endY: 630, delay: 0.8 },
 ];
 
@@ -155,12 +136,6 @@ const DEFAULT_FLOW_STEPS: string[] = [
   "DISTRIBUTE",
 ];
 
-/**
- * DistributionFlow (Standalone TypeScript + Tailwind Component)
- * 
- * An interactive, scroll-pinned section showing how 1 raw long-form video
- * is extracted, optimized, and multiplied into 6 short-form clips.
- */
 export default function DistributionFlow({
   videoSrc = "/assets/clipping.mp4",
   videoPoster = "",
@@ -191,7 +166,6 @@ export default function DistributionFlow({
   const punchline4Ref = useRef<HTMLDivElement | null>(null);
   const linesGroupRef = useRef<SVGSVGElement | null>(null);
 
-  // Viewport IntersectionObserver to prevent parallel decoding of 7 offscreen videos
   const [isInView, setIsInView] = useState(false);
 
   useEffect(() => {
@@ -212,7 +186,6 @@ export default function DistributionFlow({
     return () => observer.disconnect();
   }, []);
 
-  // 3D Parallax Tilt Effect on Source Video
   const handleSourceMouseMove = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
       const el = tiltRef.current;
@@ -233,7 +206,6 @@ export default function DistributionFlow({
     }
   }, []);
 
-  // Card Hover Interactivity
   const handlePieceEnter = useCallback((id: string) => {
     const inner = pieceRefs.current[id]?.querySelector<HTMLElement>(".piece-inner");
     if (inner) {
@@ -252,7 +224,6 @@ export default function DistributionFlow({
     }
   }, []);
 
-  // GSAP ScrollTrigger Sequence
   useGSAP(
     () => {
       if (!sourceRef.current || !wrapperRef.current) return;
@@ -307,7 +278,6 @@ export default function DistributionFlow({
         },
       });
 
-      // 1. Problem Badges appear & Statement fades gracefully as clips emerge
       problemLabels.forEach((_, i) => {
         const el = problemLabelRefs.current[i];
         if (el) tl.to(el, { opacity: 1, y: 0, duration: 0.05 }, 0.01 + i * 0.015);
@@ -326,14 +296,12 @@ export default function DistributionFlow({
         if (el) tl.to(el, { opacity: 0, y: -10, duration: 0.04 }, 0.07 + i * 0.015);
       });
 
-      // 2. Shrink source video & move smoothly to left
       tl.to(
         sourceRef.current,
         { scale: 0.58, x: -240, duration: 0.10, ease: "power2.inOut" },
         0.08
       );
 
-      // 3. Burst short-form cards outward to the right side
       if (linesGroupRef.current) {
         tl.to(
           linesGroupRef.current,
@@ -360,11 +328,9 @@ export default function DistributionFlow({
         );
       });
 
-      // 4. Shift content group on desktop to make room for punchline on left; center optically on mobile
       if (contentGroupRef.current) {
         const isClient = typeof window !== "undefined";
         const winWidth = isClient ? window.innerWidth : 390;
-        // Dynamically compute mobile scale: ~23% larger than before, perfectly bounded with 12px+ safety margins
         const mobileScale = Math.min(0.37, Math.max(0.34, (winWidth - 24) / 950));
         const mobileX = -Math.round(113.2 * mobileScale);
 
@@ -377,15 +343,12 @@ export default function DistributionFlow({
         );
       }
 
-      // 5. Flow steps pipeline synchronized with narrative
       flowSteps.forEach((_, i) => {
         const el = flowStepRefs.current[i];
         const stepMilestones = [0.22, 0.42, 0.62, 0.82];
         if (el) tl.to(el, { opacity: 1, y: 0, duration: 0.04 }, stepMilestones[i] ?? (0.22 + i * 0.2));
       });
 
-      // 6. Progressive Narrative: "You want leads" -> "you want conversion" -> "you want reach" -> "we have done it before"
-      // Phase 1: "You want leads"
       if (punchline1Ref.current) {
         tl.to(
           punchline1Ref.current,
@@ -399,7 +362,6 @@ export default function DistributionFlow({
         );
       }
 
-      // Phase 2: "you want conversion"
       if (punchline2Ref.current) {
         tl.to(
           punchline2Ref.current,
@@ -413,7 +375,6 @@ export default function DistributionFlow({
         );
       }
 
-      // Phase 3: "you want reach"
       if (punchline3Ref.current) {
         tl.to(
           punchline3Ref.current,
@@ -427,7 +388,6 @@ export default function DistributionFlow({
         );
       }
 
-      // Phase 4: "we have done it before"
       if (punchline4Ref.current) {
         tl.to(
           punchline4Ref.current,
@@ -436,8 +396,6 @@ export default function DistributionFlow({
         );
       }
 
-      // 7. Holding Cushion: Lock the completed canvas and all elements stably on screen
-      // before unpinning so the scroll never moves prematurely.
       tl.to({}, { duration: 0.45 });
     },
     { scope: wrapperRef, dependencies: [outputs, problemLabels, flowSteps] }
@@ -445,18 +403,15 @@ export default function DistributionFlow({
 
   return (
     <section id="distribution" className={classNames("w-full overflow-hidden bg-[#090e14] text-[#f2ece1]", className)}>
-      {/* Pinned Scroll Sequence (GSAP Controlled) */}
       <div
         ref={wrapperRef}
         className="relative w-full h-screen min-h-[100dvh] bg-[#090e14] overflow-hidden select-none"
       >
-        {/* Ambient Depth Glow */}
         <div
           aria-hidden="true"
           className="pointer-events-none absolute left-1/2 top-1/2 h-[750px] w-[750px] max-w-none -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(139,163,198,0.12),transparent_70%)] blur-2xl z-[1]"
         />
 
-        {/* Integrated Intro Statement (Act 1: Centered Above Video on Entry) */}
         {showIntroHeader && (
           <div
             ref={statementRef}
@@ -474,13 +429,11 @@ export default function DistributionFlow({
           </div>
         )}
 
-        {/* Pinned Progressive Punchline (Top-centered on Mobile, Left Side on Desktop) */}
         <div
           ref={finalLineRef}
           className="absolute top-[4.5%] sm:top-[6%] md:top-1/2 md:-translate-y-1/2 inset-x-4 md:inset-x-auto md:left-[9%] lg:left-[11%] xl:left-[12%] text-center md:text-left max-w-sm sm:max-w-md md:max-w-[420px] lg:max-w-[460px] mx-auto md:mx-0 z-20 pointer-events-none"
         >
           <div className="relative h-[96px] sm:h-[110px] md:h-[130px] w-full flex items-center justify-center md:justify-start">
-            {/* Phase 1: You want leads */}
             <div
               ref={punchline1Ref}
               className="absolute inset-0 flex flex-col justify-center text-center md:text-left font-display text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-medium leading-[1.15] text-[#f2ece1] tracking-tight"
@@ -489,7 +442,6 @@ export default function DistributionFlow({
               <span className="whitespace-nowrap text-[#8BA3C6] font-semibold">leads?</span>
             </div>
 
-            {/* Phase 2: you want conversion */}
             <div
               ref={punchline2Ref}
               className="absolute inset-0 flex flex-col justify-center text-center md:text-left font-display text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-medium leading-[1.15] text-[#f2ece1] tracking-tight"
@@ -498,7 +450,6 @@ export default function DistributionFlow({
               <span className="whitespace-nowrap text-[#8BA3C6] font-semibold">conversion?</span>
             </div>
 
-            {/* Phase 3: you want reach */}
             <div
               ref={punchline3Ref}
               className="absolute inset-0 flex flex-col justify-center text-center md:text-left font-display text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-medium leading-[1.15] text-[#f2ece1] tracking-tight"
@@ -507,7 +458,6 @@ export default function DistributionFlow({
               <span className="whitespace-nowrap text-[#8BA3C6] font-semibold">reach?</span>
             </div>
 
-            {/* Phase 4: we have done it before */}
             <div
               ref={punchline4Ref}
               className="absolute inset-0 flex flex-col justify-center text-center md:text-left font-display text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-medium leading-[1.15] text-[#f2ece1] tracking-tight"
@@ -518,12 +468,10 @@ export default function DistributionFlow({
           </div>
         </div>
 
-        {/* Scaled Center Cluster */}
         <div
           ref={contentGroupRef}
           className="absolute top-1/2 left-1/2 w-[1000px] h-[800px] -ml-[500px] -mt-[400px] max-w-none scale-[0.38] xs:scale-[0.44] sm:scale-70 md:scale-90 lg:scale-100 origin-center"
         >
-          {/* Animated Dotted Connection Lines with Moving Dots Originating from Main Video */}
           <svg
             ref={linesGroupRef}
             viewBox="0 0 1000 800"
@@ -545,7 +493,6 @@ export default function DistributionFlow({
             `}</style>
             {CONNECTION_SEGMENTS.map((seg) => (
               <g key={seg.id}>
-                {/* Subtle static track */}
                 <path
                   d={seg.path}
                   stroke="rgba(242, 236, 225, 0.18)"
@@ -553,7 +500,6 @@ export default function DistributionFlow({
                   strokeDasharray="2 6"
                   strokeLinecap="round"
                 />
-                {/* Moving dots continuously streaming outward to the right */}
                 <path
                   d={seg.path}
                   stroke="rgba(242, 236, 225, 0.7)"
@@ -562,7 +508,6 @@ export default function DistributionFlow({
                   strokeLinecap="round"
                   className="animate-flowing-dots"
                 />
-                {/* Pulse dot traveling along each segment */}
                 <circle r="2.5" fill="#f2ece1">
                   <animateMotion
                     path={seg.path}
@@ -579,14 +524,12 @@ export default function DistributionFlow({
                     begin={`${seg.delay}s`}
                   />
                 </circle>
-                {/* Origin & Destination connector dots */}
                 <circle cx={seg.startX} cy={seg.startY} r="3" fill="#f2ece1" opacity="0.85" />
                 <circle cx={seg.endX} cy={seg.endY} r="2.5" fill="#f2ece1" opacity="0.65" />
               </g>
             ))}
           </svg>
 
-          {/* Floating Problem Pill Badges */}
           {problemLabels.map((p, i) => (
             <div
               key={p.text}
@@ -603,7 +546,6 @@ export default function DistributionFlow({
             </div>
           ))}
 
-          {/* Central Long-Form Video Source Card (Glides to left upon scroll) */}
           <div
             ref={sourceRef}
             className="absolute top-1/2 left-1/2 w-[360px] h-[203px] -ml-[180px] -mt-[101px] max-w-none rounded-2xl overflow-hidden bg-[#0a0a0a] border border-white/10 shadow-[0_24px_60px_rgba(0,0,0,0.8)] z-[5]"
@@ -627,7 +569,6 @@ export default function DistributionFlow({
             </div>
           </div>
 
-          {/* 6 Derivative Short-Form Cards (All moved to right side, clean minimal aesthetic) */}
           {outputs.map((item) => (
             <div
               key={item.id}
@@ -638,9 +579,7 @@ export default function DistributionFlow({
               onMouseLeave={() => handlePieceLeave(item.id)}
               className="absolute top-1/2 left-1/2 w-[126px] h-[224px] -ml-[63px] -mt-[112px] aspect-[9/16] z-[3] cursor-pointer group"
             >
-              {/* 9:16 Short Clip Card Frame with Live Video Reel */}
               <div className="piece-inner relative w-full h-full rounded-xl overflow-hidden bg-[#070b10] border border-[#8BA3C6]/30 shadow-[0_12px_28px_rgba(0,0,0,0.6)] transition-all duration-350 ease-smooth group-hover:border-[#8BA3C6]/80 group-hover:shadow-[0_18px_40px_rgba(139,163,198,0.25)]">
-                {/* Background Reel Video */}
                 {item.videoSrc ? (
                   <video
                     src={isInView ? item.videoSrc : undefined}
@@ -655,14 +594,12 @@ export default function DistributionFlow({
                   <div className="w-full h-full bg-gradient-to-b from-[#141d2b]/80 via-[#0a0f16]/95 to-[#06090d]" />
                 )}
 
-                {/* Subtle Vignette & Gradient Overlays */}
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20" />
               </div>
             </div>
           ))}
         </div>
 
-        {/* Bottom Flow Pipeline Indicator */}
         <div className="absolute bottom-[3%] sm:bottom-[6%] inset-x-0 flex justify-center items-center gap-2 sm:gap-6 z-[8] flex-wrap px-2 sm:px-4">
           {flowSteps.map((step, i) => (
             <div key={step} className="flex items-center gap-2 sm:gap-6">

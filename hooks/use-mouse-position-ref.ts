@@ -43,7 +43,6 @@ export const useMousePositionRef = (
       });
     };
 
-    // Listen for mouse events with passive listeners
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
     window.addEventListener("scroll", handleScrollOrResize, { passive: true });
     window.addEventListener("resize", handleScrollOrResize, { passive: true });

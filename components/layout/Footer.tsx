@@ -96,7 +96,6 @@ export default function Footer() {
       id="site-footer"
       className="relative w-full bg-[#050608] text-white pt-10 pb-12 sm:pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden select-none"
     >
-      {/* ── Ambient Radial Backlight (Linear/Apple subtle glow) ── */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-3/4 max-w-4xl h-24 bg-gradient-to-b from-[#0038E2]/15 via-transparent to-transparent blur-3xl -z-10"
@@ -106,14 +105,11 @@ export default function Footer() {
         className="pointer-events-none absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/[0.12] to-transparent"
       />
 
-      {/* ── Double-Bezel Hardware Tray Enclosure ── */}
       <div className="relative mx-auto max-w-6xl rounded-[2.25rem] p-1.5 sm:p-2 bg-white/[0.03] border border-white/[0.08] shadow-[0_24px_64px_rgba(0,0,0,0.4)] backdrop-blur-xl">
         <div className="rounded-[calc(2.25rem-0.375rem)] bg-[#090A0D]/90 border border-white/[0.05] p-6 sm:p-10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.08)]">
 
-          {/* Top Engine Row */}
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 pb-8 sm:pb-10 border-b border-white/[0.06]">
 
-            {/* Left: Brand Identity & Precision Micro-Tag */}
             <div className="space-y-3">
               <div className="flex items-center gap-3">
                 <Link
@@ -121,7 +117,6 @@ export default function Footer() {
                   className="group inline-flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] rounded-xl cursor-pointer"
                   aria-label="GetVeevz Home"
                 >
-                  {/* Beveled Logo Disc */}
                   <div className="relative w-8 h-8 sm:w-9 sm:h-9 rounded-xl overflow-hidden bg-white/10 border border-white/20 shadow-[0_0_20px_rgba(0,56,226,0.25)] transition-transform duration-500 ease-gentle group-hover:scale-105 group-hover:border-[#0038E2]">
                     <img
                       src="/assets/Logo.png"
@@ -139,7 +134,6 @@ export default function Footer() {
                 Distribute your content, grow your audience, analyse performance
               </p>
 
-              {/* Haptic Email Touchpoint */}
               <div className="pt-1 flex items-center gap-2">
                 <button
                   type="button"
@@ -163,9 +157,7 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* Right: Quick Links + Button-in-Button CTA */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 sm:gap-8 self-start lg:self-auto">
-              {/* Minimal Nav Pills */}
               <nav aria-label="Footer Navigation" className="flex flex-wrap items-center gap-2 sm:gap-3">
                 {NAV_LINKS.map((link) => (
                   <a
@@ -182,13 +174,11 @@ export default function Footer() {
                 ))}
               </nav>
 
-              {/* Button-in-Button CTA (Apple/Linear hardware style) */}
               <a
                 href="mailto:team@getveevz.com?subject=GetVeevz%20Strategy%20Call%20Booking"
                 className="group relative inline-flex items-center gap-3 rounded-full bg-[#F8F6F2] hover:bg-white text-[#111111] pl-5 pr-2 py-2 font-display font-semibold text-xs sm:text-sm transition-all duration-300 ease-gentle hover:scale-[1.02] active:scale-[0.98] shadow-[0_4px_20px_rgba(248,246,242,0.15)] cursor-pointer shrink-0"
               >
                 <span>Book Strategy Call</span>
-                {/* Trailing Icon Disc */}
                 <div className="w-7 h-7 rounded-full bg-[#111111] text-[#F8F6F2] group-hover:bg-[#0038E2] group-hover:text-white flex items-center justify-center transition-all duration-300 ease-gentle group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shadow-xs">
                   <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5]" />
                 </div>
@@ -197,10 +187,8 @@ export default function Footer() {
 
           </div>
 
-          {/* Bottom Precision Hardware Row */}
           <div className="pt-6 sm:pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-mono text-white/45">
 
-            {/* Left: Copyright & Designer Credit */}
             <div className="flex items-center gap-2.5 text-center sm:text-left flex-wrap justify-center sm:justify-start">
               <span>© {new Date().getFullYear()} GetVeevz Inc.</span>
               <span className="text-white/20">·</span>
@@ -210,7 +198,6 @@ export default function Footer() {
               </span>
             </div>
 
-            {/* Center: Social Channels Minimalist Pills */}
             <div className="flex items-center gap-2">
               {SOCIAL_LINKS.map((s) => (
                 <a
@@ -226,7 +213,6 @@ export default function Footer() {
               ))}
             </div>
 
-            {/* Right: Scroll to Top Trigger */}
             <div className="flex items-center gap-2.5 flex-wrap justify-center sm:justify-end">
               <button
                 type="button"

@@ -359,7 +359,6 @@
         });
       });
 
-      // Desktop pointer tracking
       stage.addEventListener("pointermove", (event) => {
         if (event.pointerType === "touch") return;
 
@@ -384,7 +383,6 @@
         wakeUp();
       });
 
-      // Mobile touch swipe gestures (allows natural vertical page scroll while swiping reels horizontally)
       let touchStartX = 0;
       let touchStartY = 0;
       let touchBasePhase = 0;
@@ -429,7 +427,6 @@
       }, { passive: true });
 
       stage.addEventListener("wheel", () => {
-        // Natural page scroll through filmstrip
       }, { passive: true });
 
       function nextReel() {
@@ -517,7 +514,6 @@
         }
       }
 
-      // IntersectionObserver: sleep completely when off-screen
       if ("IntersectionObserver" in window) {
         const obs = new IntersectionObserver(([entry]) => {
           isVisible = entry.isIntersecting;
@@ -580,7 +576,6 @@
           const delta = wrappedDelta(index, state.phase);
           const distance = Math.abs(delta);
 
-          // On mobile, hide cards outside the active view to free GPU texture layers
           if (isMobile && distance > 2.8) {
             if (card.style.display !== "none") card.style.display = "none";
             continue;
@@ -609,7 +604,6 @@
           card.style.zIndex = String(Math.round(1000 - distance * 100));
           card.style.opacity = String(Math.max(0.13, side * 0.76 + focus * 0.24));
 
-          // Hardware acceleration: no dynamic blur filter on mobile; on desktop only blur distant cards
           if (isMobile) {
             card.style.filter = "none";
           } else {
@@ -628,10 +622,8 @@
           card.setAttribute("aria-current", index === activeIndex ? "true" : "false");
         }
 
-        // Sleep when settled on mobile or when resting on desktop
         if (Math.abs(diff) < 0.0006 && (isMobile || !state.active)) {
           if (!isMobile && time - state.lastInput > 3600) {
-            // Idle drift continues on desktop
           } else {
             state.phase = state.target;
             isAnimating = false;
@@ -642,7 +634,6 @@
         animFrameId = requestAnimationFrame(render);
       }
 
-      // Initial start
       wakeUp();
     })();
   </script>

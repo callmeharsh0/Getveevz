@@ -9,7 +9,6 @@ export default function FinalCTA() {
 
   return (
     <section id="cta" ref={ref} className="border-t border-border px-4 sm:px-6 py-16 sm:py-28 md:py-32 text-center relative overflow-hidden">
-      {/* Ambient background glow for liquid glass refraction */}
       <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-gradient-to-r from-frost/20 via-[#0038E2]/25 to-transparent blur-[120px] -z-10" />
 
       <div className="mx-auto max-w-2xl">

@@ -122,7 +122,7 @@ export default function Questionnaire() {
   const togglePlatform = (platId: string) => {
     setFormData((prev) => {
       const exists = prev.platforms.includes(platId);
-      if (exists && prev.platforms.length === 1) return prev; // Keep at least one
+      if (exists && prev.platforms.length === 1) return prev;
       return {
         ...prev,
         platforms: exists
@@ -215,7 +215,6 @@ export default function Questionnaire() {
     try {
       window.location.href = mailto;
     } catch {
-      // fallback
     }
 
     setTimeout(() => {
@@ -231,7 +230,6 @@ export default function Questionnaire() {
       className="relative w-full bg-[#F3EFEA] text-[#111111] py-20 sm:py-28 lg:py-36 px-4 sm:px-6 lg:px-8 overflow-hidden select-none border-t border-[#111111]/10"
     >
 
-      {/* Hero-Matching Ambient Glows */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute top-1/3 left-1/4 -translate-y-1/2 w-[600px] h-[600px] bg-[#0038E2]/[0.035] blur-[150px] rounded-full"
@@ -242,7 +240,6 @@ export default function Questionnaire() {
       />
 
       <div className="relative z-10 max-w-3xl mx-auto">
-        {/* Section Header (Hero Palette) */}
         <div data-reveal className="text-center mb-10 sm:mb-14">
           <h2 className="font-display font-medium text-3xl sm:text-5xl md:text-6xl tracking-tight text-[#111111] leading-[1.12]">
             Let&apos;s build your{" "}
@@ -255,7 +252,6 @@ export default function Questionnaire() {
           </p>
         </div>
 
-        {/* Global Submitted State */}
         {isSubmitted ? (
           <div className="rounded-[2.5rem] bg-white border border-[#111111]/12 p-8 sm:p-12 text-center shadow-[0_20px_50px_rgba(0,0,0,0.06)] space-y-5">
             <div className="w-16 h-16 rounded-full bg-[#0038E2]/10 border border-[#0038E2]/30 flex items-center justify-center mx-auto text-[#0038E2] shadow-[0_0_24px_rgba(0,56,226,0.2)]">
@@ -298,9 +294,7 @@ export default function Questionnaire() {
             </div>
           </div>
         ) : (
-          /* Multi-Step Interactive Wizard Card */
           <div className="rounded-[2.5rem] bg-white border border-[#111111]/12 p-6 sm:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.06),0_1px_3px_rgba(0,0,0,0.03)] relative overflow-hidden">
-            {/* Step Progress Header */}
             <div className="flex items-center justify-between pb-6 border-b border-[#111111]/10 mb-6">
               <div className="flex items-center gap-2.5">
                 <span className="px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-[#0038E2] bg-[#0038E2]/10 border border-[#0038E2]/20 font-semibold">
@@ -315,7 +309,6 @@ export default function Questionnaire() {
                 </span>
               </div>
 
-              {/* Progress Bar */}
               <div className="w-24 sm:w-32 bg-[#111111]/10 h-1.5 rounded-full overflow-hidden">
                 <div
                   className="h-full bg-[#0038E2] transition-all duration-300 rounded-full"
@@ -326,9 +319,6 @@ export default function Questionnaire() {
 
             <form onSubmit={handleSubmit}>
               <AnimatePresence mode="wait">
-                {/* ========================================================================= */}
-                {/* STEP 1: CONTENT TYPE & CHANNEL LINK                                       */}
-                {/* ========================================================================= */}
                 {wizardStep === 1 && (
                   <motion.div
                     key="step-1"
@@ -347,7 +337,6 @@ export default function Questionnaire() {
                       </p>
                     </div>
 
-                    {/* Vector Icon Cards (No Emojis) */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       {CONTENT_TYPES.map((c) => {
                         const isSelected = formData.contentType === c.id;
@@ -390,7 +379,6 @@ export default function Questionnaire() {
                       })}
                     </div>
 
-                    {/* Channel / Feed Link Input */}
                     <div>
                       <label
                         htmlFor="w-socialLinks"
@@ -434,9 +422,6 @@ export default function Questionnaire() {
                   </motion.div>
                 )}
 
-                {/* ========================================================================= */}
-                {/* STEP 2: TARGET CHANNELS & BUDGET SCALE                                    */}
-                {/* ========================================================================= */}
                 {wizardStep === 2 && (
                   <motion.div
                     key="step-2"
@@ -455,7 +440,6 @@ export default function Questionnaire() {
                       </p>
                     </div>
 
-                    {/* Platform Selector */}
                     <div>
                       <label className="block text-xs font-mono uppercase tracking-wider text-[#111111] font-semibold mb-2">
                         Target Channels (Click to Toggle)
@@ -493,7 +477,6 @@ export default function Questionnaire() {
                       )}
                     </div>
 
-                    {/* Budget Tiers */}
                     <div>
                       <label className="block text-xs font-mono uppercase tracking-wider text-[#111111] font-semibold mb-2">
                         Target Investment Tier (3-Month Fixed Retainers)
@@ -570,9 +553,6 @@ export default function Questionnaire() {
                   </motion.div>
                 )}
 
-                {/* ========================================================================= */}
-                {/* STEP 3: DIRECT CONTACT INFORMATION                                       */}
-                {/* ========================================================================= */}
                 {wizardStep === 3 && (
                   <motion.div
                     key="step-3"
@@ -591,7 +571,6 @@ export default function Questionnaire() {
                       </p>
                     </div>
 
-                    {/* Full Name */}
                     <div>
                       <label
                         htmlFor="w-fullName"
@@ -620,7 +599,6 @@ export default function Questionnaire() {
                       )}
                     </div>
 
-                    {/* WhatsApp / Phone */}
                     <div>
                       <label
                         htmlFor="w-contactNo"
@@ -665,7 +643,6 @@ export default function Questionnaire() {
                       )}
                     </div>
 
-                    {/* Company & Role */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div>
                         <label
@@ -724,7 +701,6 @@ export default function Questionnaire() {
                       </div>
                     </div>
 
-                    {/* Navigation Buttons */}
                     <div className="flex items-center justify-between pt-4">
                       <button
                         type="button"

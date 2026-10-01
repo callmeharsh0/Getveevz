@@ -70,7 +70,6 @@ export default function ServicesPage() {
         canonical="https://getveevz.com/services"
         jsonLd={jsonLd}
       />
-      {/* ── Soft Ambient Radial Depth Mesh (Hero section light aesthetic) ── */}
       <div
         aria-hidden="true"
         className="pointer-events-none fixed inset-0 z-0"
@@ -80,13 +79,11 @@ export default function ServicesPage() {
         }}
       />
 
-      {/* Subtle organic paper grain overlay matching hero */}
       <div
         aria-hidden="true"
         className="pointer-events-none fixed inset-0 z-0 opacity-[0.035] mix-blend-multiply bg-[radial-gradient(#111111_1px,transparent_1px)] [background-size:16px_16px]"
       />
 
-      {/* ── Mobile In-Flow Top Navigation Bar (Scrolls away naturally, never stays on screen) ── */}
       <header className="lg:hidden relative z-20 w-full flex items-center justify-between px-5 sm:px-8 pt-5 pb-2">
         <Link
           to="/"
@@ -112,15 +109,12 @@ export default function ServicesPage() {
         </Link>
       </header>
 
-      {/* ── Main Content Container ── */}
       <div className="relative mx-auto max-w-7xl px-4 sm:px-8 lg:px-12 pt-10 sm:pt-20 lg:pt-48 pb-28 sm:pb-36 lg:pb-40">
 
-        {/* ── Section Header (Light Theme: Dark obsidian typography on cream) ── */}
         <div
           ref={headerRef}
           className="text-center max-w-4xl mx-auto mb-20 sm:mb-24 lg:mb-28"
         >
-          {/* Eyebrow Pill Badge */}
           <div
             data-reveal
             className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/90 border border-[#111111]/10 text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.22em] font-medium text-[#0038E2] mb-8 shadow-sm backdrop-blur-md"
@@ -129,7 +123,6 @@ export default function ServicesPage() {
             <span>Distribution Architecture</span>
           </div>
 
-          {/* Main Display Headline */}
           <h1
             data-reveal
             className="font-display font-medium text-4xl sm:text-5xl md:text-6xl lg:text-[76px] tracking-tight text-[#111111] leading-[1.06] mb-6"
@@ -141,7 +134,6 @@ export default function ServicesPage() {
             </span>
           </h1>
 
-          {/* Editorial Lead Paragraph */}
           <p
             data-reveal
             className="text-base sm:text-lg md:text-xl text-[#555555] leading-relaxed max-w-2xl mx-auto font-light"
@@ -150,7 +142,6 @@ export default function ServicesPage() {
           </p>
         </div>
 
-        {/* ── Flagship Service Cards: FULLY LIGHT THEMED PORCELAIN CARDS ── */}
         <div
           ref={cardsRef}
           className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 mb-28 sm:mb-36"
@@ -160,7 +151,6 @@ export default function ServicesPage() {
             const isRetainer = service.slug === "long-term-distribution";
             const isEndToEnd = service.slug === "end-to-end-marketing";
 
-            // Tailored metrics for each service matching main page
             const specs = isRetainer
               ? [
                 { label: "Model 01", value: "3-Month Test-to-Scale" },
@@ -192,13 +182,10 @@ export default function ServicesPage() {
                   to={`/services/${service.slug}`}
                   className="block h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] rounded-[2.25rem]"
                 >
-                  {/* Outer Shell (Light Porcelain Double-Bezel Enclosure with Soft Ambient Drop Shadow) */}
                   <div className="relative h-full rounded-[2.25rem] p-2 sm:p-2.5 bg-white/75 border border-[#111111]/10 shadow-[0_20px_48px_rgba(0,0,0,0.06),0_4px_12px_rgba(0,0,0,0.03)] transition-all duration-700 ease-gentle group-hover:shadow-[0_28px_60px_rgba(0,0,0,0.11)] group-hover:-translate-y-2 group-hover:border-[#0038E2]/35 group-hover:bg-white/95">
 
-                    {/* Inner Core (Concentric Machined Cavity in Pure White with Crisp Light-Mode Hierarchy) */}
                     <div className="relative h-full rounded-[calc(2.25rem-0.5rem)] bg-white border border-[#111111]/5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)] p-8 sm:p-10 lg:p-11 flex flex-col justify-between overflow-hidden">
 
-                      {/* Atmospheric Ambient Glow inside card */}
                       <div
                         aria-hidden="true"
                         className={cn(
@@ -212,9 +199,7 @@ export default function ServicesPage() {
                       />
 
                       {isEndToEnd ? (
-                        /* WIDESCREEN HORIZONTAL END-TO-END BAR */
                         <div className="flex flex-col lg:flex-row lg:items-stretch justify-between gap-8 lg:gap-12 h-full">
-                          {/* Left Column: Brand & Core Overview (approx 38-40% on lg) */}
                           <div className="flex flex-col justify-between lg:w-[40%] shrink-0">
                             <div>
                               <div className="flex items-center justify-between mb-6 sm:mb-8">
@@ -236,7 +221,6 @@ export default function ServicesPage() {
                               </p>
                             </div>
 
-                            {/* Button-in-Button CTA */}
                             <div className="pt-6 border-t border-[#111111]/10 flex items-center justify-between mt-auto">
                               <div className="inline-flex items-center gap-3 pl-5 pr-1.5 py-1.5 rounded-full bg-[#111111] text-white border border-[#111111] shadow-sm transition-all duration-500 ease-gentle group-hover:bg-[#0038E2] group-hover:border-[#0038E2]">
                                 <span className="text-xs sm:text-sm font-medium tracking-tight">
@@ -253,14 +237,12 @@ export default function ServicesPage() {
                             </div>
                           </div>
 
-                          {/* Right Column: Extended Specs & 4-Pillar Grid (Spans the right side) */}
                           <div className="flex flex-col justify-between flex-1 lg:pl-6 lg:border-l lg:border-[#111111]/10">
                             <div>
                               <div className="text-[11px] font-mono uppercase tracking-[0.16em] text-[#0038E2] font-semibold mb-3">
                                 What We Do For You
                               </div>
 
-                              {/* 4-item Horizontal Specs Grid */}
                               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
                                 {specs.map((spec) => (
                                   <div
@@ -277,7 +259,6 @@ export default function ServicesPage() {
                                 ))}
                               </div>
 
-                              {/* 4 Key Pillars in a clean 2x2 grid */}
                               <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 mb-6">
                                 {service.features.slice(0, 4).map((feature) => (
                                   <div
@@ -296,7 +277,6 @@ export default function ServicesPage() {
                               </div>
                             </div>
 
-                            {/* Bottom Guarantee Banner */}
                             <div className="pt-4 border-t border-[#111111]/10 flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-[#666666]">
                               <div className="flex items-center gap-2">
                                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block" />
@@ -309,24 +289,19 @@ export default function ServicesPage() {
                           </div>
                         </div>
                       ) : (
-                        /* Standard 1-col Card for Long-Term & Short-Term */
                         <>
-                          {/* Card Content Top: Badge, Icon & Title */}
                           <div>
                             <div className="flex items-center justify-between mb-8">
-                              {/* Hardware-Enclosed Icon Badge in Warm Bone */}
                               <div className="flex items-center justify-center w-14 h-14 rounded-2xl bg-[#F8F6F2] border border-[#111111]/10 shadow-sm transition-transform duration-500 ease-gentle group-hover:scale-105 group-hover:border-[#0038E2]/30">
                                 <Icon className="w-7 h-7 stroke-[1.5] text-[#0038E2]" />
                               </div>
 
-                              {/* Index Pill Tag */}
                               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0038E2]/5 border border-[#0038E2]/15 text-[10px] font-mono uppercase tracking-widest text-[#0038E2] font-semibold">
                                 <span className="w-1.5 h-1.5 rounded-full bg-[#0038E2]" />
                                 <span>{isRetainer ? "01 / RETAINER" : "02 / SURGE"}</span>
                               </div>
                             </div>
 
-                            {/* Title & Short Tagline */}
                             <h2 className="font-display font-medium text-2xl sm:text-3xl lg:text-[34px] text-[#111111] tracking-tight leading-[1.15] mb-3 group-hover:text-[#0038E2] transition-colors duration-300">
                               {service.title}
                             </h2>
@@ -335,7 +310,6 @@ export default function ServicesPage() {
                               {service.shortDesc}
                             </p>
 
-                            {/* Live Architectural Spec Sheet (Nested Mini-Bento in Light Bone) */}
                             <div className="grid grid-cols-2 gap-3 mb-8">
                               {specs.map((spec) => (
                                 <div
@@ -352,7 +326,6 @@ export default function ServicesPage() {
                               ))}
                             </div>
 
-                            {/* Key Pillars Checklist */}
                             <div className="space-y-2.5 mb-10">
                               {service.features.slice(0, 3).map((feature) => (
                                 <div
@@ -371,13 +344,11 @@ export default function ServicesPage() {
                             </div>
                           </div>
 
-                          {/* Card Footer: Button-in-Button CTA */}
                           <div className="pt-6 border-t border-[#111111]/10 flex items-center justify-between">
                             <div className="inline-flex items-center gap-3 pl-5 pr-1.5 py-1.5 rounded-full bg-[#111111] text-white border border-[#111111] shadow-sm transition-all duration-500 ease-gentle group-hover:bg-[#0038E2] group-hover:border-[#0038E2]">
                               <span className="text-xs sm:text-sm font-medium tracking-tight">
                                 Explore Architecture
                               </span>
-                              {/* Nested trailing icon disc */}
                               <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white/15 text-white transition-all duration-500 ease-gentle group-hover:translate-x-1 group-hover:-translate-y-[1px] group-hover:scale-105">
                                 <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
                               </div>
@@ -398,7 +369,6 @@ export default function ServicesPage() {
           })}
         </div>
 
-        {/* ── Architectural Decision Matrix: FULLY LIGHT THEMED BLUEPRINT ── */}
         <div
           ref={comparisonRef}
           className="mb-28 sm:mb-36"
@@ -425,7 +395,6 @@ export default function ServicesPage() {
             </p>
           </div>
 
-          {/* Matrix Card: Light Double-Bezel Enclosure */}
           <div
             data-reveal
             className="rounded-[2.25rem] p-2 sm:p-2.5 bg-white/75 border border-[#111111]/10 shadow-[0_20px_48px_rgba(0,0,0,0.06)]"
@@ -527,19 +496,16 @@ export default function ServicesPage() {
           </div>
         </div>
 
-        {/* ── Executive Strategy Concierge: LIGHT DOUBLE-BEZEL CARD ── */}
         <div
           ref={ctaRef}
           className="relative text-center max-w-3xl mx-auto"
         >
-          {/* Double-Bezel Light Enclosure for CTA */}
           <div
             data-reveal
             className="rounded-[2.25rem] p-2 sm:p-2.5 bg-white/80 border border-[#111111]/10 shadow-[0_24px_54px_rgba(0,0,0,0.08)]"
           >
             <div className="rounded-[calc(2.25rem-0.5rem)] bg-gradient-to-b from-white via-white to-[#F8F6F2] border border-[#111111]/5 p-10 sm:p-14 lg:p-16 relative overflow-hidden">
 
-              {/* Radial center highlight */}
               <div
                 aria-hidden="true"
                 className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-gradient-to-r from-[#8BA3C5]/20 via-[#0038E2]/15 to-transparent blur-[80px]"
@@ -559,7 +525,6 @@ export default function ServicesPage() {
                   Most tier-1 brands run a hybrid protocol: a continuous long-term clipping engine backed by high-velocity surge bursts around flagship product drops.
                 </p>
 
-                {/* Primary Button-in-Button Action */}
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                   <a
                     href="mailto:team@getveevz.com?subject=Custom%20Distribution%20Inquiry"

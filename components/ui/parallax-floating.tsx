@@ -68,15 +68,12 @@ const Floating = ({
     elementsMap.current.forEach((data) => {
       const strength = (data.depth * sensitivity) / 20
 
-      // Calculate new target position
       const newTargetX = mousePositionRef.current.x * strength
       const newTargetY = mousePositionRef.current.y * strength
 
-      // Check if we need to update
       const dx = newTargetX - data.currentPosition.x
       const dy = newTargetY - data.currentPosition.y
 
-      // Update position only if we're still moving
       if (Math.abs(dx) > 0.04 || Math.abs(dy) > 0.04) {
         data.currentPosition.x += dx * easingFactor
         data.currentPosition.y += dy * easingFactor

@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 :root {
-  --bg: #000000;        /* Black — page background */
-  --surface: #23354D;   /* Storm — cards, nav pill fill */
-  --text-primary: #F0ECDD;  /* Moonlight — headline/display text */
-  --text-muted: #8BA3C5;    /* Frost Blue — supporting copy, borders */
-  --accent: #495B7D;        /* Steel — hover states, dividers */
+  --bg: #000000;        
+  --surface: #23354D;   
+  --text-primary: #F0ECDD;  
+  --text-muted: #8BA3C5;    
+  --accent: #495B7D;        
   --frost-blue: #8BA3C5;
   --steel: #495B7D;
   --storm: #23354D;
@@ -19,7 +19,7 @@
 
 @layer base {
   html {
-    scroll-behavior: auto; /* Lenis handles smoothing, not native CSS */
+    scroll-behavior: auto; 
     background-color: var(--bg);
     color: var(--text-primary);
     font-family: var(--font-body), "Space Grotesk", sans-serif;
@@ -49,7 +49,6 @@
   }
 }
 
-/* ─── 3D Flip Card System ───────────────────────────────────────── */
 .perspective-1200 {
   perspective: 1200px;
   -webkit-perspective: 1200px;
@@ -71,28 +70,24 @@
   -webkit-transform: rotateY(180deg);
 }
 
-/* ─── Mobile Global Fixes ──────────────────────────────────────── */
 @media (max-width: 767px) {
-  /* Prevent elements from breaking outside viewport width */
+  
   main, section, header, footer, div, p, h1, h2, h3, h4, h5, h6 {
     max-width: 100%;
     word-break: break-word;
   }
 
-  /* Minimum touch target size for interactive elements */
   button,
   a,
   [role="button"] {
     min-height: 40px;
   }
 
-  /* Tighten up large font sizes on very small screens for readability */
   .font-display {
     -webkit-font-smoothing: antialiased;
   }
 }
 
-/* ─── Glass Button System ────────────────────────────────────────── */
 .glass-button-wrap {
   position: relative;
   display: inline-flex;
@@ -161,7 +156,6 @@
   transform: scale(1.02);
 }
 
-/* Dark variant (for light hero background) */
 .glass-button-dark .glass-button,
 .glass-button-wrap.glass-button-dark .glass-button {
   background: linear-gradient(
@@ -180,7 +174,6 @@
   text-shadow: none;
 }
 
-/* ─── Laser Spine Timeline Active Step Classes (#8BA3C6 Frost Accent) ─── */
 .is-active-step .step-card {
   border-color: #8BA3C6 !important;
   box-shadow: 0 0 35px rgba(139, 163, 198, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
@@ -210,7 +203,6 @@
   box-shadow: 0 0 10px rgba(139, 163, 198, 0.3);
 }
 
-/* ─── Hero Floating Platform Logos Animation ─────────────────────── */
 @keyframes heroFloatA {
   0%, 100% {
     transform: translateY(0px) rotate(0deg);

@@ -135,14 +135,12 @@ export default function Agencies() {
     setFlippedIndex((prev) => (prev === index ? null : index));
   };
 
-  // Sync ref with state so resize handlers always have the latest index without re-running mount effects
   useEffect(() => {
     hoveredIndexRef.current = hoveredIndex;
   }, [hoveredIndex]);
 
   const baseBoundsRef = useRef<{ x: number; y: number; width: number; height: number } | null>(null);
 
-  // Function to calculate relative position of target card inside grid
   const getTargetBounds = (index: number) => {
     const cardEl = cardRefs.current[index];
     const gridEl = gridRef.current;
@@ -211,7 +209,6 @@ export default function Agencies() {
     });
   };
 
-  // Cursor follow: shape smoothly follows mouse across the grid area
   const handleGridMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const gridEl = gridRef.current;
     if (!gridEl || !slidingShapeRef.current) return;
@@ -224,7 +221,6 @@ export default function Agencies() {
     const mouseX = e.clientX - gridRect.left;
     const mouseY = e.clientY - gridRect.top;
 
-    // Detect which card the cursor is closest to
     let activeCardIndex = hoveredIndexRef.current;
     let minDistance = Infinity;
 
@@ -235,7 +231,6 @@ export default function Agencies() {
       const cardCenterY = rect.top + rect.height / 2;
       const dist = Math.hypot(e.clientX - cardCenterX, e.clientY - cardCenterY);
 
-      // Check if cursor is directly inside this card
       if (
         e.clientX >= rect.left &&
         e.clientX <= rect.right &&
@@ -243,7 +238,7 @@ export default function Agencies() {
         e.clientY <= rect.bottom
       ) {
         activeCardIndex = i;
-        minDistance = -1; // Exact match
+        minDistance = -1;
       } else if (minDistance !== -1 && dist < minDistance) {
         minDistance = dist;
         activeCardIndex = i;
@@ -253,7 +248,6 @@ export default function Agencies() {
     if (activeCardIndex !== hoveredIndexRef.current) {
       setHoveredIndex(activeCardIndex);
       previousIndexRef.current = activeCardIndex;
-      // When switching active card, reset flip state
       setFlippedIndex(null);
       videoRefs.current.forEach((video, i) => {
         if (!video) return;
@@ -291,7 +285,6 @@ export default function Agencies() {
 
   const handleGridLeave = () => {
     setIsGridHovered(false);
-    // Smoothly settle and center on the last active card without abruptly flipping back
     const lastIndex = hoveredIndexRef.current;
     const bounds = getTargetBounds(lastIndex);
     if (bounds && slidingShapeRef.current) {
@@ -309,7 +302,6 @@ export default function Agencies() {
     }
   };
 
-  // Run ONLY on mount: position shape at card 0 and register resize listener
   useEffect(() => {
     const initTimer = setTimeout(() => {
       moveToCard(0, true);
@@ -332,9 +324,8 @@ export default function Agencies() {
       clearTimeout(initTimer);
       window.removeEventListener("resize", handleResize);
     };
-  }, []); // CRITICAL: Empty dependency array so hover events are never reset by re-triggered effects
+  }, []);
 
-  // Dynamic mask/shape class depending on active agency
   const getActiveMaskClass = () => {
     const agency = agencies[hoveredIndex];
     switch (agency?.maskType) {
@@ -351,9 +342,6 @@ export default function Agencies() {
 
   return (
     <section id="agencies" className="relative w-full bg-[#F3EFEA] text-[#111111] py-16 sm:py-28 lg:py-36 px-4 sm:px-8 lg:px-12 overflow-hidden select-none">
-      {/* ========================================================================= */}
-      {/* SVG CLIP-PATH DEFINITION (FOR CUSTOM CHUNKY CUTOUT IN CARD 1)              */}
-      {/* ========================================================================= */}
       <svg
         className="absolute w-0 h-0 pointer-events-none"
         aria-hidden="true"
@@ -367,18 +355,12 @@ export default function Agencies() {
       </svg>
 
       <div className="max-w-7xl mx-auto">
-        {/* ========================================================================= */}
-        {/* SECTION HEADER                                                            */}
-        {/* ========================================================================= */}
         <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-20">
           <h2 className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-[4.25rem] font-bold tracking-tight text-[#111111] leading-[1.08]">
             Services we provide
           </h2>
         </div>
 
-        {/* ========================================================================= */}
-        {/* 3-COLUMN INTERACTIVE AGENCIES GRID WITH SHARED SLIDING HOVER SHAPE       */}
-        {/* ========================================================================= */}
         <div
           ref={gridRef}
           onMouseMove={handleGridMouseMove}
@@ -386,9 +368,6 @@ export default function Agencies() {
           style={{ perspective: 1200 }}
           className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch max-w-md md:max-w-4xl lg:max-w-7xl mx-auto"
         >
-          {/* ========================================================================= */}
-          {/* SHARED SLIDING GSAP HOVER SHAPE (STRICTLY z-0, NEVER OVERLAPS TEXT)       */}
-          {/* ========================================================================= */}
           <div
             ref={slidingShapeRef}
             style={{ transformStyle: "preserve-3d" }}
@@ -397,7 +376,6 @@ export default function Agencies() {
               getActiveMaskClass()
             )}
           >
-            {/* Card 1 Graphic Artwork: Vibrant cobalt blue with deep cobalt sculptural motif */}
             <div
               className={cn(
                 "absolute inset-0 transition-opacity duration-500 pointer-events-none z-0",
@@ -410,7 +388,6 @@ export default function Agencies() {
                 preserveAspectRatio="xMidYMid slice"
                 className="absolute inset-0 w-full h-full"
               >
-                {/* Swirling deep cobalt agency motif with circular center accent */}
                 <path
                   fillRule="evenodd"
                   clipRule="evenodd"
@@ -421,7 +398,6 @@ export default function Agencies() {
               </svg>
             </div>
 
-            {/* Crossfading Layered Agency Videos */}
             {agencies.map((agency, i) => (
               <video
                 key={agency.id}
@@ -438,7 +414,6 @@ export default function Agencies() {
               />
             ))}
 
-            {/* Subtle contrast gradient for Card 2 & 3 */}
             <div
               className={cn(
                 "absolute inset-0 z-0 pointer-events-none transition-opacity duration-500 bg-black/25",
@@ -447,9 +422,6 @@ export default function Agencies() {
             />
           </div>
 
-          {/* ========================================================================= */}
-          {/* AGENCY CARDS (STRICTLY z-20 FOREGROUND)                                   */}
-          {/* ========================================================================= */}
           {agencies.map((agency, index) => {
             const isActive = hoveredIndex === index;
             const isFlipped = flippedIndex === index;
@@ -471,7 +443,6 @@ export default function Agencies() {
                   WebkitPerspective: "1400px",
                 }}
               >
-                {/* 3D FLIPPER CONTAINER */}
                 <div
                   className="relative w-full h-full min-h-[610px] sm:min-h-[590px] md:min-h-[580px] lg:min-h-[590px] rounded-3xl transition-transform duration-700 ease-spring preserve-3d"
                   style={{
@@ -481,9 +452,6 @@ export default function Agencies() {
                     WebkitTransform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
                   }}
                 >
-                  {/* ========================================================= */}
-                  {/* FRONT FACE                                                */}
-                  {/* ========================================================= */}
                   <div
                     className={cn(
                       "absolute inset-0 w-full h-full backface-hidden flex flex-col items-center justify-center text-center px-6 sm:px-8 py-10 rounded-3xl",
@@ -498,7 +466,6 @@ export default function Agencies() {
                     }}
                   >
                     <div className="flex flex-col items-center justify-center text-center w-full max-w-xs transition-transform duration-300 group-hover:scale-[1.01] -translate-y-2">
-                      {/* Eyebrow Tag */}
                       <div
                         className={cn(
                           "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] sm:text-xs font-mono uppercase tracking-wider mb-4 border transition-colors duration-300",
@@ -511,7 +478,6 @@ export default function Agencies() {
                         <span>{agency.tagline}</span>
                       </div>
 
-                      {/* Title Box with Balanced Font Size & Multi-line Support */}
                       <div className="min-h-[4.5rem] sm:min-h-[5.5rem] flex items-center justify-center w-full">
                         <h3
                           className={cn(
@@ -524,7 +490,6 @@ export default function Agencies() {
                         </h3>
                       </div>
 
-                      {/* Description Box with Matched Height for Perfect Button Alignment */}
                       <div className="mt-3 min-h-[4.25rem] flex items-center justify-center w-full">
                         <p
                           className={cn(
@@ -536,7 +501,6 @@ export default function Agencies() {
                         </p>
                       </div>
 
-                      {/* Pill-shaped Flip Button */}
                       <button
                         type="button"
                         onClick={(e) => {
@@ -557,9 +521,6 @@ export default function Agencies() {
                     </div>
                   </div>
 
-                  {/* ========================================================= */}
-                  {/* BACK FACE (REVEALED SERVICES BREAKDOWN)                   */}
-                  {/* ========================================================= */}
                   <div
                     className={cn(
                       "absolute inset-0 w-full h-full backface-hidden flex flex-col justify-between p-4 xs:p-5 sm:p-6 lg:p-6 rounded-3xl overflow-hidden",
@@ -573,7 +534,6 @@ export default function Agencies() {
                       WebkitTransform: "rotateY(180deg)",
                     }}
                   >
-                    {/* Back Header */}
                     <div>
                       <div className="flex items-center justify-between gap-2">
                         <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-mono uppercase tracking-wider text-frost min-w-0">
@@ -602,7 +562,6 @@ export default function Agencies() {
                       </h4>
                     </div>
 
-                    {/* Services List */}
                     <div className="my-1.5 sm:my-2 space-y-1.5 sm:space-y-2 text-left flex-1 flex flex-col justify-center">
                       {agency.servicesList.map((srv, sIdx) => (
                         <div
@@ -624,7 +583,6 @@ export default function Agencies() {
                       ))}
                     </div>
 
-                    {/* Back Footer Actions */}
                     <div className="flex items-center justify-between gap-2 pt-2.5 sm:pt-3 border-t border-white/10 shrink-0">
                       <Link
                         to={

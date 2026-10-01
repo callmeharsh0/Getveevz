@@ -1,8 +1,3 @@
-// Central services content file adhering strictly to client pricing and distribution models:
-// 1. Long-Term: 3-Month Campaign (Month 1 CPM testing -> Months 2-3 Retainer)
-// 2. Long-Term: Straight Retainer (Fixed deliverables for consistent-view brands)
-// 3. Short-Term: CPM Campaign (Mass fan-page clipping & Agency-owned theme pages)
-// 4. Short-Term: Seeding ($7.2K-$100K+ 24-hr blast, fixed cost per post on 1M-10M+ pages)
 
 import { Globe, Rocket, Layers, type LucideIcon } from "lucide-react";
 
@@ -422,9 +417,6 @@ export const services: Service[] = [
   },
 ];
 
-/**
- * Normalizes slug lookups with alias support (e.g. short-term-campaigns -> short-term-campaign)
- */
 export function getServiceBySlug(slug: string): Service | undefined {
   if (slug === "short-term-campaigns") return services.find((s) => s.slug === "short-term-campaign");
   return services.find((s) => s.slug === slug);

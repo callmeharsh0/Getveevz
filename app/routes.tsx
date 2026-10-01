@@ -10,7 +10,6 @@ const ServicesPage = lazy(() => import("@/app/services/page"));
 const ServiceDetailPage = lazy(() => import("@/app/services/[slug]/page"));
 const NotFoundPage = lazy(() => import("@/app/not-found"));
 
-// Scroll to top or anchor on route change
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
 
@@ -43,7 +42,6 @@ export default function AppRoutes() {
           <Route path="/" element={<Home />} />
           <Route path="/services" element={<ServicesPage />} />
           <Route path="/services/:slug" element={<ServiceDetailPage />} />
-          {/* Catch-all 404 route for unknown paths */}
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Suspense>
