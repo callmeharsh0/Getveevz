@@ -460,7 +460,7 @@ export default function DistributionFlow({
         {showIntroHeader && (
           <div
             ref={statementRef}
-            className="absolute top-[7%] sm:top-[9%] inset-x-0 mx-auto text-center z-20 pointer-events-none px-6 max-w-4xl"
+            className="absolute top-[3.5%] sm:top-[4.5%] md:top-[5%] inset-x-0 mx-auto text-center z-20 pointer-events-none px-6 max-w-4xl"
           >
             <p className="text-base sm:text-lg md:text-xl text-[#f2ece1]/75 tracking-tight font-sans mb-1 leading-tight font-normal">
               {headlinePrefix}
@@ -477,7 +477,7 @@ export default function DistributionFlow({
         {/* Pinned Progressive Punchline (Top-centered on Mobile, Left Side on Desktop) */}
         <div
           ref={finalLineRef}
-          className="absolute top-[8%] sm:top-[10%] md:top-1/2 md:-translate-y-1/2 inset-x-4 md:inset-x-auto md:left-[9%] lg:left-[11%] xl:left-[12%] text-center md:text-left max-w-sm sm:max-w-md md:max-w-[420px] lg:max-w-[460px] mx-auto md:mx-0 z-20 pointer-events-none"
+          className="absolute top-[4.5%] sm:top-[6%] md:top-1/2 md:-translate-y-1/2 inset-x-4 md:inset-x-auto md:left-[9%] lg:left-[11%] xl:left-[12%] text-center md:text-left max-w-sm sm:max-w-md md:max-w-[420px] lg:max-w-[460px] mx-auto md:mx-0 z-20 pointer-events-none"
         >
           <div className="relative h-[96px] sm:h-[110px] md:h-[130px] w-full flex items-center justify-center md:justify-start">
             {/* Phase 1: You want leads */}

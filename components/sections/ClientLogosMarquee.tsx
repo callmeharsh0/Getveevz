@@ -122,24 +122,24 @@ export default function ClientLogosMarquee() {
   return (
     <section
       id="clients"
-      className="relative w-full pt-4 sm:pt-6 lg:pt-8 pb-20 sm:pb-24 lg:pb-28 bg-[#090e14] overflow-hidden select-none"
+      className="relative w-full pt-3 sm:pt-4 lg:pt-6 pb-6 sm:pb-8 lg:pb-10 bg-[#090e14] overflow-hidden select-none"
     >
       {/* ── Top Atmospheric Fade ── */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-10 sm:h-14 bg-gradient-to-b from-[#090e14] to-transparent z-10"
+        className="pointer-events-none absolute inset-x-0 top-0 h-8 sm:h-10 bg-gradient-to-b from-[#090e14] to-transparent z-10"
       />
 
       {/* ── Bottom Atmospheric Fade ── */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-24 sm:h-32 bg-gradient-to-t from-[#090e14] to-transparent z-10"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-10 sm:h-14 bg-gradient-to-t from-[#090e14] to-transparent z-10"
       />
 
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* ── Section Title (Kinetic Typography & Controlled Tension) ── */}
-        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
+        <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8">
           <h2 className="font-display text-2xl sm:text-3xl md:text-[2.65rem] font-medium tracking-[-0.03em] leading-tight text-[#F0ECDD]">
             Trusted by High-Output{" "}
             <span className="relative inline-block text-frost font-semibold">

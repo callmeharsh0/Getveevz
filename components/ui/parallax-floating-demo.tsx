@@ -298,7 +298,7 @@ export function ParallaxFloatingDemo() {
       {/* ========================================================================= */}
       <div
         ref={mobileStageRef}
-        className="results-mobile-stage flex md:hidden relative w-full max-w-[430px] mx-auto overflow-hidden px-3 xs:px-4 pt-4 xs:pt-5 pb-8 flex-col items-center select-none bg-[#090e14] text-moonlight"
+        className="results-mobile-stage flex md:hidden relative w-full max-w-[430px] mx-auto overflow-hidden px-3 xs:px-4 pt-4 xs:pt-5 pb-5 xs:pb-6 flex-col items-center select-none bg-[#090e14] text-moonlight"
       >
         {/* Ambient background depth & glow matching Desktop */}
         <div
@@ -498,7 +498,7 @@ export function ParallaxFloatingDemo() {
       {/* ========================================================================= */}
       <div
         ref={scope}
-        className="hidden md:flex relative w-full min-h-[560px] sm:min-h-[680px] md:min-h-[760px] lg:min-h-[800px] pt-16 sm:pt-20 pb-8 sm:pb-10 justify-center items-center overflow-hidden bg-[#090e14] text-moonlight select-none"
+        className="hidden md:flex relative w-full min-h-[560px] sm:min-h-[680px] md:min-h-[760px] lg:min-h-[800px] pt-14 sm:pt-16 pb-4 sm:pb-6 justify-center items-center overflow-hidden bg-[#090e14] text-moonlight select-none"
       >
       {/* Ambient background depth & glow matching Hero and site theme */}
       <div
