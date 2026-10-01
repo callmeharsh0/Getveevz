@@ -278,12 +278,12 @@ export default function ServiceDetailPage() {
                       <div className="space-y-4 mb-6">
                         {model.details.map((detail, dIdx) => (
                           <div key={dIdx} className="p-4 rounded-xl bg-[#F8F6F2] border border-[#111111]/8">
-                            <div className="flex items-center justify-between mb-1.5">
-                              <h4 className="text-xs font-bold text-[#111111] font-display">
+                            <div className="flex items-start justify-between gap-3 mb-2">
+                              <h4 className="text-xs sm:text-[13px] font-bold text-[#111111] font-display leading-snug">
                                 {detail.heading}
                               </h4>
                               {detail.phase && (
-                                <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded bg-white text-[#0038E2] border border-[#0038E2]/20">
+                                <span className="text-[10px] font-mono font-semibold px-2.5 py-0.5 rounded-full bg-white text-[#0038E2] border border-[#0038E2]/20 whitespace-nowrap shrink-0 shadow-2xs">
                                   {detail.phase}
                                 </span>
                               )}
