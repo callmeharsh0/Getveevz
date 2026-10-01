@@ -100,16 +100,16 @@ const BUDGET_OPTIONS: {
 }[] = [
   {
     id: "36k",
-    primary: "$36k for 3 Months ($12k/mo)",
-    inr: "₹36L for 3 Months (₹12L/mo)",
-    aed: "132k AED for 3 Months (44k/mo)",
+    primary: "$36k for 3 Months",
+    inr: "₹36L for 3 Months",
+    aed: "132k AED for 3 Months",
     views: "25M – 40M+ Views",
   },
   {
     id: "72k",
-    primary: "$72k for 3 Months ($24k/mo)",
-    inr: "₹72L for 3 Months (₹24L/mo)",
-    aed: "264k AED for 3 Months (88k/mo)",
+    primary: "$72k for 3 Months",
+    inr: "₹72L for 3 Months",
+    aed: "264k AED for 3 Months",
     views: "55M – 85M+ Views",
   },
   {

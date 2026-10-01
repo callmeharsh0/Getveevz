@@ -119,9 +119,9 @@ const longTermPlans: PricingPlan[] = [
       AED: "132K & 264K AED for 3 Months",
     },
     ratePeriod: {
-      USD: "3-Month Total Retainer ($12K & $24K / mo equivalent)",
-      INR: "3-Month Total Retainer (₹12L & ₹24L / mo equivalent)",
-      AED: "3-Month Total Retainer (44K & 88K AED / mo equivalent)",
+      USD: "3-Month Total Retainer",
+      INR: "3-Month Total Retainer",
+      AED: "3-Month Total Retainer",
     },
     highlightNote: "Normal clipping fixed for 3 months: $36,000 (Tier 1) and $72,000 (Tier 2) total for 3 months with dedicated clipping pods, fixed monthly quotas, and zero view volatility over 90 days.",
     icon: ShieldCheck,
@@ -130,17 +130,17 @@ const longTermPlans: PricingPlan[] = [
       {
         label: "Tier 1 Pricing",
         value: {
-          USD: "$36,000 for 3 Months ($12,000 / month)",
-          INR: "₹36 Lakhs for 3 Months (₹12 Lakhs / month)",
-          AED: "132,000 AED for 3 Months (44,000 AED / month)",
+          USD: "$36,000 for 3 Months",
+          INR: "₹36 Lakhs for 3 Months",
+          AED: "132,000 AED for 3 Months",
         },
       },
       {
         label: "Tier 2 Pricing",
         value: {
-          USD: "$72,000 for 3 Months ($24,000 / month)",
-          INR: "₹72 Lakhs for 3 Months (₹24 Lakhs / month)",
-          AED: "264,000 AED for 3 Months (88,000 AED / month)",
+          USD: "$72,000 for 3 Months",
+          INR: "₹72 Lakhs for 3 Months",
+          AED: "264,000 AED for 3 Months",
         },
       },
       { label: "Ideal For", value: "Brands with steady traction wanting normal clipping on a 90-day system" },
@@ -151,26 +151,26 @@ const longTermPlans: PricingPlan[] = [
     subFormats: [
       {
         title: {
-          USD: "Tier 1: $36K for 3 Months ($12K/mo)",
-          INR: "Tier 1: 36L for 3 Months (₹12L/mo)",
-          AED: "Tier 1: 132K AED for 3 Months (44K AED/mo)",
+          USD: "Tier 1: $36K for 3 Months",
+          INR: "Tier 1: 36L for 3 Months",
+          AED: "Tier 1: 132K AED for 3 Months",
         },
         desc: {
-          USD: "$36,000 total for 3 months ($12K/month): Dedicated clipping pod, 60+ vertical cuts/mo, multi-channel distribution.",
-          INR: "₹36 Lakhs total for 3 months (₹12L/month): Dedicated clipping pod, 60+ vertical cuts/mo, multi-channel distribution.",
-          AED: "132,000 AED total for 3 months (44K AED/month): Dedicated clipping pod, 60+ vertical cuts/mo, multi-channel distribution.",
+          USD: "$36,000 total for 3 months: Dedicated clipping pod, 60+ vertical cuts/mo, multi-channel distribution.",
+          INR: "₹36 Lakhs total for 3 months: Dedicated clipping pod, 60+ vertical cuts/mo, multi-channel distribution.",
+          AED: "132,000 AED total for 3 months: Dedicated clipping pod, 60+ vertical cuts/mo, multi-channel distribution.",
         },
       },
       {
         title: {
-          USD: "Tier 2: $72K for 3 Months ($24K/mo)",
-          INR: "Tier 2: 72L for 3 Months (₹24L/mo)",
-          AED: "Tier 2: 264K AED for 3 Months (88K AED/mo)",
+          USD: "Tier 2: $72K for 3 Months",
+          INR: "Tier 2: 72L for 3 Months",
+          AED: "Tier 2: 264K AED for 3 Months",
         },
         desc: {
-          USD: "$72,000 total for 3 months ($24K/month): Omnipresent reach surge, 120+ vertical cuts/mo, dedicated clippers army across all platforms.",
-          INR: "₹72 Lakhs total for 3 months (₹24L/month): Omnipresent reach surge, 120+ vertical cuts/mo, dedicated clippers army across all platforms.",
-          AED: "264,000 AED total for 3 months (88K AED/month): Omnipresent reach surge, 120+ vertical cuts/mo, dedicated clippers army across all platforms.",
+          USD: "$72,000 total for 3 months: Omnipresent reach surge, 120+ vertical cuts/mo, dedicated clippers army across all platforms.",
+          INR: "₹72 Lakhs total for 3 months: Omnipresent reach surge, 120+ vertical cuts/mo, dedicated clippers army across all platforms.",
+          AED: "264,000 AED total for 3 months: Omnipresent reach surge, 120+ vertical cuts/mo, dedicated clippers army across all platforms.",
         },
       },
     ],
