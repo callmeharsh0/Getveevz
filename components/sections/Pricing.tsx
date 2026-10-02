@@ -157,9 +157,9 @@ const longTermPlans: PricingPlan[] = [
           AED: "Tier 1: 132K AED for 3 Months",
         },
         desc: {
-          USD: "$36,000 total for 3 months: Dedicated clipping pod, 60+ vertical cuts/mo, multi-channel distribution.",
-          INR: "₹36 Lakhs total for 3 months: Dedicated clipping pod, 60+ vertical cuts/mo, multi-channel distribution.",
-          AED: "132,000 AED total for 3 months: Dedicated clipping pod, 60+ vertical cuts/mo, multi-channel distribution.",
+          USD: "$36,000 total for 3 months: Dedicated clipping pod, 60+ vertical cuts/day, multi-channel distribution.",
+          INR: "₹36 Lakhs total for 3 months: Dedicated clipping pod, 60+ vertical cuts/day, multi-channel distribution.",
+          AED: "132,000 AED total for 3 months: Dedicated clipping pod, 60+ vertical cuts/day, multi-channel distribution.",
         },
       },
       {
@@ -169,9 +169,9 @@ const longTermPlans: PricingPlan[] = [
           AED: "Tier 2: 264K AED for 3 Months",
         },
         desc: {
-          USD: "$72,000 total for 3 months: Omnipresent reach surge, 120+ vertical cuts/mo, dedicated clippers army across all platforms.",
-          INR: "₹72 Lakhs total for 3 months: Omnipresent reach surge, 120+ vertical cuts/mo, dedicated clippers army across all platforms.",
-          AED: "264,000 AED total for 3 months: Omnipresent reach surge, 120+ vertical cuts/mo, dedicated clippers army across all platforms.",
+          USD: "$72,000 total for 3 months: Omnipresent reach surge, 120+ vertical cuts/day, dedicated clippers army across all platforms.",
+          INR: "₹72 Lakhs total for 3 months: Omnipresent reach surge, 120+ vertical cuts/day, dedicated clippers army across all platforms.",
+          AED: "264,000 AED total for 3 months: Omnipresent reach surge, 120+ vertical cuts/day, dedicated clippers army across all platforms.",
         },
       },
     ],
@@ -235,34 +235,34 @@ const shortTermPlans: PricingPlan[] = [
     id: "short-term-seeding",
     name: "Seeding Campaign",
     badge: {
-      USD: "Starts at $7,200 USD",
-      INR: "Starts at ₹6 Lakhs (6L)",
-      AED: "Starts at 26,500 AED",
+      USD: "Starts at $12,000 USD",
+      INR: "Starts at ₹10 Lakhs (10L)",
+      AED: "Starts at 44,000 AED",
     },
     subtitle: "Immediate, high-volume distribution through established theme pages completed in 24 hours",
     rateDisplay: {
-      USD: "Starts at $7,200 ($7.2K — $100K+)",
-      INR: "Starts at ₹6 Lakhs (₹6L — ₹85L+)",
-      AED: "Starts at 26,500 AED (26.5K — 365K+ AED)",
+      USD: "Starts at $12,000 ($12K — $100K+)",
+      INR: "Starts at ₹10 Lakhs (₹10L — ₹85L+)",
+      AED: "Starts at 44,000 AED (44K — 365K+ AED)",
     },
     ratePeriod: {
-      USD: "Starting at $7,200 USD",
-      INR: "Starting at ₹6 Lakhs INR (₹6L)",
-      AED: "Starting at 26,500 AED",
+      USD: "Starting at $12,000 USD",
+      INR: "Starting at ₹10 Lakhs INR (₹10L)",
+      AED: "Starting at 44,000 AED",
     },
     highlightNote: {
-      USD: "Starting at $7,200 USD. You provide brief & narrative; we handle inventory, high-authority placements & rapid 24-hr execution.",
-      INR: "Starting at ₹6 Lakhs INR. You provide brief & narrative; we handle inventory, high-authority placements & rapid 24-hr execution.",
-      AED: "Starting at 26,500 AED. You provide brief & narrative; we handle inventory, high-authority placements & rapid 24-hr execution.",
+      USD: "Starting at $12,000 USD. You provide brief & narrative; we handle inventory, high-authority placements & rapid 24-hr execution.",
+      INR: "Starting at ₹10 Lakhs INR. You provide brief & narrative; we handle inventory, high-authority placements & rapid 24-hr execution.",
+      AED: "Starting at 44,000 AED. You provide brief & narrative; we handle inventory, high-authority placements & rapid 24-hr execution.",
     },
     icon: Clock,
     specs: [
       {
         label: "Starting Pricing",
         value: {
-          USD: "Starts at $7,200 USD",
-          INR: "Starts at ₹6 Lakhs INR (₹6L)",
-          AED: "Starts at 26,500 AED",
+          USD: "Starts at $12,000 USD",
+          INR: "Starts at ₹10 Lakhs INR (₹10L)",
+          AED: "Starts at 44,000 AED",
         },
       },
       { label: "Execution Speed", value: "Distribution fully completed within 24 hours of brief approval" },
@@ -272,23 +272,23 @@ const shortTermPlans: PricingPlan[] = [
       {
         label: "Budget Range",
         value: {
-          USD: "$7,200 minimum up to $100,000+ for single-day high-volume surges",
-          INR: "₹6 Lakhs minimum up to ₹85 Lakh+ for single-day high-volume surges",
-          AED: "26,500 AED minimum up to 365,000+ AED for single-day high-volume surges",
+          USD: "$12,000 minimum up to $100,000+ for single-day high-volume surges",
+          INR: "₹10 Lakhs minimum up to ₹85 Lakh+ for single-day high-volume surges",
+          AED: "44,000 AED minimum up to 365,000+ AED for single-day high-volume surges",
         },
       },
     ],
     subFormats: [
       {
         title: {
-          USD: "Starting at $7,200 USD",
-          INR: "Starting at ₹6 Lakhs (6L)",
-          AED: "Starting at 26,500 AED",
+          USD: "Starting at $12,000 USD",
+          INR: "Starting at ₹10 Lakhs (10L)",
+          AED: "Starting at 44,000 AED",
         },
         desc: {
-          USD: "Transparent tier pricing starting from $7,200 USD for single-day blitz surges.",
-          INR: "Transparent tier pricing starting from ₹6 Lakhs INR (6L) for single-day blitz surges.",
-          AED: "Transparent tier pricing starting from 26,500 AED for single-day blitz surges.",
+          USD: "Transparent tier pricing starting from $12,000 USD for single-day blitz surges.",
+          INR: "Transparent tier pricing starting from ₹10 Lakhs INR (10L) for single-day blitz surges.",
+          AED: "Transparent tier pricing starting from 44,000 AED for single-day blitz surges.",
         },
       },
       {

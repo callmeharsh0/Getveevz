@@ -166,7 +166,7 @@ export const services: Service[] = [
     tagline: "Concentrated, high-impact distribution for launches, events & narrative surges",
     shortDesc: "Targeted short-term campaigns: CPM-based distribution (fan pages & niche theme pages) or 24-hour seeding through 1M–10M+ accounts.",
     longDesc:
-      "Built for immediate impact, product launches, events, and narrative pushes. We offer two clear short-term formats: CPM-based campaigns ($3 / 1K views with a minimum 10M views requirement via mass fan-page clipping or agency-owned theme pages) and immediate high-volume seeding across established accounts starting at $7.2K up to $100K+ completed in 24 hours.",
+      "Built for immediate impact, product launches, events, and narrative pushes. We offer two clear short-term formats: CPM-based campaigns ($3 / 1K views with a minimum 10M views requirement via mass fan-page clipping or agency-owned theme pages) and immediate high-volume seeding across established accounts starting at $12K up to $100K+ completed in 24 hours.",
     icon: Rocket,
     color: "text-frost",
     models: [
@@ -197,14 +197,14 @@ export const services: Service[] = [
       },
       {
         name: "Seeding Campaign",
-        subtitle: "Immediate, high-volume distribution starting at $7,200",
+        subtitle: "Immediate, high-volume distribution starting at $12,000",
         overview: "Seeding is for immediate, high-volume distribution through established theme pages completed within 24 hours.",
         highlights: [
-          "Starting price: $7,200 USD",
+          "Starting price: $12,000 USD",
           "Distribution through existing pages in AI, tech, business, news & updates",
           "Page tiers ranging from targeted niche pages to 1M, 5M, 10M+ followers",
           "Turnaround within 24 hours of brief and narrative approval",
-          "Budget scales from $7,200 up to $100,000+ for a single day",
+          "Budget scales from $12,000 up to $100,000+ for a single day",
           "Fixed cost per post — we handle page inventory, placements & execution",
         ],
         details: [
@@ -213,8 +213,8 @@ export const services: Service[] = [
             text: "We distribute your content or narrative through existing pages in relevant niches—such as AI, tech, business, news, and updates. These can range from smaller targeted pages to pages with 1M, 5M, or 10M+ followers. You provide the brief and the narrative you want spread; we handle the page inventory, placements, and execution. Distribution can be completed within 24 hours.",
           },
           {
-            heading: "Budget Parameters & Economics (Starting at $7,200)",
-            text: "The starting seeding budget is $7,200 USD, and it can scale to $100,000+ for single-day high-volume surges, depending on the reach and inventory required. Every page has its transparent fixed cost per post.",
+            heading: "Budget Parameters & Economics (Starting at $12,000)",
+            text: "The starting seeding budget is $12,000 USD, and it can scale to $100,000+ for single-day high-volume surges, depending on the reach and inventory required. Every page has its transparent fixed cost per post.",
           },
         ],
       },
@@ -233,8 +233,8 @@ export const services: Service[] = [
         desc: "Immediate distribution through established pages with up to 1M, 5M, or 10M+ followers.",
       },
       {
-        title: "$7.2K to $100K+ Scale",
-        desc: "Fixed cost per post for seeding placements, starting at $7,200 up to $100,000+ for a single day.",
+        title: "$12K to $100K+ Scale",
+        desc: "Fixed cost per post for seeding placements, starting at $12,000 up to $100,000+ for a single day.",
       },
     ],
     benefits: [
@@ -246,13 +246,13 @@ export const services: Service[] = [
       "Immediate seeding execution completed within 24 hours",
       "Placements on mega-accounts ranging from 1M to 10M+ followers",
       "Transparent fixed cost per post pricing for seeding",
-      "Starting at $7,200 up to $100,000+ blitz",
+      "Starting at $12,000 up to $100,000+ blitz",
     ],
     processSteps: [
       {
         step: "01",
         title: "Brief & Model Selection",
-        desc: "Determine your goal: CPM view target (min 10M views at $3/1K) or high-impact 24-hour seeding (starting at $7,200).",
+        desc: "Determine your goal: CPM view target (min 10M views at $3/1K) or high-impact 24-hour seeding (starting at $12,000).",
       },
       {
         step: "02",
@@ -289,7 +289,7 @@ export const services: Service[] = [
       {
         question: "What is the budget range for seeding?",
         answer:
-          "The starting seeding budget is $7,200 USD, and it can scale to $100,000+ for a single day depending on how much reach and account inventory you require. Every page has its transparent fixed cost per post.",
+          "The starting seeding budget is $12,000 USD, and it can scale to $100,000+ for a single day depending on how much reach and account inventory you require. Every page has its transparent fixed cost per post.",
       },
       {
         question: "What happens after a short-term campaign ends?",
