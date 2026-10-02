@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import { openSmartEmail, getSmartEmailLinkProps } from "@/lib/email";
 
 const NAV_LINKS = [
-  { label: "Home", href: "/#hero" },
+  { label: "Home", href: "/" },
   { label: "Distribution", href: "/#distribution" },
   { label: "Services", href: "/services" },
   { label: "Long-Term Retainer", href: "/services/long-term-distribution" },

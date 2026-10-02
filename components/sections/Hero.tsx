@@ -105,6 +105,8 @@ const SCATTERED_PLATFORM_LOGOS = [
   },
 ];
 
+let heroIntroCompleted = false;
+
 function HeroStatCounter({
   platformId = "all",
   target = 1000,
@@ -119,11 +121,26 @@ function HeroStatCounter({
   duration?: number;
 }) {
   const isAll = platformId === "all";
-  const [displayValue, setDisplayValue] = useState(isAll ? 800 : 0);
-  const [currentSuffix, setCurrentSuffix] = useState(isAll ? "M" : suffix);
+  const [displayValue, setDisplayValue] = useState(() =>
+    heroIntroCompleted ? (isAll ? 1 : target) : (isAll ? 800 : 0)
+  );
+  const [currentSuffix, setCurrentSuffix] = useState(() =>
+    heroIntroCompleted ? (isAll ? "B" : suffix) : (isAll ? "M" : suffix)
+  );
   const prevTargetRef = useRef(isAll ? 800 : 0);
 
   useEffect(() => {
+    if (heroIntroCompleted) {
+      if (isAll) {
+        setDisplayValue(1);
+        setCurrentSuffix("B");
+      } else {
+        setDisplayValue(target);
+        setCurrentSuffix(suffix);
+      }
+      return;
+    }
+
     let startTime: number | null = null;
     let animationFrameId: number;
 
@@ -239,22 +256,6 @@ export default function Hero() {
 
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    if (prefersReducedMotion) {
-      gsap.set(
-        [
-          navRef.current,
-          eyebrowsRef.current?.querySelectorAll(".eyebrow-item"),
-          wordmarkRef.current,
-          bottomLeftRef.current,
-          bottomRightRef.current,
-          cardRightRef.current,
-        ],
-        { opacity: 1, y: 0, scale: 1 }
-      );
-      gsap.set(container.querySelectorAll(".floating-scatter-logo"), { opacity: 1, scale: 1, y: 0 });
-      return;
-    }
-
     let spotlightX = gsap.quickTo(spotlightRef.current, "x", { duration: 0.6, ease: "power2.out" });
     let spotlightY = gsap.quickTo(spotlightRef.current, "y", { duration: 0.6, ease: "power2.out" });
 
@@ -304,8 +305,42 @@ export default function Hero() {
       }
     };
 
+    if (prefersReducedMotion || heroIntroCompleted) {
+      gsap.set(
+        [
+          navRef.current,
+          eyebrowsRef.current?.querySelectorAll(".eyebrow-item"),
+          wordmarkRef.current,
+          bottomLeftRef.current,
+          bottomRightRef.current,
+          cardRightRef.current,
+        ],
+        { opacity: 1, y: 0, scale: 1 }
+      );
+      gsap.set(container.querySelectorAll(".floating-scatter-logo"), { opacity: 1, scale: 1, y: 0 });
+
+      if (navRef.current) {
+        ScrollTrigger.create({
+          trigger: containerRef.current,
+          start: "top+=40 top",
+          onEnter: () => navRef.current?.classList.add("nav-scrolled"),
+          onLeaveBack: () => navRef.current?.classList.remove("nav-scrolled"),
+        });
+      }
+
+      container.addEventListener("mousemove", handleMouseMove);
+      return () => {
+        container.removeEventListener("mousemove", handleMouseMove);
+      };
+    }
+
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+      const tl = gsap.timeline({
+        defaults: { ease: "power3.out" },
+        onComplete: () => {
+          heroIntroCompleted = true;
+        },
+      });
 
       gsap.set(navRef.current, { opacity: 0, y: -20 });
       if (eyebrowsRef.current) {
@@ -512,7 +547,11 @@ export default function Hero() {
       >
         <a
           href="/"
-          className="pointer-events-auto group flex items-center gap-2.5 sm:gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] rounded-full"
+          onClick={(e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
+          className="pointer-events-auto group flex items-center gap-2.5 sm:gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] rounded-full cursor-pointer"
           aria-label="GetVeevz Home"
         >
           <div className="relative flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-full overflow-hidden bg-white border border-[#111111]/10 group-hover:border-[#111111]/30 transition-all duration-300 shadow-sm group-hover:scale-105 shrink-0">

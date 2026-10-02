@@ -108,7 +108,11 @@ export default function UnifiedNav() {
     }
 
     if (location.pathname !== "/") {
-      const hash = id === "home" ? "#hero" : id === "about" ? "#agencies" : `#${id}`;
+      if (id === "home") {
+        navigate("/");
+        return;
+      }
+      const hash = id === "about" ? "#agencies" : `#${id}`;
       navigate(`/${hash}`);
       return;
     }
@@ -121,6 +125,9 @@ export default function UnifiedNav() {
     }, 850);
 
     if (id === "home") {
+      try {
+        sessionStorage.setItem("getveevz_home_scroll_y", "0");
+      } catch {}
       window.scrollTo({ top: 0, behavior: "smooth" });
       return;
     }
@@ -224,7 +231,7 @@ export default function UnifiedNav() {
                       item.id === "services"
                         ? "/services"
                         : item.id === "home"
-                        ? "/#hero"
+                        ? "/"
                         : `/#${item.id === "about" ? "agencies" : item.id}`;
                     return (
                       <a

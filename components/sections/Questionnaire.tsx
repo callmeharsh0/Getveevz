@@ -1,204 +1,118 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useScrollReveal } from "@/lib/useScrollReveal";
-import { motion, AnimatePresence } from "motion/react";
+import { motion } from "motion/react";
 import {
   CheckCircle2,
   ArrowRight,
-  ArrowLeft,
-  Mic,
-  User,
-  Sparkles,
-  Video,
   Check,
+  Building2,
+  User,
+  Mail,
+  Briefcase,
+  Globe,
+  DollarSign,
 } from "lucide-react";
 import { openSmartEmail, getSmartEmailLinkProps, isMobileDevice } from "@/lib/email";
 import { cn } from "@/lib/utils";
 
-export type BudgetTier = "36k" | "72k" | "custom";
-export type ContentType = "podcast" | "founder" | "keynote" | "interview";
+export const BUDGET_OPTIONS = [
+  {
+    id: "$36k",
+    label: "$36k",
+    period: "for 3 months",
+    desc: "Quarterly retainer",
+  },
+  {
+    id: "$72k",
+    label: "$72k",
+    period: "for 3 months",
+    desc: "High-volume reach surge",
+  },
+  {
+    id: "$300k+",
+    label: "$300k+",
+    period: "for 3 months",
+    desc: "Dominant category scale",
+  },
+  {
+    id: "custom enterprise deals",
+    label: "Custom enterprise deals",
+    period: "3-month scope",
+    desc: "Tailored multi-brand terms",
+  },
+] as const;
+
+export type BudgetTier = (typeof BUDGET_OPTIONS)[number]["id"];
 
 interface FormData {
-  fullName: string;
-  countryCode: string;
-  contactNo: string;
+  name: string;
+  contactInfo: string;
   companyName: string;
-  role: string;
+  position: string;
   socialLinks: string;
   budget: BudgetTier | "";
-  contentType: ContentType;
-  platforms: string[];
 }
 
 const INITIAL_FORM: FormData = {
-  fullName: "",
-  countryCode: "+1",
-  contactNo: "",
+  name: "",
+  contactInfo: "",
   companyName: "",
-  role: "",
+  position: "",
   socialLinks: "",
-  budget: "36k",
-  contentType: "podcast",
-  platforms: ["tiktok", "reels", "shorts"],
+  budget: "$36k",
 };
-
-const COUNTRY_CODES = [
-  { code: "+1", label: "+1 (US/CA)" },
-  { code: "+91", label: "+91 (IN)" },
-  { code: "+971", label: "+971 (UAE)" },
-  { code: "+44", label: "+44 (UK)" },
-  { code: "+61", label: "+61 (AU)" },
-  { code: "+65", label: "+65 (SG)" },
-  { code: "+49", label: "+49 (DE)" },
-];
-
-const CONTENT_TYPES: {
-  id: ContentType;
-  label: string;
-  subtitle: string;
-  icon: React.ElementType;
-}[] = [
-    {
-      id: "podcast",
-      label: "Long Podcasts",
-      subtitle: "Conversational & Deep Dives",
-      icon: Mic,
-    },
-    {
-      id: "founder",
-      label: "Founder & CEO Talks",
-      subtitle: "High-Authority Narratives",
-      icon: User,
-    },
-    {
-      id: "keynote",
-      label: "Keynotes & Events",
-      subtitle: "Stage & Presentation Talks",
-      icon: Sparkles,
-    },
-    {
-      id: "interview",
-      label: "Streams & Interviews",
-      subtitle: "Engaging Unfiltered Cuts",
-      icon: Video,
-    },
-  ];
-
-const PLATFORM_OPTIONS = [
-  { id: "tiktok", label: "TikTok", tag: "Algorithm Priority" },
-  { id: "reels", label: "IG Reels", tag: "High Retention" },
-  { id: "shorts", label: "YT Shorts", tag: "Search Authority" },
-  { id: "facebook", label: "Facebook", tag: "Broad Demographics" },
-];
-
-const BUDGET_OPTIONS: {
-  id: BudgetTier;
-  primary: string;
-  sublabel?: string;
-}[] = [
-    {
-      id: "36k",
-      primary: "$36k for 3 Months",
-    },
-    {
-      id: "72k",
-      primary: "$72k for 3 Months",
-    },
-    {
-      id: "custom",
-      primary: "Custom Enterprise Plan",
-      sublabel: "3-Month Scope",
-    },
-  ];
 
 export default function Questionnaire() {
   const ref = useScrollReveal<HTMLDivElement>();
-  const [wizardStep, setWizardStep] = useState<number>(1);
   const [formData, setFormData] = useState<FormData>(INITIAL_FORM);
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const togglePlatform = (platId: string) => {
-    setFormData((prev) => {
-      const exists = prev.platforms.includes(platId);
-      if (exists && prev.platforms.length === 1) return prev;
-      return {
-        ...prev,
-        platforms: exists
-          ? prev.platforms.filter((p) => p !== platId)
-          : [...prev.platforms, platId],
-      };
-    });
-  };
-
-  const validateStep1 = () => {
+  const validate = () => {
     const errs: Partial<Record<keyof FormData, string>> = {};
+    if (!formData.name.trim()) errs.name = "Name is required";
+    if (!formData.contactInfo.trim()) {
+      errs.contactInfo = "Contact info (email, WhatsApp, or phone) is required";
+    }
+    if (!formData.companyName.trim()) {
+      errs.companyName = "Company name is required";
+    }
+    if (!formData.position.trim()) {
+      errs.position = "Your position in the company is required";
+    }
     if (!formData.socialLinks.trim()) {
-      errs.socialLinks = "Please provide your channel or content link";
+      errs.socialLinks = "Social media links or company website is required";
     }
-    setErrors(errs);
-    return Object.keys(errs).length === 0;
-  };
-
-  const validateStep2 = () => {
-    const errs: Partial<Record<keyof FormData, string>> = {};
     if (!formData.budget) {
-      errs.budget = "Please select a target monthly investment tier";
+      errs.budget = "Please select a budget tier for three months";
     }
-    if (formData.platforms.length === 0) {
-      errs.platforms = "Select at least one target channel";
-    }
-    setErrors(errs);
-    return Object.keys(errs).length === 0;
-  };
 
-  const validateStep3 = () => {
-    const errs: Partial<Record<keyof FormData, string>> = {};
-    if (!formData.fullName.trim()) errs.fullName = "Full name is required";
-    if (!formData.contactNo.trim()) errs.contactNo = "Contact number is required";
-    if (!formData.companyName.trim()) errs.companyName = "Company or channel name is required";
-    if (!formData.role.trim()) errs.role = "Role is required";
     setErrors(errs);
     return Object.keys(errs).length === 0;
   };
 
   const getQuestionnaireEmailData = () => {
-    const selectedContentType = CONTENT_TYPES.find((c) => c.id === formData.contentType);
-    const contentTypeLabel = selectedContentType
-      ? `${selectedContentType.label} (${selectedContentType.subtitle})`
-      : formData.contentType;
-
-    const platformLabels = formData.platforms
-      .map((p) => PLATFORM_OPTIONS.find((opt) => opt.id === p)?.label || p)
-      .join(", ");
-
-    const budgetDetails = BUDGET_OPTIONS.find((b) => b.id === formData.budget);
-    const budgetFull = budgetDetails
-      ? budgetDetails.primary
-      : formData.budget || "Not Specified";
-
-    const subject = `Campaign Questionnaire Brief - ${formData.companyName || formData.fullName}`;
+    const subject = `Distribution Inquiry - ${formData.companyName || formData.name}`;
 
     const bodyText = [
       `Hi GetVeevz Distribution Team,`,
       ``,
-      `Here is my completed campaign questionnaire:`,
+      `Here is my project information:`,
       ``,
-      `• Brand / Company: ${formData.companyName}`,
-      `• Full Name: ${formData.fullName}`,
-      `• Role: ${formData.role}`,
-      `• Contact Phone: ${formData.countryCode} ${formData.contactNo}`,
-      `• Channel / Catalog Link: ${formData.socialLinks}`,
-      `• Primary Content Style: ${contentTypeLabel}`,
-      `• Target Distribution Channels: ${platformLabels}`,
-      `• Monthly Investment Tier: ${budgetFull}`,
+      `• Name: ${formData.name}`,
+      `• Contact Info: ${formData.contactInfo}`,
+      `• Company Name: ${formData.companyName}`,
+      `• Position in Company: ${formData.position}`,
+      `• Social Media Links / Website: ${formData.socialLinks}`,
+      `• Budget (for three months): ${formData.budget}`,
       ``,
-      `Please review our content assets and get in touch with reach projections and onboarding timeline.`,
+      `Please review our brand details and reach out with distribution projections and onboarding steps.`,
       ``,
       `Best regards,`,
-      `${formData.fullName}`,
+      `${formData.name}`,
     ].join("\n");
 
     return { subject, body: bodyText };
@@ -206,7 +120,7 @@ export default function Questionnaire() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validateStep3()) return;
+    if (!validate()) return;
 
     setIsSubmitting(true);
     const emailData = getQuestionnaireEmailData();
@@ -215,7 +129,7 @@ export default function Questionnaire() {
     setTimeout(() => {
       setIsSubmitting(false);
       setIsSubmitted(true);
-    }, 500);
+    }, 400);
   };
 
   return (
@@ -224,7 +138,6 @@ export default function Questionnaire() {
       ref={ref}
       className="relative w-full bg-[#F3EFEA] text-[#111111] py-20 sm:py-28 lg:py-36 px-4 sm:px-6 lg:px-8 overflow-hidden select-none border-t border-[#111111]/10"
     >
-
       <div
         aria-hidden="true"
         className="pointer-events-none absolute top-1/3 left-1/4 -translate-y-1/2 w-[600px] h-[600px] bg-[#0038E2]/[0.035] blur-[150px] rounded-full"
@@ -235,36 +148,61 @@ export default function Questionnaire() {
       />
 
       <div className="relative z-10 max-w-3xl mx-auto">
-        <div data-reveal className="text-center mb-10 sm:mb-14">
+        <div data-reveal className="text-center mb-10 sm:mb-12">
           <h2 className="font-display font-medium text-3xl sm:text-5xl md:text-6xl tracking-tight text-[#111111] leading-[1.12]">
             Let&apos;s build your{" "}
             <span className="text-[#0038E2] italic font-normal inline-block pb-0.5">
               distribution.
             </span>
           </h2>
-          <p className="mt-4 text-sm sm:text-base text-[#495B7D] font-sans max-w-md mx-auto leading-relaxed">
-            Tell us about your content catalog. We review submissions and respond within 24 hours.
+          <p className="mt-4 text-sm sm:text-base text-[#495B7D] font-sans max-w-lg mx-auto leading-relaxed">
+            Fill out the brief below. Our team reviews submissions and prepares reach projections within 24 hours.
           </p>
         </div>
 
         {isSubmitted ? (
-          <div className="rounded-[2.5rem] bg-white border border-[#111111]/12 p-8 sm:p-12 text-center shadow-[0_20px_50px_rgba(0,0,0,0.06)] space-y-5">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="rounded-[2.5rem] bg-white border border-[#111111]/12 p-8 sm:p-12 text-center shadow-[0_20px_50px_rgba(0,0,0,0.06)] space-y-6"
+          >
             <div className="w-16 h-16 rounded-full bg-[#0038E2]/10 border border-[#0038E2]/30 flex items-center justify-center mx-auto text-[#0038E2] shadow-[0_0_24px_rgba(0,56,226,0.2)]">
               <CheckCircle2 className="w-8 h-8" strokeWidth={2} />
             </div>
-            <h3 className="font-display text-2xl sm:text-3xl font-semibold text-[#111111] tracking-tight">
-              Application Received.
-            </h3>
-            <p className="text-sm sm:text-base text-[#495B7D] max-w-md mx-auto leading-relaxed">
-              Thank you, <span className="text-[#111111] font-semibold">{formData.fullName}</span>. We
-              logged your brief for{" "}
-              <span className="text-[#0038E2] font-semibold">{formData.companyName || "your brand"}</span>.
-              Our distribution team will review your channel and contact you via{" "}
-              <span className="text-[#111111] font-medium">
-                {formData.countryCode} {formData.contactNo}
-              </span>{" "}
-              within 24 hours with your custom reach projection.
+
+            <div className="space-y-2">
+              <h3 className="font-display text-2xl sm:text-3xl font-semibold text-[#111111] tracking-tight">
+                Inquiry Received.
+              </h3>
+              <p className="text-sm sm:text-base text-[#495B7D] max-w-md mx-auto leading-relaxed">
+                Thank you, <span className="text-[#111111] font-semibold">{formData.name}</span>. We
+                logged your brief for{" "}
+                <span className="text-[#0038E2] font-semibold">{formData.companyName}</span> ({formData.position}).
+              </p>
+            </div>
+
+            <div className="bg-[#F8F6F2] rounded-2xl p-4 sm:p-5 max-w-md mx-auto text-left border border-[#111111]/8 space-y-2 text-xs sm:text-sm">
+              <div className="flex justify-between border-b border-[#111111]/6 pb-2">
+                <span className="text-[#495B7D] font-mono text-xs uppercase">Contact</span>
+                <span className="font-medium text-[#111111]">{formData.contactInfo}</span>
+              </div>
+              <div className="flex justify-between border-b border-[#111111]/6 pb-2">
+                <span className="text-[#495B7D] font-mono text-xs uppercase">Budget (3 Mos)</span>
+                <span className="font-semibold text-[#0038E2]">{formData.budget}</span>
+              </div>
+              <div className="flex justify-between pt-1">
+                <span className="text-[#495B7D] font-mono text-xs uppercase">Channel / Web</span>
+                <span className="font-medium text-[#111111] truncate max-w-[200px]">
+                  {formData.socialLinks}
+                </span>
+              </div>
+            </div>
+
+            <p className="text-xs text-[#495B7D] max-w-md mx-auto">
+              Our distribution team will review your assets and respond via{" "}
+              <span className="text-[#111111] font-medium">{formData.contactInfo}</span> within 24 hours.
             </p>
+
             <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
               <a
                 {...getSmartEmailLinkProps(getQuestionnaireEmailData())}
@@ -272,458 +210,277 @@ export default function Questionnaire() {
                   e.preventDefault();
                   openSmartEmail(getQuestionnaireEmailData());
                 }}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#111111] hover:bg-[#0038E2] text-white text-xs sm:text-sm font-medium transition-colors shadow-xs cursor-pointer"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#111111] hover:bg-[#0038E2] text-white text-xs sm:text-sm font-medium transition-colors shadow-xs cursor-pointer"
               >
                 <span>{isMobileDevice() ? "Open in Mail App" : "Open in Gmail"}</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </a>
             </div>
-            <div className="pt-2">
+
+            <div className="pt-1">
               <button
                 type="button"
                 onClick={() => {
                   setIsSubmitted(false);
                   setFormData(INITIAL_FORM);
-                  setWizardStep(1);
+                  setErrors({});
                 }}
                 className="text-xs font-mono text-[#0038E2] hover:underline underline-offset-4 tracking-wider transition-colors cursor-pointer font-semibold"
               >
-                ← Submit another brief
+                ← Submit another inquiry
               </button>
             </div>
-          </div>
+          </motion.div>
         ) : (
           <div className="rounded-[2.5rem] bg-white border border-[#111111]/12 p-6 sm:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.06),0_1px_3px_rgba(0,0,0,0.03)] relative overflow-hidden">
-            <div className="flex items-center justify-between pb-6 border-b border-[#111111]/10 mb-6">
-              <div className="flex items-center gap-2.5">
-                <span className="px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-[#0038E2] bg-[#0038E2]/10 border border-[#0038E2]/20 font-semibold">
-                  Step 0{wizardStep} of 03
-                </span>
-                <span className="text-xs font-mono text-[#495B7D] hidden sm:inline-block">
-                  {wizardStep === 1
-                    ? "Content Format & Channel"
-                    : wizardStep === 2
-                      ? "Target Channels & Scale"
-                      : "Direct Contact Information"}
-                </span>
-              </div>
-
-              <div className="w-24 sm:w-32 bg-[#111111]/10 h-1.5 rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-[#0038E2] transition-all duration-300 rounded-full"
-                  style={{ width: `${(wizardStep / 3) * 100}%` }}
-                />
-              </div>
-            </div>
-
-            <form onSubmit={handleSubmit}>
-              <AnimatePresence mode="wait">
-                {wizardStep === 1 && (
-                  <motion.div
-                    key="step-1"
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    transition={{ duration: 0.25 }}
-                    className="space-y-6"
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Row 1: Name & Contact Info */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div>
+                  <label
+                    htmlFor="f-name"
+                    className="flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-[#111111] font-semibold mb-2"
                   >
-                    <div>
-                      <h3 className="text-xl sm:text-2xl font-display font-medium text-[#111111] tracking-tight">
-                        What type of content do you produce?
-                      </h3>
-                      <p className="text-xs sm:text-sm text-[#495B7D] mt-1">
-                        Select the primary format of your video or audio catalog.
-                      </p>
-                    </div>
+                    <User className="w-3.5 h-3.5 text-[#0038E2]" />
+                    <span>Name</span>
+                    <span className="text-[#0038E2]">*</span>
+                  </label>
+                  <input
+                    id="f-name"
+                    type="text"
+                    value={formData.name}
+                    onChange={(e) => {
+                      setFormData({ ...formData, name: e.target.value });
+                      if (errors.name) setErrors({ ...errors, name: undefined });
+                    }}
+                    placeholder="Alex Morgan"
+                    className={cn(
+                      "w-full rounded-xl bg-[#F8F6F2] border px-4 py-3.5 text-sm text-[#111111] placeholder:text-[#111111]/35 focus:outline-none focus:ring-2 focus:ring-[#0038E2]/20 transition-all",
+                      errors.name
+                        ? "border-red-500 focus:border-red-500"
+                        : "border-[#111111]/12 focus:border-[#0038E2] focus:bg-white"
+                    )}
+                  />
+                  {errors.name && (
+                    <p className="text-xs text-red-500 mt-1.5">{errors.name}</p>
+                  )}
+                </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      {CONTENT_TYPES.map((c) => {
-                        const isSelected = formData.contentType === c.id;
-                        const Icon = c.icon;
-                        return (
-                          <button
-                            key={c.id}
-                            type="button"
-                            onClick={() => setFormData({ ...formData, contentType: c.id })}
+                <div>
+                  <label
+                    htmlFor="f-contact"
+                    className="flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-[#111111] font-semibold mb-2"
+                  >
+                    <Mail className="w-3.5 h-3.5 text-[#0038E2]" />
+                    <span>Contact Info</span>
+                    <span className="text-[#0038E2]">*</span>
+                  </label>
+                  <input
+                    id="f-contact"
+                    type="text"
+                    value={formData.contactInfo}
+                    onChange={(e) => {
+                      setFormData({ ...formData, contactInfo: e.target.value });
+                      if (errors.contactInfo) setErrors({ ...errors, contactInfo: undefined });
+                    }}
+                    placeholder="Email, WhatsApp, or Phone number"
+                    className={cn(
+                      "w-full rounded-xl bg-[#F8F6F2] border px-4 py-3.5 text-sm text-[#111111] placeholder:text-[#111111]/35 focus:outline-none focus:ring-2 focus:ring-[#0038E2]/20 transition-all",
+                      errors.contactInfo
+                        ? "border-red-500 focus:border-red-500"
+                        : "border-[#111111]/12 focus:border-[#0038E2] focus:bg-white"
+                    )}
+                  />
+                  {errors.contactInfo && (
+                    <p className="text-xs text-red-500 mt-1.5">{errors.contactInfo}</p>
+                  )}
+                </div>
+              </div>
+
+              {/* Row 2: Company Name & Position */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div>
+                  <label
+                    htmlFor="f-company"
+                    className="flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-[#111111] font-semibold mb-2"
+                  >
+                    <Building2 className="w-3.5 h-3.5 text-[#0038E2]" />
+                    <span>Company Name</span>
+                    <span className="text-[#0038E2]">*</span>
+                  </label>
+                  <input
+                    id="f-company"
+                    type="text"
+                    value={formData.companyName}
+                    onChange={(e) => {
+                      setFormData({ ...formData, companyName: e.target.value });
+                      if (errors.companyName) setErrors({ ...errors, companyName: undefined });
+                    }}
+                    placeholder="e.g. Acme Media or Brand Name"
+                    className={cn(
+                      "w-full rounded-xl bg-[#F8F6F2] border px-4 py-3.5 text-sm text-[#111111] placeholder:text-[#111111]/35 focus:outline-none focus:ring-2 focus:ring-[#0038E2]/20 transition-all",
+                      errors.companyName
+                        ? "border-red-500 focus:border-red-500"
+                        : "border-[#111111]/12 focus:border-[#0038E2] focus:bg-white"
+                    )}
+                  />
+                  {errors.companyName && (
+                    <p className="text-xs text-red-500 mt-1.5">{errors.companyName}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="f-position"
+                    className="flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-[#111111] font-semibold mb-2"
+                  >
+                    <Briefcase className="w-3.5 h-3.5 text-[#0038E2]" />
+                    <span>Your Position in the Company</span>
+                    <span className="text-[#0038E2]">*</span>
+                  </label>
+                  <input
+                    id="f-position"
+                    type="text"
+                    value={formData.position}
+                    onChange={(e) => {
+                      setFormData({ ...formData, position: e.target.value });
+                      if (errors.position) setErrors({ ...errors, position: undefined });
+                    }}
+                    placeholder="e.g. Founder, CEO, CMO, Head of Growth"
+                    className={cn(
+                      "w-full rounded-xl bg-[#F8F6F2] border px-4 py-3.5 text-sm text-[#111111] placeholder:text-[#111111]/35 focus:outline-none focus:ring-2 focus:ring-[#0038E2]/20 transition-all",
+                      errors.position
+                        ? "border-red-500 focus:border-red-500"
+                        : "border-[#111111]/12 focus:border-[#0038E2] focus:bg-white"
+                    )}
+                  />
+                  {errors.position && (
+                    <p className="text-xs text-red-500 mt-1.5">{errors.position}</p>
+                  )}
+                </div>
+              </div>
+
+              {/* Row 3: Social Media Links / Website of company/brand */}
+              <div>
+                <label
+                  htmlFor="f-social"
+                  className="flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-[#111111] font-semibold mb-2"
+                >
+                  <Globe className="w-3.5 h-3.5 text-[#0038E2]" />
+                  <span>Social Media Links / Website of Company / Brand</span>
+                  <span className="text-[#0038E2]">*</span>
+                </label>
+                <input
+                  id="f-social"
+                  type="text"
+                  value={formData.socialLinks}
+                  onChange={(e) => {
+                    setFormData({ ...formData, socialLinks: e.target.value });
+                    if (errors.socialLinks) setErrors({ ...errors, socialLinks: undefined });
+                  }}
+                  placeholder="Website URL, YouTube channel, Instagram handle, or podcast link"
+                  className={cn(
+                    "w-full rounded-xl bg-[#F8F6F2] border px-4 py-3.5 text-sm text-[#111111] placeholder:text-[#111111]/35 focus:outline-none focus:ring-2 focus:ring-[#0038E2]/20 transition-all",
+                    errors.socialLinks
+                      ? "border-red-500 focus:border-red-500"
+                      : "border-[#111111]/12 focus:border-[#0038E2] focus:bg-white"
+                  )}
+                />
+                {errors.socialLinks && (
+                  <p className="text-xs text-red-500 mt-1.5">{errors.socialLinks}</p>
+                )}
+              </div>
+
+              {/* Row 4: Budget (for three months) */}
+              <div>
+                <div className="flex items-center justify-between mb-2.5">
+                  <label className="flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-[#111111] font-semibold">
+                    <DollarSign className="w-3.5 h-3.5 text-[#0038E2]" />
+                    <span>Budget (for three months)</span>
+                    <span className="text-[#0038E2]">*</span>
+                  </label>
+                  <span className="text-[11px] font-mono text-[#495B7D]">Select one tier</span>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                  {BUDGET_OPTIONS.map((opt) => {
+                    const isSelected = formData.budget === opt.id;
+                    return (
+                      <button
+                        key={opt.id}
+                        type="button"
+                        onClick={() => {
+                          setFormData({ ...formData, budget: opt.id });
+                          if (errors.budget) setErrors({ ...errors, budget: undefined });
+                        }}
+                        className={cn(
+                          "relative p-4 rounded-2xl border text-left transition-all duration-200 cursor-pointer flex flex-col justify-between group",
+                          isSelected
+                            ? "bg-white border-2 border-[#0038E2] shadow-sm shadow-[#0038E2]/10"
+                            : "bg-[#F8F6F2] border-[#111111]/10 hover:border-[#0038E2]/40 hover:bg-white"
+                        )}
+                      >
+                        <div className="flex items-start justify-between gap-2 mb-2">
+                          <span
                             className={cn(
-                              "p-4 rounded-2xl border text-left transition-all duration-200 cursor-pointer flex items-start gap-3.5",
-                              isSelected
-                                ? "bg-white border-2 border-[#0038E2] shadow-sm scale-[1.01]"
-                                : "bg-[#F8F6F2] border-[#111111]/10 hover:border-[#0038E2]/40 hover:bg-white"
+                              "font-display font-bold text-lg sm:text-xl tracking-tight leading-tight",
+                              isSelected ? "text-[#0038E2]" : "text-[#111111]"
                             )}
                           >
-                            <div
-                              className={cn(
-                                "w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors",
-                                isSelected
-                                  ? "bg-[#0038E2] text-white shadow-sm"
-                                  : "bg-white border border-[#111111]/10 text-[#0038E2]"
-                              )}
-                            >
-                              <Icon className="w-5 h-5" strokeWidth={1.75} />
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <p className="text-sm font-semibold text-[#111111] font-display">
-                                {c.label}
-                              </p>
-                              <p className="text-xs text-[#495B7D] mt-0.5">{c.subtitle}</p>
-                            </div>
-                            {isSelected && (
-                              <span className="w-5 h-5 rounded-full bg-[#0038E2] text-white flex items-center justify-center shrink-0">
-                                <Check className="w-3 h-3" strokeWidth={3} />
-                              </span>
+                            {opt.label}
+                          </span>
+                          <span
+                            className={cn(
+                              "w-5 h-5 rounded-full border flex items-center justify-center shrink-0 transition-colors mt-0.5",
+                              isSelected
+                                ? "border-[#0038E2] bg-[#0038E2] text-white"
+                                : "border-[#111111]/25 group-hover:border-[#0038E2]/60"
                             )}
-                          </button>
-                        );
-                      })}
-                    </div>
+                          >
+                            {isSelected && <Check className="w-3 h-3 stroke-[3]" />}
+                          </span>
+                        </div>
 
-                    <div>
-                      <label
-                        htmlFor="w-socialLinks"
-                        className="block text-xs font-mono uppercase tracking-wider text-[#111111] font-semibold mb-2"
-                      >
-                        Where can we review your catalog? <span className="text-[#0038E2]">*</span>
-                      </label>
-                      <input
-                        id="w-socialLinks"
-                        type="text"
-                        value={formData.socialLinks}
-                        onChange={(e) => {
-                          setFormData({ ...formData, socialLinks: e.target.value });
-                          if (errors.socialLinks) setErrors({ ...errors, socialLinks: undefined });
-                        }}
-                        placeholder="YouTube channel, Spotify podcast feed, or Website"
-                        className={cn(
-                          "w-full rounded-xl bg-[#F8F6F2] border px-4 py-3.5 text-sm text-[#111111] placeholder:text-[#111111]/35 focus:outline-none focus:ring-2 focus:ring-[#0038E2]/20 transition-all",
-                          errors.socialLinks
-                            ? "border-red-500 focus:border-red-500"
-                            : "border-[#111111]/12 focus:border-[#0038E2] focus:bg-white"
-                        )}
-                      />
-                      {errors.socialLinks && (
-                        <p className="text-xs text-red-500 mt-1.5">{errors.socialLinks}</p>
-                      )}
-                    </div>
-
-                    <div className="flex justify-end pt-2">
-                      <button
-                        type="button"
-                        onClick={() => {
-                          if (validateStep1()) setWizardStep(2);
-                        }}
-                        className="group inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-[#111111] hover:bg-[#0038E2] text-white text-sm font-semibold transition-all shadow-md active:scale-95 cursor-pointer"
-                      >
-                        <span>Continue to Scale</span>
-                        <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
-                      </button>
-                    </div>
-                  </motion.div>
-                )}
-
-                {wizardStep === 2 && (
-                  <motion.div
-                    key="step-2"
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    transition={{ duration: 0.25 }}
-                    className="space-y-6"
-                  >
-                    <div>
-                      <h3 className="text-xl sm:text-2xl font-display font-medium text-[#111111] tracking-tight">
-                        Where do you want to dominate?
-                      </h3>
-                      <p className="text-xs sm:text-sm text-[#495B7D] mt-1">
-                        Choose your target channels and estimated monthly budget.
-                      </p>
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-mono uppercase tracking-wider text-[#111111] font-semibold mb-2">
-                        Target Channels (Click to Toggle)
-                      </label>
-                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3">
-                        {PLATFORM_OPTIONS.map((p) => {
-                          const isSelected = formData.platforms.includes(p.id);
-                          return (
-                            <button
-                              key={p.id}
-                              type="button"
-                              onClick={() => togglePlatform(p.id)}
-                              className={cn(
-                                "p-3 rounded-xl border text-center transition-all cursor-pointer",
-                                isSelected
-                                  ? "bg-[#0038E2] text-white border-[#0038E2] shadow-sm"
-                                  : "bg-[#F8F6F2] border-[#111111]/10 text-[#111111] hover:border-[#0038E2]/40 hover:bg-white"
-                              )}
-                            >
-                              <p className="text-sm font-bold font-display">{p.label}</p>
-                              <span
-                                className={cn(
-                                  "text-[10px] font-mono mt-0.5 block",
-                                  isSelected ? "text-white/85" : "text-[#495B7D]"
-                                )}
-                              >
-                                {p.tag}
-                              </span>
-                            </button>
-                          );
-                        })}
-                      </div>
-                      {errors.platforms && (
-                        <p className="text-xs text-red-500 mt-1.5">{errors.platforms}</p>
-                      )}
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-mono uppercase tracking-wider text-[#111111] font-semibold mb-2">
-                        Target Investment Tier (3-Month Fixed Retainers)
-                      </label>
-                      <div className="space-y-2.5">
-                        {BUDGET_OPTIONS.map((opt) => {
-                          const isSelected = formData.budget === opt.id;
-                          return (
-                            <div
-                              key={opt.id}
-                              onClick={() => {
-                                setFormData({ ...formData, budget: opt.id });
-                                if (errors.budget) setErrors({ ...errors, budget: undefined });
-                              }}
-                              className={cn(
-                                "p-3.5 sm:p-4 rounded-xl border cursor-pointer transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-2",
-                                isSelected
-                                  ? "bg-white border-2 border-[#0038E2] shadow-sm"
-                                  : "bg-[#F8F6F2] border-[#111111]/10 hover:border-[#0038E2]/40 hover:bg-white"
-                              )}
-                            >
-                              <div className="flex items-center gap-3">
-                                <span
-                                  className={cn(
-                                    "w-4 h-4 rounded-full border flex items-center justify-center shrink-0",
-                                    isSelected
-                                      ? "border-[#0038E2] bg-[#0038E2]"
-                                      : "border-[#111111]/30"
-                                  )}
-                                >
-                                  {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
-                                </span>
-                                <div>
-                                  <p className="text-sm font-bold text-[#111111] font-display">
-                                    {opt.primary}
-                                  </p>
-                                  {opt.sublabel && (
-                                    <span className="text-xs font-mono text-[#0038E2] font-semibold">
-                                      {opt.sublabel}
-                                    </span>
-                                  )}
-                                </div>
-                              </div>
-                            </div>
-                          );
-                        })}
-                      </div>
-                      {errors.budget && (
-                        <p className="text-xs text-red-500 mt-1.5">{errors.budget}</p>
-                      )}
-                    </div>
-
-                    <div className="flex items-center justify-between pt-2">
-                      <button
-                        type="button"
-                        onClick={() => setWizardStep(1)}
-                        className="px-4 py-2.5 rounded-full text-xs font-mono text-[#495B7D] hover:text-[#111111] flex items-center gap-1.5 transition-colors cursor-pointer"
-                      >
-                        <ArrowLeft className="w-3.5 h-3.5" />
-                        <span>Back</span>
-                      </button>
-
-                      <button
-                        type="button"
-                        onClick={() => {
-                          if (validateStep2()) setWizardStep(3);
-                        }}
-                        className="group inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-[#111111] hover:bg-[#0038E2] text-white text-sm font-semibold transition-all shadow-md active:scale-95 cursor-pointer"
-                      >
-                        <span>Continue to Details</span>
-                        <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
-                      </button>
-                    </div>
-                  </motion.div>
-                )}
-
-                {wizardStep === 3 && (
-                  <motion.div
-                    key="step-3"
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    transition={{ duration: 0.25 }}
-                    className="space-y-4"
-                  >
-                    <div>
-                      <h3 className="text-xl sm:text-2xl font-display font-medium text-[#111111] tracking-tight">
-                        Where should we send your blueprint?
-                      </h3>
-                      <p className="text-xs sm:text-sm text-[#495B7D] mt-1">
-                        Our team prepares custom hooks &amp; view benchmarks within 24 hours.
-                      </p>
-                    </div>
-
-                    <div>
-                      <label
-                        htmlFor="w-fullName"
-                        className="block text-xs font-mono uppercase tracking-wider text-[#111111] font-semibold mb-1.5"
-                      >
-                        Full Name <span className="text-[#0038E2]">*</span>
-                      </label>
-                      <input
-                        id="w-fullName"
-                        type="text"
-                        value={formData.fullName}
-                        onChange={(e) => {
-                          setFormData({ ...formData, fullName: e.target.value });
-                          if (errors.fullName) setErrors({ ...errors, fullName: undefined });
-                        }}
-                        placeholder="Alex Morgan"
-                        className={cn(
-                          "w-full rounded-xl bg-[#F8F6F2] border px-4 py-3 text-sm text-[#111111] placeholder:text-[#111111]/35 focus:outline-none focus:ring-2 focus:ring-[#0038E2]/20 transition-all",
-                          errors.fullName
-                            ? "border-red-500 focus:border-red-500"
-                            : "border-[#111111]/12 focus:border-[#0038E2] focus:bg-white"
-                        )}
-                      />
-                      {errors.fullName && (
-                        <p className="text-xs text-red-500 mt-1">{errors.fullName}</p>
-                      )}
-                    </div>
-
-                    <div>
-                      <label
-                        htmlFor="w-contactNo"
-                        className="block text-xs font-mono uppercase tracking-wider text-[#111111] font-semibold mb-1.5"
-                      >
-                        WhatsApp / Contact Number <span className="text-[#0038E2]">*</span>
-                      </label>
-                      <div className="flex gap-2">
-                        <select
-                          value={formData.countryCode}
-                          onChange={(e) =>
-                            setFormData({ ...formData, countryCode: e.target.value })
-                          }
-                          aria-label="Country Code"
-                          className="rounded-xl bg-[#F8F6F2] border border-[#111111]/12 px-3 py-3 text-xs text-[#111111] focus:outline-none focus:border-[#0038E2] cursor-pointer"
-                        >
-                          {COUNTRY_CODES.map((c) => (
-                            <option key={c.code} value={c.code}>
-                              {c.label}
-                            </option>
-                          ))}
-                        </select>
-                        <input
-                          id="w-contactNo"
-                          type="tel"
-                          value={formData.contactNo}
-                          onChange={(e) => {
-                            setFormData({ ...formData, contactNo: e.target.value });
-                            if (errors.contactNo) setErrors({ ...errors, contactNo: undefined });
-                          }}
-                          placeholder="Phone or WhatsApp number"
-                          className={cn(
-                            "w-full rounded-xl bg-[#F8F6F2] border px-4 py-3 text-sm text-[#111111] placeholder:text-[#111111]/35 focus:outline-none focus:ring-2 focus:ring-[#0038E2]/20 transition-all",
-                            errors.contactNo
-                              ? "border-red-500 focus:border-red-500"
-                              : "border-[#111111]/12 focus:border-[#0038E2] focus:bg-white"
-                          )}
-                        />
-                      </div>
-                      {errors.contactNo && (
-                        <p className="text-xs text-red-500 mt-1">{errors.contactNo}</p>
-                      )}
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <div>
-                        <label
-                          htmlFor="w-company"
-                          className="block text-xs font-mono uppercase tracking-wider text-[#111111] font-semibold mb-1.5"
-                        >
-                          Brand / Company <span className="text-[#0038E2]">*</span>
-                        </label>
-                        <input
-                          id="w-company"
-                          type="text"
-                          value={formData.companyName}
-                          onChange={(e) => {
-                            setFormData({ ...formData, companyName: e.target.value });
-                            if (errors.companyName) setErrors({ ...errors, companyName: undefined });
-                          }}
-                          placeholder="e.g. Dialogue Media"
-                          className={cn(
-                            "w-full rounded-xl bg-[#F8F6F2] border px-4 py-3 text-sm text-[#111111] placeholder:text-[#111111]/35 focus:outline-none focus:ring-2 focus:ring-[#0038E2]/20 transition-all",
-                            errors.companyName
-                              ? "border-red-500 focus:border-red-500"
-                              : "border-[#111111]/12 focus:border-[#0038E2] focus:bg-white"
-                          )}
-                        />
-                        {errors.companyName && (
-                          <p className="text-xs text-red-500 mt-1">{errors.companyName}</p>
-                        )}
-                      </div>
-
-                      <div>
-                        <label
-                          htmlFor="w-role"
-                          className="block text-xs font-mono uppercase tracking-wider text-[#111111] font-semibold mb-1.5"
-                        >
-                          Your Role <span className="text-[#0038E2]">*</span>
-                        </label>
-                        <input
-                          id="w-role"
-                          type="text"
-                          value={formData.role}
-                          onChange={(e) => {
-                            setFormData({ ...formData, role: e.target.value });
-                            if (errors.role) setErrors({ ...errors, role: undefined });
-                          }}
-                          placeholder="e.g. Founder, CMO, Creator"
-                          className={cn(
-                            "w-full rounded-xl bg-[#F8F6F2] border px-4 py-3 text-sm text-[#111111] placeholder:text-[#111111]/35 focus:outline-none focus:ring-2 focus:ring-[#0038E2]/20 transition-all",
-                            errors.role
-                              ? "border-red-500 focus:border-red-500"
-                              : "border-[#111111]/12 focus:border-[#0038E2] focus:bg-white"
-                          )}
-                        />
-                        {errors.role && (
-                          <p className="text-xs text-red-500 mt-1">{errors.role}</p>
-                        )}
-                      </div>
-                    </div>
-
-                    <div className="flex items-center justify-between pt-4">
-                      <button
-                        type="button"
-                        onClick={() => setWizardStep(2)}
-                        className="px-4 py-2.5 rounded-full text-xs font-mono text-[#495B7D] hover:text-[#111111] flex items-center gap-1.5 transition-colors cursor-pointer"
-                      >
-                        <ArrowLeft className="w-3.5 h-3.5" />
-                        <span>Back</span>
-                      </button>
-
-                      <button
-                        type="submit"
-                        disabled={isSubmitting}
-                        className="group inline-flex items-center gap-3 px-6 sm:px-7 py-3 rounded-full bg-[#111111] hover:bg-[#0038E2] text-white font-semibold text-sm shadow-md hover:shadow-lg transition-all active:scale-95 disabled:opacity-60 cursor-pointer"
-                      >
-                        <span>{isSubmitting ? "Submitting..." : "Submit & Get Blueprint"}</span>
-                        <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center group-hover:scale-110 transition-transform">
-                          <ArrowRight className="w-3.5 h-3.5 text-white" strokeWidth={2.5} />
+                        <div>
+                          <p
+                            className={cn(
+                              "text-xs font-mono font-medium",
+                              isSelected ? "text-[#0038E2]" : "text-[#495B7D]"
+                            )}
+                          >
+                            {opt.period}
+                          </p>
+                          <p className="text-[11px] text-[#495B7D]/80 mt-0.5 leading-snug">
+                            {opt.desc}
+                          </p>
                         </div>
                       </button>
-                    </div>
-                  </motion.div>
+                    );
+                  })}
+                </div>
+                {errors.budget && (
+                  <p className="text-xs text-red-500 mt-2">{errors.budget}</p>
                 )}
-              </AnimatePresence>
+              </div>
+
+              {/* Submit CTA */}
+              <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-[#111111]/8">
+                <p className="text-xs text-[#495B7D] text-center sm:text-left">
+                  We guarantee response within <span className="font-semibold text-[#111111]">24 hours</span>.
+                  Zero obligations.
+                </p>
+
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full sm:w-auto group inline-flex items-center justify-center gap-3 px-8 py-3.5 rounded-full bg-[#111111] hover:bg-[#0038E2] text-white font-semibold text-sm shadow-md hover:shadow-lg transition-all active:scale-95 disabled:opacity-60 cursor-pointer"
+                >
+                  <span>{isSubmitting ? "Submitting..." : "Submit Inquiry"}</span>
+                  <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <ArrowRight className="w-3.5 h-3.5 text-white" strokeWidth={2.5} />
+                  </div>
+                </button>
+              </div>
             </form>
           </div>
         )}
