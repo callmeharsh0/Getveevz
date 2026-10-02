@@ -22,25 +22,21 @@ export const BUDGET_OPTIONS = [
     id: "$36k",
     label: "$36k",
     period: "for 3 months",
-    desc: "Quarterly retainer",
   },
   {
     id: "$72k",
     label: "$72k",
     period: "for 3 months",
-    desc: "High-volume reach surge",
   },
   {
     id: "$300k+",
     label: "$300k+",
     period: "for 3 months",
-    desc: "Dominant category scale",
   },
   {
     id: "custom enterprise deals",
     label: "Custom enterprise deals",
     period: "3-month scope",
-    desc: "Tailored multi-brand terms",
   },
 ] as const;
 
@@ -449,9 +445,6 @@ export default function Questionnaire() {
                             )}
                           >
                             {opt.period}
-                          </p>
-                          <p className="text-[11px] text-[#495B7D]/80 mt-0.5 leading-snug">
-                            {opt.desc}
                           </p>
                         </div>
                       </button>
