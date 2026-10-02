@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useScrollReveal } from "@/lib/useScrollReveal";
 import { motion } from "motion/react";
 import {
@@ -13,11 +13,13 @@ import {
   Briefcase,
   Globe,
   DollarSign,
+  Zap,
+  Sparkles,
 } from "lucide-react";
 import { openSmartEmail, getSmartEmailLinkProps, isMobileDevice } from "@/lib/email";
 import { cn } from "@/lib/utils";
 
-export const BUDGET_OPTIONS = [
+export const RETAINER_BUDGET_OPTIONS = [
   {
     id: "$36k",
     label: "$36k",
@@ -34,13 +36,42 @@ export const BUDGET_OPTIONS = [
     period: "for 3 months",
   },
   {
-    id: "custom enterprise deals",
-    label: "Custom enterprise deals",
-    period: "3-month scope",
+    id: "custom budget",
+    label: "Custom budget",
+    period: "enterprise deals",
   },
 ] as const;
 
-export type BudgetTier = (typeof BUDGET_OPTIONS)[number]["id"];
+export const SEEDING_BUDGET_OPTIONS = [
+  {
+    id: "$8k",
+    label: "$8k",
+    period: "targeted push",
+  },
+  {
+    id: "$30k",
+    label: "$30k",
+    period: "high-volume surge",
+  },
+  {
+    id: "$70k",
+    label: "$70k",
+    period: "mega surge",
+  },
+  {
+    id: "custom budget",
+    label: "Custom budget",
+    period: "flexible scope",
+  },
+] as const;
+
+// Backward-compatible alias
+export const BUDGET_OPTIONS = RETAINER_BUDGET_OPTIONS;
+
+export type RetainerBudgetTier = (typeof RETAINER_BUDGET_OPTIONS)[number]["id"];
+export type SeedingBudgetTier = (typeof SEEDING_BUDGET_OPTIONS)[number]["id"];
+export type BudgetTier = RetainerBudgetTier | SeedingBudgetTier;
+export type ServiceTrack = "retainer" | "seeding";
 
 interface FormData {
   name: string;
@@ -48,7 +79,9 @@ interface FormData {
   companyName: string;
   position: string;
   socialLinks: string;
-  budget: BudgetTier | "";
+  serviceTrack: ServiceTrack;
+  retainerBudget: RetainerBudgetTier | "";
+  seedingBudget: SeedingBudgetTier | "";
 }
 
 const INITIAL_FORM: FormData = {
@@ -57,7 +90,9 @@ const INITIAL_FORM: FormData = {
   companyName: "",
   position: "",
   socialLinks: "",
-  budget: "$36k",
+  serviceTrack: "retainer",
+  retainerBudget: "$36k",
+  seedingBudget: "$8k",
 };
 
 export default function Questionnaire() {
@@ -66,6 +101,36 @@ export default function Questionnaire() {
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  // Sync serviceTrack if navigated with hash or via cross-component event
+  useEffect(() => {
+    const handleServiceSelect = (e: Event) => {
+      const customEvent = e as CustomEvent<{ service?: string }>;
+      if (customEvent.detail?.service === "seeding" || customEvent.detail?.service === "pr") {
+        setFormData((prev) => ({ ...prev, serviceTrack: "seeding" }));
+      } else if (customEvent.detail?.service === "retainer") {
+        setFormData((prev) => ({ ...prev, serviceTrack: "retainer" }));
+      }
+    };
+
+    if (typeof window !== "undefined") {
+      const hash = window.location.hash.toLowerCase();
+      const search = window.location.search.toLowerCase();
+      if (
+        hash.includes("seeding") ||
+        hash.includes("pr") ||
+        search.includes("seeding") ||
+        search.includes("pr")
+      ) {
+        setFormData((prev) => ({ ...prev, serviceTrack: "seeding" }));
+      }
+
+      window.addEventListener("getveevz:select-service", handleServiceSelect);
+      return () => {
+        window.removeEventListener("getveevz:select-service", handleServiceSelect);
+      };
+    }
+  }, []);
 
   const validate = () => {
     const errs: Partial<Record<keyof FormData, string>> = {};
@@ -82,8 +147,11 @@ export default function Questionnaire() {
     if (!formData.socialLinks.trim()) {
       errs.socialLinks = "Social media links or company website is required";
     }
-    if (!formData.budget) {
-      errs.budget = "Please select a budget tier for three months";
+    if (formData.serviceTrack === "retainer" && !formData.retainerBudget) {
+      errs.retainerBudget = "Please select a budget tier for three months";
+    }
+    if (formData.serviceTrack === "seeding" && !formData.seedingBudget) {
+      errs.seedingBudget = "Please select a PR / Seeding budget tier";
     }
 
     setErrors(errs);
@@ -91,7 +159,13 @@ export default function Questionnaire() {
   };
 
   const getQuestionnaireEmailData = () => {
-    const subject = `Distribution Inquiry - ${formData.companyName || formData.name}`;
+    const isSeeding = formData.serviceTrack === "seeding";
+    const serviceLabel = isSeeding
+      ? "PR / Seeding Campaign"
+      : "3-Month Distribution Retainer";
+
+    const subject = `${serviceLabel} Inquiry - ${formData.companyName || formData.name}`;
+    const budgetValue = isSeeding ? formData.seedingBudget : formData.retainerBudget;
 
     const bodyText = [
       `Hi GetVeevz Distribution Team,`,
@@ -103,9 +177,10 @@ export default function Questionnaire() {
       `• Company Name: ${formData.companyName}`,
       `• Position in Company: ${formData.position}`,
       `• Social Media Links / Website: ${formData.socialLinks}`,
-      `• Budget (for three months): ${formData.budget}`,
+      `• Campaign Focus: ${serviceLabel}`,
+      `• Budget: ${budgetValue}`,
       ``,
-      `Please review our brand details and reach out with distribution projections and onboarding steps.`,
+      `Please review our brand details and reach out with distribution projections, inventory availability, and onboarding steps.`,
       ``,
       `Best regards,`,
       `${formData.name}`,
@@ -183,8 +258,18 @@ export default function Questionnaire() {
                 <span className="font-medium text-[#111111]">{formData.contactInfo}</span>
               </div>
               <div className="flex justify-between border-b border-[#111111]/6 pb-2">
-                <span className="text-[#495B7D] font-mono text-xs uppercase">Budget (3 Mos)</span>
-                <span className="font-semibold text-[#0038E2]">{formData.budget}</span>
+                <span className="text-[#495B7D] font-mono text-xs uppercase">Campaign Focus</span>
+                <span className="font-semibold text-[#0038E2]">
+                  {formData.serviceTrack === "seeding"
+                    ? "PR / Seeding Campaign"
+                    : "3-Month Retainer"}
+                </span>
+              </div>
+              <div className="flex justify-between border-b border-[#111111]/6 pb-2">
+                <span className="text-[#495B7D] font-mono text-xs uppercase">Budget</span>
+                <span className="font-semibold text-[#0038E2]">
+                  {formData.serviceTrack === "seeding" ? formData.seedingBudget : formData.retainerBudget}
+                </span>
               </div>
               <div className="flex justify-between pt-1">
                 <span className="text-[#495B7D] font-mono text-xs uppercase">Channel / Web</span>
@@ -251,10 +336,10 @@ export default function Questionnaire() {
                     }}
                     placeholder="Alex Morgan"
                     className={cn(
-                      "w-full rounded-xl bg-[#F8F6F2] border px-4 py-3.5 text-sm text-[#111111] placeholder:text-[#111111]/35 focus:outline-none focus:ring-2 focus:ring-[#0038E2]/20 transition-all",
+                      "w-full rounded-xl bg-[#F8F6F2] border-2 px-4 py-3.5 text-sm text-[#111111] placeholder:text-[#111111]/35 focus:outline-none focus:ring-2 focus:ring-[#0038E2]/20 transition-all",
                       errors.name
                         ? "border-red-500 focus:border-red-500"
-                        : "border-[#111111]/12 focus:border-[#0038E2] focus:bg-white"
+                        : "border-[#111111]/10 focus:border-[#0038E2] focus:bg-white"
                     )}
                   />
                   {errors.name && (
@@ -281,10 +366,10 @@ export default function Questionnaire() {
                     }}
                     placeholder="Email, WhatsApp, or Phone number"
                     className={cn(
-                      "w-full rounded-xl bg-[#F8F6F2] border px-4 py-3.5 text-sm text-[#111111] placeholder:text-[#111111]/35 focus:outline-none focus:ring-2 focus:ring-[#0038E2]/20 transition-all",
+                      "w-full rounded-xl bg-[#F8F6F2] border-2 px-4 py-3.5 text-sm text-[#111111] placeholder:text-[#111111]/35 focus:outline-none focus:ring-2 focus:ring-[#0038E2]/20 transition-all",
                       errors.contactInfo
                         ? "border-red-500 focus:border-red-500"
-                        : "border-[#111111]/12 focus:border-[#0038E2] focus:bg-white"
+                        : "border-[#111111]/10 focus:border-[#0038E2] focus:bg-white"
                     )}
                   />
                   {errors.contactInfo && (
@@ -314,10 +399,10 @@ export default function Questionnaire() {
                     }}
                     placeholder="e.g. Acme Media or Brand Name"
                     className={cn(
-                      "w-full rounded-xl bg-[#F8F6F2] border px-4 py-3.5 text-sm text-[#111111] placeholder:text-[#111111]/35 focus:outline-none focus:ring-2 focus:ring-[#0038E2]/20 transition-all",
+                      "w-full rounded-xl bg-[#F8F6F2] border-2 px-4 py-3.5 text-sm text-[#111111] placeholder:text-[#111111]/35 focus:outline-none focus:ring-2 focus:ring-[#0038E2]/20 transition-all",
                       errors.companyName
                         ? "border-red-500 focus:border-red-500"
-                        : "border-[#111111]/12 focus:border-[#0038E2] focus:bg-white"
+                        : "border-[#111111]/10 focus:border-[#0038E2] focus:bg-white"
                     )}
                   />
                   {errors.companyName && (
@@ -344,10 +429,10 @@ export default function Questionnaire() {
                     }}
                     placeholder="e.g. Founder, CEO, CMO, Head of Growth"
                     className={cn(
-                      "w-full rounded-xl bg-[#F8F6F2] border px-4 py-3.5 text-sm text-[#111111] placeholder:text-[#111111]/35 focus:outline-none focus:ring-2 focus:ring-[#0038E2]/20 transition-all",
+                      "w-full rounded-xl bg-[#F8F6F2] border-2 px-4 py-3.5 text-sm text-[#111111] placeholder:text-[#111111]/35 focus:outline-none focus:ring-2 focus:ring-[#0038E2]/20 transition-all",
                       errors.position
                         ? "border-red-500 focus:border-red-500"
-                        : "border-[#111111]/12 focus:border-[#0038E2] focus:bg-white"
+                        : "border-[#111111]/10 focus:border-[#0038E2] focus:bg-white"
                     )}
                   />
                   {errors.position && (
@@ -376,10 +461,10 @@ export default function Questionnaire() {
                   }}
                   placeholder="Website URL, YouTube channel, Instagram handle, or podcast link"
                   className={cn(
-                    "w-full rounded-xl bg-[#F8F6F2] border px-4 py-3.5 text-sm text-[#111111] placeholder:text-[#111111]/35 focus:outline-none focus:ring-2 focus:ring-[#0038E2]/20 transition-all",
+                    "w-full rounded-xl bg-[#F8F6F2] border-2 px-4 py-3.5 text-sm text-[#111111] placeholder:text-[#111111]/35 focus:outline-none focus:ring-2 focus:ring-[#0038E2]/20 transition-all",
                     errors.socialLinks
                       ? "border-red-500 focus:border-red-500"
-                      : "border-[#111111]/12 focus:border-[#0038E2] focus:bg-white"
+                      : "border-[#111111]/10 focus:border-[#0038E2] focus:bg-white"
                   )}
                 />
                 {errors.socialLinks && (
@@ -387,74 +472,256 @@ export default function Questionnaire() {
                 )}
               </div>
 
-              {/* Row 4: Budget (for three months) */}
-              <div>
+              {/* Row 4: Service / Campaign Focus Selector (Uniform Box Size) */}
+              <div className="pt-2">
                 <div className="flex items-center justify-between mb-2.5">
                   <label className="flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-[#111111] font-semibold">
-                    <DollarSign className="w-3.5 h-3.5 text-[#0038E2]" />
-                    <span>Budget (for three months)</span>
+                    <Sparkles className="w-3.5 h-3.5 text-[#0038E2]" />
+                    <span>Select Service / Campaign Focus</span>
                     <span className="text-[#0038E2]">*</span>
                   </label>
-                  <span className="text-[11px] font-mono text-[#495B7D]">Select one tier</span>
+                  <span className="text-[11px] font-mono text-[#495B7D]">Select campaign model</span>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                  {BUDGET_OPTIONS.map((opt) => {
-                    const isSelected = formData.budget === opt.id;
-                    return (
-                      <button
-                        key={opt.id}
-                        type="button"
-                        onClick={() => {
-                          setFormData({ ...formData, budget: opt.id });
-                          if (errors.budget) setErrors({ ...errors, budget: undefined });
-                        }}
-                        className={cn(
-                          "relative p-4 rounded-2xl border text-left transition-all duration-200 cursor-pointer flex flex-col justify-between group",
-                          isSelected
-                            ? "bg-white border-2 border-[#0038E2] shadow-sm shadow-[#0038E2]/10"
-                            : "bg-[#F8F6F2] border-[#111111]/10 hover:border-[#0038E2]/40 hover:bg-white"
-                        )}
-                      >
-                        <div className="flex items-start justify-between gap-2 mb-2">
-                          <span
-                            className={cn(
-                              "font-display font-bold text-lg sm:text-xl tracking-tight leading-tight",
-                              isSelected ? "text-[#0038E2]" : "text-[#111111]"
-                            )}
-                          >
-                            {opt.label}
-                          </span>
-                          <span
-                            className={cn(
-                              "w-5 h-5 rounded-full border flex items-center justify-center shrink-0 transition-colors mt-0.5",
-                              isSelected
-                                ? "border-[#0038E2] bg-[#0038E2] text-white"
-                                : "border-[#111111]/25 group-hover:border-[#0038E2]/60"
-                            )}
-                          >
-                            {isSelected && <Check className="w-3 h-3 stroke-[3]" />}
-                          </span>
-                        </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-stretch">
+                  {/* Card 1: 3-Month Retainer */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setFormData({ ...formData, serviceTrack: "retainer" });
+                      if (errors.retainerBudget) setErrors({ ...errors, retainerBudget: undefined });
+                    }}
+                    className={cn(
+                      "w-full h-full min-h-[110px] p-4 sm:p-5 rounded-2xl border-2 text-left transition-all duration-200 cursor-pointer flex flex-col justify-between group",
+                      formData.serviceTrack === "retainer"
+                        ? "bg-white border-[#0038E2] shadow-sm shadow-[#0038E2]/10"
+                        : "bg-[#F8F6F2] border-[#111111]/10 hover:border-[#0038E2]/40 hover:bg-white"
+                    )}
+                  >
+                    <div>
+                      <div className="flex items-center justify-between gap-2 mb-1.5">
+                        <span
+                          className={cn(
+                            "font-display font-bold text-base sm:text-lg tracking-tight",
+                            formData.serviceTrack === "retainer" ? "text-[#0038E2]" : "text-[#111111]"
+                          )}
+                        >
+                          3-Month Retainer
+                        </span>
+                        <span
+                          className={cn(
+                            "w-5 h-5 rounded-full border flex items-center justify-center shrink-0 transition-colors",
+                            formData.serviceTrack === "retainer"
+                              ? "border-[#0038E2] bg-[#0038E2] text-white"
+                              : "border-[#111111]/25 group-hover:border-[#0038E2]/60"
+                          )}
+                        >
+                          {formData.serviceTrack === "retainer" && <Check className="w-3 h-3 stroke-[3]" />}
+                        </span>
+                      </div>
+                      <p className="text-xs text-[#495B7D] leading-relaxed mb-2.5">
+                        Compounding clipping engine with dedicated creators & proven pages
+                      </p>
+                    </div>
+                    <div>
+                      <span className="inline-flex text-[11px] font-mono font-semibold px-2 py-0.5 rounded bg-[#111111]/5 text-[#111111]/80 w-fit">
+                        $36k — $300k+
+                      </span>
+                    </div>
+                  </button>
 
-                        <div>
-                          <p
-                            className={cn(
-                              "text-xs font-mono font-medium",
-                              isSelected ? "text-[#0038E2]" : "text-[#495B7D]"
-                            )}
-                          >
-                            {opt.period}
-                          </p>
-                        </div>
-                      </button>
-                    );
-                  })}
+                  {/* Card 2: PR / Seeding */}
+                  <button
+                    type="button"
+                    id="pr-seeding-selector"
+                    onClick={() => {
+                      setFormData({ ...formData, serviceTrack: "seeding" });
+                      if (errors.seedingBudget) setErrors({ ...errors, seedingBudget: undefined });
+                    }}
+                    className={cn(
+                      "w-full h-full min-h-[110px] p-4 sm:p-5 rounded-2xl border-2 text-left transition-all duration-200 cursor-pointer flex flex-col justify-between group",
+                      formData.serviceTrack === "seeding"
+                        ? "bg-white border-[#0038E2] shadow-sm shadow-[#0038E2]/10"
+                        : "bg-[#F8F6F2] border-[#111111]/10 hover:border-[#0038E2]/40 hover:bg-white"
+                    )}
+                  >
+                    <div>
+                      <div className="flex items-center justify-between gap-2 mb-1.5">
+                        <span
+                          className={cn(
+                            "font-display font-bold text-base sm:text-lg tracking-tight",
+                            formData.serviceTrack === "seeding" ? "text-[#0038E2]" : "text-[#111111]"
+                          )}
+                        >
+                          PR / Seeding
+                        </span>
+                        <span
+                          className={cn(
+                            "w-5 h-5 rounded-full border flex items-center justify-center shrink-0 transition-colors",
+                            formData.serviceTrack === "seeding"
+                              ? "border-[#0038E2] bg-[#0038E2] text-white"
+                              : "border-[#111111]/25 group-hover:border-[#0038E2]/60"
+                          )}
+                        >
+                          {formData.serviceTrack === "seeding" && <Check className="w-3 h-3 stroke-[3]" />}
+                        </span>
+                      </div>
+                      <p className="text-xs text-[#495B7D] leading-relaxed mb-2.5">
+                        Immediate 24-hr surge across established mega-accounts & theme pages
+                      </p>
+                    </div>
+                    <div>
+                      <span className="inline-flex text-[11px] font-mono font-semibold px-2 py-0.5 rounded bg-[#0038E2]/10 text-[#0038E2] w-fit">
+                        $8k — $70k+
+                      </span>
+                    </div>
+                  </button>
                 </div>
-                {errors.budget && (
-                  <p className="text-xs text-red-500 mt-2">{errors.budget}</p>
-                )}
               </div>
+
+              {/* Section A: 3-Month Retainer Budget (Uniform Box Size) */}
+              {formData.serviceTrack === "retainer" && (
+                <div className="pt-1">
+                  <div className="flex items-center justify-between mb-2.5">
+                    <label className="flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-[#111111] font-semibold">
+                      <DollarSign className="w-3.5 h-3.5 text-[#0038E2]" />
+                      <span>Budget (for three months)</span>
+                      <span className="text-[#0038E2]">*</span>
+                    </label>
+                    <span className="text-[11px] font-mono text-[#495B7D]">Select one tier</span>
+                  </div>
+
+                  <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 items-stretch">
+                    {RETAINER_BUDGET_OPTIONS.map((opt) => {
+                      const isSelected = formData.retainerBudget === opt.id;
+                      return (
+                        <button
+                          key={opt.id}
+                          type="button"
+                          onClick={() => {
+                            setFormData({ ...formData, retainerBudget: opt.id });
+                            if (errors.retainerBudget) setErrors({ ...errors, retainerBudget: undefined });
+                          }}
+                          className={cn(
+                            "w-full h-full min-h-[96px] sm:min-h-[104px] p-3.5 sm:p-4 rounded-2xl border-2 text-left transition-all duration-200 cursor-pointer flex flex-col justify-between group",
+                            isSelected
+                              ? "bg-white border-[#0038E2] shadow-sm shadow-[#0038E2]/10"
+                              : "bg-[#F8F6F2] border-[#111111]/10 hover:border-[#0038E2]/40 hover:bg-white"
+                          )}
+                        >
+                          <div className="flex items-start justify-between gap-1.5 mb-2">
+                            <span
+                              className={cn(
+                                "font-display font-bold text-base sm:text-lg lg:text-xl tracking-tight leading-tight",
+                                isSelected ? "text-[#0038E2]" : "text-[#111111]"
+                              )}
+                            >
+                              {opt.label}
+                            </span>
+                            <span
+                              className={cn(
+                                "w-5 h-5 rounded-full border flex items-center justify-center shrink-0 transition-colors mt-0.5",
+                                isSelected
+                                  ? "border-[#0038E2] bg-[#0038E2] text-white"
+                                  : "border-[#111111]/25 group-hover:border-[#0038E2]/60"
+                              )}
+                            >
+                              {isSelected && <Check className="w-3 h-3 stroke-[3]" />}
+                            </span>
+                          </div>
+
+                          <div className="mt-auto">
+                            <p
+                              className={cn(
+                                "text-[11px] sm:text-xs font-mono font-medium truncate",
+                                isSelected ? "text-[#0038E2]" : "text-[#495B7D]"
+                              )}
+                            >
+                              {opt.period}
+                            </p>
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {errors.retainerBudget && (
+                    <p className="text-xs text-red-500 mt-2">{errors.retainerBudget}</p>
+                  )}
+                </div>
+              )}
+
+              {/* Section B: PR / Seeding Section & Budget Selector (Uniform Box Size) */}
+              {formData.serviceTrack === "seeding" && (
+                <div id="pr-seeding" className="pt-1">
+                  <div className="flex items-center justify-between mb-2.5">
+                    <label className="flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-[#111111] font-semibold">
+                      <Zap className="w-3.5 h-3.5 text-[#0038E2]" />
+                      <span>PR / Seeding Budget</span>
+                      <span className="text-[#0038E2]">*</span>
+                    </label>
+                    <span className="text-[11px] font-mono text-[#495B7D]">Select one tier</span>
+                  </div>
+
+                  <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 items-stretch">
+                    {SEEDING_BUDGET_OPTIONS.map((opt) => {
+                      const isSelected = formData.seedingBudget === opt.id;
+                      return (
+                        <button
+                          key={opt.id}
+                          type="button"
+                          onClick={() => {
+                            setFormData({ ...formData, seedingBudget: opt.id });
+                            if (errors.seedingBudget) setErrors({ ...errors, seedingBudget: undefined });
+                          }}
+                          className={cn(
+                            "w-full h-full min-h-[96px] sm:min-h-[104px] p-3.5 sm:p-4 rounded-2xl border-2 text-left transition-all duration-200 cursor-pointer flex flex-col justify-between group",
+                            isSelected
+                              ? "bg-white border-[#0038E2] shadow-sm shadow-[#0038E2]/10"
+                              : "bg-[#F8F6F2] border-[#111111]/10 hover:border-[#0038E2]/40 hover:bg-white"
+                          )}
+                        >
+                          <div className="flex items-start justify-between gap-1.5 mb-2">
+                            <span
+                              className={cn(
+                                "font-display font-bold text-base sm:text-lg lg:text-xl tracking-tight leading-tight",
+                                isSelected ? "text-[#0038E2]" : "text-[#111111]"
+                              )}
+                            >
+                              {opt.label}
+                            </span>
+                            <span
+                              className={cn(
+                                "w-5 h-5 rounded-full border flex items-center justify-center shrink-0 transition-colors mt-0.5",
+                                isSelected
+                                  ? "border-[#0038E2] bg-[#0038E2] text-white"
+                                  : "border-[#111111]/25 group-hover:border-[#0038E2]/60"
+                              )}
+                            >
+                              {isSelected && <Check className="w-3 h-3 stroke-[3]" />}
+                            </span>
+                          </div>
+
+                          <div className="mt-auto">
+                            <p
+                              className={cn(
+                                "text-[11px] sm:text-xs font-mono font-medium truncate",
+                                isSelected ? "text-[#0038E2]" : "text-[#495B7D]"
+                              )}
+                            >
+                              {opt.period}
+                            </p>
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {errors.seedingBudget && (
+                    <p className="text-xs text-red-500 mt-2">{errors.seedingBudget}</p>
+                  )}
+                </div>
+              )}
 
               {/* Submit CTA */}
               <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-[#111111]/8">

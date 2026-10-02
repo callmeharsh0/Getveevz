@@ -437,6 +437,13 @@ export default function Pricing() {
 
   const handleOrder = (e?: React.MouseEvent) => {
     e?.preventDefault();
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(
+        new CustomEvent("getveevz:select-service", {
+          detail: { service: selectedPlanId === "short-term-seeding" ? "seeding" : "retainer" },
+        })
+      );
+    }
     const emailData = getPricingEmailData();
     openSmartEmail(emailData);
 
