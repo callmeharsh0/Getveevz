@@ -17,6 +17,10 @@ if (typeof window !== "undefined") {
 
 const ServicesPage = lazy(() => import("@/app/services/page"));
 const ServiceDetailPage = lazy(() => import("@/app/services/[slug]/page"));
+const PrivacyPolicyPage = lazy(() => import("@/app/privacy/page"));
+const TermsConditionsPage = lazy(() => import("@/app/terms/page"));
+const CookiePolicyPage = lazy(() => import("@/app/cookies/page"));
+const RefundPolicyPage = lazy(() => import("@/app/refunds/page"));
 const NotFoundPage = lazy(() => import("@/app/not-found"));
 
 const SCROLL_STORAGE_KEY = "getveevz_home_scroll_y";
@@ -139,6 +143,14 @@ export default function AppRoutes() {
           <Routes>
             <Route path="/services" element={<ServicesPage />} />
             <Route path="/services/:slug" element={<ServiceDetailPage />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+            <Route path="/privacy" element={<PrivacyPolicyPage />} />
+            <Route path="/terms-and-conditions" element={<TermsConditionsPage />} />
+            <Route path="/terms" element={<TermsConditionsPage />} />
+            <Route path="/cookie-policy" element={<CookiePolicyPage />} />
+            <Route path="/cookies" element={<CookiePolicyPage />} />
+            <Route path="/refund-policy" element={<RefundPolicyPage />} />
+            <Route path="/refunds" element={<RefundPolicyPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Suspense>
