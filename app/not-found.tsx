@@ -53,14 +53,12 @@ export default function NotFound() {
                 </GlassButton>
               </Link>
               
-              <Link to="/services">
-                <button
-                  type="button"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-white/[0.06] hover:bg-white/[0.12] border border-white/[0.1] text-xs sm:text-sm font-medium text-white/90 hover:text-white transition-all cursor-pointer active:scale-95"
-                >
-                  <Sparkles className="w-3.5 h-3.5 text-white/60" />
-                  <span>Explore Services</span>
-                </button>
+              <Link
+                to="/services"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-white/[0.06] hover:bg-white/[0.12] border border-white/[0.1] text-xs sm:text-sm font-medium text-white/90 hover:text-white transition-all cursor-pointer active:scale-95"
+              >
+                <Sparkles className="w-3.5 h-3.5 text-white/60" />
+                <span>Explore Services</span>
               </Link>
             </div>
 

@@ -21,6 +21,7 @@ const PrivacyPolicyPage = lazy(() => import("@/app/privacy/page"));
 const TermsConditionsPage = lazy(() => import("@/app/terms/page"));
 const CookiePolicyPage = lazy(() => import("@/app/cookies/page"));
 const RefundPolicyPage = lazy(() => import("@/app/refunds/page"));
+const DeveloperPage = lazy(() => import("@/app/developer/page"));
 const NotFoundPage = lazy(() => import("@/app/not-found"));
 
 const SCROLL_STORAGE_KEY = "getveevz_home_scroll_y";
@@ -121,10 +122,16 @@ export default function AppRoutes() {
     }
   }, [isHome, hasVisitedHome]);
 
+  const isDeveloper =
+    location.pathname === "/developer" ||
+    location.pathname === "/dev" ||
+    location.pathname === "/harsh" ||
+    location.pathname === "/harsh-paigude";
+
   return (
     <>
       <ScrollHandler />
-      <UnifiedNav />
+      {!isDeveloper && <UnifiedNav />}
       {/* 
         Keep Home mounted in DOM once visited so that navigating back from 
         the services page resumes instantly without unmounting or reloading.
@@ -151,11 +158,15 @@ export default function AppRoutes() {
             <Route path="/cookies" element={<CookiePolicyPage />} />
             <Route path="/refund-policy" element={<RefundPolicyPage />} />
             <Route path="/refunds" element={<RefundPolicyPage />} />
+            <Route path="/developer" element={<DeveloperPage />} />
+            <Route path="/dev" element={<DeveloperPage />} />
+            <Route path="/harsh" element={<DeveloperPage />} />
+            <Route path="/harsh-paigude" element={<DeveloperPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Suspense>
       )}
-      <Footer />
+      {!isDeveloper && <Footer />}
     </>
   );
 }

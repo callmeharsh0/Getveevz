@@ -47,20 +47,20 @@ const longTermPlans: PricingPlan[] = [
     name: "CPM to Retainer Transition (3-Month Plan)",
     badge: {
       USD: "3-Month Plan • $1/1K ➔ Retainer",
-      INR: "3-Month Plan • ₹85/1K ➔ Retainer",
+      INR: "3-Month Plan • ₹96/1K ➔ Retainer",
       AED: "3-Month Plan • 3.7 AED/1K ➔ Retainer",
     },
     popular: true,
     subtitle: "3-month structured roadmap: Month 1 testing at $1/1K CPM, transitioning into a fixed retainer for Months 2 & 3",
     rateDisplay: {
       USD: "3-Month Plan ($1/1K ➔ Retainer)",
-      INR: "3-Month Plan (₹85/1K ➔ Retainer)",
+      INR: "3-Month Plan (₹96/1K ➔ Retainer)",
       AED: "3-Month Plan (3.7 AED/1K ➔ Retainer)",
     },
     ratePeriod: "3-Month Roadmap (Month 1 Testing ➔ Months 2–3 Retainer)",
     highlightNote: {
       USD: "3-Month Roadmap: Month 1 tests 500–1,000 clippers at $1/1K views to find viral hooks and angles, then shortlists the top 10–30 winning pages into a predictable monthly retainer for Months 2 & 3.",
-      INR: "3-Month Roadmap: Month 1 tests 500–1,000 clippers at ₹85/1K views to find viral hooks and angles, then shortlists the top 10–30 winning pages into a predictable monthly retainer for Months 2 & 3.",
+      INR: "3-Month Roadmap: Month 1 tests 500–1,000 clippers at ₹96/1K views to find viral hooks and angles, then shortlists the top 10–30 winning pages into a predictable monthly retainer for Months 2 & 3.",
       AED: "3-Month Roadmap: Month 1 tests 500–1,000 clippers at 3.7 AED/1K views to find viral hooks and angles, then shortlists the top 10–30 winning pages into a predictable monthly retainer for Months 2 & 3.",
     },
     icon: Rocket,
@@ -70,7 +70,7 @@ const longTermPlans: PricingPlan[] = [
         label: "Pricing Basis",
         value: {
           USD: "$1 per 1K views (CPM) Month 1 ➔ Fixed Retainer Months 2–3",
-          INR: "₹85 per 1K views (CPM) Month 1 ➔ Fixed Retainer Months 2–3",
+          INR: "₹96 per 1K views (CPM) Month 1 ➔ Fixed Retainer Months 2–3",
           AED: "3.7 AED per 1K views (CPM) Month 1 ➔ Fixed Retainer Months 2–3",
         },
       },
@@ -79,7 +79,7 @@ const longTermPlans: PricingPlan[] = [
         label: "Month 1 Deployment",
         value: {
           USD: "500–1,000 clippers at $1 / 1K views to filter top hooks, formats & winning pages",
-          INR: "500–1,000 clippers at ₹85 / 1K views to filter top hooks, formats & winning pages",
+          INR: "500–1,000 clippers at ₹96 / 1K views to filter top hooks, formats & winning pages",
           AED: "500–1,000 clippers at 3.7 AED / 1K views to filter top hooks, formats & winning pages",
         },
       },
@@ -90,12 +90,12 @@ const longTermPlans: PricingPlan[] = [
       {
         title: {
           USD: "Month 1: CPM Testing ($1/1K)",
-          INR: "Month 1: CPM Testing (₹85/1K)",
+          INR: "Month 1: CPM Testing (₹96/1K)",
           AED: "Month 1: CPM Testing (3.7 AED/1K)",
         },
         desc: {
           USD: "Deploy clippers at $1/1K views to test viral angles and filter high-retention pages.",
-          INR: "Deploy clippers at ₹85/1K views to test viral angles and filter high-retention pages.",
+          INR: "Deploy clippers at ₹96/1K views to test viral angles and filter high-retention pages.",
           AED: "Deploy clippers at 3.7 AED/1K views to test viral angles and filter high-retention pages.",
         },
       },
@@ -110,13 +110,13 @@ const longTermPlans: PricingPlan[] = [
     name: "Normal Clipping (3-Month Retainer Plan)",
     badge: {
       USD: "3-Month Plan • $36K & $72K for 3 Months",
-      INR: "3-Month Plan • 36L & 72L for 3 Months",
+      INR: "3-Month Plan • 34.5L & 69L for 3 Months",
       AED: "3-Month Plan • 132K & 264K AED for 3 Months",
     },
     subtitle: "3-month straight retainer for brands already getting consistent views without needing a testing phase",
     rateDisplay: {
       USD: "$36K & $72K for 3 Months",
-      INR: "₹36L & ₹72L for 3 Months",
+      INR: "₹34.5L & ₹69L for 3 Months",
       AED: "132K & 264K AED for 3 Months",
     },
     ratePeriod: {
@@ -132,7 +132,7 @@ const longTermPlans: PricingPlan[] = [
         label: "Tier 1 Pricing",
         value: {
           USD: "$36,000 for 3 Months",
-          INR: "₹36 Lakhs for 3 Months",
+          INR: "₹34.5 Lakhs for 3 Months",
           AED: "132,000 AED for 3 Months",
         },
       },
@@ -140,7 +140,7 @@ const longTermPlans: PricingPlan[] = [
         label: "Tier 2 Pricing",
         value: {
           USD: "$72,000 for 3 Months",
-          INR: "₹72 Lakhs for 3 Months",
+          INR: "₹69 Lakhs for 3 Months",
           AED: "264,000 AED for 3 Months",
         },
       },
@@ -153,24 +153,24 @@ const longTermPlans: PricingPlan[] = [
       {
         title: {
           USD: "Tier 1: $36K for 3 Months",
-          INR: "Tier 1: 36L for 3 Months",
+          INR: "Tier 1: 34.5L for 3 Months",
           AED: "Tier 1: 132K AED for 3 Months",
         },
         desc: {
           USD: "$36,000 total for 3 months: Dedicated clipping pod, 60+ vertical cuts/day, multi-channel distribution.",
-          INR: "₹36 Lakhs total for 3 months: Dedicated clipping pod, 60+ vertical cuts/day, multi-channel distribution.",
+          INR: "₹34.5 Lakhs total for 3 months: Dedicated clipping pod, 60+ vertical cuts/day, multi-channel distribution.",
           AED: "132,000 AED total for 3 months: Dedicated clipping pod, 60+ vertical cuts/day, multi-channel distribution.",
         },
       },
       {
         title: {
           USD: "Tier 2: $72K for 3 Months",
-          INR: "Tier 2: 72L for 3 Months",
+          INR: "Tier 2: 69L for 3 Months",
           AED: "Tier 2: 264K AED for 3 Months",
         },
         desc: {
           USD: "$72,000 total for 3 months: Omnipresent reach surge, 120+ vertical cuts/day, dedicated clippers army across all platforms.",
-          INR: "₹72 Lakhs total for 3 months: Omnipresent reach surge, 120+ vertical cuts/day, dedicated clippers army across all platforms.",
+          INR: "₹69 Lakhs total for 3 months: Omnipresent reach surge, 120+ vertical cuts/day, dedicated clippers army across all platforms.",
           AED: "264,000 AED total for 3 months: Omnipresent reach surge, 120+ vertical cuts/day, dedicated clippers army across all platforms.",
         },
       },
@@ -184,20 +184,20 @@ const shortTermPlans: PricingPlan[] = [
     name: "CPM-Based Campaign",
     badge: {
       USD: "Min. 10M Views • $3 / 1K",
-      INR: "Min. 10M Views • ₹250 / 1K",
+      INR: "Min. 10M Views • ₹290 / 1K",
       AED: "Min. 10M Views • 11 AED / 1K",
     },
     popular: true,
     subtitle: "We ask you how many views you want — minimum 10 million views requirement ($3 / 1K views)",
     rateDisplay: {
       USD: "$3 / 1K Views",
-      INR: "₹250 / 1K Views",
+      INR: "₹290 / 1K Views",
       AED: "11 AED / 1K Views",
     },
     ratePeriod: "Custom Views • Minimum 10M Views Requirement ($3/1K)",
     highlightNote: {
       USD: "Tell us how many views you need (minimum 10M views). We deploy fan pages & theme pages at $3/1K views to deliver your target attention within an agreed timeframe.",
-      INR: "Tell us how many views you need (minimum 10M views). We deploy fan pages & theme pages at ₹250/1K views to deliver your target attention within an agreed timeframe.",
+      INR: "Tell us how many views you need (minimum 10M views). We deploy fan pages & theme pages at ₹290/1K views to deliver your target attention within an agreed timeframe.",
       AED: "Tell us how many views you need (minimum 10M views). We deploy fan pages & theme pages at 11 AED/1K views to deliver your target attention within an agreed timeframe.",
     },
     icon: Zap,
@@ -206,7 +206,7 @@ const shortTermPlans: PricingPlan[] = [
         label: "Pricing Basis",
         value: {
           USD: "$3 per 1,000 views",
-          INR: "₹250 per 1,000 views",
+          INR: "₹290 per 1,000 views",
           AED: "11 AED per 1,000 views",
         },
       },
@@ -221,7 +221,7 @@ const shortTermPlans: PricingPlan[] = [
         title: "A. Mass Fan-Page Clipping",
         desc: {
           USD: "Large pool of clippers posting across fan pages at $3/1K views to hit your target volume (min 10M views).",
-          INR: "Large pool of clippers posting across fan pages at ₹250/1K views to hit your target volume (min 10M views).",
+          INR: "Large pool of clippers posting across fan pages at ₹290/1K views to hit your target volume (min 10M views).",
           AED: "Large pool of clippers posting across fan pages at 11 AED/1K views to hit your target volume (min 10M views).",
         },
       },
@@ -235,34 +235,34 @@ const shortTermPlans: PricingPlan[] = [
     id: "short-term-seeding",
     name: "Seeding Campaign",
     badge: {
-      USD: "Starts at $12,000 USD",
-      INR: "Starts at ₹10 Lakhs (10L)",
-      AED: "Starts at 44,000 AED",
+      USD: "Starts at $8,000 USD",
+      INR: "Starts at ₹7.7 Lakhs (7.7L)",
+      AED: "Starts at 29,000 AED",
     },
     subtitle: "Immediate, high-volume distribution through established theme pages completed in 24 hours",
     rateDisplay: {
-      USD: "Starts at $12,000 ($12K — $100K+)",
-      INR: "Starts at ₹10 Lakhs (₹10L — ₹85L+)",
-      AED: "Starts at 44,000 AED (44K — 365K+ AED)",
+      USD: "Starts at $8,000 ($8K — $100K+)",
+      INR: "Starts at ₹7.7 Lakhs (₹7.7L — ₹96L+)",
+      AED: "Starts at 29,000 AED (29K — 365K+ AED)",
     },
     ratePeriod: {
-      USD: "Starting at $12,000 USD",
-      INR: "Starting at ₹10 Lakhs INR (₹10L)",
-      AED: "Starting at 44,000 AED",
+      USD: "Starting at $8,000 USD",
+      INR: "Starting at ₹7.7 Lakhs INR (₹7.7L)",
+      AED: "Starting at 29,000 AED",
     },
     highlightNote: {
-      USD: "Starting at $12,000 USD. You provide brief & narrative; we handle inventory, high-authority placements & rapid 24-hr execution.",
-      INR: "Starting at ₹10 Lakhs INR. You provide brief & narrative; we handle inventory, high-authority placements & rapid 24-hr execution.",
-      AED: "Starting at 44,000 AED. You provide brief & narrative; we handle inventory, high-authority placements & rapid 24-hr execution.",
+      USD: "Starting at $8,000 USD. You provide brief & narrative; we handle inventory, high-authority placements & rapid 24-hr execution.",
+      INR: "Starting at ₹7.7 Lakhs INR. You provide brief & narrative; we handle inventory, high-authority placements & rapid 24-hr execution.",
+      AED: "Starting at 29,000 AED. You provide brief & narrative; we handle inventory, high-authority placements & rapid 24-hr execution.",
     },
     icon: Clock,
     specs: [
       {
         label: "Starting Pricing",
         value: {
-          USD: "Starts at $12,000 USD",
-          INR: "Starts at ₹10 Lakhs INR (₹10L)",
-          AED: "Starts at 44,000 AED",
+          USD: "Starts at $8,000 USD",
+          INR: "Starts at ₹7.7 Lakhs INR (₹7.7L)",
+          AED: "Starts at 29,000 AED",
         },
       },
       { label: "Execution Speed", value: "Distribution fully completed within 24 hours of brief approval" },
@@ -272,23 +272,23 @@ const shortTermPlans: PricingPlan[] = [
       {
         label: "Budget Range",
         value: {
-          USD: "$12,000 minimum up to $100,000+ for single-day high-volume surges",
-          INR: "₹10 Lakhs minimum up to ₹85 Lakh+ for single-day high-volume surges",
-          AED: "44,000 AED minimum up to 365,000+ AED for single-day high-volume surges",
+          USD: "$8,000 minimum up to $100,000+ for single-day high-volume surges",
+          INR: "₹7.7 Lakhs minimum up to ₹96 Lakh+ for single-day high-volume surges",
+          AED: "29,000 AED minimum up to 365,000+ AED for single-day high-volume surges",
         },
       },
     ],
     subFormats: [
       {
         title: {
-          USD: "Starting at $12,000 USD",
-          INR: "Starting at ₹10 Lakhs (10L)",
-          AED: "Starting at 44,000 AED",
+          USD: "Starting at $8,000 USD",
+          INR: "Starting at ₹7.7 Lakhs (7.7L)",
+          AED: "Starting at 29,000 AED",
         },
         desc: {
-          USD: "Transparent tier pricing starting from $12,000 USD for single-day blitz surges.",
-          INR: "Transparent tier pricing starting from ₹10 Lakhs INR (10L) for single-day blitz surges.",
-          AED: "Transparent tier pricing starting from 44,000 AED for single-day blitz surges.",
+          USD: "Transparent tier pricing starting from $8,000 USD for single-day blitz surges.",
+          INR: "Transparent tier pricing starting from ₹7.7 Lakhs INR (7.7L) for single-day blitz surges.",
+          AED: "Transparent tier pricing starting from 29,000 AED for single-day blitz surges.",
         },
       },
       {

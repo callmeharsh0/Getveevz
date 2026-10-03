@@ -199,7 +199,12 @@ export default function Footer() {
               <span className="text-white/20">·</span>
               <span className="text-white/50">
                 Designed & Developed by{" "}
-                <span className="text-white/80 font-medium">Harsh Paigude</span> under Devora
+                <Link
+                  to="/developer"
+                  className="text-white/90 hover:text-white font-medium hover:underline underline-offset-4 decoration-[#0038E2] transition-colors cursor-pointer"
+                >
+                  Harsh Paigude
+                </Link>
               </span>
             </div>
 

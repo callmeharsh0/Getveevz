@@ -169,7 +169,7 @@ export default function ServicesPage() {
                 : [
                   { label: "Model 03", value: "CPM Campaign (Fan + Theme)" },
                   { label: "Model 04", value: "24-Hour High-Volume Seeding" },
-                  { label: "Seeding Budget", value: "$12K min to $100K+" },
+                  { label: "Seeding Budget", value: "$8K min to $100K+" },
                   { label: "Account Reach", value: "1M–10M+ Follower Properties" },
                 ];
 
@@ -470,7 +470,7 @@ export default function ServicesPage() {
                         Top 10–30 winning pages to retainers / 3-Month $36K &amp; $72K tiers ($36K &amp; $72K for 3 months)
                       </td>
                       <td className="py-5 px-6 sm:px-8 text-[#444444]">
-                        Starting at $12K up to $100K+
+                        Starting at $8K up to $100K+
                       </td>
                       <td className="py-5 px-6 sm:px-8 text-[#444444]">
                         Grow your presence on LinkedIn, X, Instagram, YouTube &amp; TikTok
@@ -484,7 +484,7 @@ export default function ServicesPage() {
                         $1/1K CPM Testing ➔ Retainer or 3-Month straight retainers ($36K &amp; $72K for 3 months)
                       </td>
                       <td className="py-5 px-6 sm:px-8 text-[#444444]">
-                        $3/1K CPM (min 10M views) or Seeding starting at $12K
+                        $3/1K CPM (min 10M views) or Seeding starting at $8K
                       </td>
                       <td className="py-5 px-6 sm:px-8 text-[#444444]">
                         Custom scope discussed and agreed on a quick call
