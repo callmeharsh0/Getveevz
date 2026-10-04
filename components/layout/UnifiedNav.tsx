@@ -175,7 +175,7 @@ export default function UnifiedNav() {
           ease: [0.32, 0.72, 0, 1],
         }}
         className={cn(
-          "fixed top-2.5 sm:top-5 left-0 right-0 mx-auto w-max max-w-[calc(100vw-20px)] sm:max-w-[calc(100vw-32px)] z-[100] transition-all duration-300",
+          "fixed top-1 sm:top-4 lg:top-5 left-0 right-0 mx-auto w-max max-w-[calc(100vw-16px)] sm:max-w-[calc(100vw-32px)] z-[100] transition-all duration-300",
           !isVisible ? "pointer-events-none select-none" : "pointer-events-auto"
         )}
       >
@@ -183,10 +183,10 @@ export default function UnifiedNav() {
           aria-label="Primary Navigation"
           className={cn(
             "pointer-events-auto items-center justify-center flex",
-            "p-0.5 sm:p-1 rounded-full",
+            "py-[2px] px-1.5 sm:py-1 sm:px-1.5 lg:px-2.5 lg:py-1.5 rounded-full",
             "bg-[#111111]/95 text-[#F3EFEA] border border-white/15",
-            "backdrop-blur-2xl shadow-[0_8px_24px_rgba(0,0,0,0.4)]",
-            "hover:shadow-[0_12px_32px_rgba(0,0,0,0.5)] transition-shadow duration-300"
+            "backdrop-blur-2xl shadow-[0_8px_24px_rgba(0,0,0,0.4)] lg:shadow-[0_10px_32px_rgba(0,0,0,0.28)]",
+            "hover:shadow-[0_12px_32px_rgba(0,0,0,0.5)] hover:lg:shadow-[0_14px_42px_rgba(0,0,0,0.38)] transition-shadow duration-300"
           )}
         >
           <AnimatePresence mode="wait" initial={false}>
@@ -197,21 +197,21 @@ export default function UnifiedNav() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.18, ease: [0.32, 0.72, 0, 1] }}
-                className="flex items-center gap-1 sm:gap-1.5"
+                className="flex items-center gap-1 sm:gap-1.5 lg:gap-1.5"
               >
                 <Link
                   to="/"
-                  className="flex items-center gap-1.5 sm:gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] rounded-full mr-1 sm:mr-2 pl-1 group cursor-pointer shrink-0"
+                  className="flex items-center gap-1.5 sm:gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0038E2] rounded-full mr-1 sm:mr-2 lg:mr-3 pl-1 group cursor-pointer shrink-0"
                   aria-label="GetVeevz Home"
                 >
-                  <div className="relative flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 rounded-full overflow-hidden bg-white/10 border border-white/15 group-hover:scale-105 transition-transform duration-300 shrink-0">
+                  <div className="relative flex items-center justify-center w-[13px] h-[13px] sm:w-6 sm:h-6 lg:w-8 lg:h-8 rounded-full overflow-hidden bg-white/10 border border-white/15 group-hover:scale-105 transition-transform duration-300 shrink-0">
                     <img
                       src="/assets/Logo.png"
                       alt="GetVeevz logo"
                       className="w-full h-full object-cover scale-[1.15]"
                     />
                   </div>
-                  <span className="hidden xs:inline-block font-display font-medium text-[11px] sm:text-xs tracking-tight text-[#F3EFEA] group-hover:text-white transition-colors">
+                  <span className="hidden xs:inline-block font-display font-medium text-[9.5px] sm:text-xs lg:text-sm tracking-tight text-[#F3EFEA] group-hover:text-white transition-colors">
                     GetVeevz
                   </span>
                 </Link>
@@ -219,14 +219,14 @@ export default function UnifiedNav() {
                 <div className="flex items-center gap-0.5 sm:gap-1">
                   <Link
                     to="/services"
-                    className="relative h-[22px] sm:h-7 px-2.5 sm:px-3 text-[10px] sm:text-xs font-semibold rounded-full cursor-pointer text-[#111111] bg-white shadow-xs inline-flex items-center justify-center shrink-0 leading-none"
+                    className="relative h-[15px] sm:h-7 lg:h-auto px-2.5 sm:px-3 lg:px-3.5 lg:py-1.5 text-[9.5px] sm:text-xs lg:text-xs font-semibold rounded-full cursor-pointer text-[#111111] bg-white shadow-xs lg:shadow-sm inline-flex items-center justify-center shrink-0 leading-none lg:leading-normal"
                   >
                     <span>Services</span>
                   </Link>
 
                   <Link
                     to="/"
-                    className="relative h-[22px] sm:h-7 px-2.5 sm:px-3 text-[10px] sm:text-xs font-medium rounded-full cursor-pointer text-[#F3EFEA]/80 hover:text-white hover:bg-white/10 transition-colors duration-200 inline-flex items-center justify-center shrink-0 leading-none"
+                    className="relative h-[15px] sm:h-7 lg:h-auto px-2.5 sm:px-3 lg:px-3.5 lg:py-1.5 text-[9.5px] sm:text-xs lg:text-xs font-medium rounded-full cursor-pointer text-[#F3EFEA]/80 hover:text-white hover:bg-white/10 transition-colors duration-200 inline-flex items-center justify-center shrink-0 leading-none lg:leading-normal"
                   >
                     <span>Home</span>
                   </Link>
@@ -243,7 +243,7 @@ export default function UnifiedNav() {
               >
                 <div
                   ref={navContainerRef}
-                  className="flex items-center gap-0.5 sm:gap-1 max-w-[calc(100vw-32px)] overflow-x-auto no-scrollbar"
+                  className="flex items-center gap-0.5 sm:gap-1 lg:gap-1 max-w-[calc(100vw-24px)] sm:max-w-[calc(100vw-32px)] lg:max-w-none overflow-x-auto no-scrollbar"
                 >
                   {HOME_NAV_ITEMS.map((item) => {
                     const isActive = activeSection === item.id;
@@ -268,7 +268,7 @@ export default function UnifiedNav() {
                           }
                         }}
                         className={cn(
-                          "relative h-[22px] sm:h-7 px-2 sm:px-3 text-[10px] sm:text-xs font-medium tracking-tight sm:tracking-normal rounded-full transition-colors duration-200 cursor-pointer inline-flex items-center justify-center select-none shrink-0 leading-none",
+                          "relative h-[17px] sm:h-7 lg:h-auto px-2.5 sm:px-3 lg:px-3.5 lg:py-1.5 text-[9.5px] sm:text-xs lg:text-xs font-medium tracking-tight sm:tracking-normal rounded-full transition-colors duration-200 cursor-pointer inline-flex items-center justify-center select-none shrink-0 leading-none lg:leading-normal",
                           isActive
                             ? "text-[#111111] font-semibold"
                             : "text-[#F3EFEA]/80 hover:text-white hover:bg-white/10"
@@ -277,7 +277,7 @@ export default function UnifiedNav() {
                         {isActive && (
                           <motion.span
                             layoutId="active-nav-indicator"
-                            className="pointer-events-none absolute inset-0 rounded-full bg-white shadow-xs"
+                            className="pointer-events-none absolute inset-y-[1.5px] inset-x-0.5 lg:inset-0 rounded-full bg-white shadow-xs lg:shadow-sm"
                             transition={{ type: "spring", stiffness: 420, damping: 32 }}
                           />
                         )}

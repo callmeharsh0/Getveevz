@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import {
   ArrowRight,
@@ -19,47 +19,7 @@ import { cn } from "@/lib/utils";
 import { useScrollReveal } from "@/lib/useScrollReveal";
 import HeadSEO from "@/components/seo/HeadSEO";
 
-const COMPARISON_COLUMNS = [
-  { id: "longTerm" as const, label: "Long-Term Distribution", shortLabel: "Long-Term", tag: "Retainer", color: "text-[#111111]" },
-  { id: "shortTerm" as const, label: "Short-Term Campaign", shortLabel: "Short-Term", tag: "Blitz Surge", color: "text-[#111111]" },
-  { id: "endToEnd" as const, label: "End-to-End Marketing", shortLabel: "Turnkey", tag: "Full-Stack", color: "text-[#0038E2]" },
-];
-
-const COMPARISON_DATA = [
-  {
-    dimension: "Core Objective",
-    longTerm: "Compounding, repeatable monthly distribution engine",
-    shortTerm: "Concentrated blast for launches, rounds, or announcements",
-    endToEnd: "We create your videos and post them across all platforms",
-  },
-  {
-    dimension: "Deployment Timeframe",
-    longTerm: "3-month plan commitment across all retainer tiers",
-    shortTerm: "Execution within 24 hours / 25–30 day surge",
-    endToEnd: "Monthly video production and regular posting schedule",
-  },
-  {
-    dimension: "Testing Volume",
-    longTerm: "500–1,000+ clippers for broad A/B audience testing",
-    shortTerm: "Targeted seeding across agency-owned theme pages",
-    endToEnd: "Scriptwriting, filming guidance, and fast video editing",
-  },
-  {
-    dimension: "Scale Ceiling",
-    longTerm: "Top 10–30 winning pages to retainers / 3-Month $36K & $72K tiers ($36K & $72K for 3 months)",
-    shortTerm: "Starting at $8K up to $100K+",
-    endToEnd: "Grow your presence on LinkedIn, X, Instagram, YouTube & TikTok",
-  },
-  {
-    dimension: "Economics",
-    longTerm: "$1/1K CPM Testing ➔ Retainer or 3-Month straight retainers ($36K & $72K for 3 months)",
-    shortTerm: "$3/1K CPM (min 10M views) or Seeding starting at $8K",
-    endToEnd: "Custom scope discussed and agreed on a quick call",
-  },
-];
-
 export default function ServicesPage() {
-  const [mobileCompareTab, setMobileCompareTab] = useState<"longTerm" | "shortTerm" | "endToEnd">("longTerm");
   const headerRef = useScrollReveal<HTMLDivElement>();
   const cardsRef = useScrollReveal<HTMLDivElement>();
   const comparisonRef = useScrollReveal<HTMLDivElement>();
@@ -413,96 +373,101 @@ export default function ServicesPage() {
 
           <div
             data-reveal
-            className="rounded-[2rem] sm:rounded-[2.25rem] p-1.5 sm:p-2.5 bg-white/75 border border-[#111111]/10 shadow-[0_20px_48px_rgba(0,0,0,0.06)]"
+            className="rounded-[2.25rem] p-2 sm:p-2.5 bg-white/75 border border-[#111111]/10 shadow-[0_20px_48px_rgba(0,0,0,0.06)]"
           >
-            <div className="rounded-[calc(2rem-0.375rem)] sm:rounded-[calc(2.25rem-0.5rem)] bg-white border border-[#111111]/5 overflow-hidden">
-              
-              {/* Mobile Interactive Tabbed Cards (Zero awkward line wrapping) */}
-              <div className="md:hidden">
-                {/* Segmented Tier Tabs */}
-                <div className="p-2 sm:p-3 bg-[#F8F6F2] border-b border-[#111111]/8 grid grid-cols-3 gap-1.5">
-                  {COMPARISON_COLUMNS.map((col) => {
-                    const isSelected = mobileCompareTab === col.id;
-                    return (
-                      <button
-                        key={col.id}
-                        type="button"
-                        onClick={() => setMobileCompareTab(col.id)}
-                        className={cn(
-                          "py-2 px-1.5 rounded-xl text-center transition-all duration-200 cursor-pointer flex flex-col items-center justify-center gap-0.5",
-                          isSelected
-                            ? "bg-white text-[#111111] shadow-xs font-semibold border border-[#111111]/10"
-                            : "text-[#666666] hover:text-[#111111] hover:bg-white/50"
-                        )}
-                      >
-                        <span className="text-[9px] font-mono uppercase tracking-wider text-[#0038E2] leading-none">
-                          {col.tag}
-                        </span>
-                        <span className="text-[11px] font-display font-medium tracking-tight leading-tight">
-                          {col.shortLabel}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-
-                {/* Active Tier Details */}
-                <div className="divide-y divide-[#111111]/6 p-2 sm:p-4">
-                  {COMPARISON_DATA.map((row) => (
-                    <div key={row.dimension} className="py-3.5 px-3 flex flex-col gap-1.5">
-                      <span className="text-[11px] font-mono uppercase tracking-wider text-[#0038E2] font-semibold">
-                        {row.dimension}
-                      </span>
-                      <p className="text-xs text-[#222222] font-medium leading-relaxed">
-                        {row[mobileCompareTab]}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Desktop & Tablet Full Comparison Table */}
-              <div className="hidden md:block overflow-x-auto">
-                <table className="w-full text-left border-collapse min-w-[760px]">
+            <div className="rounded-[calc(2.25rem-0.5rem)] bg-white border border-[#111111]/5 overflow-hidden">
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse min-w-[780px]">
                   <thead>
                     <tr className="border-b border-[#111111]/10 bg-[#F8F6F2]">
-                      <th className="py-5 px-6 sm:px-8 text-xs font-mono uppercase tracking-wider text-[#777777] font-semibold w-48 min-w-[180px] whitespace-nowrap">
+                      <th className="py-4 sm:py-5 px-4 sm:px-8 text-xs font-mono uppercase tracking-wider text-[#777777] font-semibold whitespace-nowrap min-w-[160px] sm:min-w-[190px]">
                         Dimension
                       </th>
-                      {COMPARISON_COLUMNS.map((col) => (
-                        <th
-                          key={col.id}
-                          className={cn(
-                            "py-5 px-6 sm:px-8 text-xs font-mono uppercase tracking-wider font-semibold min-w-[200px]",
-                            col.color
-                          )}
-                        >
-                          {col.label}
-                        </th>
-                      ))}
+                      <th className="py-4 sm:py-5 px-4 sm:px-8 text-xs font-mono uppercase tracking-wider text-[#111111] font-semibold whitespace-nowrap min-w-[220px]">
+                        Long-Term Distribution
+                      </th>
+                      <th className="py-4 sm:py-5 px-4 sm:px-8 text-xs font-mono uppercase tracking-wider text-[#111111] font-semibold whitespace-nowrap min-w-[220px]">
+                        Short-Term Campaign
+                      </th>
+                      <th className="py-4 sm:py-5 px-4 sm:px-8 text-xs font-mono uppercase tracking-wider text-[#0038E2] font-semibold whitespace-nowrap min-w-[220px]">
+                        End-to-End Marketing
+                      </th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-[#111111]/6 text-xs sm:text-sm">
-                    {COMPARISON_DATA.map((row) => (
-                      <tr key={row.dimension} className="hover:bg-[#FAF8F5] transition-colors">
-                        <td className="py-5 px-6 sm:px-8 font-mono text-[#0038E2] font-semibold whitespace-nowrap">
-                          {row.dimension}
-                        </td>
-                        <td className="py-5 px-6 sm:px-8 text-[#222222] font-medium">
-                          {row.longTerm}
-                        </td>
-                        <td className="py-5 px-6 sm:px-8 text-[#444444]">
-                          {row.shortTerm}
-                        </td>
-                        <td className="py-5 px-6 sm:px-8 text-[#444444]">
-                          {row.endToEnd}
-                        </td>
-                      </tr>
-                    ))}
+                    <tr className="hover:bg-[#FAF8F5] transition-colors">
+                      <td className="py-4 sm:py-5 px-4 sm:px-8 font-mono text-[#0038E2] font-semibold whitespace-nowrap min-w-[160px] sm:min-w-[190px]">
+                        Core Objective
+                      </td>
+                      <td className="py-4 sm:py-5 px-4 sm:px-8 text-[#222222] font-medium min-w-[220px] leading-relaxed">
+                        Compounding, repeatable monthly distribution engine
+                      </td>
+                      <td className="py-4 sm:py-5 px-4 sm:px-8 text-[#222222] font-medium min-w-[220px] leading-relaxed">
+                        Concentrated blast for launches, rounds, or announcements
+                      </td>
+                      <td className="py-4 sm:py-5 px-4 sm:px-8 text-[#222222] font-medium min-w-[220px] leading-relaxed">
+                        We create your videos and post them across all platforms
+                      </td>
+                    </tr>
+                    <tr className="hover:bg-[#FAF8F5] transition-colors">
+                      <td className="py-4 sm:py-5 px-4 sm:px-8 font-mono text-[#0038E2] font-semibold whitespace-nowrap min-w-[160px] sm:min-w-[190px]">
+                        Deployment Timeframe
+                      </td>
+                      <td className="py-4 sm:py-5 px-4 sm:px-8 text-[#444444] min-w-[220px] leading-relaxed">
+                        3-month plan commitment across all retainer tiers
+                      </td>
+                      <td className="py-4 sm:py-5 px-4 sm:px-8 text-[#444444] min-w-[220px] leading-relaxed">
+                        Execution within 24 hours / 25–30 day surge
+                      </td>
+                      <td className="py-4 sm:py-5 px-4 sm:px-8 text-[#444444] min-w-[220px] leading-relaxed">
+                        Monthly video production and regular posting schedule
+                      </td>
+                    </tr>
+                    <tr className="hover:bg-[#FAF8F5] transition-colors">
+                      <td className="py-4 sm:py-5 px-4 sm:px-8 font-mono text-[#0038E2] font-semibold whitespace-nowrap min-w-[160px] sm:min-w-[190px]">
+                        Testing Volume
+                      </td>
+                      <td className="py-4 sm:py-5 px-4 sm:px-8 text-[#444444] min-w-[220px] leading-relaxed">
+                        500–1,000+ clippers for broad A/B audience testing
+                      </td>
+                      <td className="py-4 sm:py-5 px-4 sm:px-8 text-[#444444] min-w-[220px] leading-relaxed">
+                        Targeted seeding across agency-owned theme pages
+                      </td>
+                      <td className="py-4 sm:py-5 px-4 sm:px-8 text-[#444444] min-w-[220px] leading-relaxed">
+                        Scriptwriting, filming guidance, and fast video editing
+                      </td>
+                    </tr>
+                    <tr className="hover:bg-[#FAF8F5] transition-colors">
+                      <td className="py-4 sm:py-5 px-4 sm:px-8 font-mono text-[#0038E2] font-semibold whitespace-nowrap min-w-[160px] sm:min-w-[190px]">
+                        Scale Ceiling
+                      </td>
+                      <td className="py-4 sm:py-5 px-4 sm:px-8 text-[#444444] min-w-[220px] leading-relaxed">
+                        Top 10–30 winning pages to retainers / 3-Month $36K &amp; $72K tiers ($36K &amp; $72K for 3 months)
+                      </td>
+                      <td className="py-4 sm:py-5 px-4 sm:px-8 text-[#444444] min-w-[220px] leading-relaxed">
+                        Starting at $8K up to $100K+
+                      </td>
+                      <td className="py-4 sm:py-5 px-4 sm:px-8 text-[#444444] min-w-[220px] leading-relaxed">
+                        Grow your presence on LinkedIn, X, Instagram, YouTube &amp; TikTok
+                      </td>
+                    </tr>
+                    <tr className="hover:bg-[#FAF8F5] transition-colors">
+                      <td className="py-4 sm:py-5 px-4 sm:px-8 font-mono text-[#0038E2] font-semibold whitespace-nowrap min-w-[160px] sm:min-w-[190px]">
+                        Economics
+                      </td>
+                      <td className="py-4 sm:py-5 px-4 sm:px-8 text-[#444444] min-w-[220px] leading-relaxed">
+                        $1/1K CPM Testing ➔ Retainer or 3-Month straight retainers ($36K &amp; $72K for 3 months)
+                      </td>
+                      <td className="py-4 sm:py-5 px-4 sm:px-8 text-[#444444] min-w-[220px] leading-relaxed">
+                        $3/1K CPM (min 10M views) or Seeding starting at $8K
+                      </td>
+                      <td className="py-4 sm:py-5 px-4 sm:px-8 text-[#444444] min-w-[220px] leading-relaxed">
+                        Custom scope discussed and agreed on a quick call
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
-
             </div>
           </div>
         </div>
