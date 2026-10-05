@@ -3,11 +3,18 @@
 import { GlassButton } from "@/components/ui/glass-button";
 import { useScrollReveal } from "@/lib/useScrollReveal";
 import { Sparkles } from "lucide-react";
-import { openSmartEmail, getSmartEmailLinkProps } from "@/lib/email";
 
 export default function FinalCTA() {
   const ref = useScrollReveal<HTMLDivElement>();
-  const emailParams = { subject: "GetVeevz Strategy Call Booking" };
+
+  const scrollToQuestionnaire = () => {
+    const el = document.getElementById("questionnaire");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    } else {
+      window.location.href = "/#questionnaire";
+    }
+  };
 
   return (
     <section id="cta" ref={ref} className="border-t border-border px-4 sm:px-6 py-16 sm:py-28 md:py-32 text-center relative overflow-hidden">
@@ -25,12 +32,11 @@ export default function FinalCTA() {
         <div data-reveal className="mt-10 flex justify-center">
           <GlassButton
             size="lg"
-            {...getSmartEmailLinkProps(emailParams)}
             onClick={(e) => {
               e.preventDefault();
-              openSmartEmail(emailParams);
+              scrollToQuestionnaire();
             }}
-            className="hover:scale-105"
+            className="hover:scale-105 cursor-pointer"
             contentClassName="flex items-center gap-2.5 text-base sm:text-lg"
           >
             <Sparkles className="w-5 h-5 text-frost opacity-90 animate-pulse" />

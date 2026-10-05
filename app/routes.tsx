@@ -51,17 +51,23 @@ function ScrollHandler() {
 
     prevPathnameRef.current = pathname;
 
-    // Case 1: Specific section hash provided (e.g. /#pricing, /#results)
+    // Case 1: Specific section hash provided (e.g. /#pricing, /#results, /#questionnaire)
     if (hash) {
       const id = hash.replace("#", "");
       const targetId = id === "about" ? "agencies" : id;
-      const timer = setTimeout(() => {
+      let attempts = 0;
+      let activeTimer: ReturnType<typeof setTimeout>;
+      const tryScroll = () => {
         const el = document.getElementById(targetId);
         if (el) {
           el.scrollIntoView({ behavior: "smooth" });
+        } else if (attempts < 8) {
+          attempts++;
+          activeTimer = setTimeout(tryScroll, 120);
         }
-      }, 100);
-      return () => clearTimeout(timer);
+      };
+      activeTimer = setTimeout(tryScroll, 100);
+      return () => clearTimeout(activeTimer);
     }
 
     // Case 2: Returning back to Home from Services / other subpages

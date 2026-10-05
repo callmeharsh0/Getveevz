@@ -13,7 +13,6 @@ import {
   TrendingUp,
   Compass
 } from "lucide-react";
-import { openSmartEmail, getSmartEmailLinkProps } from "@/lib/email";
 import { services } from "@/lib/services";
 import { cn } from "@/lib/utils";
 import { useScrollReveal } from "@/lib/useScrollReveal";
@@ -502,11 +501,11 @@ export default function ServicesPage() {
                 </p>
 
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                  <a
-                    {...getSmartEmailLinkProps({ subject: "Custom Distribution Inquiry" })}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      openSmartEmail({ subject: "Custom Distribution Inquiry" });
+                  <Link
+                    to="/#questionnaire"
+                    onClick={() => {
+                      const el = document.getElementById("questionnaire");
+                      if (el) el.scrollIntoView({ behavior: "smooth" });
                     }}
                     className="group relative inline-flex items-center gap-3 pl-7 pr-2 py-2 rounded-full bg-[#111111] text-white font-medium text-sm sm:text-base transition-all duration-500 ease-gentle hover:bg-[#0038E2] hover:scale-105 active:scale-[0.98] shadow-[0_4px_24px_rgba(0,0,0,0.18)] cursor-pointer"
                   >
@@ -514,7 +513,7 @@ export default function ServicesPage() {
                     <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white/15 transition-transform duration-500 ease-gentle group-hover:translate-x-1 group-hover:-translate-y-[1px]">
                       <ArrowUpRight className="w-4 h-4 stroke-[2.5] text-white" />
                     </div>
-                  </a>
+                  </Link>
 
                   <Link
                     to="/"

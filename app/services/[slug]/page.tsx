@@ -8,7 +8,6 @@ import { services, Service, getServiceBySlug } from "@/lib/services";
 import { cn } from "@/lib/utils";
 import { useScrollReveal } from "@/lib/useScrollReveal";
 import HeadSEO from "@/components/seo/HeadSEO";
-import { openSmartEmail } from "@/lib/email";
 
 export default function ServiceDetailPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -445,11 +444,11 @@ export default function ServiceDetailPage() {
                 </p>
 
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                  <a
-                    href={service.ctaHref}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      openSmartEmail({ subject: `${service.title} Inquiry` });
+                  <Link
+                    to="/#questionnaire"
+                    onClick={() => {
+                      const el = document.getElementById("questionnaire");
+                      if (el) el.scrollIntoView({ behavior: "smooth" });
                     }}
                     className="group relative inline-flex items-center gap-3 pl-7 pr-2 py-2 rounded-full bg-[#111111] text-white font-medium text-sm sm:text-base transition-all duration-500 ease-gentle hover:bg-[#0038E2] hover:scale-105 active:scale-[0.98] shadow-[0_4px_24px_rgba(0,0,0,0.18)] cursor-pointer"
                   >
@@ -457,7 +456,7 @@ export default function ServiceDetailPage() {
                     <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white/15 transition-transform duration-500 ease-gentle group-hover:translate-x-1 group-hover:-translate-y-[1px]">
                       <ArrowRight className="w-3.5 h-3.5 stroke-[2.5] text-white" />
                     </div>
-                  </a>
+                  </Link>
 
                   <Link
                     to="/services"

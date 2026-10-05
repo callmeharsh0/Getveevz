@@ -570,8 +570,8 @@ export default function Hero() {
           <button
             type="button"
             onClick={() => {
-              const cta = document.getElementById("cta") || document.querySelector("footer");
-              if (cta) cta.scrollIntoView({ behavior: "smooth" });
+              const target = document.getElementById("questionnaire") || document.getElementById("cta") || document.querySelector("footer");
+              if (target) target.scrollIntoView({ behavior: "smooth" });
             }}
             className="inline-flex items-center gap-1.5 px-3.5 sm:px-4 h-10 sm:h-11 text-xs font-medium rounded-full bg-[#18181B] text-white hover:bg-black transition-all shadow-sm active:scale-95 border-0 outline-none cursor-pointer shrink-0"
           >
@@ -652,8 +652,8 @@ export default function Hero() {
               type="button"
               onClick={() => {
                 setMobileMenuOpen(false);
-                const cta = document.getElementById("cta") || document.querySelector("footer");
-                if (cta) cta.scrollIntoView({ behavior: "smooth" });
+                const target = document.getElementById("questionnaire") || document.getElementById("cta") || document.querySelector("footer");
+                if (target) target.scrollIntoView({ behavior: "smooth" });
               }}
               className="w-full mt-1 inline-flex items-center justify-center gap-2 py-3 px-5 rounded-2xl bg-[#0038E2] hover:bg-[#002ec7] active:scale-[0.98] text-white font-medium text-sm shadow-[0_8px_24px_rgba(0,56,226,0.35)] transition-all cursor-pointer"
             >

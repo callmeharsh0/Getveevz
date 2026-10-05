@@ -269,9 +269,9 @@ export function ParallaxFloatingDemo() {
   }, []);
 
   const scrollToCTA = () => {
-    const cta = document.getElementById("cta") || document.querySelector("footer");
-    if (cta) {
-      cta.scrollIntoView({ behavior: "smooth" });
+    const target = document.getElementById("questionnaire") || document.getElementById("cta") || document.querySelector("footer");
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth" });
     }
   };
 
