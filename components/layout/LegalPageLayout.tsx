@@ -2,7 +2,7 @@
 
 import React, { ReactNode } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, ShieldCheck, Mail, ArrowUpRight, Clock, FileText } from "lucide-react";
+import { ArrowLeft, ShieldCheck, Mail, ArrowUpRight, Clock } from "lucide-react";
 import HeadSEO from "@/components/seo/HeadSEO";
 import { getSmartEmailLinkProps, openSmartEmail } from "@/lib/email";
 import { useScrollReveal } from "@/lib/useScrollReveal";
@@ -20,6 +20,7 @@ export interface LegalPageLayoutProps {
   lastUpdated?: string;
   version?: string;
   sections?: LegalSection[];
+  showFooterCta?: boolean;
   children: ReactNode;
 }
 
@@ -31,6 +32,7 @@ export default function LegalPageLayout({
   lastUpdated = "October 2026",
   version = "v2.4",
   sections,
+  showFooterCta = false,
   children,
 }: LegalPageLayoutProps) {
   const contentRef = useScrollReveal<HTMLDivElement>();
@@ -76,68 +78,68 @@ export default function LegalPageLayout({
   };
 
   return (
-    <main className="relative w-full min-h-screen bg-[#07080B] text-[#F3EFEA] font-sans overflow-hidden selection:bg-[#0038E2]/30 selection:text-white">
+    <main className="relative w-full min-h-screen bg-white text-[#111111] font-sans overflow-hidden selection:bg-[#0038E2]/25 selection:text-[#0038E2]">
       <HeadSEO
-        title={`${title} — GetVeevz Distribution`}
+        title={`${title} — GetVeevz`}
         description={description}
         canonical={canonical}
         jsonLd={jsonLd}
       />
 
-      {/* Atmospheric Ambient Glows */}
+      {/* Atmospheric Ambient Glows — matching CapabilitiesFlywheel */}
       <div
         aria-hidden="true"
-        className="pointer-events-none fixed top-0 left-1/4 -translate-y-1/2 w-[700px] h-[700px] bg-[#0038E2]/[0.07] blur-[160px] rounded-full -z-10"
+        className="pointer-events-none fixed top-1/4 left-1/4 -translate-y-1/2 w-[600px] h-[600px] bg-[#0038E2]/[0.035] blur-[150px] rounded-full -z-10"
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none fixed bottom-1/4 right-1/4 w-[600px] h-[600px] bg-[#8BA3C5]/[0.05] blur-[150px] rounded-full -z-10"
+        className="pointer-events-none fixed bottom-1/3 right-1/4 w-[500px] h-[500px] bg-[#8BA3C5]/[0.07] blur-[140px] rounded-full -z-10"
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none fixed inset-0 opacity-[0.025] mix-blend-screen bg-[radial-gradient(#F8F6F2_1px,transparent_1px)] [background-size:24px_24px] -z-10"
+        className="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(0,56,226,0.025),transparent_70%)] -z-10"
       />
 
-      <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-36 pb-20 sm:pb-28">
+      <div className="relative max-w-5xl mx-auto px-4 xs:px-5 sm:px-6 lg:px-8 pt-24 sm:pt-32 pb-16 sm:pb-24">
         {/* Navigation & Breadcrumb */}
-        <div className="flex items-center justify-between gap-4 mb-8 sm:mb-12">
+        <div className="flex flex-wrap items-center justify-between gap-3 mb-6 sm:mb-10">
           <Link
             to="/"
-            className="group inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] hover:border-white/20 text-xs font-mono text-white/70 hover:text-white transition-all duration-300 ease-gentle cursor-pointer active:scale-95"
+            className="group inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white hover:bg-[#F8F6F2] border border-[#111111]/12 hover:border-[#0038E2]/40 text-xs font-mono text-[#555555] hover:text-[#111111] transition-all duration-300 ease-gentle cursor-pointer active:scale-95 shadow-xs shrink-0"
           >
-            <ArrowLeft className="w-3.5 h-3.5 stroke-[2] transition-transform duration-300 ease-gentle group-hover:-translate-x-0.5" />
+            <ArrowLeft className="w-3.5 h-3.5 stroke-[2] transition-transform duration-300 ease-gentle group-hover:-translate-x-0.5 text-[#0038E2]" />
             <span>Back to Home</span>
           </Link>
 
-          <div className="flex items-center gap-2 text-[11px] font-mono text-white/45">
+          <div className="flex items-center gap-2 text-[11px] font-mono text-[#555555] shrink-0">
             <span className="flex items-center gap-1.5">
               <Clock className="w-3 h-3 text-[#0038E2]" />
               <span>Updated: {lastUpdated}</span>
             </span>
-            <span className="text-white/20">·</span>
-            <span className="text-white/60 font-semibold">{version}</span>
+            <span className="text-[#111111]/20">·</span>
+            <span className="px-2 py-0.5 rounded-md bg-[#0038E2]/10 border border-[#0038E2]/20 text-[#0038E2] font-semibold">{version}</span>
           </div>
         </div>
 
         {/* Header Block */}
-        <header className="mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0038E2]/15 border border-[#0038E2]/35 text-[11px] font-mono uppercase tracking-[0.2em] text-[#8BA3C6] font-semibold mb-4">
+        <header className="mb-8 sm:mb-12">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-mono tracking-wider text-[#0038E2] bg-[#0038E2]/10 border border-[#0038E2]/20 uppercase font-semibold mb-3 sm:mb-4">
             <ShieldCheck className="w-3.5 h-3.5 text-[#0038E2]" />
-            <span>Governance & Legal Policy</span>
+            <span>Governance &amp; Legal Policy</span>
           </div>
 
-          <h1 className="font-display font-medium text-3xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-[1.12] mb-4">
+          <h1 className="font-display font-medium text-2xl xs:text-3xl sm:text-5xl lg:text-6xl text-[#111111] tracking-tight leading-[1.12] mb-3 sm:mb-4">
             {title}
           </h1>
 
-          <p className="text-base sm:text-lg text-white/65 font-light leading-relaxed max-w-3xl">
+          <p className="text-sm xs:text-base sm:text-lg text-[#495B7D] font-normal leading-relaxed max-w-3xl">
             {subtitle}
           </p>
 
           {/* Quick Jump Pills if sections provided */}
           {sections && sections.length > 0 && (
-            <div className="mt-8 pt-6 border-t border-white/[0.08]">
-              <div className="text-[11px] font-mono text-[#8BA3C6] uppercase tracking-wider mb-3">
+            <div className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-[#111111]/10">
+              <div className="text-[10px] sm:text-[11px] font-mono text-[#0038E2] uppercase tracking-wider font-semibold mb-2.5 sm:mb-3">
                 Quick Navigation
               </div>
               <div className="flex flex-wrap gap-2">
@@ -146,7 +148,7 @@ export default function LegalPageLayout({
                     key={sec.id}
                     type="button"
                     onClick={() => scrollToSection(sec.id)}
-                    className="px-3 py-1 rounded-lg bg-white/[0.03] hover:bg-[#0038E2]/20 border border-white/[0.08] hover:border-[#0038E2]/40 text-xs font-mono text-white/70 hover:text-white transition-all duration-200 cursor-pointer text-left"
+                    className="px-3 py-1 rounded-full bg-[#F8F6F2] hover:bg-white border border-[#111111]/10 hover:border-[#0038E2]/40 text-xs font-mono text-[#555555] hover:text-[#111111] transition-all duration-200 cursor-pointer text-left shadow-2xs hover:shadow-xs active:scale-95 whitespace-nowrap shrink-0"
                   >
                     <span className="text-[#0038E2] mr-1.5 font-semibold">0{idx + 1}.</span>
                     <span>{sec.title}</span>
@@ -157,21 +159,28 @@ export default function LegalPageLayout({
           )}
         </header>
 
-        {/* Document Body Card */}
+        {/* Document Body Card — matching Flywheel Showcase container */}
         <div
           ref={contentRef}
-          className="rounded-[2.25rem] p-1.5 sm:p-2 bg-white/[0.03] border border-white/[0.08] shadow-[0_24px_64px_rgba(0,0,0,0.5)] backdrop-blur-xl"
+          className="relative w-full rounded-2xl sm:rounded-3xl bg-white border border-[#111111]/12 shadow-[0_20px_50px_rgba(0,0,0,0.06),0_1px_3px_rgba(0,0,0,0.03)] p-4 xs:p-6 sm:p-10 lg:p-12 overflow-hidden space-y-8 sm:space-y-12 text-[#495B7D] leading-relaxed text-sm sm:text-base"
         >
-          <div className="rounded-[calc(2.25rem-0.375rem)] bg-[#0C0D11]/95 border border-white/[0.05] p-6 sm:p-12 lg:p-14 shadow-[inset_0_1px_1px_rgba(255,255,255,0.06)] space-y-10 sm:space-y-14 text-white/80 leading-relaxed text-sm sm:text-base font-light">
-            {children}
+          <div
+            aria-hidden="true"
+            className="absolute -top-12 -right-12 w-64 h-64 bg-[#0038E2]/[0.06] blur-[90px] rounded-full pointer-events-none"
+          />
 
-            {/* Questions / Contact Box at the bottom */}
-            <div className="pt-10 border-t border-white/[0.08] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 bg-white/[0.02] -mx-6 sm:-mx-12 lg:-mx-14 -mb-6 sm:-mb-12 lg:-mb-14 p-6 sm:p-10 rounded-b-[calc(2.25rem-0.375rem)] border-b border-white/[0.04]">
+          <div className="relative z-10 space-y-8 sm:space-y-12">
+            {children}
+          </div>
+
+          {/* Optional bottom contact block if explicitly requested */}
+          {showFooterCta && (
+            <div className="pt-8 border-t border-[#111111]/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 bg-[#F8F6F2] -mx-4 xs:-mx-6 sm:-mx-10 lg:-mx-12 -mb-4 xs:-mb-6 sm:-mb-10 lg:-mb-12 p-5 sm:p-8 border-b border-[#111111]/10 relative z-10">
               <div>
-                <h3 className="font-display font-medium text-lg sm:text-xl text-white tracking-tight mb-1">
+                <h3 className="font-display font-medium text-lg sm:text-xl text-[#111111] tracking-tight mb-1">
                   Questions or compliance notices?
                 </h3>
-                <p className="text-xs sm:text-sm text-white/60 font-light">
+                <p className="text-xs sm:text-sm text-[#495B7D]">
                   Our operations team responds to official notices within 24 business hours.
                 </p>
               </div>
@@ -188,14 +197,14 @@ export default function LegalPageLayout({
                     body: `Hi GetVeevz Legal Team,\n\nI have a question regarding the ${title}:\n\n`,
                   });
                 }}
-                className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-[#F8F6F2] hover:bg-white text-[#111111] font-display font-semibold text-xs sm:text-sm transition-all duration-300 ease-gentle hover:scale-[1.02] active:scale-[0.98] shadow-sm cursor-pointer shrink-0"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-5 py-2.5 rounded-full bg-[#111111] hover:bg-[#0038E2] text-white font-display font-semibold text-xs sm:text-sm transition-all duration-300 ease-gentle hover:scale-[1.02] active:scale-[0.98] shadow-[0_4px_16px_rgba(0,0,0,0.12)] cursor-pointer shrink-0"
               >
-                <Mail className="w-3.5 h-3.5 text-[#0038E2]" />
+                <Mail className="w-3.5 h-3.5 text-[#8BA3C5]" />
                 <span>Contact Legal Team</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
+                <ArrowUpRight className="w-3.5 h-3.5 stroke-[2]" />
               </a>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </main>

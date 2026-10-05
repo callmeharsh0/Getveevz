@@ -2,266 +2,263 @@
 
 import React from "react";
 import LegalPageLayout from "@/components/layout/LegalPageLayout";
-import { Shield, Lock, Eye, FileText, Database, UserCheck, Bell } from "lucide-react";
-
-const SECTIONS = [
-  { id: "intro", title: "Introduction & Scope" },
-  { id: "information-collected", title: "Information We Collect" },
-  { id: "use-of-information", title: "How We Use Data" },
-  { id: "content-confidentiality", title: "Video & Clipper Confidentiality" },
-  { id: "data-sharing", title: "Third-Party Disclosures" },
-  { id: "retention-security", title: "Storage & Security" },
-  { id: "your-rights", title: "GDPR & Privacy Rights" },
-  { id: "contact", title: "Contact & Legal Inquiries" },
-];
+import {
+  User,
+  Clock,
+  ShieldCheck,
+  Mail,
+  ShieldAlert,
+  CheckCircle2,
+  Lock,
+  Globe2,
+  AlertCircle,
+  Scale,
+} from "lucide-react";
 
 export default function PrivacyPolicyPage() {
   return (
     <LegalPageLayout
-      title="Privacy Policy"
-      subtitle="How GetVeevz collects, safeguards, and processes client information, campaign assets, and distribution data."
-      description="Read the official GetVeevz Privacy Policy. Learn about our strict content confidentiality, clippers network security, data collection, and GDPR compliance."
+      title="Privacy Policy & Terms"
+      subtitle="A clear, globally compliant disclosure of how GetVeevz handles contact inquiries and governs website usage."
+      description="We collect your name, email, and phone number solely to respond to your enquiry based on your consent. We never sell or share your data. Retained for 12 months with immediate deletion on request. Contact our Grievance Officer at team@getveevz.com."
       canonical="https://getveevz.com/privacy-policy"
-      sections={SECTIONS}
+      sections={[
+        { id: "core-notice", title: "Notice of Collection" },
+        { id: "collection-purpose", title: "Data & Purpose" },
+        { id: "global-rights", title: "Global Privacy Rights" },
+        { id: "security-transfers", title: "Security & Retention" },
+        { id: "terms", title: "Website Terms of Use" },
+        { id: "grievance", title: "Grievance Officer" },
+      ]}
     >
-      {/* 01. Introduction & Scope */}
-      <section id="intro" className="scroll-mt-28 space-y-4">
-        <div className="flex items-center gap-2 text-xs font-mono text-[#8BA3C6] uppercase tracking-wider font-semibold">
-          <Shield className="w-4 h-4 text-[#0038E2]" />
-          <span>01. Introduction & Scope</span>
-        </div>
-        <h2 className="font-display font-medium text-2xl sm:text-3xl text-white tracking-tight">
-          Commitment to Client Privacy & Asset Integrity
-        </h2>
-        <p>
-          GetVeevz Inc. (&ldquo;GetVeevz&rdquo;, &ldquo;we&rdquo;, &ldquo;our&rdquo;, or &ldquo;us&rdquo;) operates a premier short-form video distribution and performance clipping agency accessible at{" "}
-          <span className="text-white font-mono text-xs">getveevz.com</span>. We engineer high-velocity distribution across TikTok, Instagram Reels, YouTube Shorts, and proprietary niche theme networks.
-        </p>
-        <p>
-          This Privacy Policy details the protocols we follow regarding the collection, processing, protection, and retention of personal identification information, technical telemetry, and proprietary media assets shared by clients, brands, executives, creators, and website visitors.
-        </p>
-        <div className="p-4 rounded-xl bg-white/[0.03] border-l-2 border-l-[#0038E2] border border-white/[0.06] text-xs sm:text-sm text-white/85">
-          <strong className="text-white font-medium">Core Principle:</strong> We treat your raw video assets, strategic distribution narratives, and audience data with strict confidentiality. We never sell, rent, or lease your content to third-party data brokers or AI model trainers without explicit written consent.
-        </div>
-      </section>
-
-      {/* 02. Information We Collect */}
-      <section id="information-collected" className="scroll-mt-28 space-y-4 pt-6 border-t border-white/[0.06]">
-        <div className="flex items-center gap-2 text-xs font-mono text-[#8BA3C6] uppercase tracking-wider font-semibold">
-          <Database className="w-4 h-4 text-[#0038E2]" />
-          <span>02. Information We Collect</span>
-        </div>
-        <h2 className="font-display font-medium text-2xl sm:text-3xl text-white tracking-tight">
-          Categories of Information Collected
-        </h2>
-        <p>
-          Depending on your level of engagement with our agency, we collect and process the following categories of information:
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-          <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.06] space-y-2">
-            <h4 className="font-display font-semibold text-white text-base">
-              A. Client Intake & Lead Information
-            </h4>
-            <p className="text-xs text-white/70">
-              When you submit our intake questionnaire, book a strategy call, or communicate via email, we collect your full name, company name, corporate email address, WhatsApp/phone number, executive role, and social media/website URLs.
+      <div className="space-y-8 sm:space-y-12">
+        {/* 01. Core Watertight Notice Statement Card */}
+        <section id="core-notice" className="scroll-mt-28 space-y-3 sm:space-y-4">
+          <div className="p-5 xs:p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-[#0038E2]/[0.035] border-l-4 border-l-[#0038E2] border border-[#0038E2]/20 relative overflow-hidden shadow-xs">
+            <div
+              aria-hidden="true"
+              className="absolute -top-8 -right-8 w-48 h-48 bg-[#0038E2]/[0.08] blur-[60px] rounded-full pointer-events-none"
+            />
+            <div className="flex flex-wrap items-center gap-2 mb-3 sm:mb-4">
+              <span className="text-[10px] sm:text-[11px] font-mono tracking-wider text-[#0038E2] bg-[#0038E2]/10 border border-[#0038E2]/20 px-2.5 sm:px-3 py-1 rounded-full uppercase font-semibold">
+                Statutory Notice of Collection
+              </span>
+              <span className="text-[10px] sm:text-[11px] font-mono text-[#495B7D] bg-white border border-[#111111]/10 px-2.5 py-1 rounded-full font-medium">
+                DPDPA 2023 · GDPR (EU/UK) · CCPA/CPRA · PIPEDA
+              </span>
+            </div>
+            <p className="font-display font-medium text-base xs:text-lg sm:text-xl lg:text-2xl text-[#111111] leading-snug sm:leading-snug tracking-tight">
+              &ldquo;We collect your name, email, and phone number solely to respond to your enquiry based on your consent. We never sell, rent, or share your personal data with third parties. Data is retained for up to 12 months, and you may request its immediate deletion at any time. For questions, data requests, or statutory grievance redressal, contact our Grievance Officer at team@getveevz.com.&rdquo;
             </p>
           </div>
-          <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.06] space-y-2">
-            <h4 className="font-display font-semibold text-white text-base">
-              B. Campaign Assets & Raw Media
-            </h4>
-            <p className="text-xs text-white/70">
-              Video files, audio stems, transcripts, keynote recordings, brand guidelines, typography assets, logos, and narrative briefs provided by you for the creation of short-form clips and seeding pushes.
-            </p>
-          </div>
-          <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.06] space-y-2">
-            <h4 className="font-display font-semibold text-white text-base">
-              C. Campaign Performance Analytics
-            </h4>
-            <p className="text-xs text-white/70">
-              Public performance indicators generated by distributed clips, including view counts, retention curves, click-through signals, comment velocity, and follower growth trends across platform endpoints.
-            </p>
-          </div>
-          <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.06] space-y-2">
-            <h4 className="font-display font-semibold text-white text-base">
-              D. Technical & Telemetry Data
-            </h4>
-            <p className="text-xs text-white/70">
-              Browser specifications, IP addresses, operating system metadata, referral URLs, time zones, device screen resolutions, and navigation interactions while reviewing our website.
-            </p>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      {/* 03. How We Use Data */}
-      <section id="use-of-information" className="scroll-mt-28 space-y-4 pt-6 border-t border-white/[0.06]">
-        <div className="flex items-center gap-2 text-xs font-mono text-[#8BA3C6] uppercase tracking-wider font-semibold">
-          <Eye className="w-4 h-4 text-[#0038E2]" />
-          <span>03. How We Use Data</span>
-        </div>
-        <h2 className="font-display font-medium text-2xl sm:text-3xl text-white tracking-tight">
-          Purpose and Lawful Basis of Processing
-        </h2>
-        <p>
-          We utilize your data strictly in accordance with contractual necessity, legitimate business interests, and applicable international privacy frameworks for:
-        </p>
-        <ul className="space-y-2.5 list-disc list-inside text-white/75 text-sm sm:text-base">
-          <li>
-            <strong className="text-white font-medium">Delivering Distribution Services:</strong> Deploying our creator pools, executing hook discovery experiments, managing 24-hour seeding runs, and distributing content across verified accounts.
-          </li>
-          <li>
-            <strong className="text-white font-medium">Performance Projections:</strong> Analyzing your niche positioning, historical engagement baselines, and producing algorithmic reach estimates.
-          </li>
-          <li>
-            <strong className="text-white font-medium">Contractual Operations & Billing:</strong> Processing retainer milestone invoices, campaign budget allocations, and performance verification logs.
-          </li>
-          <li>
-            <strong className="text-white font-medium">Security & Fraud Prevention:</strong> Protecting our creator roster, verifying client legitimacy, and enforcing anti-spam and intellectual property compliance.
-          </li>
-        </ul>
-      </section>
+        {/* 02. Breakdown Bento Grid (Balanced 2x2 on Desktop) */}
+        <section id="collection-purpose" className="scroll-mt-28 space-y-3.5 sm:space-y-4">
+          <div className="flex items-center gap-2 text-xs font-mono text-[#0038E2] uppercase tracking-wider font-semibold">
+            <CheckCircle2 className="w-4 h-4 text-[#0038E2] shrink-0" />
+            <span>01. Data Collection &amp; Lawful Processing</span>
+          </div>
 
-      {/* 04. Video & Clipper Confidentiality */}
-      <section id="content-confidentiality" className="scroll-mt-28 space-y-4 pt-6 border-t border-white/[0.06]">
-        <div className="flex items-center gap-2 text-xs font-mono text-[#8BA3C6] uppercase tracking-wider font-semibold">
-          <Lock className="w-4 h-4 text-[#0038E2]" />
-          <span>04. Video & Clipper Confidentiality</span>
-        </div>
-        <h2 className="font-display font-medium text-2xl sm:text-3xl text-white tracking-tight">
-          Creator Network Protocols & NDA Standards
-        </h2>
-        <p>
-          GetVeevz coordinates a vetted network of video clippers, editors, and theme-page operators. To ensure complete asset safety:
-        </p>
-        <div className="space-y-3">
-          <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.06]">
-            <h5 className="font-display font-semibold text-white text-sm mb-1">
-              Strict Non-Disclosure Agreements (NDAs)
-            </h5>
-            <p className="text-xs text-white/70">
-              All clippers and editors participating in our network operate under legally binding NDAs. Unreleased footage, strategic talking points, and raw brand materials are protected from unauthorized leaks.
-            </p>
-          </div>
-          <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.06]">
-            <h5 className="font-display font-semibold text-white text-sm mb-1">
-              Zero Unauthorized Monetization
-            </h5>
-            <p className="text-xs text-white/70">
-              Clippers are prohibited from running unauthorized affiliate links, unauthorized secondary sponsorships, or distributing content outside agreed parameters.
-            </p>
-          </div>
-          <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.06]">
-            <h5 className="font-display font-semibold text-white text-sm mb-1">
-              Sanitized Asset Vaults
-            </h5>
-            <p className="text-xs text-white/70">
-              Only clippers actively allocated to your brand receive watermarked or project-scoped footage through secure access tokens that are revoked upon campaign conclusion.
-            </p>
-          </div>
-        </div>
-      </section>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4">
+            <div className="p-4 xs:p-5 sm:p-6 rounded-2xl bg-[#F8F6F2] border border-[#111111]/10 space-y-2 shadow-2xs">
+              <div className="w-8 h-8 rounded-full bg-[#0038E2]/10 border border-[#0038E2]/20 flex items-center justify-center text-[#0038E2]">
+                <User className="w-4 h-4" />
+              </div>
+              <h4 className="font-display font-semibold text-[#111111] text-sm sm:text-base">
+                Data Collected
+              </h4>
+              <p className="text-xs sm:text-sm text-[#495B7D] leading-relaxed">
+                Only basic identifiers (name, email address, phone number, and message text) that you voluntarily supply via contact forms or direct email. No sensitive personal data, payment info, or background trackers are ever collected.
+              </p>
+            </div>
 
-      {/* 05. Third-Party Disclosures */}
-      <section id="data-sharing" className="scroll-mt-28 space-y-4 pt-6 border-t border-white/[0.06]">
-        <div className="flex items-center gap-2 text-xs font-mono text-[#8BA3C6] uppercase tracking-wider font-semibold">
-          <FileText className="w-4 h-4 text-[#0038E2]" />
-          <span>05. Third-Party Disclosures</span>
-        </div>
-        <h2 className="font-display font-medium text-2xl sm:text-3xl text-white tracking-tight">
-          When and How We Share Information
-        </h2>
-        <p>
-          We do not sell client data. We only disclose information under the following limited conditions:
-        </p>
-        <ul className="space-y-2 list-disc list-inside text-white/75 text-sm">
-          <li>
-            <strong className="text-white font-medium">Service Providers:</strong> Cloud infrastructure (e.g. AWS, Vercel, Supabase), secure file transfer systems, and communication endpoints operating under strict data processing agreements.
-          </li>
-          <li>
-            <strong className="text-white font-medium">Distribution Networks:</strong> Public social platforms (TikTok, Meta/Instagram, YouTube, X) receive the finalized video clips that you authorize us to publish.
-          </li>
-          <li>
-            <strong className="text-white font-medium">Legal Compliance:</strong> When mandated by court order, statutory subpoena, or regulatory enforcement to protect legal rights and prevent fraud.
-          </li>
-        </ul>
-      </section>
+            <div className="p-4 xs:p-5 sm:p-6 rounded-2xl bg-[#F8F6F2] border border-[#111111]/10 space-y-2 shadow-2xs">
+              <div className="w-8 h-8 rounded-full bg-[#0038E2]/10 border border-[#0038E2]/20 flex items-center justify-center text-[#0038E2]">
+                <CheckCircle2 className="w-4 h-4" />
+              </div>
+              <h4 className="font-display font-semibold text-[#111111] text-sm sm:text-base">
+                Sole Purpose &amp; Basis
+              </h4>
+              <p className="text-xs sm:text-sm text-[#495B7D] leading-relaxed">
+                Processed strictly under your consent and legitimate interests (GDPR Art. 6(1)(a)/(f) &amp; India DPDPA Sec. 5/6) to evaluate and answer your specific inquiry. Data is never repurposed for marketing lists or third-party ad targeting.
+              </p>
+            </div>
 
-      {/* 06. Storage & Security */}
-      <section id="retention-security" className="scroll-mt-28 space-y-4 pt-6 border-t border-white/[0.06]">
-        <div className="flex items-center gap-2 text-xs font-mono text-[#8BA3C6] uppercase tracking-wider font-semibold">
-          <Lock className="w-4 h-4 text-[#0038E2]" />
-          <span>06. Storage & Security</span>
-        </div>
-        <h2 className="font-display font-medium text-2xl sm:text-3xl text-white tracking-tight">
-          Encryption, Access Controls & Data Retention
-        </h2>
-        <p>
-          We implement technical, administrative, and physical safeguards designed to prevent unauthorized access, loss, or alteration of your content:
-        </p>
-        <ul className="space-y-2 list-disc list-inside text-white/75 text-sm">
-          <li>
-            <strong className="text-white font-medium">In-Transit & At-Rest Encryption:</strong> All client intake submissions, emails, and data transfers utilize TLS 1.3 encryption and AES-256 bit encrypted vault storage.
-          </li>
-          <li>
-            <strong className="text-white font-medium">Access Principle of Least Privilege:</strong> Only agency account managers and lead content strategists directly assigned to your account have administrative file access.
-          </li>
-          <li>
-            <strong className="text-white font-medium">Retention Timelines:</strong> Raw footage is archived for the duration of the active retainer plus 90 days for archival revisions, after which clients may request complete digital purging.
-          </li>
-        </ul>
-      </section>
+            <div className="p-4 xs:p-5 sm:p-6 rounded-2xl bg-[#F8F6F2] border border-[#111111]/10 space-y-2 shadow-2xs">
+              <div className="w-8 h-8 rounded-full bg-[#0038E2]/10 border border-[#0038E2]/20 flex items-center justify-center text-[#0038E2]">
+                <ShieldAlert className="w-4 h-4" />
+              </div>
+              <h4 className="font-display font-semibold text-[#111111] text-sm sm:text-base">
+                Zero Data Selling (CCPA/CPRA)
+              </h4>
+              <p className="text-xs sm:text-sm text-[#495B7D] leading-relaxed">
+                We never sell, rent, trade, or share personal data with third parties, data brokers, or marketing networks for cross-context behavioral ads (California Civil Code § 1798.120). There is zero commercial monetization of your data.
+              </p>
+            </div>
 
-      {/* 07. GDPR & Privacy Rights */}
-      <section id="your-rights" className="scroll-mt-28 space-y-4 pt-6 border-t border-white/[0.06]">
-        <div className="flex items-center gap-2 text-xs font-mono text-[#8BA3C6] uppercase tracking-wider font-semibold">
-          <UserCheck className="w-4 h-4 text-[#0038E2]" />
-          <span>07. GDPR & Privacy Rights</span>
-        </div>
-        <h2 className="font-display font-medium text-2xl sm:text-3xl text-white tracking-tight">
-          Your Rights Under GDPR, CCPA & Global Laws
-        </h2>
-        <p>
-          Regardless of your jurisdiction, GetVeevz affords all clients and site visitors comprehensive privacy rights:
-        </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-          <div className="p-3 rounded-lg bg-white/[0.02] border border-white/[0.06]">
-            <strong className="text-white block mb-0.5">Right of Access</strong>
-            <span>Request a complete copy of all personal records and media metadata associated with your account.</span>
+            <div className="p-4 xs:p-5 sm:p-6 rounded-2xl bg-[#F8F6F2] border border-[#111111]/10 space-y-2 shadow-2xs">
+              <div className="w-8 h-8 rounded-full bg-[#0038E2]/10 border border-[#0038E2]/20 flex items-center justify-center text-[#0038E2]">
+                <Clock className="w-4 h-4" />
+              </div>
+              <h4 className="font-display font-semibold text-[#111111] text-sm sm:text-base">
+                12-Month Retention Cycle
+              </h4>
+              <p className="text-xs sm:text-sm text-[#495B7D] leading-relaxed">
+                Data is retained for a maximum of 12 months after your latest communication to maintain context, after which it is purged automatically. You hold the right to request immediate erasure at any point.
+              </p>
+            </div>
           </div>
-          <div className="p-3 rounded-lg bg-white/[0.02] border border-white/[0.06]">
-            <strong className="text-white block mb-0.5">Right of Erasure (Right to be Forgotten)</strong>
-            <span>Request the irrevocable deletion of your lead information, contact logs, and archived assets.</span>
-          </div>
-          <div className="p-3 rounded-lg bg-white/[0.02] border border-white/[0.06]">
-            <strong className="text-white block mb-0.5">Right to Rectification</strong>
-            <span>Update or correct inaccurate contact, corporate, or billing information at any time.</span>
-          </div>
-          <div className="p-3 rounded-lg bg-white/[0.02] border border-white/[0.06]">
-            <strong className="text-white block mb-0.5">Right to Data Portability</strong>
-            <span>Export performance analytics and campaign metrics in machine-readable JSON/CSV formats.</span>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      {/* 08. Contact & Legal Inquiries */}
-      <section id="contact" className="scroll-mt-28 space-y-4 pt-6 border-t border-white/[0.06]">
-        <div className="flex items-center gap-2 text-xs font-mono text-[#8BA3C6] uppercase tracking-wider font-semibold">
-          <Bell className="w-4 h-4 text-[#0038E2]" />
-          <span>08. Contact & Legal Inquiries</span>
-        </div>
-        <h2 className="font-display font-medium text-2xl sm:text-3xl text-white tracking-tight">
-          Data Protection Officer Contact
-        </h2>
-        <p>
-          To exercise your privacy rights, file a data access inquiry, or request asset deletion, please contact our privacy compliance desk:
-        </p>
-        <div className="p-4 rounded-xl bg-white/[0.03] border border-white/[0.08] text-xs font-mono space-y-1 text-white/80">
-          <div><strong className="text-white">GetVeevz Inc.</strong> — Legal & Data Privacy Division</div>
-          <div>Email: <a href="mailto:team@getveevz.com" className="text-[#0038E2] hover:underline">team@getveevz.com</a></div>
-          <div>Official Website: <a href="https://getveevz.com" className="text-white/60 hover:underline">https://getveevz.com</a></div>
-          <div className="text-white/40 pt-1">Response Commitment: Within 24-48 business hours</div>
-        </div>
-      </section>
+        {/* 03. Global Rights Bento Cards */}
+        <section id="global-rights" className="scroll-mt-28 space-y-3.5 sm:space-y-4">
+          <div className="flex items-center gap-2 text-xs font-mono text-[#0038E2] uppercase tracking-wider font-semibold">
+            <Globe2 className="w-4 h-4 text-[#0038E2] shrink-0" />
+            <span>02. Your Statutory Privacy Rights Worldwide</span>
+          </div>
+
+          <p className="text-xs sm:text-sm text-[#495B7D] leading-relaxed">
+            Whether you reside in India (DPDPA 2023), the European Union / United Kingdom (GDPR), the United States (CCPA/CPRA), Canada (PIPEDA), or Australia (Privacy Act), you are guaranteed universal data rights:
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            <div className="p-4 rounded-xl sm:rounded-2xl bg-[#F8F6F2] sm:bg-white border border-[#111111]/10 shadow-2xs space-y-1">
+              <span className="text-[11px] font-mono text-[#0038E2] font-semibold uppercase">Right to Access / Know</span>
+              <p className="text-xs text-[#495B7D] leading-relaxed">
+                Request confirmation of whether we hold your contact information and receive a structured copy.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl sm:rounded-2xl bg-[#F8F6F2] sm:bg-white border border-[#111111]/10 shadow-2xs space-y-1">
+              <span className="text-[11px] font-mono text-[#0038E2] font-semibold uppercase">Right to Erasure</span>
+              <p className="text-xs text-[#495B7D] leading-relaxed">
+                Request the immediate, permanent deletion of your contact records from our active inboxes at any time.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl sm:rounded-2xl bg-[#F8F6F2] sm:bg-white border border-[#111111]/10 shadow-2xs space-y-1">
+              <span className="text-[11px] font-mono text-[#0038E2] font-semibold uppercase">Right to Rectification</span>
+              <p className="text-xs text-[#495B7D] leading-relaxed">
+                Request instant correction of any outdated or inaccurate email address, phone number, or name.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl sm:rounded-2xl bg-[#F8F6F2] sm:bg-white border border-[#111111]/10 shadow-2xs space-y-1">
+              <span className="text-[11px] font-mono text-[#0038E2] font-semibold uppercase">Right to Withdraw Consent</span>
+              <p className="text-xs text-[#495B7D] leading-relaxed">
+                Revoke your consent for future communication at any moment with immediate effect and zero penalty.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl sm:rounded-2xl bg-[#F8F6F2] sm:bg-white border border-[#111111]/10 shadow-2xs space-y-1">
+              <span className="text-[11px] font-mono text-[#0038E2] font-semibold uppercase">Non-Discrimination (CCPA)</span>
+              <p className="text-xs text-[#495B7D] leading-relaxed">
+                We will never deny communication, alter responsiveness, or penalize you for exercising any privacy right.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl sm:rounded-2xl bg-[#F8F6F2] sm:bg-white border border-[#111111]/10 shadow-2xs space-y-1">
+              <span className="text-[11px] font-mono text-[#0038E2] font-semibold uppercase">No Automated Profiling</span>
+              <p className="text-xs text-[#495B7D] leading-relaxed">
+                We perform no automated decision-making or behavioral profiling on your personal information (GDPR Art. 22).
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* 04. Security, International Transfers & Minors */}
+        <section id="security-transfers" className="scroll-mt-28 space-y-3.5 sm:space-y-4">
+          <div className="flex items-center gap-2 text-xs font-mono text-[#0038E2] uppercase tracking-wider font-semibold">
+            <Lock className="w-4 h-4 text-[#0038E2] shrink-0" />
+            <span>03. Data Security, Infrastructure &amp; Minors</span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4">
+            <div className="p-4 xs:p-5 sm:p-6 rounded-2xl bg-[#F8F6F2] border border-[#111111]/10 space-y-2">
+              <h5 className="font-display font-semibold text-[#111111] text-sm sm:text-base flex items-center gap-2">
+                <Lock className="w-4 h-4 text-[#0038E2] shrink-0" />
+                <span>Security &amp; Encryption</span>
+              </h5>
+              <p className="text-xs sm:text-sm text-[#495B7D] leading-relaxed">
+                All inquiries submitted across our site are transmitted via TLS 1.3 / HTTPS encryption and stored on secure cloud hosting infrastructure with strict access controls restricted to authorized personnel. Technical routing adheres to Standard Contractual Clauses (SCCs).
+              </p>
+            </div>
+
+            <div className="p-4 xs:p-5 sm:p-6 rounded-2xl bg-[#F8F6F2] border border-[#111111]/10 space-y-2">
+              <h5 className="font-display font-semibold text-[#111111] text-sm sm:text-base flex items-center gap-2">
+                <AlertCircle className="w-4 h-4 text-[#0038E2] shrink-0" />
+                <span>Protection of Minors</span>
+              </h5>
+              <p className="text-xs sm:text-sm text-[#495B7D] leading-relaxed">
+                This website is intended exclusively for business professionals and adults aged 18 and older. We do not knowingly solicit or collect personal information from individuals under 18 (or under 16 in applicable jurisdictions). Any unintentionally collected data will be deleted immediately upon notice.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* 05. Website Terms of Use (Consolidated & Clean) */}
+        <section id="terms" className="scroll-mt-28 space-y-3.5 sm:space-y-4 pt-4 border-t border-[#111111]/10">
+          <div className="flex items-center gap-2 text-xs font-mono text-[#0038E2] uppercase tracking-wider font-semibold">
+            <Scale className="w-4 h-4 text-[#0038E2] shrink-0" />
+            <span>04. Website Terms of Use</span>
+          </div>
+
+          <div className="p-5 xs:p-6 sm:p-7 rounded-2xl bg-[#F8F6F2] border border-[#111111]/10 space-y-4">
+            <div>
+              <h4 className="font-display font-semibold text-[#111111] text-sm sm:text-base mb-1.5">
+                Acceptable Use &amp; Intellectual Property
+              </h4>
+              <p className="text-xs sm:text-sm text-[#495B7D] leading-relaxed">
+                By accessing this website, you agree not to engage in automated data scraping, malicious penetration testing, injection attacks, or reverse engineering of the site&rsquo;s codebase. All original website copy, graphics, branding, and design elements are the intellectual property of GetVeevz Inc. and are protected by international copyright laws.
+              </p>
+            </div>
+
+            <div className="pt-3 border-t border-[#111111]/10">
+              <h4 className="font-display font-semibold text-[#111111] text-sm sm:text-base mb-1.5">
+                Informational Disclaimer
+              </h4>
+              <p className="text-xs sm:text-sm text-[#495B7D] leading-relaxed">
+                The content provided on this website is for general informational purposes only. While we endeavor to keep the website reliable and available, access is provided &ldquo;as is&rdquo; without warranties of uninterrupted uptime or error-free transmission.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* 06. Grievance Officer & Statutory Redressal Block */}
+        <section id="grievance" className="scroll-mt-28 space-y-3.5 sm:space-y-4 pt-4 border-t border-[#111111]/10">
+          <div className="flex items-center gap-2 text-xs font-mono text-[#0038E2] uppercase tracking-wider font-semibold">
+            <ShieldCheck className="w-4 h-4 text-[#0038E2] shrink-0" />
+            <span>05. Grievance Officer &amp; Redressal Mechanism</span>
+          </div>
+
+          <div className="p-5 xs:p-6 sm:p-7 rounded-2xl bg-[#F8F6F2] border border-[#111111]/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 sm:gap-6 shadow-2xs">
+            <div className="space-y-1.5 max-w-xl">
+              <div className="text-[10px] sm:text-[11px] font-mono text-[#0038E2] uppercase tracking-wider font-semibold flex items-center gap-1.5">
+                <ShieldCheck className="w-3.5 h-3.5 text-[#0038E2] shrink-0" />
+                <span>Designated Grievance &amp; Data Protection Officer (DPDPA 2023)</span>
+              </div>
+              <div className="font-display font-medium text-base sm:text-lg text-[#111111]">
+                Grievance &amp; Data Protection Officer
+              </div>
+              <p className="text-xs sm:text-sm text-[#495B7D] leading-relaxed">
+                GetVeevz Inc. · Official Contact for Data Requests, Erasure &amp; Compliance Inquiries. Response committed within 24–48 business hours.
+              </p>
+              <p className="text-[10px] sm:text-[11px] font-mono text-[#495B7D]/80 pt-1 leading-relaxed">
+                Statutory escalation: If you are unsatisfied with our redressal, you retain the statutory right to lodge a complaint with your supervisory authority: Data Protection Board of India, EU/UK Data Protection Authorities, or the California Privacy Protection Agency.
+              </p>
+            </div>
+
+            <a
+              href="mailto:team@getveevz.com"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-white hover:bg-[#F3EFEA] border border-[#111111]/12 hover:border-[#0038E2]/40 text-xs font-mono text-[#111111] transition-all shadow-xs cursor-pointer active:scale-95 shrink-0"
+            >
+              <Mail className="w-3.5 h-3.5 text-[#0038E2]" />
+              <span>team@getveevz.com</span>
+            </a>
+          </div>
+        </section>
+      </div>
     </LegalPageLayout>
   );
 }

@@ -195,11 +195,15 @@ export default function Footer() {
           <div className="pt-6 sm:pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-mono text-white/45">
 
             <div className="flex items-center gap-2.5 text-center sm:text-left flex-wrap justify-center sm:justify-start">
-              <span>© {new Date().getFullYear()} GetVeevz Inc.</span>
+              <span>© {new Date().getFullYear()} GetVeevz Inc. All rights reserved.</span>
               <span className="text-white/20">·</span>
-              <span className="text-white/50">
-                .
-              </span>
+              <Link to="/privacy" className="hover:text-white transition-colors">
+                Privacy &amp; Terms
+              </Link>
+              <span className="text-white/20">·</span>
+              <Link to="/cookies" className="hover:text-white transition-colors">
+                Cookies
+              </Link>
             </div>
 
             <div className="flex items-center gap-2">

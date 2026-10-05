@@ -1,6 +1,6 @@
 "use client";
 
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { useEffect, useRef, useState, lazy, Suspense } from "react";
 import Home from "@/app/page";
 import UnifiedNav from "@/components/layout/UnifiedNav";
@@ -18,7 +18,6 @@ if (typeof window !== "undefined") {
 const ServicesPage = lazy(() => import("@/app/services/page"));
 const ServiceDetailPage = lazy(() => import("@/app/services/[slug]/page"));
 const PrivacyPolicyPage = lazy(() => import("@/app/privacy/page"));
-const TermsConditionsPage = lazy(() => import("@/app/terms/page"));
 const CookiePolicyPage = lazy(() => import("@/app/cookies/page"));
 const DeveloperPage = lazy(() => import("@/app/developer/page"));
 const NotFoundPage = lazy(() => import("@/app/not-found"));
@@ -149,8 +148,8 @@ export default function AppRoutes() {
             <Route path="/services/:slug" element={<ServiceDetailPage />} />
             <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
             <Route path="/privacy" element={<PrivacyPolicyPage />} />
-            <Route path="/terms-and-conditions" element={<TermsConditionsPage />} />
-            <Route path="/terms" element={<TermsConditionsPage />} />
+            <Route path="/terms-and-conditions" element={<Navigate to="/privacy#terms" replace />} />
+            <Route path="/terms" element={<Navigate to="/privacy#terms" replace />} />
             <Route path="/cookie-policy" element={<CookiePolicyPage />} />
             <Route path="/cookies" element={<CookiePolicyPage />} />
             <Route path="/developerid" element={<DeveloperPage />} />

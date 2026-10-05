@@ -2,182 +2,178 @@
 
 import React from "react";
 import LegalPageLayout from "@/components/layout/LegalPageLayout";
-import { Cookie, Settings, Eye, Sliders, ShieldCheck, HelpCircle } from "lucide-react";
-
-const SECTIONS = [
-  { id: "what-are-cookies", title: "What Are Cookies" },
-  { id: "cookies-we-use", title: "Categories of Cookies" },
-  { id: "local-storage", title: "Local & Session Storage" },
-  { id: "third-party", title: "Third-Party Technologies" },
-  { id: "managing-cookies", title: "Managing Your Preferences" },
-  { id: "updates", title: "Updates to This Policy" },
-];
+import { Cookie, Settings, Eye, Mail, ShieldCheck, CheckCircle2, Lock } from "lucide-react";
 
 export default function CookiePolicyPage() {
   return (
     <LegalPageLayout
       title="Cookie Policy"
-      subtitle="How GetVeevz utilizes cookies, session tokens, and local storage to optimize interface performance and user experience."
-      description="Read the official GetVeevz Cookie Policy. Understand the technical cookies, preference storage, and analytical tools we implement across our web platforms."
+      subtitle="A clear, globally compliant disclosure regarding cookies and browser storage on GetVeevz."
+      description="We do not use advertising or tracking cookies. We only use minimal temporary session storage to preserve your navigation position and UI preferences. Fully compliant with EU ePrivacy Directive and UK PECR."
       canonical="https://getveevz.com/cookie-policy"
-      sections={SECTIONS}
+      sections={[
+        { id: "core-notice", title: "Notice of Storage" },
+        { id: "storage-breakdown", title: "Storage Breakdown" },
+        { id: "legal-basis", title: "ePrivacy Exemption" },
+        { id: "browser-controls", title: "Browser Management" },
+        { id: "grievance", title: "Grievance Contact" },
+      ]}
     >
-      {/* 01. What Are Cookies */}
-      <section id="what-are-cookies" className="scroll-mt-28 space-y-4">
-        <div className="flex items-center gap-2 text-xs font-mono text-[#8BA3C6] uppercase tracking-wider font-semibold">
-          <Cookie className="w-4 h-4 text-[#0038E2]" />
-          <span>01. What Are Cookies</span>
-        </div>
-        <h2 className="font-display font-medium text-2xl sm:text-3xl text-white tracking-tight">
-          Understanding Cookies & Web Identifiers
-        </h2>
-        <p>
-          Cookies are small alphanumeric text files placed onto your computer, smartphone, or tablet when you browse websites. They are widely used by modern web applications to enable essential site navigation, preserve active sessions, memorize user preferences (such as selected currency or volume states), and provide non-identifiable telemetry to improve page speed and user flow.
-        </p>
-        <p>
-          This Cookie Policy explains how GetVeevz Inc. (&ldquo;GetVeevz&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo;) deploys cookies and similar browser storage technologies across <span className="font-mono text-white text-xs">getveevz.com</span>.
-        </p>
-      </section>
-
-      {/* 02. Categories of Cookies */}
-      <section id="cookies-we-use" className="scroll-mt-28 space-y-4 pt-6 border-t border-white/[0.06]">
-        <div className="flex items-center gap-2 text-xs font-mono text-[#8BA3C6] uppercase tracking-wider font-semibold">
-          <Sliders className="w-4 h-4 text-[#0038E2]" />
-          <span>02. Categories of Cookies</span>
-        </div>
-        <h2 className="font-display font-medium text-2xl sm:text-3xl text-white tracking-tight">
-          How We Categorize Our Cookies
-        </h2>
-        <div className="space-y-3 pt-2">
-          <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.06]">
-            <div className="flex items-center justify-between mb-1.5">
-              <h4 className="font-display font-semibold text-white text-base">
-                1. Strictly Necessary Cookies (Essential)
-              </h4>
-              <span className="text-[10px] font-mono text-[#0038E2] uppercase font-semibold px-2 py-0.5 rounded bg-[#0038E2]/15">
-                Always Active
+      <div className="space-y-8 sm:space-y-12">
+        {/* 01. Core Watertight Notice Statement Card */}
+        <section id="core-notice" className="scroll-mt-28 space-y-3 sm:space-y-4">
+          <div className="p-5 xs:p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-[#0038E2]/[0.035] border-l-4 border-l-[#0038E2] border border-[#0038E2]/20 relative overflow-hidden shadow-xs">
+            <div
+              aria-hidden="true"
+              className="absolute -top-8 -right-8 w-48 h-48 bg-[#0038E2]/[0.08] blur-[60px] rounded-full pointer-events-none"
+            />
+            <div className="flex flex-wrap items-center gap-2 mb-3 sm:mb-4">
+              <span className="text-[10px] sm:text-[11px] font-mono tracking-wider text-[#0038E2] bg-[#0038E2]/10 border border-[#0038E2]/20 px-2.5 sm:px-3 py-1 rounded-full uppercase font-semibold">
+                Cookie &amp; Storage Notice
+              </span>
+              <span className="text-[10px] sm:text-[11px] font-mono text-[#495B7D] bg-white border border-[#111111]/10 px-2.5 py-1 rounded-full font-medium">
+                EU ePrivacy Directive · UK PECR · DPDPA · CCPA
               </span>
             </div>
-            <p className="text-xs sm:text-sm text-white/70 leading-relaxed">
-              These cookies and session tokens are strictly required for the core architectural functioning of our single-page application. They enable basic security headers, SSL routing, layout rendering, and form submission handshakes. Without these, the website cannot function properly.
+            <p className="font-display font-medium text-base xs:text-lg sm:text-xl lg:text-2xl text-[#111111] leading-snug sm:leading-snug tracking-tight">
+              &ldquo;We do not use advertising, marketing, or tracking cookies. We only use minimal, strictly necessary temporary session storage to preserve your navigation position and user interface preferences across pages. Under EU ePrivacy Directive 2002/58/EC and UK PECR, strictly necessary storage does not require consent. For queries, contact our Grievance Officer at team@getveevz.com.&rdquo;
             </p>
           </div>
+        </section>
 
-          <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.06]">
-            <div className="flex items-center justify-between mb-1.5">
-              <h4 className="font-display font-semibold text-white text-base">
-                2. Functional & Preference Storage
+        {/* 02. Breakdown Bento Grid (Flywheel Palette) */}
+        <section id="storage-breakdown" className="scroll-mt-28 space-y-3.5 sm:space-y-4">
+          <div className="flex items-center gap-2 text-xs font-mono text-[#0038E2] uppercase tracking-wider font-semibold">
+            <Cookie className="w-4 h-4 text-[#0038E2] shrink-0" />
+            <span>01. Browser Storage Breakdown</span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 sm:gap-4">
+            <div className="p-4 xs:p-5 sm:p-6 rounded-2xl bg-[#F8F6F2] border border-[#111111]/10 space-y-2 shadow-2xs">
+              <div className="w-8 h-8 rounded-full bg-[#0038E2]/10 border border-[#0038E2]/20 flex items-center justify-center text-[#0038E2]">
+                <Cookie className="w-4 h-4" />
+              </div>
+              <h4 className="font-display font-semibold text-[#111111] text-sm sm:text-base">
+                Zero Ad Trackers
               </h4>
-              <span className="text-[10px] font-mono text-[#8BA3C6] uppercase font-semibold px-2 py-0.5 rounded bg-white/[0.08]">
-                Functional
-              </span>
+              <p className="text-xs sm:text-sm text-[#495B7D] leading-relaxed">
+                Zero third-party advertising cookies, zero Meta/TikTok tracking pixels, and zero cross-site behavioral tracking tools. Your browsing history is never tracked or profiled.
+              </p>
             </div>
-            <p className="text-xs sm:text-sm text-white/70 leading-relaxed">
-              These allow our site to remember decisions you make while navigating, such as your selected currency view (USD, INR, or AED) on our pricing tables, or keeping your lead questionnaire answers intact if you browse our service architecture before submitting.
-            </p>
-          </div>
 
-          <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.06]">
-            <div className="flex items-center justify-between mb-1.5">
-              <h4 className="font-display font-semibold text-white text-base">
-                3. Analytical & Performance Telemetry
+            <div className="p-4 xs:p-5 sm:p-6 rounded-2xl bg-[#F8F6F2] border border-[#111111]/10 space-y-2 shadow-2xs">
+              <div className="w-8 h-8 rounded-full bg-[#0038E2]/10 border border-[#0038E2]/20 flex items-center justify-center text-[#0038E2]">
+                <Settings className="w-4 h-4" />
+              </div>
+              <h4 className="font-display font-semibold text-[#111111] text-sm sm:text-base">
+                Essential Session Storage
               </h4>
-              <span className="text-[10px] font-mono text-[#8BA3C6] uppercase font-semibold px-2 py-0.5 rounded bg-white/[0.08]">
-                Performance
-              </span>
+              <p className="text-xs sm:text-sm text-[#495B7D] leading-relaxed">
+                Session storage key (<code className="text-[#0038E2] font-mono text-[11px] bg-white px-1.5 py-0.5 rounded border border-[#111111]/10 break-all sm:break-normal inline-block">getveevz_home_scroll_y</code>) temporarily saves your vertical scroll position to restore your view smoothly. It is automatically cleared when you close your browser tab.
+              </p>
             </div>
-            <p className="text-xs sm:text-sm text-white/70 leading-relaxed">
-              We collect aggregated, anonymized metrics on page response times, video player interactions, bounce rates, and navigation paths. This data helps our engineering team optimize our GPU-accelerated canvas components and ensure rapid first-contentful-paint (FCP).
+
+            <div className="p-4 xs:p-5 sm:p-6 rounded-2xl bg-[#F8F6F2] border border-[#111111]/10 space-y-2 shadow-2xs">
+              <div className="w-8 h-8 rounded-full bg-[#0038E2]/10 border border-[#0038E2]/20 flex items-center justify-center text-[#0038E2]">
+                <Eye className="w-4 h-4" />
+              </div>
+              <h4 className="font-display font-semibold text-[#111111] text-sm sm:text-base">
+                UI Preference Storage
+              </h4>
+              <p className="text-xs sm:text-sm text-[#495B7D] leading-relaxed">
+                Local storage is only used to remember harmless user preferences (such as selected currency selector <code className="text-[#0038E2] font-mono text-[11px] bg-white px-1.5 py-0.5 rounded border border-[#111111]/10 inline-block">$ / ₹ / £</code>) so you don&rsquo;t have to re-select it upon reload.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* 03. Statutory Exemption Disclosure */}
+        <section id="legal-basis" className="scroll-mt-28 space-y-3.5 sm:space-y-4">
+          <div className="flex items-center gap-2 text-xs font-mono text-[#0038E2] uppercase tracking-wider font-semibold">
+            <CheckCircle2 className="w-4 h-4 text-[#0038E2] shrink-0" />
+            <span>02. Legal Basis &amp; Consent Exemption</span>
+          </div>
+
+          <div className="p-5 xs:p-6 sm:p-7 rounded-2xl bg-[#F8F6F2] border border-[#111111]/10 space-y-3">
+            <h4 className="font-display font-semibold text-[#111111] text-sm sm:text-base">
+              Why GetVeevz Does Not Require an Intrusive Cookie Banner
+            </h4>
+            <p className="text-xs sm:text-sm text-[#495B7D] leading-relaxed">
+              Under <strong>Article 5(3) of the EU ePrivacy Directive (Directive 2002/58/EC)</strong> and <strong>Regulation 6 of the UK Privacy and Electronic Communications Regulations (PECR)</strong>, storage of information or access to information stored in a user&rsquo;s terminal equipment is strictly permitted without prior consent if:
+            </p>
+            <ul className="text-xs sm:text-sm text-[#495B7D] list-disc list-inside space-y-1.5 pl-1 leading-relaxed">
+              <li>It is strictly necessary for transmitting communications over an electronic network.</li>
+              <li>It is strictly necessary for providing an information society service explicitly requested by the subscriber or user (e.g. maintaining your scroll state and currency display).</li>
+            </ul>
+            <p className="text-xs sm:text-sm text-[#495B7D] leading-relaxed pt-1">
+              Because GetVeevz uses zero non-essential marketing, tracking, or profiling cookies, no cookie consent banner is legally required under European, British, or international data protection laws.
             </p>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* 03. Local & Session Storage */}
-      <section id="local-storage" className="scroll-mt-28 space-y-4 pt-6 border-t border-white/[0.06]">
-        <div className="flex items-center gap-2 text-xs font-mono text-[#8BA3C6] uppercase tracking-wider font-semibold">
-          <Settings className="w-4 h-4 text-[#0038E2]" />
-          <span>03. Local & Session Storage</span>
-        </div>
-        <h2 className="font-display font-medium text-2xl sm:text-3xl text-white tracking-tight">
-          Client-Side Storage Keys
-        </h2>
-        <p>
-          In addition to conventional HTTP cookies, our website utilizes HTML5 SessionStorage for enhanced single-page navigation:
-        </p>
-        <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.06] text-xs font-mono space-y-2">
-          <div className="flex justify-between border-b border-white/[0.06] pb-1.5">
-            <span className="text-[#8BA3C6]">getveevz_home_scroll_y</span>
-            <span className="text-white/60">Stores window scroll position when switching between Home and Services</span>
+        {/* 04. Browser Management Guide */}
+        <section id="browser-controls" className="scroll-mt-28 space-y-3.5 sm:space-y-4">
+          <div className="flex items-center gap-2 text-xs font-mono text-[#0038E2] uppercase tracking-wider font-semibold">
+            <Lock className="w-4 h-4 text-[#0038E2] shrink-0" />
+            <span>03. How to Manage or Clear Browser Storage</span>
           </div>
-          <div className="flex justify-between pt-1">
-            <span className="text-[#8BA3C6]">Expiration</span>
-            <span className="text-white/60">Session only (cleared automatically upon tab closure)</span>
+
+          <div className="p-5 xs:p-6 sm:p-7 rounded-2xl bg-[#F8F6F2] border border-[#111111]/10 space-y-3">
+            <p className="text-xs sm:text-sm text-[#495B7D] leading-relaxed">
+              You have complete control over your browser&rsquo;s storage. You can inspect, block, or clear cookies and session/local storage at any time through your browser settings:
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+              <div className="p-3.5 rounded-xl bg-white border border-[#111111]/10 space-y-1 shadow-2xs">
+                <span className="font-display font-semibold text-[#111111] block">Google Chrome</span>
+                <span className="text-[#495B7D] text-[11px] leading-relaxed block">Settings &gt; Privacy and Security &gt; Third-party cookies</span>
+              </div>
+              <div className="p-3.5 rounded-xl bg-white border border-[#111111]/10 space-y-1 shadow-2xs">
+                <span className="font-display font-semibold text-[#111111] block">Apple Safari</span>
+                <span className="text-[#495B7D] text-[11px] leading-relaxed block">Preferences &gt; Privacy &gt; Block all cookies / Manage Data</span>
+              </div>
+              <div className="p-3.5 rounded-xl bg-white border border-[#111111]/10 space-y-1 shadow-2xs">
+                <span className="font-display font-semibold text-[#111111] block">Mozilla Firefox</span>
+                <span className="text-[#495B7D] text-[11px] leading-relaxed block">Settings &gt; Privacy &amp; Security &gt; Cookies and Site Data</span>
+              </div>
+              <div className="p-3.5 rounded-xl bg-white border border-[#111111]/10 space-y-1 shadow-2xs">
+                <span className="font-display font-semibold text-[#111111] block">Microsoft Edge</span>
+                <span className="text-[#495B7D] text-[11px] leading-relaxed block">Settings &gt; Cookies and Site Permissions &gt; Manage</span>
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* 04. Third-Party Technologies */}
-      <section id="third-party" className="scroll-mt-28 space-y-4 pt-6 border-t border-white/[0.06]">
-        <div className="flex items-center gap-2 text-xs font-mono text-[#8BA3C6] uppercase tracking-wider font-semibold">
-          <Eye className="w-4 h-4 text-[#0038E2]" />
-          <span>04. Third-Party Technologies</span>
-        </div>
-        <h2 className="font-display font-medium text-2xl sm:text-3xl text-white tracking-tight">
-          External Service Providers & CDNs
-        </h2>
-        <p>
-          Our application integrates with trusted third-party providers who may place limited cookies to serve high-performance web assets:
-        </p>
-        <ul className="space-y-2 list-disc list-inside text-white/75 text-sm">
-          <li>
-            <strong className="text-white font-medium">Google Fonts & Typography CDNs:</strong> Used for fast font delivery across devices.
-          </li>
-          <li>
-            <strong className="text-white font-medium">Cloud Hosting (Vercel):</strong> Edge routing cookies for DDoS mitigation and geographically localized asset caching.
-          </li>
-          <li>
-            <strong className="text-white font-medium">Social Video Embedding:</strong> Interactive video demonstrations may load platform players that manage their own playback cookies.
-          </li>
-        </ul>
-      </section>
+        {/* 05. Grievance Officer & Contact Block */}
+        <section id="grievance" className="scroll-mt-28 space-y-3.5 sm:space-y-4 pt-4 border-t border-[#111111]/10">
+          <div className="flex items-center gap-2 text-xs font-mono text-[#0038E2] uppercase tracking-wider font-semibold">
+            <ShieldCheck className="w-4 h-4 text-[#0038E2] shrink-0" />
+            <span>04. Grievance Officer &amp; Redressal Contact</span>
+          </div>
 
-      {/* 05. Managing Your Preferences */}
-      <section id="managing-cookies" className="scroll-mt-28 space-y-4 pt-6 border-t border-white/[0.06]">
-        <div className="flex items-center gap-2 text-xs font-mono text-[#8BA3C6] uppercase tracking-wider font-semibold">
-          <Sliders className="w-4 h-4 text-[#0038E2]" />
-          <span>05. Managing Your Preferences</span>
-        </div>
-        <h2 className="font-display font-medium text-2xl sm:text-3xl text-white tracking-tight">
-          How to Disable or Clear Cookies
-        </h2>
-        <p>
-          You have the right to accept or decline cookies at any time through your browser controls. Most web browsers allow you to view, manage, delete, and block cookies for a specific site or globally:
-        </p>
-        <ul className="space-y-2 list-disc list-inside text-white/75 text-sm">
-          <li><strong>Google Chrome:</strong> Settings &rarr; Privacy and security &rarr; Third-party cookies</li>
-          <li><strong>Apple Safari:</strong> Preferences &rarr; Privacy &rarr; Manage Website Data</li>
-          <li><strong>Mozilla Firefox:</strong> Settings &rarr; Privacy & Security &rarr; Cookies and Site Data</li>
-          <li><strong>Microsoft Edge:</strong> Settings &rarr; Cookies and site permissions</li>
-        </ul>
-        <p className="text-xs text-white/60">
-          * Note: If you choose to reject strictly necessary cookies, some interactive features (such as instant back-scroll navigation or currency switches) may not function as intended.
-        </p>
-      </section>
+          <div className="p-5 xs:p-6 sm:p-7 rounded-2xl bg-[#F8F6F2] border border-[#111111]/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 sm:gap-6 shadow-2xs">
+            <div className="space-y-1.5 max-w-xl">
+              <div className="text-[10px] sm:text-[11px] font-mono text-[#0038E2] uppercase tracking-wider font-semibold flex items-center gap-1.5">
+                <ShieldCheck className="w-3.5 h-3.5 text-[#0038E2] shrink-0" />
+                <span>Grievance &amp; Privacy Officer</span>
+              </div>
+              <div className="font-display font-medium text-base sm:text-lg text-[#111111]">
+                Grievance &amp; Privacy Officer
+              </div>
+              <p className="text-xs sm:text-sm text-[#495B7D] leading-relaxed">
+                GetVeevz Inc. · Official Contact for Cookie &amp; Storage Redressal. Response committed within 24–48 business hours.
+              </p>
+            </div>
 
-      {/* 06. Updates to This Policy */}
-      <section id="updates" className="scroll-mt-28 space-y-4 pt-6 border-t border-white/[0.06]">
-        <div className="flex items-center gap-2 text-xs font-mono text-[#8BA3C6] uppercase tracking-wider font-semibold">
-          <HelpCircle className="w-4 h-4 text-[#0038E2]" />
-          <span>06. Updates to This Policy</span>
-        </div>
-        <h2 className="font-display font-medium text-2xl sm:text-3xl text-white tracking-tight">
-          Periodic Policy Revisions
-        </h2>
-        <p>
-          We may update this Cookie Policy from time to time to reflect modifications in our technology stack, browser privacy standards, or regulatory mandates. The date at the top of this document indicates when it was last revised.
-        </p>
-      </section>
+            <a
+              href="mailto:team@getveevz.com"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-white hover:bg-[#F3EFEA] border border-[#111111]/12 hover:border-[#0038E2]/40 text-xs font-mono text-[#111111] transition-all shadow-xs cursor-pointer active:scale-95 shrink-0"
+            >
+              <Mail className="w-3.5 h-3.5 text-[#0038E2]" />
+              <span>team@getveevz.com</span>
+            </a>
+          </div>
+        </section>
+      </div>
     </LegalPageLayout>
   );
 }
