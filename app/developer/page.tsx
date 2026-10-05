@@ -225,7 +225,7 @@ export default function DeveloperPage() {
                   onClick={handleEnquire}
                   className="group inline-flex items-center justify-between gap-3 pl-6 pr-2 py-2 rounded-full bg-[#0038E2] hover:bg-[#002bb5] text-white font-medium text-sm transition-all duration-500 ease-gentle shadow-[0_0_28px_rgba(0,56,226,0.4)] hover:shadow-[0_0_40px_rgba(0,56,226,0.65)] active:scale-[0.98] cursor-pointer"
                 >
-                  <span className="tracking-tight">Enquire</span>
+                  <span className="tracking-tight">Know more</span>
                   <div className="w-8 h-8 rounded-full bg-white/15 border border-white/20 flex items-center justify-center transition-transform duration-500 ease-gentle group-hover:scale-105 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
                     <ArrowUpRight className="w-4 h-4 text-white" strokeWidth={1.5} />
                   </div>
