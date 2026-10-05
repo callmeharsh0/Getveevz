@@ -122,10 +122,8 @@ export default function AppRoutes() {
   }, [isHome, hasVisitedHome]);
 
   const isDeveloper =
-    location.pathname === "/developer" ||
-    location.pathname === "/dev" ||
-    location.pathname === "/harsh" ||
-    location.pathname === "/harsh-paigude";
+    location.pathname === "/developerid" ||
+    location.pathname === "/developerid/";
 
   return (
     <>
@@ -155,10 +153,7 @@ export default function AppRoutes() {
             <Route path="/terms" element={<TermsConditionsPage />} />
             <Route path="/cookie-policy" element={<CookiePolicyPage />} />
             <Route path="/cookies" element={<CookiePolicyPage />} />
-            <Route path="/developer" element={<DeveloperPage />} />
-            <Route path="/dev" element={<DeveloperPage />} />
-            <Route path="/harsh" element={<DeveloperPage />} />
-            <Route path="/harsh-paigude" element={<DeveloperPage />} />
+            <Route path="/developerid" element={<DeveloperPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Suspense>

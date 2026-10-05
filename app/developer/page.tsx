@@ -155,6 +155,7 @@ export default function DeveloperPage() {
       <HeadSEO
         title="Developer: Harsh Paigude | GetVeevz"
         description="Architecture, tech stack, and engineering breakdown of GetVeevz.com, developed by Harsh Paigude."
+        canonical="https://getveevz.com/developerid"
       />
 
       {/* Atmospheric lighting backdrop */}
@@ -174,9 +175,9 @@ export default function DeveloperPage() {
       <header className="max-w-5xl w-full mx-auto px-4 sm:px-6 pt-8 sm:pt-14">
         <Link
           to="/"
-          className="group inline-flex items-center gap-2.5 px-4.5 py-2.5 rounded-full bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.08] hover:border-white/20 backdrop-blur-xl text-xs font-mono text-white/70 hover:text-white transition-all duration-500 ease-gentle active:scale-95 shadow-[0_8px_24px_rgba(0,0,0,0.4)]"
+          className="group inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] hover:border-white/20 backdrop-blur-xl text-xs sm:text-sm font-medium text-white/70 hover:text-white transition-all duration-300 ease-gentle active:scale-95 shadow-[0_4px_16px_rgba(0,0,0,0.3)]"
         >
-          <ArrowLeft className="w-3.5 h-3.5 transition-transform duration-500 ease-gentle group-hover:-translate-x-1 text-white/60 group-hover:text-white" strokeWidth={1.25} />
+          <ArrowLeft className="w-3.5 h-3.5 transition-transform duration-300 ease-gentle group-hover:-translate-x-0.5 text-white/60 group-hover:text-white" strokeWidth={1.75} />
           <span>Back to GetVeevz</span>
         </Link>
       </header>
