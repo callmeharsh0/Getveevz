@@ -4,7 +4,7 @@ Official high-performance web platform for **GetVeevz** — turning long-form po
 
 ---
 
-## 🚀 Tech Stack
+## Tech Stack
 
 - **Framework & Bundler:** [Vite](https://vitejs.dev/) with React 18 & TypeScript
 - **Styling:** [Tailwind CSS](https://tailwindcss.com/) + PostCSS + Autoprefixer
@@ -91,7 +91,6 @@ getveevz/
 │   ├── privacy/          # Privacy Policy
 │   ├── terms/            # Terms & Conditions
 │   ├── cookies/          # Cookie Policy
-│   ├── refunds/          # Refund Policy
 │   └── developer/        # Developer credits / profile
 ├── components/           # Reusable UI & layout blocks
 │   ├── layout/           # UnifiedNav, Footer, Navigation overlays

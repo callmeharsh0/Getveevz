@@ -20,7 +20,6 @@ const ServiceDetailPage = lazy(() => import("@/app/services/[slug]/page"));
 const PrivacyPolicyPage = lazy(() => import("@/app/privacy/page"));
 const TermsConditionsPage = lazy(() => import("@/app/terms/page"));
 const CookiePolicyPage = lazy(() => import("@/app/cookies/page"));
-const RefundPolicyPage = lazy(() => import("@/app/refunds/page"));
 const DeveloperPage = lazy(() => import("@/app/developer/page"));
 const NotFoundPage = lazy(() => import("@/app/not-found"));
 
@@ -156,8 +155,6 @@ export default function AppRoutes() {
             <Route path="/terms" element={<TermsConditionsPage />} />
             <Route path="/cookie-policy" element={<CookiePolicyPage />} />
             <Route path="/cookies" element={<CookiePolicyPage />} />
-            <Route path="/refund-policy" element={<RefundPolicyPage />} />
-            <Route path="/refunds" element={<RefundPolicyPage />} />
             <Route path="/developer" element={<DeveloperPage />} />
             <Route path="/dev" element={<DeveloperPage />} />
             <Route path="/harsh" element={<DeveloperPage />} />

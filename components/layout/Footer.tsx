@@ -198,7 +198,7 @@ export default function Footer() {
               <span>© {new Date().getFullYear()} GetVeevz Inc.</span>
               <span className="text-white/20">·</span>
               <span className="text-white/50">
-                Designed & Developed by Harsh Paigude under Devora
+                .
               </span>
             </div>
 
