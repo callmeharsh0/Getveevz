@@ -32,3 +32,5 @@ dist-ssr
 .agents/
 .claude/
 *.dmg
+.vercel
+.env*
