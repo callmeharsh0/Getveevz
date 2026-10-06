@@ -23,6 +23,7 @@ export interface OutputNode {
   rot?: number;
   scale?: number;
   videoSrc?: string;
+  posterSrc?: string;
 }
 
 export interface ProblemBadge {
@@ -56,6 +57,7 @@ const DEFAULT_OUTPUTS: OutputNode[] = [
     rot: -5.5,
     scale: 0.94,
     videoSrc: "/assets/Reels/New/reel-1.mp4",
+    posterSrc: "/assets/Reels/New/reel-1-cover.webp",
   },
   {
     id: "clip-2",
@@ -67,6 +69,7 @@ const DEFAULT_OUTPUTS: OutputNode[] = [
     rot: 4.5,
     scale: 1.02,
     videoSrc: "/assets/Reels/New/reel-2.mp4",
+    posterSrc: "/assets/Reels/New/reel-2-cover.webp",
   },
   {
     id: "clip-3",
@@ -78,6 +81,7 @@ const DEFAULT_OUTPUTS: OutputNode[] = [
     rot: -6,
     scale: 1.05,
     videoSrc: "/assets/Reels/New/reel-3.mp4",
+    posterSrc: "/assets/Reels/New/reel-3-cover.webp",
   },
   {
     id: "clip-4",
@@ -89,6 +93,7 @@ const DEFAULT_OUTPUTS: OutputNode[] = [
     rot: 6.5,
     scale: 0.98,
     videoSrc: "/assets/Reels/New/reel-4.mp4",
+    posterSrc: "/assets/Reels/New/reel-4-cover.webp",
   },
   {
     id: "clip-5",
@@ -100,6 +105,7 @@ const DEFAULT_OUTPUTS: OutputNode[] = [
     rot: 4,
     scale: 0.95,
     videoSrc: "/assets/Reels/New/reel-5.mp4",
+    posterSrc: "/assets/Reels/New/reel-5-cover.webp",
   },
   {
     id: "clip-6",
@@ -111,6 +117,7 @@ const DEFAULT_OUTPUTS: OutputNode[] = [
     rot: -5,
     scale: 1.03,
     videoSrc: "/assets/Reels/New/reel-6.mp4",
+    posterSrc: "/assets/Reels/New/reel-6-cover.webp",
   },
 ];
 
@@ -138,7 +145,7 @@ const DEFAULT_FLOW_STEPS: string[] = [
 
 export default function DistributionFlow({
   videoSrc = "/assets/clipping.mp4",
-  videoPoster = "",
+  videoPoster = "/assets/clipping-poster.webp",
   showIntroHeader = true,
   headlinePrefix = "Your content isn't the problem",
   headlineAccent = "target the right audience",
@@ -165,26 +172,94 @@ export default function DistributionFlow({
   const punchline3Ref = useRef<HTMLDivElement | null>(null);
   const punchline4Ref = useRef<HTMLDivElement | null>(null);
   const linesGroupRef = useRef<SVGSVGElement | null>(null);
+  const sourceVideoRef = useRef<HTMLVideoElement | null>(null);
+  const outputVideoRefs = useRef<Record<string, HTMLVideoElement | null>>({});
 
   const [isInView, setIsInView] = useState(false);
+  const [isPreloadNear, setIsPreloadNear] = useState(false);
+  const [sourceLoaded, setSourceLoaded] = useState(false);
+  const [loadedVideos, setLoadedVideos] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
     const el = wrapperRef.current;
     if (!el || typeof IntersectionObserver === "undefined") {
       setIsInView(true);
+      setIsPreloadNear(true);
       return;
     }
 
-    const observer = new IntersectionObserver(
+    // Preload videos 600px before the section enters viewport
+    const preloadObserver = new IntersectionObserver(
       ([entry]) => {
-        setIsInView(entry.isIntersecting);
+        if (entry.isIntersecting) {
+          setIsPreloadNear(true);
+        }
       },
-      { rootMargin: "300px 0px" }
+      { rootMargin: "600px 0px" }
     );
+    preloadObserver.observe(el);
 
-    observer.observe(el);
-    return () => observer.disconnect();
+    // Active viewport observer: pauses videos when scrolled away to save resources
+    const viewObserver = new IntersectionObserver(
+      ([entry]) => {
+        const inView = entry.isIntersecting;
+        setIsInView(inView);
+        if (!inView) {
+          if (sourceVideoRef.current && !sourceVideoRef.current.paused) {
+            sourceVideoRef.current.pause();
+          }
+          Object.values(outputVideoRefs.current).forEach((video) => {
+            if (video && !video.paused) {
+              video.pause();
+            }
+          });
+        }
+      },
+      { rootMargin: "100px 0px" }
+    );
+    viewObserver.observe(el);
+
+    return () => {
+      preloadObserver.disconnect();
+      viewObserver.disconnect();
+    };
   }, []);
+
+  const handleSourceLoaded = useCallback(() => {
+    setSourceLoaded(true);
+    if (sourceVideoRef.current && sourceVideoRef.current.paused) {
+      sourceVideoRef.current.play().catch(() => {});
+    }
+  }, []);
+
+  const handleOutputLoaded = useCallback((id: string, shouldPlay: boolean) => {
+    setLoadedVideos((prev) => (prev[id] ? prev : { ...prev, [id]: true }));
+    const videoEl = outputVideoRefs.current[id];
+    if (videoEl && shouldPlay && videoEl.paused) {
+      videoEl.play().catch(() => {});
+    }
+  }, []);
+
+  // Sync if videos are already buffered in browser cache
+  useEffect(() => {
+    if (sourceVideoRef.current && sourceVideoRef.current.readyState >= 2) {
+      setSourceLoaded(true);
+      if (isInView && sourceVideoRef.current.paused) {
+        sourceVideoRef.current.play().catch(() => {});
+      }
+    }
+    outputs.forEach((item, idx) => {
+      const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+      const shouldPlay = isInView && (!isMobile || idx < 2);
+      const v = outputVideoRefs.current[item.id];
+      if (v && v.readyState >= 2) {
+        setLoadedVideos((prev) => (prev[item.id] ? prev : { ...prev, [item.id]: true }));
+        if (shouldPlay && v.paused) {
+          v.play().catch(() => {});
+        }
+      }
+    });
+  }, [outputs, isInView, isPreloadNear]);
 
   const handleSourceMouseMove = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
@@ -212,6 +287,10 @@ export default function DistributionFlow({
       inner.style.transform = "translateY(-6px) scale(1.05)";
       inner.style.borderColor = "rgba(139, 163, 198, 0.7)";
       inner.style.boxShadow = "0 18px 36px rgba(139, 163, 198, 0.25)";
+    }
+    const video = outputVideoRefs.current[id];
+    if (video && video.paused) {
+      video.play().catch(() => {});
     }
   }, []);
 
@@ -560,17 +639,35 @@ export default function DistributionFlow({
               ref={tiltRef}
               onMouseMove={handleSourceMouseMove}
               onMouseLeave={handleSourceMouseLeave}
-              className="w-full h-full transition-transform duration-300 ease-out"
+              className="relative w-full h-full transition-transform duration-300 ease-out"
             >
+              {videoPoster && (
+                <img
+                  src={videoPoster}
+                  alt="Source video cover"
+                  className={classNames(
+                    "absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-out z-[1]",
+                    sourceLoaded ? "opacity-0 pointer-events-none" : "opacity-100"
+                  )}
+                  loading="eager"
+                  decoding="async"
+                />
+              )}
               <video
-                src={isInView ? videoSrc : undefined}
+                ref={sourceVideoRef}
+                src={isPreloadNear || isInView ? videoSrc : undefined}
                 poster={videoPoster}
                 autoPlay={isInView}
                 muted
                 loop
                 playsInline
-                preload="none"
-                className="w-full h-full object-cover"
+                preload="auto"
+                onLoadedData={handleSourceLoaded}
+                onCanPlay={handleSourceLoaded}
+                className={classNames(
+                  "w-full h-full object-cover transition-opacity duration-700 ease-out z-[2]",
+                  sourceLoaded ? "opacity-100" : "opacity-0"
+                )}
               />
             </div>
           </div>
@@ -578,6 +675,9 @@ export default function DistributionFlow({
           {outputs.map((item, idx) => {
             const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
             const shouldPlayOutput = isInView && (!isMobile || idx < 2);
+            const isLoaded = !!loadedVideos[item.id];
+            const poster = item.posterSrc;
+
             return (
               <div
                 key={item.id}
@@ -589,21 +689,42 @@ export default function DistributionFlow({
                 className="absolute top-1/2 left-1/2 w-[126px] h-[224px] -ml-[63px] -mt-[112px] aspect-[9/16] z-[3] cursor-pointer group"
               >
                 <div className="piece-inner relative w-full h-full rounded-xl overflow-hidden bg-[#070b10] border border-[#8BA3C6]/30 shadow-[0_12px_28px_rgba(0,0,0,0.6)] transition-all duration-350 ease-smooth group-hover:border-[#8BA3C6]/80 group-hover:shadow-[0_18px_40px_rgba(139,163,198,0.25)]">
+                  {poster && (
+                    <img
+                      src={poster}
+                      alt={item.label || "Clip cover"}
+                      className={classNames(
+                        "absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-out z-[1]",
+                        isLoaded ? "opacity-0 pointer-events-none" : "opacity-100"
+                      )}
+                      loading="eager"
+                      decoding="async"
+                    />
+                  )}
                   {item.videoSrc ? (
                     <video
-                      src={isInView ? item.videoSrc : undefined}
+                      ref={(el) => {
+                        outputVideoRefs.current[item.id] = el;
+                      }}
+                      src={isPreloadNear || isInView ? item.videoSrc : undefined}
+                      poster={poster}
                       autoPlay={shouldPlayOutput}
                       muted
                       loop
                       playsInline
-                      preload="metadata"
-                      className="w-full h-full object-cover"
+                      preload="auto"
+                      onLoadedData={() => handleOutputLoaded(item.id, shouldPlayOutput)}
+                      onCanPlay={() => handleOutputLoaded(item.id, shouldPlayOutput)}
+                      className={classNames(
+                        "w-full h-full object-cover transition-opacity duration-700 ease-out z-[2]",
+                        isLoaded ? "opacity-100" : "opacity-0"
+                      )}
                     />
                   ) : (
                     <div className="w-full h-full bg-gradient-to-b from-[#141d2b]/80 via-[#0a0f16]/95 to-[#06090d]" />
                   )}
 
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20" />
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20 z-[3]" />
                 </div>
               </div>
             );
