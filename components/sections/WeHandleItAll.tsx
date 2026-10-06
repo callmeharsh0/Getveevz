@@ -127,15 +127,14 @@ export default function WeHandleItAll() {
   useEffect(() => {
     if (!timelineRef.current || !laserBeamRef.current) return;
 
-    const prefersReducedMotion =
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    if (prefersReducedMotion) {
-      gsap.set(laserBeamRef.current, { scaleY: 1 });
-      stepRefs.current.forEach((el) => el?.classList.add("is-active-step"));
-      return;
+    // Set initial transform states
+    gsap.set(laserBeamRef.current, { scaleY: 0, transformOrigin: "top center" });
+    if (sparkRef.current) {
+      sparkRef.current.style.opacity = "0";
+      sparkRef.current.style.top = "24px";
     }
+
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
 
     const ctx = gsap.context(() => {
       gsap.fromTo(
@@ -147,35 +146,65 @@ export default function WeHandleItAll() {
           transformOrigin: "top center",
           scrollTrigger: {
             trigger: timelineRef.current,
-            start: "top 65%",
-            end: "bottom 75%",
-            scrub: 0.6,
+            start: isMobile ? "top 80%" : "top 65%",
+            end: isMobile ? "bottom 85%" : "bottom 75%",
+            scrub: isMobile ? 0.15 : 0.4,
+            fastScrollEnd: true,
             onUpdate: (self) => {
               const progress = self.progress;
 
-              if (sparkRef.current) {
+              // Smoothly animate the laser spark particle down the track without squashing
+              if (sparkRef.current && timelineRef.current) {
+                const trackHeight = Math.max(0, timelineRef.current.offsetHeight - 48);
+                const sparkY = 24 + progress * trackHeight;
+                sparkRef.current.style.top = `${sparkY}px`;
                 sparkRef.current.style.opacity =
-                  progress > 0.02 && progress < 0.99 ? "1" : "0";
+                  progress > 0.01 && progress < 0.99 ? "1" : "0";
               }
 
-              stepRefs.current.forEach((el, idx) => {
-                if (!el) return;
-                const threshold = idx / (services.length - 0.85);
-                const isPassed = progress >= threshold || progress > 0.96;
-                el.classList.toggle("is-active-step", isPassed);
-              });
+              // Synchronize card active glow with the exact position of each step node
+              if (timelineRef.current) {
+                const trackHeight = Math.max(0, timelineRef.current.offsetHeight - 48);
+                const laserTipPx = progress * trackHeight;
+
+                stepRefs.current.forEach((el) => {
+                  if (!el) return;
+                  const stepNodeTop = el.offsetTop + 18;
+                  const isPassed = laserTipPx >= stepNodeTop || progress > 0.96;
+                  el.classList.toggle("is-active-step", isPassed);
+                });
+              }
             },
           },
         }
       );
     }, timelineRef);
 
-    const timer = setTimeout(() => {
+    // Sort and refresh triggers so preceding pinned sections (DistributionFlow) are accurately accounted for
+    ScrollTrigger.sort();
+    ScrollTrigger.refresh();
+
+    const t1 = setTimeout(() => {
+      ScrollTrigger.sort();
       ScrollTrigger.refresh();
-    }, 120);
+    }, 250);
+
+    const t2 = setTimeout(() => {
+      ScrollTrigger.sort();
+      ScrollTrigger.refresh();
+    }, 800);
+
+    const handleResize = () => {
+      ScrollTrigger.sort();
+      ScrollTrigger.refresh();
+    };
+
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      clearTimeout(timer);
+      clearTimeout(t1);
+      clearTimeout(t2);
+      window.removeEventListener("resize", handleResize);
       ctx.revert();
     };
   }, []);
@@ -214,15 +243,17 @@ export default function WeHandleItAll() {
 
           <div
             ref={laserBeamRef}
-            className="absolute left-6 md:left-1/2 top-6 bottom-6 -translate-x-1/2 w-[2.5px] bg-gradient-to-b from-[#8BA3C6] via-[#8BA3C6] to-white shadow-[0_0_20px_rgba(139,163,198,1),0_0_8px_#ffffff] origin-top pointer-events-none z-10"
+            style={{ transformOrigin: "top center", transform: "scaleY(0)" }}
+            className="absolute left-6 md:left-1/2 top-6 bottom-6 -translate-x-1/2 w-[2.5px] bg-gradient-to-b from-[#8BA3C6] via-[#8BA3C6] to-white shadow-[0_0_20px_rgba(139,163,198,1),0_0_8px_#ffffff] origin-top pointer-events-none z-10 will-change-transform"
+          />
+
+          <div
+            ref={sparkRef}
+            className="absolute left-6 md:left-1/2 -translate-x-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-[#8BA3C6] shadow-[0_0_25px_rgba(139,163,198,1),0_0_10px_#ffffff] opacity-0 pointer-events-none z-20"
+            style={{ top: "1.5rem" }}
           >
-            <div
-              ref={sparkRef}
-              className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-[#8BA3C6] shadow-[0_0_25px_rgba(139,163,198,1),0_0_10px_#ffffff] opacity-0 transition-opacity duration-200 pointer-events-none z-20"
-            >
-              <span className="absolute inset-0 rounded-full bg-[#8BA3C6] animate-ping opacity-85" />
-              <span className="absolute inset-1 rounded-full bg-white opacity-95 shadow-[0_0_8px_#ffffff]" />
-            </div>
+            <span className="absolute inset-0 rounded-full bg-[#8BA3C6] animate-ping opacity-85" />
+            <span className="absolute inset-1 rounded-full bg-white opacity-95 shadow-[0_0_8px_#ffffff]" />
           </div>
 
           <div className="space-y-12 sm:space-y-16 relative">
