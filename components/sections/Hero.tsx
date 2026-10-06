@@ -112,7 +112,7 @@ function HeroStatCounter({
   target = 1000,
   suffix = "M",
   prefix = "+",
-  duration = 2.2,
+  duration = 1.0,
 }: {
   platformId?: string;
   target: number;
@@ -121,40 +121,38 @@ function HeroStatCounter({
   duration?: number;
 }) {
   const isAll = platformId === "all";
-  const [displayValue, setDisplayValue] = useState(() =>
-    heroIntroCompleted ? (isAll ? 1 : target) : (isAll ? 800 : 0)
-  );
-  const [currentSuffix, setCurrentSuffix] = useState(() =>
-    heroIntroCompleted ? (isAll ? "B" : suffix) : (isAll ? "M" : suffix)
-  );
-  const prevTargetRef = useRef(isAll ? 800 : 0);
+  const isFirstRun = useRef(true);
+  const [displayValue, setDisplayValue] = useState<number>(() => (isAll ? 800 : 0));
+  const [currentSuffix, setCurrentSuffix] = useState<string>(() => (isAll ? "M" : suffix));
 
   useEffect(() => {
-    if (heroIntroCompleted) {
-      if (isAll) {
-        setDisplayValue(1);
-        setCurrentSuffix("B");
-      } else {
-        setDisplayValue(target);
-        setCurrentSuffix(suffix);
-      }
+    if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setDisplayValue(isAll ? 1 : target);
+      setCurrentSuffix(isAll ? "B" : suffix);
       return;
     }
 
     let startTime: number | null = null;
     let animationFrameId: number;
 
-    const startVal = isAll ? 800 : prevTargetRef.current;
+    const animDuration = isFirstRun.current ? 2.0 : (duration || 1.0);
+    const startVal = isFirstRun.current && isAll ? 800 : 0;
+    isFirstRun.current = false;
+
     const diff = target - startVal;
 
-    const startDelay = 120;
+    setDisplayValue(startVal);
+    setCurrentSuffix(isAll && startVal < 1000 ? "M" : suffix);
+
+    const startDelay = 30;
 
     const timerId = setTimeout(() => {
       const animate = (timestamp: number) => {
         if (!startTime) startTime = timestamp;
         const elapsed = timestamp - startTime;
-        const progress = Math.min(elapsed / (duration * 1000), 1);
+        const progress = Math.min(elapsed / (animDuration * 1000), 1);
 
+        // Exponential deceleration curve for satisfying counter count-up
         const ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
         const current = startVal + diff * ease;
 
@@ -178,11 +176,9 @@ function HeroStatCounter({
           if (isAll) {
             setDisplayValue(1);
             setCurrentSuffix("B");
-            prevTargetRef.current = 1000;
           } else {
             setDisplayValue(target);
             setCurrentSuffix(suffix);
-            prevTargetRef.current = target;
           }
         }
       };
@@ -194,10 +190,10 @@ function HeroStatCounter({
       clearTimeout(timerId);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [target, duration, isAll, suffix]);
+  }, [platformId, target, isAll, suffix, duration]);
 
   return (
-    <span className="tabular-nums inline-block font-display tracking-tight">
+    <span className="tabular-nums inline-block font-display tracking-tight transition-transform duration-200">
       {prefix}
       {displayValue}
       {currentSuffix}
