@@ -55,7 +55,6 @@ export function CharacterCarousel({
         ref={iframeRef}
         title="Interactive character filmstrip"
         src="/character-filmstrip.html"
-        loading="lazy"
         style={{
           position: "absolute",
           top: 0,
