@@ -21,6 +21,7 @@ interface Agency {
   description: string;
   link: string;
   videoSrc: string;
+  posterSrc?: string;
   maskType: "custom-a" | "rounded-rect" | "arch-pill";
   servicesList: ServiceItem[];
 }
@@ -36,6 +37,7 @@ const agencies: Agency[] = [
       "This includes the CPM-based growth campaign (performance testing transitioning to retainer) and normal clipping, both structured as 3-month plans.",
     link: "#cta",
     videoSrc: "/assets/distribution.mp4",
+    posterSrc: "/assets/distribution-poster.webp",
     maskType: "custom-a",
     servicesList: [
       {
@@ -66,6 +68,7 @@ const agencies: Agency[] = [
       "This will include the PR campaign and mass clipping.\nShort term will be 25-30 days.",
     link: "#cta",
     videoSrc: "/assets/New_video-1.mp4",
+    posterSrc: "/assets/New_video-1-poster.webp",
     maskType: "rounded-rect",
     servicesList: [
       {
@@ -96,6 +99,7 @@ const agencies: Agency[] = [
       "We make content and distribute it.\nEverything handled for you end to end.",
     link: "#cta",
     videoSrc: "/assets/New_video-2.mp4",
+    posterSrc: "/assets/New_video-2-poster.webp",
     maskType: "arch-pill",
     servicesList: [
       {
@@ -124,6 +128,8 @@ export default function Agencies() {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const slidingShapeRef = useRef<HTMLDivElement>(null);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+  const sectionRef = useRef<HTMLElement>(null);
+  const hasPreloadedRef = useRef<boolean>(false);
   const [hoveredIndex, setHoveredIndex] = useState<number>(0);
   const hoveredIndexRef = useRef<number>(0);
   const previousIndexRef = useRef<number | null>(null);
@@ -140,6 +146,24 @@ export default function Agencies() {
   }, [hoveredIndex]);
 
   const baseBoundsRef = useRef<{ x: number; y: number; width: number; height: number } | null>(null);
+
+  const activateVideo = (targetIndex: number) => {
+    videoRefs.current.forEach((video, i) => {
+      if (!video) return;
+      if (i === targetIndex) {
+        if (video.paused) {
+          const playPromise = video.play();
+          if (playPromise !== undefined) {
+            playPromise.catch(() => { });
+          }
+        }
+      } else {
+        if (!video.paused) {
+          video.pause();
+        }
+      }
+    });
+  };
 
   const getTargetBounds = (index: number) => {
     const cardEl = cardRefs.current[index];
@@ -198,15 +222,7 @@ export default function Agencies() {
       });
     }
 
-    videoRefs.current.forEach((video, i) => {
-      if (!video) return;
-      if (i === index) {
-        video.currentTime = 0;
-        video.play().catch(() => { });
-      } else {
-        video.pause();
-      }
-    });
+    activateVideo(index);
   };
 
   const handleGridMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -249,15 +265,7 @@ export default function Agencies() {
       setHoveredIndex(activeCardIndex);
       previousIndexRef.current = activeCardIndex;
       setFlippedIndex(null);
-      videoRefs.current.forEach((video, i) => {
-        if (!video) return;
-        if (i === activeCardIndex) {
-          video.currentTime = 0;
-          video.play().catch(() => { });
-        } else {
-          video.pause();
-        }
-      });
+      activateVideo(activeCardIndex);
     }
 
     const currentCard = cardRefs.current[activeCardIndex] || cardRefs.current[0];
@@ -326,6 +334,62 @@ export default function Agencies() {
     };
   }, []);
 
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+
+    // Preload & buffer all service card videos 500px before the section scrolls into view
+    const preloadObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasPreloadedRef.current) {
+            hasPreloadedRef.current = true;
+            videoRefs.current.forEach((video) => {
+              if (video) {
+                video.preload = "auto";
+                if (video.readyState < 2) {
+                  video.load();
+                }
+              }
+            });
+          }
+        });
+      },
+      { rootMargin: "500px 0px" }
+    );
+
+    preloadObserver.observe(el);
+
+    // Pause videos when the section is completely offscreen to conserve GPU/CPU/battery
+    const visibilityObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) {
+            videoRefs.current.forEach((video) => {
+              if (video && !video.paused) {
+                video.pause();
+              }
+            });
+          } else {
+            // Resume current active card video when section is back in view
+            const activeVideo = videoRefs.current[hoveredIndexRef.current];
+            if (activeVideo && activeVideo.paused) {
+              activeVideo.play().catch(() => {});
+            }
+          }
+        });
+      },
+      { threshold: 0.05 }
+    );
+
+    visibilityObserver.observe(el);
+
+    return () => {
+      preloadObserver.disconnect();
+      visibilityObserver.disconnect();
+    };
+  }, []);
+
   const getActiveMaskClass = () => {
     const agency = agencies[hoveredIndex];
     switch (agency?.maskType) {
@@ -341,7 +405,11 @@ export default function Agencies() {
   };
 
   return (
-    <section id="agencies" className="relative w-full bg-[#F3EFEA] text-[#111111] py-16 sm:py-28 lg:py-36 px-4 sm:px-8 lg:px-12 overflow-hidden select-none">
+    <section
+      ref={sectionRef}
+      id="agencies"
+      className="relative w-full bg-[#F3EFEA] text-[#111111] py-16 sm:py-28 lg:py-36 px-4 sm:px-8 lg:px-12 overflow-hidden select-none"
+    >
       <svg
         className="absolute w-0 h-0 pointer-events-none"
         aria-hidden="true"
@@ -403,10 +471,11 @@ export default function Agencies() {
                 key={agency.id}
                 ref={(el) => (videoRefs.current[i] = el)}
                 src={agency.videoSrc}
+                poster={agency.posterSrc}
                 muted
                 loop
                 playsInline
-                preload="none"
+                preload={i === 0 ? "auto" : "metadata"}
                 className={cn(
                   "absolute inset-0 h-full w-full object-cover transition-opacity duration-500 z-0",
                   hoveredIndex === i ? (i === 0 ? "opacity-25 mix-blend-screen" : "opacity-85") : "opacity-0"
