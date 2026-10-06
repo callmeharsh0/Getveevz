@@ -62,25 +62,49 @@ const Floating = ({
     elementsMap.current.delete(id)
   }, [])
 
+  const isVisibleRef = useRef(false);
+  const isTouchDevice = useRef(false);
+
+  useEffect(() => {
+    isTouchDevice.current =
+      typeof window !== "undefined" &&
+      (window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 768);
+
+    if (!containerRef.current || !("IntersectionObserver" in window)) {
+      isVisibleRef.current = true;
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisibleRef.current = entry.isIntersecting;
+      },
+      { threshold: 0.05 }
+    );
+
+    observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   useAnimationFrame(() => {
-    if (!containerRef.current) return
+    if (!containerRef.current || !isVisibleRef.current || isTouchDevice.current) return;
 
     elementsMap.current.forEach((data) => {
-      const strength = (data.depth * sensitivity) / 20
+      const strength = (data.depth * sensitivity) / 20;
 
-      const newTargetX = mousePositionRef.current.x * strength
-      const newTargetY = mousePositionRef.current.y * strength
+      const newTargetX = mousePositionRef.current.x * strength;
+      const newTargetY = mousePositionRef.current.y * strength;
 
-      const dx = newTargetX - data.currentPosition.x
-      const dy = newTargetY - data.currentPosition.y
+      const dx = newTargetX - data.currentPosition.x;
+      const dy = newTargetY - data.currentPosition.y;
 
       if (Math.abs(dx) > 0.04 || Math.abs(dy) > 0.04) {
-        data.currentPosition.x += dx * easingFactor
-        data.currentPosition.y += dy * easingFactor
-        data.element.style.transform = `translate3d(${data.currentPosition.x.toFixed(1)}px, ${data.currentPosition.y.toFixed(1)}px, 0)`
+        data.currentPosition.x += dx * easingFactor;
+        data.currentPosition.y += dy * easingFactor;
+        data.element.style.transform = `translate3d(${data.currentPosition.x.toFixed(1)}px, ${data.currentPosition.y.toFixed(1)}px, 0)`;
       }
-    })
-  })
+    });
+  });
 
   return (
     <FloatingContext.Provider value={{ registerElement, unregisterElement }}>

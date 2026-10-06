@@ -29,18 +29,30 @@ function ScrollHandler() {
   const prevPathnameRef = useRef(pathname);
   const isRestoringRef = useRef(false);
 
-  // Continuously record scroll position while user is scrolling on the home page
+  // Throttled record of scroll position while user is scrolling on the home page
   useEffect(() => {
+    let scrollTimer: ReturnType<typeof setTimeout> | null = null;
+    let lastY = 0;
+
     const handleScroll = () => {
       if (pathname === "/" && !isRestoringRef.current) {
-        try {
-          sessionStorage.setItem(SCROLL_STORAGE_KEY, String(window.scrollY));
-        } catch {}
+        lastY = window.scrollY;
+        if (!scrollTimer) {
+          scrollTimer = setTimeout(() => {
+            scrollTimer = null;
+            try {
+              sessionStorage.setItem(SCROLL_STORAGE_KEY, String(lastY));
+            } catch {}
+          }, 150);
+        }
       }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      if (scrollTimer) clearTimeout(scrollTimer);
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, [pathname]);
 
   // Handle route transitions and scroll restoration

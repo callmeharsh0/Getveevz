@@ -575,35 +575,39 @@ export default function DistributionFlow({
             </div>
           </div>
 
-          {outputs.map((item) => (
-            <div
-              key={item.id}
-              ref={(el) => {
-                pieceRefs.current[item.id] = el;
-              }}
-              onMouseEnter={() => handlePieceEnter(item.id)}
-              onMouseLeave={() => handlePieceLeave(item.id)}
-              className="absolute top-1/2 left-1/2 w-[126px] h-[224px] -ml-[63px] -mt-[112px] aspect-[9/16] z-[3] cursor-pointer group"
-            >
-              <div className="piece-inner relative w-full h-full rounded-xl overflow-hidden bg-[#070b10] border border-[#8BA3C6]/30 shadow-[0_12px_28px_rgba(0,0,0,0.6)] transition-all duration-350 ease-smooth group-hover:border-[#8BA3C6]/80 group-hover:shadow-[0_18px_40px_rgba(139,163,198,0.25)]">
-                {item.videoSrc ? (
-                  <video
-                    src={isInView ? item.videoSrc : undefined}
-                    autoPlay={isInView}
-                    muted
-                    loop
-                    playsInline
-                    preload="none"
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <div className="w-full h-full bg-gradient-to-b from-[#141d2b]/80 via-[#0a0f16]/95 to-[#06090d]" />
-                )}
+          {outputs.map((item, idx) => {
+            const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+            const shouldPlayOutput = isInView && (!isMobile || idx < 2);
+            return (
+              <div
+                key={item.id}
+                ref={(el) => {
+                  pieceRefs.current[item.id] = el;
+                }}
+                onMouseEnter={() => handlePieceEnter(item.id)}
+                onMouseLeave={() => handlePieceLeave(item.id)}
+                className="absolute top-1/2 left-1/2 w-[126px] h-[224px] -ml-[63px] -mt-[112px] aspect-[9/16] z-[3] cursor-pointer group"
+              >
+                <div className="piece-inner relative w-full h-full rounded-xl overflow-hidden bg-[#070b10] border border-[#8BA3C6]/30 shadow-[0_12px_28px_rgba(0,0,0,0.6)] transition-all duration-350 ease-smooth group-hover:border-[#8BA3C6]/80 group-hover:shadow-[0_18px_40px_rgba(139,163,198,0.25)]">
+                  {item.videoSrc ? (
+                    <video
+                      src={isInView ? item.videoSrc : undefined}
+                      autoPlay={shouldPlayOutput}
+                      muted
+                      loop
+                      playsInline
+                      preload="metadata"
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-b from-[#141d2b]/80 via-[#0a0f16]/95 to-[#06090d]" />
+                  )}
 
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20" />
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20" />
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         <div className="absolute bottom-[3%] sm:bottom-[6%] inset-x-0 flex justify-center items-center gap-2 sm:gap-6 z-[8] flex-wrap px-2 sm:px-4">

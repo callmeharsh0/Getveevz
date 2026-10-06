@@ -143,7 +143,9 @@ export const Globe: React.FC<GlobeProps> = ({
 
   const sampleLandPoints = useCallback(
     (img: HTMLImageElement): LandPoint[] => {
-      const cacheKey = `${landMapUrl}_${landDotRows}`;
+      const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+      const effectiveRows = isMobile ? Math.min(landDotRows, 110) : landDotRows;
+      const cacheKey = `${landMapUrl}_${effectiveRows}`;
       const cached = pointsCache.get(cacheKey);
       if (cached) return cached;
 
@@ -170,7 +172,7 @@ export const Globe: React.FC<GlobeProps> = ({
         return data[Math.floor(y + x + 3)] > 85;
       };
 
-      for (let lat = -90; lat <= 90; lat += 180 / landDotRows) {
+      for (let lat = -90; lat <= 90; lat += 180 / effectiveRows) {
         const radius = 25 * Math.cos(Math.abs(lat) * DEG2RAD) * Math.PI * 4;
         for (let i = 0; i < radius; i++) {
           const lng = (360 * i) / radius - 180;
@@ -321,9 +323,11 @@ export const Globe: React.FC<GlobeProps> = ({
 
         const renderer = globe.renderer?.();
         if (renderer) {
+          const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+          const maxDpr = isMobile ? 1.0 : 1.75;
           const clampedPixelRatio = Math.min(
             typeof window !== "undefined" ? window.devicePixelRatio || 1 : 1,
-            1.75
+            maxDpr
           );
           renderer.setPixelRatio(clampedPixelRatio);
         }
@@ -470,6 +474,9 @@ export const Globe: React.FC<GlobeProps> = ({
                     globeInstanceRef.current.resumeAnimation?.();
                   } else {
                     globeInstanceRef.current.pauseAnimation?.();
+                    timeoutsRef.current.forEach(clearTimeout);
+                    timeoutsRef.current = [];
+                    isAnimatingArcsRef.current = false;
                   }
                 }
               });
