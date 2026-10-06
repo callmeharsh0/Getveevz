@@ -36,8 +36,8 @@ const agencies: Agency[] = [
     description:
       "This includes the CPM-based growth campaign (performance testing transitioning to retainer) and normal clipping, both structured as 3-month plans.",
     link: "#cta",
-    videoSrc: "/assets/distribution.mp4",
-    posterSrc: "/assets/distribution-poster.webp",
+    videoSrc: "/assets/mars.mp4",
+    posterSrc: "/assets/mars-poster.webp",
     maskType: "custom-a",
     servicesList: [
       {
