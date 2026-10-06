@@ -21,7 +21,7 @@ export default function PrivacyPolicyPage() {
       title="Privacy Policy & Terms"
       subtitle="A clear, globally compliant disclosure of how GetVeevz handles contact inquiries and governs website usage."
       description="We collect your name, email, and phone number solely to respond to your enquiry based on your consent. We never sell or share your data. Retained for 12 months with immediate deletion on request. Contact our Grievance Officer at team@getveevz.com."
-      canonical="https://getveevz.com/privacy-policy"
+      canonical="https://getveevz.com/privacy"
       sections={[
         { id: "core-notice", title: "Notice of Collection" },
         { id: "collection-purpose", title: "Data & Purpose" },

@@ -10,7 +10,7 @@ export default function CookiePolicyPage() {
       title="Cookie Policy"
       subtitle="A clear, globally compliant disclosure regarding cookies and browser storage on GetVeevz."
       description="We do not use advertising or tracking cookies. We only use minimal temporary session storage to preserve your navigation position and UI preferences. Fully compliant with EU ePrivacy Directive and UK PECR."
-      canonical="https://getveevz.com/cookie-policy"
+      canonical="https://getveevz.com/cookies"
       sections={[
         { id: "core-notice", title: "Notice of Storage" },
         { id: "storage-breakdown", title: "Storage Breakdown" },
