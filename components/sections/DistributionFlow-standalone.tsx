@@ -318,6 +318,78 @@ export default function DistributionFlow({
   useGSAP(
     () => {
       if (!sourceRef.current || !wrapperRef.current) return;
+      const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+
+      if (isMobile) {
+        // --- MOBILE EXPERIENCE: CONTINUOUS SCROLL, NO PINNING, NO BLANK SCREEN ---
+        // 1. Ensure statement headline is always visible
+        if (statementRef.current) {
+          gsap.set(statementRef.current, { opacity: 1, y: 0 });
+        }
+
+        // 2. Compute responsive scale and position for content group
+        const winWidth = typeof window !== "undefined" ? window.innerWidth : 390;
+        const mobileScale = Math.min(0.38, Math.max(0.33, (winWidth - 24) / 950));
+        const mobileX = -Math.round(113.2 * mobileScale);
+
+        if (contentGroupRef.current) {
+          gsap.set(contentGroupRef.current, {
+            x: mobileX,
+            y: 24,
+            scale: mobileScale,
+            opacity: 1,
+          });
+        }
+
+        // 3. Central source hub
+        if (sourceRef.current) {
+          gsap.set(sourceRef.current, {
+            scale: 0.58,
+            x: -240,
+            y: 0,
+            opacity: 1,
+          });
+        }
+
+        // 4. Lines group visible
+        if (linesGroupRef.current) {
+          gsap.set(linesGroupRef.current, { opacity: 1 });
+        }
+
+        // 5. Output reels fanned out and visible
+        outputs.forEach((item) => {
+          const el = pieceRefs.current[item.id];
+          if (el) {
+            gsap.set(el, {
+              x: item.x,
+              y: item.y,
+              rotation: item.rot || 0,
+              scale: item.scale || 1,
+              opacity: 1,
+            });
+          }
+        });
+
+        // 6. Flow steps visible
+        flowSteps.forEach((_, i) => {
+          const el = flowStepRefs.current[i];
+          if (el) gsap.set(el, { opacity: 1, y: 0 });
+        });
+
+        // 7. Hide problem badges on mobile to keep diagram clean
+        Object.values(problemLabelRefs.current).forEach((el) => {
+          if (el) gsap.set(el, { opacity: 0 });
+        });
+
+        // 8. On mobile, punchline is hidden (hidden md:block) to prevent overlap with headline
+        if (finalLineRef.current) {
+          gsap.set(finalLineRef.current, { opacity: 0 });
+        }
+
+        return; // Early return for mobile: NO pinned timeline!
+      }
+
+      // --- DESKTOP EXPERIENCE: UNTOUCHED PINNED SCRUB TIMELINE ---
       gsap.set(sourceRef.current, { scale: 1, opacity: 1, x: 0, y: 0 });
 
       outputs.forEach((item) => {
@@ -333,17 +405,13 @@ export default function DistributionFlow({
         if (el) gsap.set(el, { opacity: 0, y: 12 });
       });
 
-      const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
-
-      if (punchline1Ref.current) gsap.set(punchline1Ref.current, { opacity: 0, y: isMobile ? -14 : 20 });
-      if (punchline2Ref.current) gsap.set(punchline2Ref.current, { opacity: 0, y: isMobile ? -14 : 20 });
-      if (punchline3Ref.current) gsap.set(punchline3Ref.current, { opacity: 0, y: isMobile ? -14 : 20 });
-      if (punchline4Ref.current) gsap.set(punchline4Ref.current, { opacity: 0, y: isMobile ? -14 : 20 });
+      if (punchline1Ref.current) gsap.set(punchline1Ref.current, { opacity: 0, y: 20 });
+      if (punchline2Ref.current) gsap.set(punchline2Ref.current, { opacity: 0, y: 20 });
+      if (punchline3Ref.current) gsap.set(punchline3Ref.current, { opacity: 0, y: 20 });
+      if (punchline4Ref.current) gsap.set(punchline4Ref.current, { opacity: 0, y: 20 });
 
       if (finalLineRef.current) {
-        gsap.set(finalLineRef.current, {
-          opacity: 1,
-        });
+        gsap.set(finalLineRef.current, { opacity: 1 });
       }
 
       if (statementRef.current) {
@@ -362,8 +430,8 @@ export default function DistributionFlow({
         scrollTrigger: {
           trigger: wrapperRef.current,
           start: "top top",
-          end: isMobile ? "+=140%" : "+=400%",
-          scrub: isMobile ? 0.2 : 0.3,
+          end: "+=400%",
+          scrub: 0.3,
           pin: true,
           anticipatePin: 1,
           fastScrollEnd: true,
@@ -377,8 +445,6 @@ export default function DistributionFlow({
       });
 
       // 2. Hold badges established so user comfortably reads "Low Reach", "Lost Moments", "Limited Distribution"
-      // Badges fully visible from ~0.045 to ~0.11 before exiting
-
       if (statementRef.current) {
         tl.to(
           statementRef.current,
@@ -427,16 +493,9 @@ export default function DistributionFlow({
       });
 
       if (contentGroupRef.current) {
-        const isClient = typeof window !== "undefined";
-        const winWidth = isClient ? window.innerWidth : 390;
-        const mobileScale = Math.min(0.37, Math.max(0.34, (winWidth - 24) / 950));
-        const mobileX = -Math.round(113.2 * mobileScale);
-
         tl.to(
           contentGroupRef.current,
-          isMobile
-            ? { x: mobileX, y: 18, scale: mobileScale, duration: 0.09, ease: "power2.out" }
-            : { x: 70, y: -20, scale: 0.85, duration: 0.09, ease: "power2.out" },
+          { x: 70, y: -20, scale: 0.85, duration: 0.09, ease: "power2.out" },
           0.23
         );
       }
@@ -455,7 +514,7 @@ export default function DistributionFlow({
         );
         tl.to(
           punchline1Ref.current,
-          { opacity: 0, y: isMobile ? 12 : -16, duration: 0.04, ease: "power2.in" },
+          { opacity: 0, y: -16, duration: 0.04, ease: "power2.in" },
           0.41
         );
       }
@@ -468,7 +527,7 @@ export default function DistributionFlow({
         );
         tl.to(
           punchline2Ref.current,
-          { opacity: 0, y: isMobile ? 12 : -16, duration: 0.04, ease: "power2.in" },
+          { opacity: 0, y: -16, duration: 0.04, ease: "power2.in" },
           0.61
         );
       }
@@ -481,7 +540,7 @@ export default function DistributionFlow({
         );
         tl.to(
           punchline3Ref.current,
-          { opacity: 0, y: isMobile ? 12 : -16, duration: 0.04, ease: "power2.in" },
+          { opacity: 0, y: -16, duration: 0.04, ease: "power2.in" },
           0.81
         );
       }
@@ -494,18 +553,16 @@ export default function DistributionFlow({
         );
       }
 
-      if (!isMobile) {
-        tl.to({}, { duration: 0.45 });
-      }
+      tl.to({}, { duration: 0.45 });
     },
-    { scope: wrapperRef, dependencies: [outputs, problemLabels, flowSteps] }
+    { scope: wrapperRef, dependencies: [outputs, problemLabels, flowSteps, isMobile] }
   );
 
   return (
     <section id="distribution" className={classNames("relative w-full overflow-hidden bg-[#090e14] text-[#f2ece1] z-20 isolate", className)}>
       <div
         ref={wrapperRef}
-        className="relative w-full h-[100dvh] min-h-[100dvh] bg-[#090e14] overflow-hidden select-none"
+        className="relative w-full min-h-[620px] xs:min-h-[680px] h-[100dvh] md:h-screen md:min-h-[100dvh] bg-[#090e14] overflow-hidden select-none"
       >
         <div
           aria-hidden="true"
@@ -515,12 +572,12 @@ export default function DistributionFlow({
         {showIntroHeader && (
           <div
             ref={statementRef}
-            className="absolute top-[3.5%] sm:top-[4.5%] md:top-[5%] inset-x-0 mx-auto text-center z-20 pointer-events-none px-6 max-w-4xl"
+            className="absolute top-[3%] xs:top-[3.5%] sm:top-[4.5%] md:top-[5%] inset-x-0 mx-auto text-center z-20 pointer-events-none px-4 xs:px-6 max-w-4xl"
           >
-            <p className="text-base sm:text-lg md:text-xl text-[#f2ece1]/75 tracking-tight font-sans mb-1 leading-tight font-normal">
+            <p className="text-sm xs:text-base sm:text-lg md:text-xl text-[#f2ece1]/75 tracking-tight font-sans mb-0.5 xs:mb-1 leading-tight font-normal">
               {headlinePrefix}
             </p>
-            <h2 className="text-2xl sm:text-4xl md:text-[44px] font-semibold tracking-tight text-[#f2ece1] font-display leading-[1.1]">
+            <h2 className="text-xl xs:text-2xl sm:text-4xl md:text-[44px] font-semibold tracking-tight text-[#f2ece1] font-display leading-[1.15]">
               We make sure we{" "}
               <span className="text-[#8BA3C6]">
                 target the right audience
@@ -531,12 +588,12 @@ export default function DistributionFlow({
 
         <div
           ref={finalLineRef}
-          className="absolute top-[4.5%] sm:top-[6%] md:top-1/2 md:-translate-y-1/2 inset-x-4 md:inset-x-auto md:left-[9%] lg:left-[11%] xl:left-[12%] text-center md:text-left max-w-sm sm:max-w-md md:max-w-[420px] lg:max-w-[460px] mx-auto md:mx-0 z-20 pointer-events-none"
+          className="hidden md:block absolute md:top-1/2 md:-translate-y-1/2 md:left-[9%] lg:left-[11%] xl:left-[12%] text-left max-w-sm sm:max-w-md md:max-w-[420px] lg:max-w-[460px] mx-0 z-20 pointer-events-none"
         >
-          <div className="relative h-[96px] sm:h-[110px] md:h-[130px] w-full flex items-center justify-center md:justify-start">
+          <div className="relative h-[56px] xs:h-[64px] sm:h-[80px] md:h-[130px] w-full flex items-center justify-center md:justify-start">
             <div
               ref={punchline1Ref}
-              className="absolute inset-0 flex flex-col justify-center text-center md:text-left font-display text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-medium leading-[1.15] text-[#f2ece1] tracking-tight"
+              className="absolute inset-0 flex flex-col justify-center text-center md:text-left font-display text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-medium leading-[1.15] text-[#f2ece1] tracking-tight"
             >
               <span className="whitespace-nowrap">You want</span>
               <span className="whitespace-nowrap text-[#8BA3C6] font-semibold">leads?</span>
@@ -544,7 +601,7 @@ export default function DistributionFlow({
 
             <div
               ref={punchline2Ref}
-              className="absolute inset-0 flex flex-col justify-center text-center md:text-left font-display text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-medium leading-[1.15] text-[#f2ece1] tracking-tight"
+              className="absolute inset-0 flex flex-col justify-center text-center md:text-left font-display text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-medium leading-[1.15] text-[#f2ece1] tracking-tight"
             >
               <span className="whitespace-nowrap">You want</span>
               <span className="whitespace-nowrap text-[#8BA3C6] font-semibold">conversion?</span>
@@ -552,7 +609,7 @@ export default function DistributionFlow({
 
             <div
               ref={punchline3Ref}
-              className="absolute inset-0 flex flex-col justify-center text-center md:text-left font-display text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-medium leading-[1.15] text-[#f2ece1] tracking-tight"
+              className="absolute inset-0 flex flex-col justify-center text-center md:text-left font-display text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-medium leading-[1.15] text-[#f2ece1] tracking-tight"
             >
               <span className="whitespace-nowrap">You want</span>
               <span className="whitespace-nowrap text-[#8BA3C6] font-semibold">reach?</span>
@@ -560,7 +617,7 @@ export default function DistributionFlow({
 
             <div
               ref={punchline4Ref}
-              className="absolute inset-0 flex flex-col justify-center text-center md:text-left font-display text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-medium leading-[1.15] text-[#f2ece1] tracking-tight"
+              className="absolute inset-0 flex flex-col justify-center text-center md:text-left font-display text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-medium leading-[1.15] text-[#f2ece1] tracking-tight"
             >
               <span className="whitespace-nowrap">We have</span>
               <span className="whitespace-nowrap text-[#8BA3C6] font-semibold">done it before</span>
