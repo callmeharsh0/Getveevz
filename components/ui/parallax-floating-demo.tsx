@@ -165,104 +165,31 @@ export function ParallaxFloatingDemo() {
     if (prefersReducedMotion) return;
 
     const ctx = gsap.context(() => {
-      if (cardRefs.current[0]) {
-        gsap.to(cardRefs.current[0], {
-          y: -14,
-          x: 4,
-          rotation: -12,
-          ease: "none",
-          scrollTrigger: {
-            trigger: mobileStageRef.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: 1.2,
-          },
-        });
-      }
-      if (cardRefs.current[1]) {
-        gsap.to(cardRefs.current[1], {
-          y: -16,
-          x: -3,
-          rotation: 1,
-          ease: "none",
-          scrollTrigger: {
-            trigger: mobileStageRef.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: 1.2,
-          },
-        });
-      }
-      if (cardRefs.current[2]) {
-        gsap.to(cardRefs.current[2], {
-          y: -12,
-          x: -4,
-          rotation: 10,
-          ease: "none",
-          scrollTrigger: {
-            trigger: mobileStageRef.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: 1.2,
-          },
-        });
-      }
-      if (cardRefs.current[3]) {
-        gsap.to(cardRefs.current[3], {
-          y: 14,
-          x: 5,
-          rotation: -9,
-          ease: "none",
-          scrollTrigger: {
-            trigger: mobileStageRef.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: 1.2,
-          },
-        });
-      }
-      if (cardRefs.current[4]) {
-        gsap.to(cardRefs.current[4], {
-          y: 16,
-          x: -4,
-          rotation: -1,
-          ease: "none",
-          scrollTrigger: {
-            trigger: mobileStageRef.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: 1.2,
-          },
-        });
-      }
-      if (cardRefs.current[5]) {
-        gsap.to(cardRefs.current[5], {
-          y: 10,
-          x: -3,
-          rotation: 6,
-          ease: "none",
-          scrollTrigger: {
-            trigger: mobileStageRef.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: 1.2,
-          },
-        });
-      }
-      if (cardRefs.current[6]) {
-        gsap.to(cardRefs.current[6], {
-          y: 18,
-          x: -5,
-          rotation: 8,
-          ease: "none",
-          scrollTrigger: {
-            trigger: mobileStageRef.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: 1.2,
-          },
-        });
-      }
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: mobileStageRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1.2,
+          fastScrollEnd: true,
+        },
+      });
+
+      const cardConfigs = [
+        { el: cardRefs.current[0], y: -14, x: 4, rotation: -12 },
+        { el: cardRefs.current[1], y: -16, x: -3, rotation: 1 },
+        { el: cardRefs.current[2], y: -12, x: -4, rotation: 10 },
+        { el: cardRefs.current[3], y: 14, x: 5, rotation: -9 },
+        { el: cardRefs.current[4], y: 16, x: -4, rotation: -1 },
+        { el: cardRefs.current[5], y: 10, x: -3, rotation: 6 },
+        { el: cardRefs.current[6], y: 18, x: -5, rotation: 8 },
+      ];
+
+      cardConfigs.forEach(({ el, y, x, rotation }) => {
+        if (el) {
+          tl.to(el, { y, x, rotation, ease: "none", force3D: true }, 0);
+        }
+      });
     }, mobileStageRef);
 
     return () => ctx.revert();
@@ -283,11 +210,11 @@ export function ParallaxFloatingDemo() {
       >
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] xs:w-[400px] h-[340px] bg-frost/10 blur-[130px] rounded-full"
+          className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] xs:w-[400px] h-[340px] bg-[radial-gradient(circle,rgba(139,163,198,0.12),transparent_70%)] rounded-full"
         />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute top-1/4 right-1/4 w-[220px] h-[220px] bg-steel/15 blur-[110px] rounded-full"
+          className="pointer-events-none absolute top-1/4 right-1/4 w-[220px] h-[220px] bg-[radial-gradient(circle,rgba(215,228,245,0.08),transparent_70%)] rounded-full"
         />
         <div
           aria-hidden="true"
@@ -297,52 +224,55 @@ export function ParallaxFloatingDemo() {
         <div className="relative w-full h-[128px] xs:h-[142px] sm:h-[150px] shrink-0 pointer-events-auto z-10">
           <div
             ref={(el) => { cardRefs.current[0] = el; }}
-            className="absolute top-[8px] left-[2px] xs:left-[6px] sm:left-[10px] w-[86px] xs:w-[96px] sm:w-[104px] h-[108px] xs:h-[118px] sm:h-[128px] rounded-xl xs:rounded-2xl border border-white/20 bg-surface/50 shadow-2xl backdrop-blur-md overflow-hidden -rotate-[9deg] z-10 will-change-transform"
+            className="absolute top-[8px] left-[2px] xs:left-[6px] sm:left-[10px] w-[86px] xs:w-[96px] sm:w-[104px] h-[108px] xs:h-[118px] sm:h-[128px] rounded-xl xs:rounded-2xl border border-white/20 bg-[#131b28]/95 shadow-xl overflow-hidden -rotate-[9deg] z-10 will-change-transform"
           >
             <img
               src={mobileResultCards[0].url}
               alt={mobileResultCards[0].title}
               className="w-full h-full object-cover"
               loading="eager"
+              decoding="async"
             />
-            <div className="absolute bottom-1.5 xs:bottom-2 left-1.5 xs:left-2 px-1.5 xs:px-2 py-0.5 rounded-md bg-black/75 backdrop-blur-md border border-white/20 text-[8px] xs:text-[9px] font-mono text-frost font-semibold tracking-wide shadow-lg whitespace-nowrap">
+            <div className="absolute bottom-1.5 xs:bottom-2 left-1.5 xs:left-2 px-1.5 xs:px-2 py-0.5 rounded-md bg-black/85 border border-white/20 text-[8px] xs:text-[9px] font-mono text-frost font-semibold tracking-wide shadow-md whitespace-nowrap">
               {mobileResultCards[0].tag}
             </div>
           </div>
 
           <div
             ref={(el) => { cardRefs.current[1] = el; }}
-            className="absolute top-[0px] left-1/2 -translate-x-1/2 w-[82px] xs:w-[92px] sm:w-[102px] h-[104px] xs:h-[116px] sm:h-[126px] rounded-xl xs:rounded-2xl border border-white/20 bg-surface/50 shadow-2xl backdrop-blur-md overflow-hidden -rotate-[1deg] z-10 will-change-transform"
+            className="absolute top-[0px] left-1/2 -translate-x-1/2 w-[82px] xs:w-[92px] sm:w-[102px] h-[104px] xs:h-[116px] sm:h-[126px] rounded-xl xs:rounded-2xl border border-white/20 bg-[#131b28]/95 shadow-xl overflow-hidden -rotate-[1deg] z-10 will-change-transform"
           >
             <img
               src={mobileResultCards[1].url}
               alt={mobileResultCards[1].title}
               className="w-full h-full object-cover"
               loading="eager"
+              decoding="async"
             />
-            <div className="absolute bottom-1.5 xs:bottom-2 left-1.5 xs:left-2 px-1.5 xs:px-2 py-0.5 rounded-md bg-black/75 backdrop-blur-md border border-white/20 text-[8px] xs:text-[9px] font-mono text-frost font-semibold tracking-wide shadow-lg whitespace-nowrap">
+            <div className="absolute bottom-1.5 xs:bottom-2 left-1.5 xs:left-2 px-1.5 xs:px-2 py-0.5 rounded-md bg-black/85 border border-white/20 text-[8px] xs:text-[9px] font-mono text-frost font-semibold tracking-wide shadow-md whitespace-nowrap">
               {mobileResultCards[1].tag}
             </div>
           </div>
 
           <div
             ref={(el) => { cardRefs.current[2] = el; }}
-            className="absolute top-[6px] right-[2px] xs:right-[6px] sm:right-[10px] w-[86px] xs:w-[96px] sm:w-[104px] h-[108px] xs:h-[120px] sm:h-[130px] rounded-xl xs:rounded-2xl border border-white/20 bg-surface/50 shadow-2xl backdrop-blur-md overflow-hidden rotate-[8deg] z-10 will-change-transform"
+            className="absolute top-[6px] right-[2px] xs:right-[6px] sm:right-[10px] w-[86px] xs:w-[96px] sm:w-[104px] h-[108px] xs:h-[120px] sm:h-[130px] rounded-xl xs:rounded-2xl border border-white/20 bg-[#131b28]/95 shadow-xl overflow-hidden rotate-[8deg] z-10 will-change-transform"
           >
             <img
               src={mobileResultCards[2].url}
               alt={mobileResultCards[2].title}
               className="w-full h-full object-cover"
               loading="eager"
+              decoding="async"
             />
-            <div className="absolute bottom-1.5 xs:bottom-2 left-1.5 xs:left-2 px-1.5 xs:px-2 py-0.5 rounded-md bg-black/75 backdrop-blur-md border border-white/20 text-[8px] xs:text-[9px] font-mono text-frost font-semibold tracking-wide shadow-lg whitespace-nowrap">
+            <div className="absolute bottom-1.5 xs:bottom-2 left-1.5 xs:left-2 px-1.5 xs:px-2 py-0.5 rounded-md bg-black/85 border border-white/20 text-[8px] xs:text-[9px] font-mono text-frost font-semibold tracking-wide shadow-md whitespace-nowrap">
               {mobileResultCards[2].tag}
             </div>
           </div>
         </div>
 
         <div className="relative z-10 mt-2.5 xs:mt-3 flex items-center justify-center w-full px-1">
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface/90 border border-border/90 text-[7.5px] xs:text-[8.5px] font-mono uppercase tracking-[0.14em] text-frost backdrop-blur-xl shadow-lg">
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#121a28]/95 border border-border/90 text-[7.5px] xs:text-[8.5px] font-mono uppercase tracking-[0.14em] text-frost shadow-md">
             <span className="w-1.5 h-1.5 rounded-full bg-frost animate-pulse shrink-0" />
             <span className="whitespace-nowrap">(02) Verified Results &amp; Distribution Scale</span>
           </div>
@@ -354,7 +284,7 @@ export function ParallaxFloatingDemo() {
         </h2>
 
         <div className="relative z-10 mt-3 xs:mt-3.5 grid grid-cols-3 gap-1 xs:gap-1.5 w-full max-w-[270px] xs:max-w-[290px] px-0.5">
-          <GlassCard className="py-1.5 px-1 xs:py-2 xs:px-1.5 rounded-lg">
+          <GlassCard className="py-1.5 px-1 xs:py-2 xs:px-1.5 rounded-lg bg-[#111824]/90 backdrop-blur-none shadow-md">
             <span className="font-display text-[14px] xs:text-[16px] font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-moonlight to-frost group-hover:scale-105 transition-transform duration-300">
               <Counter value={1} suffix="B+" />
             </span>
@@ -363,7 +293,7 @@ export function ParallaxFloatingDemo() {
             </span>
           </GlassCard>
 
-          <GlassCard className="py-1.5 px-1 xs:py-2 xs:px-1.5 rounded-lg">
+          <GlassCard className="py-1.5 px-1 xs:py-2 xs:px-1.5 rounded-lg bg-[#111824]/90 backdrop-blur-none shadow-md">
             <span className="font-display text-[14px] xs:text-[16px] font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-moonlight to-frost group-hover:scale-105 transition-transform duration-300">
               <Counter value={250} suffix="+" />
             </span>
@@ -372,7 +302,7 @@ export function ParallaxFloatingDemo() {
             </span>
           </GlassCard>
 
-          <GlassCard className="py-1.5 px-1 xs:py-2 xs:px-1.5 rounded-lg">
+          <GlassCard className="py-1.5 px-1 xs:py-2 xs:px-1.5 rounded-lg bg-[#111824]/90 backdrop-blur-none shadow-md">
             <span className="font-display text-[14px] xs:text-[16px] font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-moonlight to-frost group-hover:scale-105 transition-transform duration-300">
               <Counter value={200} suffix="+" />
             </span>
@@ -397,60 +327,64 @@ export function ParallaxFloatingDemo() {
         <div className="relative w-full h-[150px] xs:h-[162px] sm:h-[172px] shrink-0 mt-4 xs:mt-5 sm:mt-6 pointer-events-auto z-10">
           <div
             ref={(el) => { cardRefs.current[3] = el; }}
-            className="absolute top-[10px] left-[2px] xs:left-[6px] sm:left-[10px] w-[86px] xs:w-[96px] sm:w-[104px] h-[108px] xs:h-[120px] sm:h-[130px] rounded-xl xs:rounded-2xl border border-white/20 bg-surface/50 shadow-2xl backdrop-blur-md overflow-hidden -rotate-[8deg] z-10 will-change-transform"
+            className="absolute top-[10px] left-[2px] xs:left-[6px] sm:left-[10px] w-[86px] xs:w-[96px] sm:w-[104px] h-[108px] xs:h-[120px] sm:h-[130px] rounded-xl xs:rounded-2xl border border-white/20 bg-[#131b28]/95 shadow-xl overflow-hidden -rotate-[8deg] z-10 will-change-transform"
           >
             <img
               src={mobileResultCards[3].url}
               alt={mobileResultCards[3].title}
               className="w-full h-full object-cover"
               loading="lazy"
+              decoding="async"
             />
-            <div className="absolute bottom-1.5 xs:bottom-2 left-1.5 xs:left-2 px-1.5 xs:px-2 py-0.5 rounded-md bg-black/75 backdrop-blur-md border border-white/20 text-[8px] xs:text-[9px] font-mono text-frost font-semibold tracking-wide shadow-lg whitespace-nowrap">
+            <div className="absolute bottom-1.5 xs:bottom-2 left-1.5 xs:left-2 px-1.5 xs:px-2 py-0.5 rounded-md bg-black/85 border border-white/20 text-[8px] xs:text-[9px] font-mono text-frost font-semibold tracking-wide shadow-md whitespace-nowrap">
               {mobileResultCards[3].tag}
             </div>
           </div>
 
           <div
             ref={(el) => { cardRefs.current[4] = el; }}
-            className="absolute top-[22px] xs:top-[26px] left-[39%] -translate-x-[20%] w-[82px] xs:w-[92px] sm:w-[100px] h-[104px] xs:h-[116px] sm:h-[126px] rounded-xl xs:rounded-2xl border border-white/20 bg-surface/50 shadow-2xl backdrop-blur-md overflow-hidden -rotate-[3deg] z-10 will-change-transform"
+            className="absolute top-[22px] xs:top-[26px] left-[39%] -translate-x-[20%] w-[82px] xs:w-[92px] sm:w-[100px] h-[104px] xs:h-[116px] sm:h-[126px] rounded-xl xs:rounded-2xl border border-white/20 bg-[#131b28]/95 shadow-xl overflow-hidden -rotate-[3deg] z-10 will-change-transform"
           >
             <img
               src={mobileResultCards[4].url}
               alt={mobileResultCards[4].title}
               className="w-full h-full object-cover"
               loading="lazy"
+              decoding="async"
             />
-            <div className="absolute bottom-1.5 xs:bottom-2 left-1.5 xs:left-2 px-1.5 xs:px-2 py-0.5 rounded-md bg-black/75 backdrop-blur-md border border-white/20 text-[8px] xs:text-[9px] font-mono text-frost font-semibold tracking-wide shadow-lg whitespace-nowrap">
+            <div className="absolute bottom-1.5 xs:bottom-2 left-1.5 xs:left-2 px-1.5 xs:px-2 py-0.5 rounded-md bg-black/85 border border-white/20 text-[8px] xs:text-[9px] font-mono text-frost font-semibold tracking-wide shadow-md whitespace-nowrap">
               {mobileResultCards[4].tag}
             </div>
           </div>
 
           <div
             ref={(el) => { cardRefs.current[5] = el; }}
-            className="absolute top-[0px] right-[10px] xs:right-[16px] sm:right-[20px] w-[76px] xs:w-[84px] sm:w-[92px] h-[96px] xs:h-[104px] sm:h-[114px] rounded-xl xs:rounded-2xl border border-white/20 bg-surface/50 shadow-2xl backdrop-blur-md overflow-hidden rotate-[4deg] z-0 will-change-transform"
+            className="absolute top-[0px] right-[10px] xs:right-[16px] sm:right-[20px] w-[76px] xs:w-[84px] sm:w-[92px] h-[96px] xs:h-[104px] sm:h-[114px] rounded-xl xs:rounded-2xl border border-white/20 bg-[#131b28]/95 shadow-xl overflow-hidden rotate-[4deg] z-0 will-change-transform"
           >
             <img
               src={mobileResultCards[6].url}
               alt={mobileResultCards[6].title}
               className="w-full h-full object-cover"
               loading="lazy"
+              decoding="async"
             />
-            <div className="absolute bottom-1.5 xs:bottom-2 left-1.5 xs:left-2 px-1.5 xs:px-2 py-0.5 rounded-md bg-black/75 backdrop-blur-md border border-white/20 text-[7.5px] xs:text-[8.5px] font-mono text-frost font-semibold tracking-wide shadow-lg whitespace-nowrap">
+            <div className="absolute bottom-1.5 xs:bottom-2 left-1.5 xs:left-2 px-1.5 xs:px-2 py-0.5 rounded-md bg-black/85 border border-white/20 text-[7.5px] xs:text-[8.5px] font-mono text-frost font-semibold tracking-wide shadow-md whitespace-nowrap">
               {mobileResultCards[6].tag}
             </div>
           </div>
 
           <div
             ref={(el) => { cardRefs.current[6] = el; }}
-            className="absolute top-[38px] xs:top-[44px] sm:top-[48px] right-[2px] xs:right-[6px] sm:right-[10px] w-[86px] xs:w-[96px] sm:w-[104px] h-[108px] xs:h-[120px] sm:h-[130px] rounded-xl xs:rounded-2xl border border-white/20 bg-surface/50 shadow-2xl backdrop-blur-md overflow-hidden rotate-[6deg] z-10 will-change-transform"
+            className="absolute top-[38px] xs:top-[44px] sm:top-[48px] right-[2px] xs:right-[6px] sm:right-[10px] w-[86px] xs:w-[96px] sm:w-[104px] h-[108px] xs:h-[120px] sm:h-[130px] rounded-xl xs:rounded-2xl border border-white/20 bg-[#131b28]/95 shadow-xl overflow-hidden rotate-[6deg] z-10 will-change-transform"
           >
             <img
               src={mobileResultCards[5].url}
               alt={mobileResultCards[5].title}
               className="w-full h-full object-cover"
               loading="lazy"
+              decoding="async"
             />
-            <div className="absolute bottom-1.5 xs:bottom-2 left-1.5 xs:left-2 px-1.5 xs:px-2 py-0.5 rounded-md bg-black/75 backdrop-blur-md border border-white/20 text-[8px] xs:text-[9px] font-mono text-frost font-semibold tracking-wide shadow-lg whitespace-nowrap">
+            <div className="absolute bottom-1.5 xs:bottom-2 left-1.5 xs:left-2 px-1.5 xs:px-2 py-0.5 rounded-md bg-black/85 border border-white/20 text-[8px] xs:text-[9px] font-mono text-frost font-semibold tracking-wide shadow-md whitespace-nowrap">
               {mobileResultCards[5].tag}
             </div>
           </div>

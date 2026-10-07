@@ -162,6 +162,7 @@ function LogoVessel({ src, alt, id }: { src: string; alt: string; id?: string })
           alt={alt}
           className={cn("w-full h-full select-none", config.imgClass)}
           loading="lazy"
+          decoding="async"
           onError={(e) => {
             const target = e.currentTarget;
             if (src.includes("%20")) {

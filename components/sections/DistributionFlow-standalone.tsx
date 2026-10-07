@@ -179,6 +179,17 @@ export default function DistributionFlow({
   const [isPreloadNear, setIsPreloadNear] = useState(false);
   const [sourceLoaded, setSourceLoaded] = useState(false);
   const [loadedVideos, setLoadedVideos] = useState<Record<string, boolean>>({});
+  const [activeUserVideos, setActiveUserVideos] = useState<Record<string, boolean>>({});
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(typeof window !== "undefined" && window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile, { passive: true });
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   useEffect(() => {
     const el = wrapperRef.current;
@@ -282,6 +293,7 @@ export default function DistributionFlow({
   }, []);
 
   const handlePieceEnter = useCallback((id: string) => {
+    setActiveUserVideos((prev) => (prev[id] ? prev : { ...prev, [id]: true }));
     const inner = pieceRefs.current[id]?.querySelector<HTMLElement>(".piece-inner");
     if (inner) {
       inner.style.transform = "translateY(-6px) scale(1.05)";
@@ -354,6 +366,7 @@ export default function DistributionFlow({
           scrub: 0.3,
           pin: true,
           anticipatePin: 1,
+          fastScrollEnd: true,
         },
       });
 
@@ -494,7 +507,7 @@ export default function DistributionFlow({
       >
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute left-1/2 top-1/2 h-[750px] w-[750px] max-w-none -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(139,163,198,0.12),transparent_70%)] blur-2xl z-[1]"
+          className="pointer-events-none absolute left-1/2 top-1/2 h-[750px] w-[750px] max-w-none -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(139,163,198,0.12),transparent_70%)] blur-none md:blur-2xl z-[1]"
         />
 
         {showIntroHeader && (
@@ -593,22 +606,24 @@ export default function DistributionFlow({
                   strokeLinecap="round"
                   className="animate-flowing-dots"
                 />
-                <circle r="2.5" fill="#f2ece1">
-                  <animateMotion
-                    path={seg.path}
-                    dur="1.8s"
-                    repeatCount="indefinite"
-                    begin={`${seg.delay}s`}
-                  />
-                  <animate
-                    attributeName="opacity"
-                    values="0;0.95;0.95;0"
-                    keyTimes="0;0.12;0.88;1"
-                    dur="1.8s"
-                    repeatCount="indefinite"
-                    begin={`${seg.delay}s`}
-                  />
-                </circle>
+                {!isMobile && isInView && (
+                  <circle r="2.5" fill="#f2ece1">
+                    <animateMotion
+                      path={seg.path}
+                      dur="1.8s"
+                      repeatCount="indefinite"
+                      begin={`${seg.delay}s`}
+                    />
+                    <animate
+                      attributeName="opacity"
+                      values="0;0.95;0.95;0"
+                      keyTimes="0;0.12;0.88;1"
+                      dur="1.8s"
+                      repeatCount="indefinite"
+                      begin={`${seg.delay}s`}
+                    />
+                  </circle>
+                )}
                 <circle cx={seg.startX} cy={seg.startY} r="3" fill="#f2ece1" opacity="0.85" />
                 <circle cx={seg.endX} cy={seg.endY} r="2.5" fill="#f2ece1" opacity="0.65" />
               </g>
@@ -673,8 +688,9 @@ export default function DistributionFlow({
           </div>
 
           {outputs.map((item, idx) => {
-            const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
-            const shouldPlayOutput = isInView && (!isMobile || idx < 2);
+            const isUserActive = !!activeUserVideos[item.id];
+            const shouldAttachSrc = !isMobile || idx < 2 || isUserActive;
+            const shouldPlayOutput = isInView && (!isMobile || idx < 2 || isUserActive);
             const isLoaded = !!loadedVideos[item.id];
             const poster = item.posterSrc;
 
@@ -686,6 +702,7 @@ export default function DistributionFlow({
                 }}
                 onMouseEnter={() => handlePieceEnter(item.id)}
                 onMouseLeave={() => handlePieceLeave(item.id)}
+                onClick={() => handlePieceEnter(item.id)}
                 className="absolute top-1/2 left-1/2 w-[126px] h-[224px] -ml-[63px] -mt-[112px] aspect-[9/16] z-[3] cursor-pointer group"
               >
                 <div className="piece-inner relative w-full h-full rounded-xl overflow-hidden bg-[#070b10] border border-[#8BA3C6]/30 shadow-[0_12px_28px_rgba(0,0,0,0.6)] transition-all duration-350 ease-smooth group-hover:border-[#8BA3C6]/80 group-hover:shadow-[0_18px_40px_rgba(139,163,198,0.25)]">
@@ -706,13 +723,13 @@ export default function DistributionFlow({
                       ref={(el) => {
                         outputVideoRefs.current[item.id] = el;
                       }}
-                      src={isPreloadNear || isInView ? item.videoSrc : undefined}
+                      src={shouldAttachSrc && (isPreloadNear || isInView) ? item.videoSrc : undefined}
                       poster={poster}
                       autoPlay={shouldPlayOutput}
                       muted
                       loop
                       playsInline
-                      preload="auto"
+                      preload={isMobile ? "metadata" : "auto"}
                       onLoadedData={() => handleOutputLoaded(item.id, shouldPlayOutput)}
                       onCanPlay={() => handleOutputLoaded(item.id, shouldPlayOutput)}
                       className={classNames(
