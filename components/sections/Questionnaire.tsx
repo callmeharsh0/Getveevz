@@ -207,7 +207,7 @@ export default function Questionnaire() {
     <section
       id="questionnaire"
       ref={ref}
-      className="relative w-full bg-[#F3EFEA] text-[#111111] py-20 sm:py-28 lg:py-36 px-4 sm:px-6 lg:px-8 overflow-hidden select-none border-t border-[#111111]/10"
+      className="relative w-full bg-[#F3EFEA] text-[#111111] py-20 sm:py-28 lg:py-36 px-4 sm:px-6 lg:px-8 overflow-hidden select-none border-t border-[#111111]/10 z-20 isolate"
     >
       <div
         aria-hidden="true"

@@ -59,7 +59,7 @@ export default function Home() {
         jsonLd={ROOT_JSON_LD}
       />
       <Hero />
-      <section id="results" className="relative w-full overflow-hidden bg-[#090e14]">
+      <section id="results" className="relative w-full overflow-hidden bg-[#090e14] z-20 isolate">
         <ParallaxFloatingDemo />
       </section>
       <ClientLogosMarquee />

@@ -94,7 +94,7 @@ export default function Footer() {
   return (
     <footer
       id="site-footer"
-      className="relative w-full bg-[#050608] text-white pt-10 pb-12 sm:pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden select-none"
+      className="relative w-full bg-[#050608] text-white pt-10 pb-12 sm:pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden select-none z-20 isolate"
     >
       <div
         aria-hidden="true"

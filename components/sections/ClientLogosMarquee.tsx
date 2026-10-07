@@ -186,7 +186,7 @@ export default function ClientLogosMarquee() {
   return (
     <section
       id="clients"
-      className="relative w-full pt-3 sm:pt-4 lg:pt-6 pb-6 sm:pb-8 lg:pb-10 bg-[#090e14] overflow-hidden select-none"
+      className="relative w-full pt-3 sm:pt-4 lg:pt-6 pb-6 sm:pb-8 lg:pb-10 bg-[#090e14] overflow-hidden select-none z-20 isolate"
     >
       <div
         aria-hidden="true"

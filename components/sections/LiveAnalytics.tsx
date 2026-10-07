@@ -42,7 +42,7 @@ export default function LiveAnalytics() {
     <section
       id="analytics"
       ref={ref}
-      className="border-t border-border bg-background px-4 sm:px-6 py-14 sm:py-20 overflow-hidden"
+      className="relative border-t border-border bg-background px-4 sm:px-6 py-14 sm:py-20 overflow-hidden z-20 isolate"
     >
       <div className="mx-auto max-w-content">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center">

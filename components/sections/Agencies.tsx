@@ -408,7 +408,7 @@ export default function Agencies() {
     <section
       ref={sectionRef}
       id="agencies"
-      className="relative w-full bg-[#F3EFEA] text-[#111111] py-16 sm:py-28 lg:py-36 px-4 sm:px-8 lg:px-12 overflow-hidden select-none"
+      className="relative w-full bg-[#F3EFEA] text-[#111111] py-16 sm:py-28 lg:py-36 px-4 sm:px-8 lg:px-12 overflow-hidden select-none z-20 isolate"
     >
       <svg
         className="absolute w-0 h-0 pointer-events-none"

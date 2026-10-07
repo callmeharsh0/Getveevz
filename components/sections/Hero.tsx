@@ -451,7 +451,7 @@ export default function Hero() {
     <section
       ref={containerRef}
       id="hero"
-      className="relative flex min-h-[100svh] min-h-[100dvh] flex-col justify-between px-5 sm:px-8 md:px-12 lg:px-16 pt-3 sm:pt-5 pb-5 sm:pb-8 md:pb-14 bg-[#F3EFEA] text-[#111111] overflow-hidden select-none"
+      className="relative flex min-h-[100svh] min-h-[100dvh] flex-col justify-between px-5 sm:px-8 md:px-12 lg:px-16 pt-3 sm:pt-5 pb-5 sm:pb-8 md:pb-14 bg-[#F3EFEA] text-[#111111] overflow-hidden select-none z-10 isolate"
     >
       <div
         ref={spotlightRef}

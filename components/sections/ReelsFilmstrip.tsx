@@ -131,7 +131,7 @@ export default function ReelsFilmstrip() {
   return (
     <section
       id="character-filmstrip"
-      className="relative w-full overflow-hidden bg-[#000000] border-b border-border"
+      className="relative w-full overflow-hidden bg-[#000000] border-b border-border z-20 isolate"
     >
       <div className="w-full h-[640px] sm:h-[720px] md:h-[820px] lg:h-[880px] relative">
         <CharacterFilmstrip

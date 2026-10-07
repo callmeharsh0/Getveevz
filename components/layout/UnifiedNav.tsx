@@ -69,10 +69,10 @@ export default function UnifiedNav() {
           const isMobile = window.innerWidth < 1024;
 
           if (!isAutoScrollingRef.current) {
-            if (currentScrollY <= 80) {
-              // At the very top:
-              // On mobile home page, let the hero header take precedence to avoid visual clash.
-              // On desktop or subpages, keep visible.
+            if (isMobile && !isServices) {
+              // Strictly hide desktop pill nav on mobile home to avoid clashing with mobile hamburger header
+              setIsVisible(false);
+            } else if (currentScrollY <= 80) {
               if (isMobile && !isServices) {
                 setIsVisible(false);
               } else {
@@ -176,7 +176,8 @@ export default function UnifiedNav() {
         }}
         className={cn(
           "fixed top-1 sm:top-2 lg:top-5 left-0 right-0 mx-auto w-max max-w-[calc(100vw-16px)] sm:max-w-[calc(100vw-32px)] z-[100] transition-all duration-300",
-          !isVisible ? "pointer-events-none select-none" : "pointer-events-auto"
+          !isVisible ? "pointer-events-none select-none" : "pointer-events-auto",
+          !isServices && "hidden lg:block"
         )}
       >
         <nav

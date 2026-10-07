@@ -10,6 +10,10 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.config({
+    ignoreMobileResize: true,
+    autoRefreshEvents: "visibilitychange,DOMContentLoaded,load",
+  });
   if ("scrollRestoration" in window.history) {
     window.history.scrollRestoration = "manual";
   }

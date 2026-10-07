@@ -205,15 +205,27 @@ export default function WeHandleItAll() {
       ScrollTrigger.refresh();
     }, 250);
 
+    let lastWidth = typeof window !== "undefined" ? window.innerWidth : 0;
+    let resizeTimer: ReturnType<typeof setTimeout> | null = null;
     const handleResize = () => {
-      ScrollTrigger.sort();
-      ScrollTrigger.refresh();
+      if (typeof window === "undefined") return;
+      const currentWidth = window.innerWidth;
+      // Only refresh if horizontal width changed (orientation change or desktop resize), ignoring mobile address bar height toggling
+      if (Math.abs(currentWidth - lastWidth) > 30) {
+        lastWidth = currentWidth;
+        if (resizeTimer) clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          ScrollTrigger.sort();
+          ScrollTrigger.refresh();
+        }, 150);
+      }
     };
 
     window.addEventListener("resize", handleResize);
 
     return () => {
       clearTimeout(t1);
+      if (resizeTimer) clearTimeout(resizeTimer);
       window.removeEventListener("resize", handleResize);
       ctx.revert();
     };
@@ -223,7 +235,7 @@ export default function WeHandleItAll() {
     <section
       id="about"
       ref={sectionRef}
-      className="relative border-t border-white/10 bg-[#090E14] text-white px-4 sm:px-6 py-28 sm:py-36 overflow-hidden"
+      className="relative border-t border-white/10 bg-[#090E14] text-white px-4 sm:px-6 py-28 sm:py-36 overflow-hidden z-20 isolate"
     >
       <div
         aria-hidden="true"

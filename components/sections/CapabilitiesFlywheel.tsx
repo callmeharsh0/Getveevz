@@ -95,7 +95,7 @@ export default function CapabilitiesFlywheel() {
   return (
     <section
       id="system-capabilities"
-      className="relative w-full bg-white text-[#111111] py-16 sm:py-24 lg:py-32 px-4 sm:px-8 lg:px-12 overflow-hidden select-none border-b border-[#111111]/10"
+      className="relative w-full bg-white text-[#111111] py-16 sm:py-24 lg:py-32 px-4 sm:px-8 lg:px-12 overflow-hidden select-none border-b border-[#111111]/10 z-20 isolate"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >

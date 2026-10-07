@@ -362,8 +362,8 @@ export default function DistributionFlow({
         scrollTrigger: {
           trigger: wrapperRef.current,
           start: "top top",
-          end: "+=400%",
-          scrub: 0.3,
+          end: isMobile ? "+=140%" : "+=400%",
+          scrub: isMobile ? 0.2 : 0.3,
           pin: true,
           anticipatePin: 1,
           fastScrollEnd: true,
@@ -494,16 +494,18 @@ export default function DistributionFlow({
         );
       }
 
-      tl.to({}, { duration: 0.45 });
+      if (!isMobile) {
+        tl.to({}, { duration: 0.45 });
+      }
     },
     { scope: wrapperRef, dependencies: [outputs, problemLabels, flowSteps] }
   );
 
   return (
-    <section id="distribution" className={classNames("w-full overflow-hidden bg-[#090e14] text-[#f2ece1]", className)}>
+    <section id="distribution" className={classNames("relative w-full overflow-hidden bg-[#090e14] text-[#f2ece1] z-20 isolate", className)}>
       <div
         ref={wrapperRef}
-        className="relative w-full h-screen min-h-[100dvh] bg-[#090e14] overflow-hidden select-none"
+        className="relative w-full h-[100dvh] min-h-[100dvh] bg-[#090e14] overflow-hidden select-none"
       >
         <div
           aria-hidden="true"

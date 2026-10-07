@@ -456,7 +456,7 @@ export default function Pricing() {
       ref={sectionRef}
       id="pricing"
       aria-label="Pricing and campaign frameworks"
-      className="relative w-full py-16 sm:py-28 lg:py-36 bg-[#090A0D] text-[#F8F6F2] overflow-hidden"
+      className="relative w-full py-16 sm:py-28 lg:py-36 bg-[#090A0D] text-[#F8F6F2] overflow-hidden z-20 isolate"
     >
       <div
         aria-hidden="true"
