@@ -127,16 +127,38 @@ export default function WeHandleItAll() {
   useEffect(() => {
     if (!timelineRef.current || !laserBeamRef.current) return;
 
-    // Set initial transform states
+    const isMobile =
+      typeof window !== "undefined" &&
+      (window.innerWidth < 768 || window.matchMedia("(pointer: coarse)").matches);
+
+    // On mobile devices, completely disable the scroll-driven scrub glow to ensure 60-120fps native touch scrolling
+    if (isMobile) {
+      return;
+    }
+
+    // Set initial transform states for desktop
     gsap.set(laserBeamRef.current, { scaleY: 0, transformOrigin: "top center" });
     if (sparkRef.current) {
       sparkRef.current.style.opacity = "0";
-      sparkRef.current.style.top = "24px";
+      sparkRef.current.style.transform = "translate3d(-50%, 24px, 0)";
     }
 
-    const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
-
     const ctx = gsap.context(() => {
+      let trackHeight = 0;
+      let stepThresholds: number[] = [];
+
+      // Pre-calculate measurements outside the scroll tick loop to prevent forced reflows/layout thrashing
+      const updateMeasurements = () => {
+        if (!timelineRef.current) return;
+        trackHeight = Math.max(0, timelineRef.current.offsetHeight - 48);
+        stepThresholds = stepRefs.current.map((el) => {
+          if (!el || trackHeight <= 0) return 1;
+          return Math.min(1, Math.max(0, (el.offsetTop + 18) / trackHeight));
+        });
+      };
+
+      updateMeasurements();
+
       gsap.fromTo(
         laserBeamRef.current,
         { scaleY: 0 },
@@ -146,41 +168,35 @@ export default function WeHandleItAll() {
           transformOrigin: "top center",
           scrollTrigger: {
             trigger: timelineRef.current,
-            start: isMobile ? "top 80%" : "top 65%",
-            end: isMobile ? "bottom 85%" : "bottom 75%",
-            scrub: isMobile ? 0.15 : 0.4,
+            start: "top 65%",
+            end: "bottom 75%",
+            scrub: 0.4,
             fastScrollEnd: true,
+            onRefresh: updateMeasurements,
             onUpdate: (self) => {
               const progress = self.progress;
 
-              // Smoothly animate the laser spark particle down the track without squashing
-              if (sparkRef.current && timelineRef.current) {
-                const trackHeight = Math.max(0, timelineRef.current.offsetHeight - 48);
+              // Hardware-accelerated GPU transform for desktop spark
+              if (sparkRef.current && trackHeight > 0) {
                 const sparkY = 24 + progress * trackHeight;
-                sparkRef.current.style.top = `${sparkY}px`;
+                sparkRef.current.style.transform = `translate3d(-50%, ${sparkY}px, 0)`;
                 sparkRef.current.style.opacity =
                   progress > 0.01 && progress < 0.99 ? "1" : "0";
               }
 
-              // Synchronize card active glow with the exact position of each step node
-              if (timelineRef.current) {
-                const trackHeight = Math.max(0, timelineRef.current.offsetHeight - 48);
-                const laserTipPx = progress * trackHeight;
-
-                stepRefs.current.forEach((el) => {
-                  if (!el) return;
-                  const stepNodeTop = el.offsetTop + 18;
-                  const isPassed = laserTipPx >= stepNodeTop || progress > 0.96;
-                  el.classList.toggle("is-active-step", isPassed);
-                });
-              }
+              // Use cached memory thresholds instead of reading offsetTop/offsetHeight on every frame
+              stepRefs.current.forEach((el, idx) => {
+                if (!el) return;
+                const threshold = stepThresholds[idx] ?? 1;
+                const isPassed = progress >= threshold || progress > 0.96;
+                el.classList.toggle("is-active-step", isPassed);
+              });
             },
           },
         }
       );
     }, timelineRef);
 
-    // Sort and refresh triggers so preceding pinned sections (DistributionFlow) are accurately accounted for
     ScrollTrigger.sort();
     ScrollTrigger.refresh();
 
@@ -188,11 +204,6 @@ export default function WeHandleItAll() {
       ScrollTrigger.sort();
       ScrollTrigger.refresh();
     }, 250);
-
-    const t2 = setTimeout(() => {
-      ScrollTrigger.sort();
-      ScrollTrigger.refresh();
-    }, 800);
 
     const handleResize = () => {
       ScrollTrigger.sort();
@@ -203,7 +214,6 @@ export default function WeHandleItAll() {
 
     return () => {
       clearTimeout(t1);
-      clearTimeout(t2);
       window.removeEventListener("resize", handleResize);
       ctx.revert();
     };
@@ -239,18 +249,17 @@ export default function WeHandleItAll() {
         </div>
 
         <div ref={timelineRef} className="mt-20 sm:mt-24 relative">
-          <div className="absolute left-6 md:left-1/2 top-6 bottom-6 -translate-x-1/2 w-[2px] bg-[#8BA3C6]/20 pointer-events-none" />
+          <div className="absolute left-6 md:left-1/2 top-6 bottom-6 -translate-x-1/2 w-[2px] bg-gradient-to-b from-[#8BA3C6]/40 via-[#8BA3C6]/25 to-[#8BA3C6]/10 pointer-events-none" />
 
           <div
             ref={laserBeamRef}
             style={{ transformOrigin: "top center", transform: "scaleY(0)" }}
-            className="absolute left-6 md:left-1/2 top-6 bottom-6 -translate-x-1/2 w-[2.5px] bg-gradient-to-b from-[#8BA3C6] via-[#8BA3C6] to-white shadow-[0_0_20px_rgba(139,163,198,1),0_0_8px_#ffffff] origin-top pointer-events-none z-10 will-change-transform"
+            className="hidden md:block absolute left-1/2 top-6 bottom-6 -translate-x-1/2 w-[2.5px] bg-gradient-to-b from-[#8BA3C6] via-[#8BA3C6] to-white shadow-[0_0_20px_rgba(139,163,198,1),0_0_8px_#ffffff] origin-top pointer-events-none z-10 will-change-transform"
           />
 
           <div
             ref={sparkRef}
-            className="absolute left-6 md:left-1/2 -translate-x-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-[#8BA3C6] shadow-[0_0_25px_rgba(139,163,198,1),0_0_10px_#ffffff] opacity-0 pointer-events-none z-20"
-            style={{ top: "1.5rem" }}
+            className="hidden md:block absolute left-1/2 -translate-y-1/2 top-0 w-5 h-5 rounded-full bg-[#8BA3C6] shadow-[0_0_25px_rgba(139,163,198,1),0_0_10px_#ffffff] opacity-0 pointer-events-none z-20 will-change-transform"
           >
             <span className="absolute inset-0 rounded-full bg-[#8BA3C6] animate-ping opacity-85" />
             <span className="absolute inset-1 rounded-full bg-white opacity-95 shadow-[0_0_8px_#ffffff]" />
