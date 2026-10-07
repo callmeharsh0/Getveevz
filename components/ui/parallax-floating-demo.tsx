@@ -10,14 +10,8 @@ import {
   Users,
   Layers,
 } from "lucide-react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Floating, { FloatingElement } from "@/components/ui/parallax-floating";
 import { GlassButton, GlassCard } from "@/components/ui/glass-button";
-
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
 
 function Counter({
   value,
@@ -151,49 +145,10 @@ const mobileResultCards = [
 
 export function ParallaxFloatingDemo() {
   const [scope, animate] = useAnimate();
-  const mobileStageRef = useRef<HTMLDivElement>(null);
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     animate("img", { opacity: [0, 1], scale: [0.94, 1] }, { duration: 0.6, delay: stagger(0.12) });
   }, [animate]);
-
-  useEffect(() => {
-    if (!mobileStageRef.current || typeof window === "undefined" || window.innerWidth >= 768) return;
-
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReducedMotion) return;
-
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: mobileStageRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: 1.2,
-          fastScrollEnd: true,
-        },
-      });
-
-      const cardConfigs = [
-        { el: cardRefs.current[0], y: -14, x: 4, rotation: -12 },
-        { el: cardRefs.current[1], y: -16, x: -3, rotation: 1 },
-        { el: cardRefs.current[2], y: -12, x: -4, rotation: 10 },
-        { el: cardRefs.current[3], y: 14, x: 5, rotation: -9 },
-        { el: cardRefs.current[4], y: 16, x: -4, rotation: -1 },
-        { el: cardRefs.current[5], y: 10, x: -3, rotation: 6 },
-        { el: cardRefs.current[6], y: 18, x: -5, rotation: 8 },
-      ];
-
-      cardConfigs.forEach(({ el, y, x, rotation }) => {
-        if (el) {
-          tl.to(el, { y, x, rotation, ease: "none", force3D: true }, 0);
-        }
-      });
-    }, mobileStageRef);
-
-    return () => ctx.revert();
-  }, []);
 
   const scrollToCTA = () => {
     const target = document.getElementById("questionnaire") || document.getElementById("cta") || document.querySelector("footer");
@@ -205,7 +160,6 @@ export function ParallaxFloatingDemo() {
   return (
     <>
       <div
-        ref={mobileStageRef}
         className="results-mobile-stage flex md:hidden relative w-full max-w-[430px] mx-auto overflow-hidden px-3 xs:px-4 pt-4 xs:pt-5 pb-5 xs:pb-6 flex-col items-center select-none bg-[#090e14] text-moonlight"
       >
         <div
@@ -223,8 +177,7 @@ export function ParallaxFloatingDemo() {
 
         <div className="relative w-full h-[128px] xs:h-[142px] sm:h-[150px] shrink-0 pointer-events-auto z-10">
           <div
-            ref={(el) => { cardRefs.current[0] = el; }}
-            className="absolute top-[8px] left-[2px] xs:left-[6px] sm:left-[10px] w-[86px] xs:w-[96px] sm:w-[104px] h-[108px] xs:h-[118px] sm:h-[128px] rounded-xl xs:rounded-2xl border border-white/20 bg-[#131b28]/95 shadow-xl overflow-hidden -rotate-[9deg] z-10 will-change-transform"
+            className="absolute top-[8px] left-[2px] xs:left-[6px] sm:left-[10px] w-[86px] xs:w-[96px] sm:w-[104px] h-[108px] xs:h-[118px] sm:h-[128px] rounded-xl xs:rounded-2xl border border-white/20 bg-[#131b28]/95 shadow-xl overflow-hidden -rotate-[9deg] z-10"
           >
             <img
               src={mobileResultCards[0].url}
@@ -239,8 +192,7 @@ export function ParallaxFloatingDemo() {
           </div>
 
           <div
-            ref={(el) => { cardRefs.current[1] = el; }}
-            className="absolute top-[0px] left-1/2 -translate-x-1/2 w-[82px] xs:w-[92px] sm:w-[102px] h-[104px] xs:h-[116px] sm:h-[126px] rounded-xl xs:rounded-2xl border border-white/20 bg-[#131b28]/95 shadow-xl overflow-hidden -rotate-[1deg] z-10 will-change-transform"
+            className="absolute top-[0px] left-1/2 -translate-x-1/2 w-[82px] xs:w-[92px] sm:w-[102px] h-[104px] xs:h-[116px] sm:h-[126px] rounded-xl xs:rounded-2xl border border-white/20 bg-[#131b28]/95 shadow-xl overflow-hidden -rotate-[1deg] z-10"
           >
             <img
               src={mobileResultCards[1].url}
@@ -255,8 +207,7 @@ export function ParallaxFloatingDemo() {
           </div>
 
           <div
-            ref={(el) => { cardRefs.current[2] = el; }}
-            className="absolute top-[6px] right-[2px] xs:right-[6px] sm:right-[10px] w-[86px] xs:w-[96px] sm:w-[104px] h-[108px] xs:h-[120px] sm:h-[130px] rounded-xl xs:rounded-2xl border border-white/20 bg-[#131b28]/95 shadow-xl overflow-hidden rotate-[8deg] z-10 will-change-transform"
+            className="absolute top-[6px] right-[2px] xs:right-[6px] sm:right-[10px] w-[86px] xs:w-[96px] sm:w-[104px] h-[108px] xs:h-[120px] sm:h-[130px] rounded-xl xs:rounded-2xl border border-white/20 bg-[#131b28]/95 shadow-xl overflow-hidden rotate-[8deg] z-10"
           >
             <img
               src={mobileResultCards[2].url}
@@ -326,8 +277,7 @@ export function ParallaxFloatingDemo() {
 
         <div className="relative w-full h-[150px] xs:h-[162px] sm:h-[172px] shrink-0 mt-4 xs:mt-5 sm:mt-6 pointer-events-auto z-10">
           <div
-            ref={(el) => { cardRefs.current[3] = el; }}
-            className="absolute top-[10px] left-[2px] xs:left-[6px] sm:left-[10px] w-[86px] xs:w-[96px] sm:w-[104px] h-[108px] xs:h-[120px] sm:h-[130px] rounded-xl xs:rounded-2xl border border-white/20 bg-[#131b28]/95 shadow-xl overflow-hidden -rotate-[8deg] z-10 will-change-transform"
+            className="absolute top-[10px] left-[2px] xs:left-[6px] sm:left-[10px] w-[86px] xs:w-[96px] sm:w-[104px] h-[108px] xs:h-[120px] sm:h-[130px] rounded-xl xs:rounded-2xl border border-white/20 bg-[#131b28]/95 shadow-xl overflow-hidden -rotate-[8deg] z-10"
           >
             <img
               src={mobileResultCards[3].url}
@@ -342,8 +292,7 @@ export function ParallaxFloatingDemo() {
           </div>
 
           <div
-            ref={(el) => { cardRefs.current[4] = el; }}
-            className="absolute top-[22px] xs:top-[26px] left-[39%] -translate-x-[20%] w-[82px] xs:w-[92px] sm:w-[100px] h-[104px] xs:h-[116px] sm:h-[126px] rounded-xl xs:rounded-2xl border border-white/20 bg-[#131b28]/95 shadow-xl overflow-hidden -rotate-[3deg] z-10 will-change-transform"
+            className="absolute top-[22px] xs:top-[26px] left-[39%] -translate-x-[20%] w-[82px] xs:w-[92px] sm:w-[100px] h-[104px] xs:h-[116px] sm:h-[126px] rounded-xl xs:rounded-2xl border border-white/20 bg-[#131b28]/95 shadow-xl overflow-hidden -rotate-[3deg] z-10"
           >
             <img
               src={mobileResultCards[4].url}
@@ -358,8 +307,7 @@ export function ParallaxFloatingDemo() {
           </div>
 
           <div
-            ref={(el) => { cardRefs.current[5] = el; }}
-            className="absolute top-[0px] right-[10px] xs:right-[16px] sm:right-[20px] w-[76px] xs:w-[84px] sm:w-[92px] h-[96px] xs:h-[104px] sm:h-[114px] rounded-xl xs:rounded-2xl border border-white/20 bg-[#131b28]/95 shadow-xl overflow-hidden rotate-[4deg] z-0 will-change-transform"
+            className="absolute top-[0px] right-[10px] xs:right-[16px] sm:right-[20px] w-[76px] xs:w-[84px] sm:w-[92px] h-[96px] xs:h-[104px] sm:h-[114px] rounded-xl xs:rounded-2xl border border-white/20 bg-[#131b28]/95 shadow-xl overflow-hidden rotate-[4deg] z-0"
           >
             <img
               src={mobileResultCards[6].url}
@@ -374,8 +322,7 @@ export function ParallaxFloatingDemo() {
           </div>
 
           <div
-            ref={(el) => { cardRefs.current[6] = el; }}
-            className="absolute top-[38px] xs:top-[44px] sm:top-[48px] right-[2px] xs:right-[6px] sm:right-[10px] w-[86px] xs:w-[96px] sm:w-[104px] h-[108px] xs:h-[120px] sm:h-[130px] rounded-xl xs:rounded-2xl border border-white/20 bg-[#131b28]/95 shadow-xl overflow-hidden rotate-[6deg] z-10 will-change-transform"
+            className="absolute top-[38px] xs:top-[44px] sm:top-[48px] right-[2px] xs:right-[6px] sm:right-[10px] w-[86px] xs:w-[96px] sm:w-[104px] h-[108px] xs:h-[120px] sm:h-[130px] rounded-xl xs:rounded-2xl border border-white/20 bg-[#131b28]/95 shadow-xl overflow-hidden rotate-[6deg] z-10"
           >
             <img
               src={mobileResultCards[5].url}
