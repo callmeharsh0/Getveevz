@@ -213,7 +213,7 @@ export default function ClientLogosMarquee() {
         </div>
 
         <div className="relative w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_14%,black_86%,transparent)]">
-          <div className="flex gap-4 sm:gap-6 py-2.5 w-max animate-[marquee_32s_linear_infinite] hover:[animation-play-state:paused] will-change-transform">
+          <div className="flex gap-4 sm:gap-6 py-2.5 w-max animate-[marquee_18s_linear_infinite] md:animate-[marquee_32s_linear_infinite] hover:[animation-play-state:paused] will-change-transform">
             {row1.map((client, idx) => (
               <div
                 key={`${client.id}-r1-${idx}`}
@@ -231,7 +231,7 @@ export default function ClientLogosMarquee() {
         </div>
 
         <div className="relative w-full overflow-hidden mt-3 sm:mt-5 [mask-image:linear-gradient(to_right,transparent,black_14%,black_86%,transparent)]">
-          <div className="flex gap-4 sm:gap-6 py-2.5 w-max animate-[marquee-reverse_36s_linear_infinite] hover:[animation-play-state:paused] will-change-transform">
+          <div className="flex gap-4 sm:gap-6 py-2.5 w-max animate-[marquee-reverse_20s_linear_infinite] md:animate-[marquee-reverse_36s_linear_infinite] hover:[animation-play-state:paused] will-change-transform">
             {row2.map((client, idx) => (
               <div
                 key={`${client.id}-r2-${idx}`}
