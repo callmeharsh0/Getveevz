@@ -180,7 +180,7 @@ export default function DistributionFlow({
   const [sourceLoaded, setSourceLoaded] = useState(false);
   const [loadedVideos, setLoadedVideos] = useState<Record<string, boolean>>({});
   const [activeUserVideos, setActiveUserVideos] = useState<Record<string, boolean>>({});
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => typeof window !== "undefined" && window.innerWidth < 768);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -318,11 +318,10 @@ export default function DistributionFlow({
   useGSAP(
     () => {
       if (!sourceRef.current || !wrapperRef.current) return;
-      const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
-      const winWidth = typeof window !== "undefined" ? window.innerWidth : 390;
-      const mobileScale = Math.min(0.38, Math.max(0.34, (winWidth - 24) / 950));
-      const mobileX = -Math.round(113.2 * mobileScale);
 
+      const mm = gsap.matchMedia();
+
+      // Common initial setup
       gsap.set(sourceRef.current, { scale: 1, opacity: 1, x: 0, y: 0 });
 
       outputs.forEach((item) => {
@@ -338,175 +337,214 @@ export default function DistributionFlow({
         if (el) gsap.set(el, { opacity: 0, y: 12 });
       });
 
-      if (punchline1Ref.current) gsap.set(punchline1Ref.current, { opacity: 0, y: isMobile ? 12 : 20 });
-      if (punchline2Ref.current) gsap.set(punchline2Ref.current, { opacity: 0, y: isMobile ? 12 : 20 });
-      if (punchline3Ref.current) gsap.set(punchline3Ref.current, { opacity: 0, y: isMobile ? 12 : 20 });
-      if (punchline4Ref.current) gsap.set(punchline4Ref.current, { opacity: 0, y: isMobile ? 12 : 20 });
+      if (linesGroupRef.current) gsap.set(linesGroupRef.current, { opacity: 0 });
+      if (statementRef.current) gsap.set(statementRef.current, { opacity: 1, y: 0 });
+      if (finalLineRef.current) gsap.set(finalLineRef.current, { opacity: 1 });
 
-      if (finalLineRef.current) {
-        gsap.set(finalLineRef.current, { opacity: 1 });
-      }
-
-      if (statementRef.current) {
-        gsap.set(statementRef.current, { opacity: 1, y: 0 });
-      }
-
-      if (linesGroupRef.current) {
-        gsap.set(linesGroupRef.current, { opacity: 0 });
-      }
-
-      if (contentGroupRef.current) {
-        gsap.set(contentGroupRef.current, {
-          x: 0,
-          y: isMobile ? 22 : 0,
-          scale: isMobile ? mobileScale : 1,
-        });
-      }
-
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: wrapperRef.current,
-          start: "top top",
-          end: isMobile ? "+=180%" : "+=400%",
-          scrub: isMobile ? 0.25 : 0.3,
-          pin: true,
-          anticipatePin: isMobile ? 0 : 1,
-        },
+      [punchline1Ref, punchline2Ref, punchline3Ref, punchline4Ref].forEach((ref) => {
+        if (ref.current) gsap.set(ref.current, { opacity: 0, y: 14 });
       });
 
-      // 1. Establish problem badges with a clean pop-in
-      problemLabels.forEach((_, i) => {
-        const el = problemLabelRefs.current[i];
-        if (el) tl.to(el, { opacity: 1, y: 0, duration: 0.045, ease: "power2.out" }, 0.01 + i * 0.015);
-      });
+      // MOBILE (< 768px)
+      mm.add("(max-width: 767px)", () => {
+        const winWidth = typeof window !== "undefined" ? window.innerWidth : 390;
+        const mobileScale = Math.min(0.38, Math.max(0.33, (winWidth - 24) / 950));
+        const mobileX = -Math.round(116 * mobileScale);
 
-      // 2. Seamless crossfade: as statementRef fades out at 0.10, punchline1 fades in simultaneously (ZERO BLANK GAP!)
-      if (statementRef.current) {
-        tl.to(
-          statementRef.current,
-          { opacity: 0, y: -16, duration: 0.06, ease: "power2.in" },
-          0.10
-        );
-      }
+        // At progress 0: diagram is centered at (x: 0, y: 24, scale: mobileScale)
+        // source video is in the exact center of the screen
+        if (contentGroupRef.current) {
+          gsap.set(contentGroupRef.current, {
+            x: 0,
+            y: 24,
+            scale: mobileScale,
+          });
+        }
 
-      problemLabels.forEach((_, i) => {
-        const el = problemLabelRefs.current[i];
-        if (el) tl.to(el, { opacity: 0, y: -10, duration: 0.04, ease: "power2.in" }, 0.11 + i * 0.012);
-      });
-
-      if (punchline1Ref.current) {
-        tl.fromTo(
-          punchline1Ref.current,
-          { opacity: 0, y: isMobile ? 12 : 20 },
-          { opacity: 1, y: 0, duration: 0.06, ease: "power2.out" },
-          0.10
-        );
-      }
-
-      // 3. Source shrinks & moves left into distribution hub
-      tl.to(
-        sourceRef.current,
-        { scale: 0.58, x: -240, duration: 0.09, ease: "power2.inOut" },
-        0.13
-      );
-
-      // 4. Distribution lines and output reels fan out
-      if (linesGroupRef.current) {
-        tl.to(
-          linesGroupRef.current,
-          { opacity: 1, duration: 0.10, ease: "power2.out" },
-          0.16
-        );
-      }
-
-      outputs.forEach((item, i) => {
-        const el = pieceRefs.current[item.id];
-        if (!el) return;
-        tl.to(
-          el,
-          {
-            x: item.x,
-            y: item.y,
-            rotation: item.rot || 0,
-            scale: item.scale || 1,
-            opacity: 1,
-            duration: 0.13,
-            ease: "back.out(1.2)",
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: wrapperRef.current,
+            start: "top top",
+            end: "+=150%",
+            scrub: 0.25,
+            pin: true,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
           },
-          0.16 + i * 0.018
-        );
+        });
+
+        // 1. Problem badges pop in (0.02 - 0.08)
+        problemLabels.forEach((_, i) => {
+          const el = problemLabelRefs.current[i];
+          if (el) tl.to(el, { opacity: 1, y: 0, duration: 0.045, ease: "power2.out" }, 0.02 + i * 0.015);
+        });
+
+        // 2. Headline fades out, Punchline 1 fades in seamlessly (0.10 - 0.16)
+        if (statementRef.current) {
+          tl.to(statementRef.current, { opacity: 0, y: -14, duration: 0.06, ease: "power2.in" }, 0.10);
+        }
+        problemLabels.forEach((_, i) => {
+          const el = problemLabelRefs.current[i];
+          if (el) tl.to(el, { opacity: 0, y: -8, duration: 0.04, ease: "power2.in" }, 0.10 + i * 0.012);
+        });
+        if (punchline1Ref.current) {
+          tl.to(punchline1Ref.current, { opacity: 1, y: 0, duration: 0.06, ease: "power2.out" }, 0.10);
+        }
+
+        // 3. Source video shrinks and shifts to left hub (0.14 - 0.23)
+        tl.to(sourceRef.current, { scale: 0.58, x: -240, duration: 0.09, ease: "power2.inOut" }, 0.14);
+
+        // 4. Distribution lines and output reels fan out (0.17 - 0.30)
+        if (linesGroupRef.current) {
+          tl.to(linesGroupRef.current, { opacity: 1, duration: 0.09, ease: "power2.out" }, 0.17);
+        }
+        outputs.forEach((item, i) => {
+          const el = pieceRefs.current[item.id];
+          if (el) {
+            tl.to(
+              el,
+              {
+                x: item.x,
+                y: item.y,
+                rotation: item.rot || 0,
+                scale: item.scale || 1,
+                opacity: 1,
+                duration: 0.11,
+                ease: "back.out(1.2)",
+              },
+              0.17 + i * 0.015
+            );
+          }
+        });
+
+        // Smoothly center the active diagram horizontally as reels fan out
+        if (contentGroupRef.current) {
+          tl.to(contentGroupRef.current, { x: mobileX, y: 24, scale: mobileScale, duration: 0.09, ease: "power2.out" }, 0.20);
+        }
+
+        // Flow step highlights
+        flowSteps.forEach((_, i) => {
+          const el = flowStepRefs.current[i];
+          const milestones = [0.20, 0.40, 0.60, 0.80];
+          if (el) tl.to(el, { opacity: 1, y: 0, duration: 0.04 }, milestones[i] ?? (0.20 + i * 0.2));
+        });
+
+        // 5. Punchline 1 -> Punchline 2 (0.32 - 0.38)
+        if (punchline1Ref.current && punchline2Ref.current) {
+          tl.to(punchline1Ref.current, { opacity: 0, y: -12, duration: 0.05, ease: "power2.in" }, 0.32);
+          tl.to(punchline2Ref.current, { opacity: 1, y: 0, duration: 0.05, ease: "power2.out" }, 0.33);
+        }
+
+        // 6. Punchline 2 -> Punchline 3 (0.52 - 0.58)
+        if (punchline2Ref.current && punchline3Ref.current) {
+          tl.to(punchline2Ref.current, { opacity: 0, y: -12, duration: 0.05, ease: "power2.in" }, 0.52);
+          tl.to(punchline3Ref.current, { opacity: 1, y: 0, duration: 0.05, ease: "power2.out" }, 0.53);
+        }
+
+        // 7. Punchline 3 -> Punchline 4 ("We have done it before") (0.72 - 0.78)
+        if (punchline3Ref.current && punchline4Ref.current) {
+          tl.to(punchline3Ref.current, { opacity: 0, y: -12, duration: 0.05, ease: "power2.in" }, 0.72);
+          tl.to(punchline4Ref.current, { opacity: 1, y: 0, duration: 0.06, ease: "back.out(1.2)" }, 0.73);
+        }
+
+        // 8. Trailing buffer: holds punchline 4 and complete canvas cleanly
+        tl.to({}, { duration: 0.22 });
       });
 
-      if (contentGroupRef.current) {
-        const isClient = typeof window !== "undefined";
-        const winWidth = isClient ? window.innerWidth : 390;
-        const mobileScale = Math.min(0.38, Math.max(0.34, (winWidth - 24) / 950));
-        const mobileX = -Math.round(113.2 * mobileScale);
+      // DESKTOP (>= 768px)
+      mm.add("(min-width: 768px)", () => {
+        if (contentGroupRef.current) {
+          gsap.set(contentGroupRef.current, { x: 0, y: 0, scale: 1 });
+        }
 
-        tl.to(
-          contentGroupRef.current,
-          isMobile
-            ? { x: mobileX, y: 22, scale: mobileScale, duration: 0.09, ease: "power2.out" }
-            : { x: 70, y: -20, scale: 0.85, duration: 0.09, ease: "power2.out" },
-          0.22
-        );
-      }
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: wrapperRef.current,
+            start: "top top",
+            end: "+=380%",
+            scrub: 0.3,
+            pin: true,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+          },
+        });
 
-      flowSteps.forEach((_, i) => {
-        const el = flowStepRefs.current[i];
-        const stepMilestones = [0.22, 0.42, 0.62, 0.82];
-        if (el) tl.to(el, { opacity: 1, y: 0, duration: 0.04 }, stepMilestones[i] ?? (0.22 + i * 0.2));
+        // Badges pop in
+        problemLabels.forEach((_, i) => {
+          const el = problemLabelRefs.current[i];
+          if (el) tl.to(el, { opacity: 1, y: 0, duration: 0.045, ease: "power2.out" }, 0.01 + i * 0.015);
+        });
+
+        // Headline fades out, Badges exit
+        if (statementRef.current) {
+          tl.to(statementRef.current, { opacity: 0, y: -16, duration: 0.06, ease: "power2.in" }, 0.10);
+        }
+        problemLabels.forEach((_, i) => {
+          const el = problemLabelRefs.current[i];
+          if (el) tl.to(el, { opacity: 0, y: -10, duration: 0.04, ease: "power2.in" }, 0.11 + i * 0.012);
+        });
+        if (punchline1Ref.current) {
+          tl.to(punchline1Ref.current, { opacity: 1, y: 0, duration: 0.06, ease: "power2.out" }, 0.10);
+        }
+
+        // Source shrinks & shifts left
+        tl.to(sourceRef.current, { scale: 0.58, x: -240, duration: 0.09, ease: "power2.inOut" }, 0.13);
+
+        // Lines and reels fan out
+        if (linesGroupRef.current) {
+          tl.to(linesGroupRef.current, { opacity: 1, duration: 0.10, ease: "power2.out" }, 0.16);
+        }
+        outputs.forEach((item, i) => {
+          const el = pieceRefs.current[item.id];
+          if (el) {
+            tl.to(
+              el,
+              {
+                x: item.x,
+                y: item.y,
+                rotation: item.rot || 0,
+                scale: item.scale || 1,
+                opacity: 1,
+                duration: 0.13,
+                ease: "back.out(1.2)",
+              },
+              0.16 + i * 0.018
+            );
+          }
+        });
+
+        // Desktop layout balance
+        if (contentGroupRef.current) {
+          tl.to(contentGroupRef.current, { x: 70, y: -20, scale: 0.85, duration: 0.09, ease: "power2.out" }, 0.22);
+        }
+
+        flowSteps.forEach((_, i) => {
+          const el = flowStepRefs.current[i];
+          const stepMilestones = [0.22, 0.42, 0.62, 0.82];
+          if (el) tl.to(el, { opacity: 1, y: 0, duration: 0.04 }, stepMilestones[i] ?? (0.22 + i * 0.2));
+        });
+
+        // Desktop punchline transitions
+        if (punchline1Ref.current && punchline2Ref.current) {
+          tl.to(punchline1Ref.current, { opacity: 0, y: -16, duration: 0.05, ease: "power2.in" }, 0.34);
+          tl.to(punchline2Ref.current, { opacity: 1, y: 0, duration: 0.05, ease: "power2.out" }, 0.34);
+        }
+        if (punchline2Ref.current && punchline3Ref.current) {
+          tl.to(punchline2Ref.current, { opacity: 0, y: -16, duration: 0.05, ease: "power2.in" }, 0.54);
+          tl.to(punchline3Ref.current, { opacity: 1, y: 0, duration: 0.05, ease: "power2.out" }, 0.54);
+        }
+        if (punchline3Ref.current && punchline4Ref.current) {
+          tl.to(punchline3Ref.current, { opacity: 0, y: -16, duration: 0.05, ease: "power2.in" }, 0.74);
+          tl.to(punchline4Ref.current, { opacity: 1, y: 0, duration: 0.06, ease: "back.out(1.2)" }, 0.74);
+        }
+
+        // Buffer hold
+        tl.to({}, { duration: 0.35 });
       });
 
-      // 5. Punchline 1 -> Punchline 2 crossfade (ZERO BLANK GAP!)
-      if (punchline1Ref.current && punchline2Ref.current) {
-        tl.to(
-          punchline1Ref.current,
-          { opacity: 0, y: isMobile ? -12 : -16, duration: 0.05, ease: "power2.in" },
-          0.34
-        );
-        tl.fromTo(
-          punchline2Ref.current,
-          { opacity: 0, y: isMobile ? 12 : 16 },
-          { opacity: 1, y: 0, duration: 0.05, ease: "power2.out" },
-          0.34
-        );
-      }
-
-      // 6. Punchline 2 -> Punchline 3 crossfade (ZERO BLANK GAP!)
-      if (punchline2Ref.current && punchline3Ref.current) {
-        tl.to(
-          punchline2Ref.current,
-          { opacity: 0, y: isMobile ? -12 : -16, duration: 0.05, ease: "power2.in" },
-          0.54
-        );
-        tl.fromTo(
-          punchline3Ref.current,
-          { opacity: 0, y: isMobile ? 12 : 16 },
-          { opacity: 1, y: 0, duration: 0.05, ease: "power2.out" },
-          0.54
-        );
-      }
-
-      // 7. Punchline 3 -> Punchline 4 crossfade (ZERO BLANK GAP!)
-      if (punchline3Ref.current && punchline4Ref.current) {
-        tl.to(
-          punchline3Ref.current,
-          { opacity: 0, y: isMobile ? -12 : -16, duration: 0.05, ease: "power2.in" },
-          0.74
-        );
-        tl.fromTo(
-          punchline4Ref.current,
-          { opacity: 0, y: isMobile ? 12 : 16 },
-          { opacity: 1, y: 0, duration: 0.06, ease: "back.out(1.2)" },
-          0.74
-        );
-      }
-
-      // 8. Trailing buffer on BOTH mobile and desktop so it NEVER suddenly snaps into Flywheel
-      tl.to({}, { duration: isMobile ? 0.30 : 0.45 });
+      return () => mm.revert();
     },
-    { scope: wrapperRef, dependencies: [outputs, problemLabels, flowSteps, isMobile] }
+    { scope: wrapperRef, dependencies: [outputs, problemLabels, flowSteps] }
   );
 
   return (
@@ -544,7 +582,7 @@ export default function DistributionFlow({
           <div className="relative h-[68px] xs:h-[76px] sm:h-[90px] md:h-[130px] w-full flex items-center justify-center md:justify-start">
             <div
               ref={punchline1Ref}
-              className="absolute inset-0 flex flex-col justify-center text-center md:text-left font-display text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-medium leading-[1.15] text-[#f2ece1] tracking-tight"
+              className="absolute inset-0 flex flex-col justify-center text-center md:text-left font-display text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-medium leading-[1.15] text-[#f2ece1] tracking-tight opacity-0"
             >
               <span className="whitespace-nowrap">You want</span>
               <span className="whitespace-nowrap text-[#8BA3C6] font-semibold">leads?</span>
@@ -552,7 +590,7 @@ export default function DistributionFlow({
 
             <div
               ref={punchline2Ref}
-              className="absolute inset-0 flex flex-col justify-center text-center md:text-left font-display text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-medium leading-[1.15] text-[#f2ece1] tracking-tight"
+              className="absolute inset-0 flex flex-col justify-center text-center md:text-left font-display text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-medium leading-[1.15] text-[#f2ece1] tracking-tight opacity-0"
             >
               <span className="whitespace-nowrap">You want</span>
               <span className="whitespace-nowrap text-[#8BA3C6] font-semibold">conversion?</span>
@@ -560,7 +598,7 @@ export default function DistributionFlow({
 
             <div
               ref={punchline3Ref}
-              className="absolute inset-0 flex flex-col justify-center text-center md:text-left font-display text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-medium leading-[1.15] text-[#f2ece1] tracking-tight"
+              className="absolute inset-0 flex flex-col justify-center text-center md:text-left font-display text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-medium leading-[1.15] text-[#f2ece1] tracking-tight opacity-0"
             >
               <span className="whitespace-nowrap">You want</span>
               <span className="whitespace-nowrap text-[#8BA3C6] font-semibold">reach?</span>
@@ -568,7 +606,7 @@ export default function DistributionFlow({
 
             <div
               ref={punchline4Ref}
-              className="absolute inset-0 flex flex-col justify-center text-center md:text-left font-display text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-medium leading-[1.15] text-[#f2ece1] tracking-tight"
+              className="absolute inset-0 flex flex-col justify-center text-center md:text-left font-display text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-medium leading-[1.15] text-[#f2ece1] tracking-tight opacity-0"
             >
               <span className="whitespace-nowrap">We have</span>
               <span className="whitespace-nowrap text-[#8BA3C6] font-semibold">done it before</span>
